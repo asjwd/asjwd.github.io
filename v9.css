@@ -1,0 +1,18 @@
+/* V9 layout and contact updates. v7.css and styles.css remain unchanged. */
+/* Contact icons immediately below heading; fluid left-to-right rows. */
+.contact-section{display:block!important;margin-bottom:95px}
+.v7-contact-links{display:flex!important;flex-wrap:wrap;justify-content:flex-start!important;align-items:stretch;gap:13px;margin-top:23px;max-width:100%!important}
+.v7-contact-links a,.v7-contact-links button{flex:0 0 152px;width:152px;max-width:100%;min-height:96px}
+/* Institution link looks like ordinary profile text, with clear hover and focus affordance. */
+.institution-link{display:inline-block;width:fit-content;max-width:100%;color:#245e61!important;font-size:12px;line-height:1.6;font-weight:750;text-decoration:none;border-bottom:1px solid transparent;overflow-wrap:anywhere}
+.institution-link:hover,.institution-link:focus-visible{border-bottom-color:currentColor;color:#137c77!important}
+/* Contact response remains in the modal; no new tab or external email shown. */
+.contact-submit-frame{position:absolute!important;left:-9999px!important;top:-9999px!important;width:1px!important;height:1px!important;border:0!important;opacity:0!important;pointer-events:none!important}
+.contact-result{border:1px solid #d7e7e9;border-radius:11px;padding:16px 18px;margin:0 0 16px;line-height:1.6;font-size:13px}
+.contact-result[hidden]{display:none!important}
+.contact-result.success{background:#eaf7f0;color:#1b6751;border-color:#c5e4d2}
+.contact-result.error{background:#fff6ed;color:#84491d;border-color:#f1d8ba}
+.contact-modal-card form[hidden]{display:none!important}
+.contact-modal-card button:disabled{cursor:not-allowed}
+@media(max-width:700px){.v7-contact-links{display:flex!important;justify-content:flex-start!important;gap:10px}.v7-contact-links a,.v7-contact-links button{flex:0 0 132px;width:132px;min-height:88px}}
+@media(max-width:350px){.v7-contact-links a,.v7-contact-links button{flex:0 0 calc((100% - 10px)/2);width:calc((100% - 10px)/2)}}
