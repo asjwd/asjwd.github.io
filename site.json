@@ -107,20 +107,55 @@
       "url": "https://www.sciencedirect.com/science/article/pii/S1026918526001496"
     },
     {
+      "title": "Dispersion modelling of methane emissions from Indonesian landfills using air quality dispersion modeling",
       "year": "2025",
+      "materials": [],
+      "activities": [],
+      "journal": "Journal of Ecological Engineering",
+      "authors": "Nita Citrasari, Chita Melati Ghea Wasturani, Clarissa Dinda Ayu Zahra, Dwi Ratri Mitha Isnadina, Sucipto Hariyanto, Muhammad Abdus Salam Jawwad, Indriyani Rachman, Toru Matsumoto",
+      "contributions": [],
+      "url": "https://www.jeeng.net/Dispersion-modelling-of-methane-emissions-from-Indonesian-landfills-using-air-quality,207168,0,2.html",
+      "gallery": [],
+      "id": "v3-1792339809439-95xcg7",
+      "en": {
+        "title": "Dispersion modeling of methane emissions from Indonesian landfills using air quality dispersion modeling"
+      },
+      "journalWebsite": "",
+      "features": []
+    },
+    {
+      "authors": "Restu Hikmah Ayu Murti, Muhammad Abdus Salam Jawwad, Sheng-Jie You, Ya-Fen Wang",
+      "title": "The investigation of mechanism isoniazid adsorption onto cassia fistula-based activated carbon",
+      "gallery": [],
+      "year": "2024",
+      "id": "v3-1792339960601-sya42a",
+      "materials": [],
+      "features": [],
+      "en": {
+        "title": "The investigation of mechanism of isoniazid adsorption onto cassia fistula-based activated carbon"
+      },
+      "journalWebsite": "",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1026918524000970",
+      "contributions": [],
+      "journal": "South African Journal of Chemical Engineering",
+      "activities": []
+    },
+    {
+      "journal": "South African Journal of Chemical Engineering",
+      "id": "v3-1792336930304-swwejy",
+      "materials": [],
+      "authors": "Restu Hikmah Ayu Murti, Muhammad Abdus Salam Jawwad, Khusnul Khotimah Ayuningtiyas, Euis Nurul Hidayah",
+      "journalWebsite": "",
       "en": {
         "title": "High efficiency on resin photocatalysis: Study on application and kinetic mechanism using Langmuir Hinshelwood Model"
       },
-      "activities": [],
-      "authors": "",
       "gallery": [],
-      "url": "https://www.sciencedirect.com/science/article/pii/S1026918525000472",
-      "materials": [],
-      "journal": "South African Journal of Chemical Engineering",
-      "title": "High efficiency on resin photocatalysis: Study on application and kinetic mechanism using langmuir Hinshelwood Model",
+      "year": "2025",
+      "activities": [],
       "contributions": [],
-      "id": "v3-1792336930304-swwejy",
-      "features": []
+      "features": [],
+      "title": "High efficiency on resin photocatalysis: Study on application and kinetic mechanism using langmuir Hinshelwood Model",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1026918525000472"
     }
   ],
   "tools": [
