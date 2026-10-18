@@ -89,7 +89,40 @@
     }
   ],
   "projects": [],
-  "publications": [],
+  "publications": [
+    {
+      "year": "2025",
+      "en": {
+        "title": "High efficiency on resin photocatalysis: Study on application and kinetic mechanism using Langmuir Hinshelwood Model"
+      },
+      "activities": [],
+      "authors": "",
+      "gallery": [],
+      "url": "https://www.sciencedirect.com/science/article/pii/S1026918525000472",
+      "materials": [],
+      "journal": "South African Journal of Chemical Engineering",
+      "title": "High efficiency on resin photocatalysis: Study on application and kinetic mechanism using langmuir Hinshelwood Model",
+      "contributions": [],
+      "id": "v3-1792336930304-swwejy",
+      "features": []
+    },
+    {
+      "activities": [],
+      "materials": [],
+      "journal": "South African Journal of Chemical Engineering",
+      "authors": "Muhammad Abdus Salam Jawwad, Restu Hikmah Ayu Murti, Riko Ferdinand Abdillah",
+      "en": {
+        "title": "Taguchi-optimized palmyra palm shell activated carbon for mitigating CO, HC, and NOx emissions in a fixed-bed motorcycle exhaust system"
+      },
+      "gallery": [],
+      "title": "Taguchi-optimized palmyra palm shell activated carbon for mitigating CO, HC, and NOx emissions in a fixed-bed motorcycle exhaust system",
+      "features": [],
+      "year": "2026",
+      "id": "v3-1792337061093-qutd4i",
+      "contributions": [],
+      "url": "https://www.sciencedirect.com/science/article/pii/S1026918526001496"
+    }
+  ],
   "tools": [
     {
       "id": "tool-aspdf",
