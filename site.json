@@ -1,25 +1,25 @@
 {
-  "version": 1,
+  "version": 3,
   "profile": {
-    "name": "Muhammad A. S. Jawwad",
-    "title": "Lecturer · Researcher · Environmental Consultant",
-    "institution": "Environmental Engineering — UPN 'Veteran' Jawa Timur",
-    "location": "Surabaya, Indonesia",
-    "tagline": "Teaching, research, environmental assessment, and technical consulting.",
     "about": "Portofolio akademik dan profesional di bidang teknik lingkungan, mencakup pengajaran, penelitian, kajian lingkungan, serta penugasan kelembagaan. Informasi rinci dapat diperbarui melalui Portfolio Editor.",
+    "avatar": "assets/images/1HOHCiyAIauE2o1n3pTk6exFI6wGmrXLF.webp",
+    "banner": "",
+    "email": "",
+    "institution": "Environmental Engineering — UPN 'Veteran' Jawa Timur",
+    "linkedin": "",
+    "location": "Surabaya, Indonesia",
+    "name": "Muhammad A. S. Jawwad",
+    "orcid": "",
+    "scholar": "https://scholar.google.com/citations?user=8SKtiBMAAAAJ&hl=en",
+    "sinta": "",
     "specialties": [
       "Environmental Assessment",
       "Air Quality Modeling",
       "Water & Wastewater",
       "Environmental Engineering"
     ],
-    "avatar": "",
-    "banner": "",
-    "email": "",
-    "scholar": "",
-    "sinta": "",
-    "orcid": "",
-    "linkedin": ""
+    "tagline": "Teaching, research, environmental assessment, and technical consulting.",
+    "title": "Lecturer · Researcher · Environmental Consultant"
   },
   "experiences": [
     {
