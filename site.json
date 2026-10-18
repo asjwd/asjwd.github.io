@@ -1,14 +1,14 @@
 {
   "version": 7,
   "profile": {
-    "about": "Portofolio akademik dan profesional di bidang teknik lingkungan, mencakup pengajaran, penelitian, kajian lingkungan, serta penugasan kelembagaan. Informasi rinci dapat diperbarui melalui Portfolio Editor.",
+    "about": "Saya adalah dosen dan peneliti di bidang Teknik Lingkungan dengan minat pada pemodelan lingkungan, komputasi ilmiah, dan inovasi digital.\n\nFokus penelitian saya mencakup kualitas udara, pengolahan air, dan kajian dampak lingkungan, dengan penekanan pada penerapan metode komputasi dan pemodelan atmosfer menggunakan perangkat seperti WRF-Chem dan AERMOD.",
     "avatar": "assets/images/1HOHCiyAIauE2o1n3pTk6exFI6wGmrXLF.webp",
     "banner": "",
     "contactFormUrl": "https://script.google.com/macros/s/AKfycbzsyunPGbY7EKWLzN4pnphb6q0UDn-0Ys-W_ZVcJI3vaQwSKmRPLWny2u5BPtKWI4_W/exec",
     "en": {
+      "about": "I’m an Environmental Engineering lecturer and researcher with a strong interest in environmental modeling, scientific computing, and digital innovation.\n\nMy work focuses on air quality, water treatment, and environmental impact assessment, with an emphasis on applying computational tools and atmospheric modeling systems such as WRF-Chem and AERMOD to environmental research.",
       "title": "Lecturer · Researcher · Environmental Consultant",
       "tagline": "Teaching, research, environmental assessment, and technical consulting.",
-      "about": "Academic and professional portfolio in environmental engineering, encompassing teaching, research, environmental studies, and institutional assignments. Details can be updated through the Portfolio Editor.",
       "specialties": [
         "Environmental Assessment",
         "Air Quality Modeling",
@@ -54,21 +54,50 @@
       }
     },
     {
-      "id": "exp-dlh",
-      "role": "Staf Ahli Dinas Lingkungan Hidup",
-      "organization": "Kota Surabaya",
-      "period": "",
-      "location": "Surabaya",
-      "summary": "Dokumentasi kegiatan dan uraian penugasan dapat dilengkapi melalui Portfolio Editor.",
-      "contributions": [],
-      "activities": [],
-      "gallery": [],
       "en": {
-        "role": "Expert Staff of the Environmental Service",
-        "summary": "Activity documentation and assignment descriptions can be completed through the Portfolio Editor.",
-        "contributions": [],
+        "role": "Expert Staff of Dinas Lingkungan Hidup of Surabaya",
+        "contributions": [
+          "Licensing Reviewer Technical Review Technical Approval for Fulfillment of Emission Quality Standards",
+          "Expert Staff for Drafting the Surabaya Mayor's Regulations regarding Technical Regulations and SLO"
+        ],
         "activities": []
-      }
+      },
+      "id": "exp-dlh",
+      "period": "2026 - Present",
+      "location": "Surabaya",
+      "summary": "",
+      "organization": "Dinas Lingkungan Hidup Kota Surabaya",
+      "role": "Staf Ahli Dinas Lingkungan Hidup Kota Surabaya",
+      "contributions": [
+        "Reviewer perijinan Kajian Teknis Persetujuan Teknis Pemenuhan Baku Mutu Emisi",
+        "Tenaga Ahli Penyusunan Rancangan Peraturan Wali Kota Surabaya terkait Pertek dan SLO"
+      ],
+      "activities": [],
+      "gallery": []
+    },
+    {
+      "gallery": [],
+      "features": [],
+      "id": "v3-1792341090909-kojqdh",
+      "organization": "Dinas Lingkungan Hidup Provinsi Jawa Timur",
+      "en": {
+        "role": "Expert Staff of Environment Protection Agency of East Java",
+        "contributions": [
+          "Licensing Reviewer Technical Review Technical Approval for Fulfillment of Emission Quality Standards",
+          "Technical Guidance Expert for Emission Dispersion using Aermod software"
+        ],
+        "activities": []
+      },
+      "role": "Staff Ahli Dinas Lingkungan Hidup Provinsi Jawa Timur",
+      "activities": [],
+      "location": "",
+      "materials": [],
+      "period": "2025",
+      "summary": "",
+      "contributions": [
+        "Reviewer perijinan Kajian Teknis Persetujuan Teknis Pemenuhan Baku Mutu Emisi",
+        "Tenaga Ahli Bimbingan Teknis Dispersi Emisi menggunakan software Aermod"
+      ]
     },
     {
       "id": "exp-consult",
