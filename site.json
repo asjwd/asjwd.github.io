@@ -107,21 +107,21 @@
       "url": "https://www.sciencedirect.com/science/article/pii/S1026918526001496"
     },
     {
-      "title": "Dispersion modelling of methane emissions from Indonesian landfills using air quality dispersion modeling",
       "year": "2025",
-      "materials": [],
-      "activities": [],
       "journal": "Journal of Ecological Engineering",
       "authors": "Nita Citrasari, Chita Melati Ghea Wasturani, Clarissa Dinda Ayu Zahra, Dwi Ratri Mitha Isnadina, Sucipto Hariyanto, Muhammad Abdus Salam Jawwad, Indriyani Rachman, Toru Matsumoto",
-      "contributions": [],
-      "url": "https://www.jeeng.net/Dispersion-modelling-of-methane-emissions-from-Indonesian-landfills-using-air-quality,207168,0,2.html",
+      "features": [],
       "gallery": [],
+      "contributions": [],
+      "materials": [],
+      "activities": [],
+      "url": "https://www.jeeng.net/Dispersion-modelling-of-methane-emissions-from-Indonesian-landfills-using-air-quality,207168,0,2.html",
       "id": "v3-1792339809439-95xcg7",
+      "journalWebsite": "https://www.jeeng.net/",
       "en": {
         "title": "Dispersion modeling of methane emissions from Indonesian landfills using air quality dispersion modeling"
       },
-      "journalWebsite": "",
-      "features": []
+      "title": "Dispersion modelling of methane emissions from Indonesian landfills using air quality dispersion modeling"
     },
     {
       "authors": "Restu Hikmah Ayu Murti, Muhammad Abdus Salam Jawwad, Sheng-Jie You, Ya-Fen Wang",
@@ -160,23 +160,23 @@
   ],
   "tools": [
     {
-      "id": "tool-aspdf",
-      "name": "ASPDF",
-      "version": "",
-      "description": "Desktop PDF utility: convert, combine, split, and manage PDF documents.",
-      "url": "",
-      "features": [
-        "Convert & Combine",
-        "Split & Manage"
-      ],
       "icon": "file",
+      "description": "Desktop PDF utility: convert, combine, split, and manage PDF documents. 100% offline, no need to upload to web and risk your privacy.",
+      "version": "",
       "en": {
-        "description": "Desktop PDF utility: convert, combine, split, and manage PDF documents.",
+        "description": "Desktop PDF utility: convert, combine, split, and manage PDF documents. 100% offline, no need to upload to web and risk your privacy.",
         "features": [
-          "Convert & Combine",
-          "Split & Manage"
+          "Convert & Combine PDF",
+          "Split & Manage PDF"
         ]
-      }
+      },
+      "name": "ASPDF",
+      "features": [
+        "Convert & Combine PDF",
+        "Split & Manage PDF"
+      ],
+      "url": "https://drive.google.com/file/d/1wq2JU2WxlFqfX4FRoHkRyItpQ2HlOkxH/view?usp=sharing",
+      "id": "tool-aspdf"
     }
   ],
   "courses": [
