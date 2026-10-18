@@ -37,23 +37,6 @@
   },
   "experiences": [
     {
-      "id": "exp-dlh",
-      "role": "Staf Ahli Dinas Lingkungan Hidup",
-      "organization": "Kota Surabaya",
-      "period": "",
-      "location": "Surabaya",
-      "summary": "Dokumentasi kegiatan dan uraian penugasan dapat dilengkapi melalui Portfolio Editor.",
-      "contributions": [],
-      "activities": [],
-      "gallery": [],
-      "en": {
-        "role": "Expert Staff of the Environmental Service",
-        "summary": "Activity documentation and assignment descriptions can be completed through the Portfolio Editor.",
-        "contributions": [],
-        "activities": []
-      }
-    },
-    {
       "id": "exp-lab",
       "role": "Kepala Laboratorium Dasar",
       "organization": "Teknik Lingkungan, UPN 'Veteran' Jawa Timur",
@@ -66,6 +49,23 @@
       "en": {
         "role": "Head of Basic Laboratory",
         "summary": "Laboratory program details and activity documentation can be added through the Portfolio Editor.",
+        "contributions": [],
+        "activities": []
+      }
+    },
+    {
+      "id": "exp-dlh",
+      "role": "Staf Ahli Dinas Lingkungan Hidup",
+      "organization": "Kota Surabaya",
+      "period": "",
+      "location": "Surabaya",
+      "summary": "Dokumentasi kegiatan dan uraian penugasan dapat dilengkapi melalui Portfolio Editor.",
+      "contributions": [],
+      "activities": [],
+      "gallery": [],
+      "en": {
+        "role": "Expert Staff of the Environmental Service",
+        "summary": "Activity documentation and assignment descriptions can be completed through the Portfolio Editor.",
         "contributions": [],
         "activities": []
       }
@@ -91,22 +91,6 @@
   "projects": [],
   "publications": [
     {
-      "year": "2025",
-      "en": {
-        "title": "High efficiency on resin photocatalysis: Study on application and kinetic mechanism using Langmuir Hinshelwood Model"
-      },
-      "activities": [],
-      "authors": "",
-      "gallery": [],
-      "url": "https://www.sciencedirect.com/science/article/pii/S1026918525000472",
-      "materials": [],
-      "journal": "South African Journal of Chemical Engineering",
-      "title": "High efficiency on resin photocatalysis: Study on application and kinetic mechanism using langmuir Hinshelwood Model",
-      "contributions": [],
-      "id": "v3-1792336930304-swwejy",
-      "features": []
-    },
-    {
       "activities": [],
       "materials": [],
       "journal": "South African Journal of Chemical Engineering",
@@ -121,6 +105,22 @@
       "id": "v3-1792337061093-qutd4i",
       "contributions": [],
       "url": "https://www.sciencedirect.com/science/article/pii/S1026918526001496"
+    },
+    {
+      "year": "2025",
+      "en": {
+        "title": "High efficiency on resin photocatalysis: Study on application and kinetic mechanism using Langmuir Hinshelwood Model"
+      },
+      "activities": [],
+      "authors": "",
+      "gallery": [],
+      "url": "https://www.sciencedirect.com/science/article/pii/S1026918525000472",
+      "materials": [],
+      "journal": "South African Journal of Chemical Engineering",
+      "title": "High efficiency on resin photocatalysis: Study on application and kinetic mechanism using langmuir Hinshelwood Model",
+      "contributions": [],
+      "id": "v3-1792336930304-swwejy",
+      "features": []
     }
   ],
   "tools": [
