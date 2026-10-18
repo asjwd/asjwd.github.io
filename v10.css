@@ -1,0 +1,14 @@
+/* V10: unified studies, real publisher favicons and controlled list expansion. */
+.filter-bar{display:none!important}
+.v10-more{display:flex;justify-content:center;margin:20px 0 4px}
+.v10-more-button{border:1px solid #c9dedf!important;color:#196b69!important;background:#fff!important;min-height:40px;padding:11px 20px!important;font-size:12px!important;font-weight:750!important;border-radius:9px!important;transition:background .18s,border-color .18s}
+.v10-more-button:hover{background:#eff8f5!important;border-color:#85bdb7!important}
+.publication-item.v10-publication{grid-template-columns:38px minmax(0,1fr) auto;gap:16px;align-items:center}
+.v10-journal-icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;min-width:36px;border-radius:9px;background:#f1f7f7;border:1px solid #e1eded;font-family:system-ui;font-size:21px;color:#5a8992;overflow:hidden}
+.v10-pub-icon{width:26px;height:26px;object-fit:contain;display:block}
+.v10-pub-fallback{font-size:19px;color:#59868d}
+@media(max-width:620px){.publication-item.v10-publication{grid-template-columns:36px minmax(0,1fr);gap:10px}.publication-item.v10-publication .pub-link{grid-column:2}}
+
+.v10-ac-more{display:flex;justify-content:center;margin:14px 0 19px;padding:0 10px}
+.v10-ac-btn{border:1px solid #c9dedf;background:#fff;border-radius:9px;color:#196b69;font-weight:750;padding:11px 19px;cursor:pointer;font-size:12px}
+.v10-ac-btn:hover{background:#eff8f5}
