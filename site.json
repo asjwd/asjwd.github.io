@@ -1,10 +1,9 @@
 {
-  "version": 3,
+  "version": 7,
   "profile": {
     "about": "Portofolio akademik dan profesional di bidang teknik lingkungan, mencakup pengajaran, penelitian, kajian lingkungan, serta penugasan kelembagaan. Informasi rinci dapat diperbarui melalui Portfolio Editor.",
     "avatar": "assets/images/1HOHCiyAIauE2o1n3pTk6exFI6wGmrXLF.webp",
     "banner": "",
-    "email": "",
     "institution": "Environmental Engineering — UPN 'Veteran' Jawa Timur",
     "linkedin": "",
     "location": "Surabaya, Indonesia",
@@ -19,7 +18,18 @@
       "Environmental Engineering"
     ],
     "tagline": "Teaching, research, environmental assessment, and technical consulting.",
-    "title": "Lecturer · Researcher · Environmental Consultant"
+    "title": "Lecturer · Researcher · Environmental Consultant",
+    "en": {
+      "title": "Lecturer · Researcher · Environmental Consultant",
+      "tagline": "Teaching, research, environmental assessment, and technical consulting.",
+      "about": "Academic and professional portfolio in environmental engineering, encompassing teaching, research, environmental studies, and institutional assignments. Details can be updated through the Portfolio Editor.",
+      "specialties": [
+        "Environmental Assessment",
+        "Air Quality Modeling",
+        "Water & Wastewater",
+        "Environmental Engineering"
+      ]
+    }
   },
   "experiences": [
     {
@@ -31,7 +41,13 @@
       "summary": "Dokumentasi kegiatan dan uraian penugasan dapat dilengkapi melalui Portfolio Editor.",
       "contributions": [],
       "activities": [],
-      "gallery": []
+      "gallery": [],
+      "en": {
+        "role": "Expert Staff of the Environmental Service",
+        "summary": "Activity documentation and assignment descriptions can be completed through the Portfolio Editor.",
+        "contributions": [],
+        "activities": []
+      }
     },
     {
       "id": "exp-lab",
@@ -42,7 +58,13 @@
       "summary": "Rincian program laboratorium dan dokumentasi aktivitas dapat ditambahkan melalui Portfolio Editor.",
       "contributions": [],
       "activities": [],
-      "gallery": []
+      "gallery": [],
+      "en": {
+        "role": "Head of Basic Laboratory",
+        "summary": "Laboratory program details and activity documentation can be added through the Portfolio Editor.",
+        "contributions": [],
+        "activities": []
+      }
     },
     {
       "id": "exp-consult",
@@ -53,7 +75,13 @@
       "summary": "Portofolio pekerjaan konsultansi dapat diperinci menurut proyek yang dapat dipublikasikan.",
       "contributions": [],
       "activities": [],
-      "gallery": []
+      "gallery": [],
+      "en": {
+        "role": "Environmental Consultant",
+        "summary": "The consulting work portfolio can be detailed by publishable projects.",
+        "contributions": [],
+        "activities": []
+      }
     }
   ],
   "projects": [],
@@ -69,7 +97,14 @@
         "Convert & Combine",
         "Split & Manage"
       ],
-      "icon": "file"
+      "icon": "file",
+      "en": {
+        "description": "Desktop PDF utility: convert, combine, split, and manage PDF documents.",
+        "features": [
+          "Convert & Combine",
+          "Split & Manage"
+        ]
+      }
     }
   ],
   "courses": [
@@ -118,5 +153,6 @@
       "url": ""
     }
   ],
-  "gradeBoards": []
+  "gradeBoards": [],
+  "slides": []
 }
