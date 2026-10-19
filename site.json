@@ -171,24 +171,6 @@
       "features": []
     },
     {
-      "id": "exp-consult",
-      "role": "Environmental Consultant",
-      "organization": "Berbagai proyek kajian lingkungan",
-      "period": "",
-      "location": "Indonesia",
-      "summary": "Portofolio pekerjaan konsultansi dapat diperinci menurut proyek yang dapat dipublikasikan.",
-      "contributions": [],
-      "activities": [],
-      "gallery": [],
-      "companyIcon": "",
-      "en": {
-        "role": "Environmental Consultant",
-        "summary": "The consulting work portfolio can be detailed by publishable projects.",
-        "contributions": [],
-        "activities": []
-      }
-    },
-    {
       "location": "Bogor",
       "role": "Environment Officer",
       "companyWebsite": "",
@@ -213,6 +195,26 @@
         }
       ],
       "period": "2016-2017",
+      "features": []
+    },
+    {
+      "id": "v3-1792416121959-4e0ml7",
+      "companyWebsite": "https://heccons.id/",
+      "companyIcon": "https://www.google.com/s2/favicons?domain=heccons.id&sz=64",
+      "contributions": [],
+      "role": "Trainer",
+      "organization": "PT. Heccons Glori Indonesia",
+      "summary": "",
+      "activities": [],
+      "en": {
+        "role": "Trainer",
+        "contributions": [],
+        "activities": []
+      },
+      "gallery": [],
+      "materials": [],
+      "period": "2025 - 2026",
+      "location": "Surabaya",
       "features": []
     }
   ],
@@ -253,25 +255,31 @@
       "description": "Saya mengkaji daya dukung dan daya tampung lingkungan di Pulau Singkep, Kepulauan Riau. Saya mengkaji flora, fauna, dan sumber air di pulau tersebut untuk mengetahui daya dukung pulau sebagai Pulau Kecil sesuai kriteria Kementerian Kelautan dan Perikanan."
     },
     {
-      "gallery": [],
-      "materials": [],
-      "role": "Project Leader",
-      "year": "2026",
-      "cover": "",
-      "outputs": "",
-      "title": "Daya Dukung dan Daya Tampung Emisi Udara Kawasan Industri Intiland Ngoro",
       "model": "",
-      "id": "v3-1792378493948-9h6h2r",
-      "features": [],
+      "cover": "assets/images/1nXOeTQ3kUiETVXg3rndxfu6mAUMB6sSc.jpg",
       "contributions": [],
-      "category": "Kajian",
-      "description": "",
-      "activities": [],
+      "features": [],
       "en": {
         "title": "Carrying Capacity and Air Emission Capacity of the Intiland Ngoro Industrial Estate",
         "category": "Study",
         "role": "Project Leader"
-      }
+      },
+      "gallery": [
+        {
+          "url": "assets/images/1nXOeTQ3kUiETVXg3rndxfu6mAUMB6sSc.jpg",
+          "featured": true,
+          "caption": ""
+        }
+      ],
+      "activities": [],
+      "materials": [],
+      "outputs": "",
+      "id": "v3-1792378493948-9h6h2r",
+      "year": "2026",
+      "role": "Project Leader",
+      "category": "Kajian",
+      "title": "Daya Dukung dan Daya Tampung Emisi Udara Kawasan Industri Intiland Ngoro",
+      "description": ""
     },
     {
       "category": "Kajian",
