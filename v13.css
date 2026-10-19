@@ -1,0 +1,34 @@
+/* V13 — compact layout; biography full width, facts/slideshow in two balanced columns */
+.page-content{padding-top:30px}
+.v13-about{margin-bottom:0!important;padding:27px 30px 28px}
+.v13-about > p{max-width:none;margin-bottom:0;line-height:1.75}
+.v13-about-lower{display:grid;grid-template-columns:minmax(0,.96fr) minmax(0,1.04fr);align-items:start;gap:24px;margin-top:22px}
+.v13-facts{min-width:0}
+.v13-facts .profile-facts{display:grid;grid-template-columns:1fr;gap:14px;margin:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0}
+.v13-facts .profile-facts > div{gap:5px}
+.v13-facts .tags{margin-top:15px}
+.v13-slideshow{min-width:0;margin:0!important}
+.v13-slideshow .slideshow{width:100%;height:auto;aspect-ratio:4/3;border-radius:12px;box-shadow:none}
+.v13-slideshow .slideshow img{width:100%;height:100%;object-fit:cover;object-position:center;image-rendering:auto}
+.v13-slideshow .slide-bottom{min-height:31px;padding:7px 0 0;gap:7px}
+.v13-slideshow .slide-caption{font-size:10px;max-width:calc(100% - 85px)}
+.v13-facts .institution-link{display:inline-block;max-width:100%;width:fit-content}
+.v13-facts .institution-link::after{content:"↗";display:inline-block;margin-left:5px;color:#218983;font-size:13px;line-height:1;font-weight:800}
+.v13-facts .institution-link:hover{text-decoration:underline;text-underline-offset:3px}
+.page-content > .content-section{padding-top:58px!important}
+.content-section{scroll-margin-top:87px}
+.section-heading{margin-bottom:18px}
+.contact-section{margin-bottom:52px!important}
+.academic-main{padding-bottom:65px}
+.academic-hero{padding:46px 0 28px}
+.academic-section{padding-top:45px!important}
+.academic-section .section-heading{margin-bottom:17px}
+@media(max-width:760px){
+ .v13-about{padding:22px 20px}
+ .v13-about-lower{grid-template-columns:minmax(0,1fr);gap:18px;margin-top:19px}
+ .v13-slideshow .slideshow{aspect-ratio:16/10}
+ .page-content > .content-section{padding-top:43px!important}
+ .academic-hero{padding:31px 0 23px}
+ .academic-section{padding-top:34px!important}
+}
+@media(max-width:430px){.v13-slideshow .slideshow{aspect-ratio:4/3}.v13-slideshow .slide-caption{max-width:calc(100% - 65px)}}
