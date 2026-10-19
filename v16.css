@@ -1,0 +1,14 @@
+/* V16 — Riwayat pendidikan tepat setelah bio, sebelum fakta/slideshow */
+.v16-education{margin-top:22px;max-width:100%}
+.v16-education-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.v16-degree{border:1px solid #dfe9e9;border-radius:11px;background:#fafcfc;min-width:0;padding:13px 14px;min-height:99px}
+.v16-degree-title{font-size:11px;font-weight:800;letter-spacing:.02em;color:#236f6d;margin-bottom:10px}
+.v16-degree-body{display:flex;gap:10px;align-items:flex-start;min-width:0}
+.v16-degree-logo{display:block;flex:0 0 36px;height:36px;width:36px;object-fit:contain;object-position:center;border-radius:7px;padding:2px;background:white;border:1px solid #e6eeee}
+.v16-degree-info{display:flex;flex-direction:column;gap:3px;min-width:0;overflow-wrap:anywhere}
+.v16-degree-info strong{font-size:12px;line-height:1.45;color:var(--ink);font-weight:750}
+.v16-degree-info span{font-size:11px;line-height:1.45;color:#597983}
+.v16-degree-info small{font-size:10px;color:#748d94}
+.v16-degree-empty{background:#fff}
+.v16-education + .v13-about-lower{margin-top:21px}
+@media(max-width:700px){.v16-education-grid{gap:7px}.v16-degree{padding:10px;min-height:83px}.v16-degree-body{display:block}.v16-degree-logo{height:28px;width:28px;margin-bottom:6px}.v16-degree-info strong{font-size:10px}.v16-degree-info span{font-size:10px}.v16-degree-info small{font-size:9px}.v16-degree-title{font-size:10px}}
