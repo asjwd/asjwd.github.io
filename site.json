@@ -1,33 +1,39 @@
 {
   "version": 7,
   "profile": {
-    "about": "Saya adalah dosen dan peneliti di bidang Teknik Lingkungan dengan minat pada pemodelan lingkungan, komputasi ilmiah, dan inovasi digital.\n\nFokus penelitian saya mencakup kualitas udara, pengolahan air, dan kajian dampak lingkungan, dengan penekanan pada penerapan metode komputasi dan pemodelan atmosfer menggunakan perangkat seperti WRF-Chem dan AERMOD.",
+    "about": "Saya adalah dosen dan peneliti di bidang Teknik Lingkungan dengan minat pada pemantauan kualitas udara, pemodelan pencemaran lingkungan, dan pengolahan air dengan metode adsorpsi dan fotokatalisis.\n\nFokus penelitian saya mencakup kualitas udara, pengolahan air, dan kajian dampak lingkungan, dengan penekanan pada penerapan metode komputasi dan pemodelan atmosfer menggunakan perangkat seperti WRF-Chem dan AERMOD.",
     "avatar": "assets/images/1HOHCiyAIauE2o1n3pTk6exFI6wGmrXLF.webp",
     "banner": "",
     "contactFormUrl": "https://script.google.com/macros/s/AKfycbzsyunPGbY7EKWLzN4pnphb6q0UDn-0Ys-W_ZVcJI3vaQwSKmRPLWny2u5BPtKWI4_W/exec",
     "education": {
       "master": {
-        "major": "Environmental Engineering",
-        "logoWebsite": "https://eng.cycu.edu.tw/",
-        "institution": "Chung Yuan Christian University",
-        "logo": "https://www.google.com/s2/favicons?domain=eng.cycu.edu.tw&sz=64",
         "year": "2019",
+        "gallery": [],
+        "institution": "Chung Yuan Christian University",
+        "major": "Environmental Engineering",
+        "description": "",
+        "logo": "https://www.google.com/s2/favicons?domain=eng.cycu.edu.tw&sz=64",
+        "logoWebsite": "https://eng.cycu.edu.tw/",
         "majorEn": "Environmental Engineering"
+      },
+      "bachelor": {
+        "logoWebsite": "https://unair.ac.id/",
+        "major": "Ilmu dan Teknologi Lingkungan",
+        "description": "",
+        "year": "2016",
+        "institution": "Universitas Airlangga",
+        "logo": "https://www.google.com/s2/favicons?domain=unair.ac.id&sz=64",
+        "gallery": [],
+        "majorEn": "Environmental Science and Technology"
       },
       "doctorate": {
         "institution": "",
-        "major": "",
-        "year": "",
+        "gallery": [],
+        "description": "",
         "logo": "",
-        "logoWebsite": ""
-      },
-      "bachelor": {
-        "logo": "https://www.google.com/s2/favicons?domain=unair.ac.id&sz=64",
-        "logoWebsite": "https://unair.ac.id/",
-        "year": "2016",
-        "major": "Ilmu dan Teknologi Lingkungan",
-        "institution": "Universitas Airlangga",
-        "majorEn": "Environmental Science and Technology"
+        "logoWebsite": "",
+        "major": "",
+        "year": ""
       }
     },
     "en": {
@@ -120,49 +126,49 @@
       "activities": []
     },
     {
-      "companyWebsite": "",
-      "period": "2025",
-      "contributions": [
-        "Reviewer perijinan Kajian Teknis Persetujuan Teknis Pemenuhan Baku Mutu Emisi",
-        "Tenaga Ahli Bimbingan Teknis Dispersi Emisi menggunakan software Aermod"
-      ],
-      "location": "",
-      "features": [],
       "id": "v3-1792341090909-kojqdh",
-      "companyIcon": "assets/images/12134Zj5HwpnSQvR2lFNEGGvu550ml14M.png",
       "summary": "",
       "materials": [],
-      "role": "Staff Ahli Dinas Lingkungan Hidup Provinsi Jawa Timur",
       "gallery": [
         {
-          "url": "assets/images/1meC1jiw2_r9QZyIaIf5xd0BHqRL1H-Vb.jpg",
-          "caption": "IMG_4870",
           "featured": true,
+          "caption": "IMG_4870",
+          "url": "assets/images/1meC1jiw2_r9QZyIaIf5xd0BHqRL1H-Vb.jpg",
           "captionEn": "IMG_4870"
         },
         {
+          "url": "assets/images/1ZodLYEZtGo6K5jtQDesnZLWLqUm7szYm.jpg",
           "caption": "IMG_4869",
           "featured": true,
-          "url": "assets/images/1ZodLYEZtGo6K5jtQDesnZLWLqUm7szYm.jpg",
           "captionEn": "IMG_4869"
         },
         {
-          "featured": false,
           "url": "assets/images/1LnyFdVc0SpoPdwi6piB6rypjoXgi72hb.jpg",
           "caption": "IMG_4868",
+          "featured": false,
           "captionEn": "IMG_4868"
         }
       ],
+      "organization": "Dinas Lingkungan Hidup Provinsi Jawa Timur",
       "activities": [],
       "en": {
-        "role": "Expert Staff of Environment Protection Agency of East Java",
+        "role": "Expert Staff of Dinas Lingkungan Hidup Provinsi Jawa Timur",
         "contributions": [
           "Licensing Reviewer Technical Review Technical Approval for Fulfillment of Emission Quality Standards",
           "Technical Guidance Expert for Emission Dispersion using Aermod software"
         ],
         "activities": []
       },
-      "organization": "Dinas Lingkungan Hidup Provinsi Jawa Timur"
+      "companyWebsite": "",
+      "period": "2025",
+      "role": "Staff Ahli Dinas Lingkungan Hidup Provinsi Jawa Timur",
+      "companyIcon": "assets/images/12134Zj5HwpnSQvR2lFNEGGvu550ml14M.png",
+      "location": "",
+      "contributions": [
+        "Reviewer perijinan Kajian Teknis Persetujuan Teknis Pemenuhan Baku Mutu Emisi",
+        "Tenaga Ahli Bimbingan Teknis Dispersi Emisi menggunakan software Aermod"
+      ],
+      "features": []
     },
     {
       "id": "exp-consult",
@@ -311,7 +317,25 @@
       "year": "2026",
       "id": "v3-1792337061093-qutd4i",
       "contributions": [],
-      "url": "https://www.sciencedirect.com/science/article/pii/S1026918526001496"
+      "url": "https://www.sciencedirect.com/science/article/pii/S1026918526001496",
+      "journalIcon": ""
+    },
+    {
+      "journal": "South African Journal of Chemical Engineering",
+      "id": "v3-1792336930304-swwejy",
+      "materials": [],
+      "authors": "Restu Hikmah Ayu Murti, Muhammad Abdus Salam Jawwad, Khusnul Khotimah Ayuningtiyas, Euis Nurul Hidayah",
+      "en": {
+        "title": "High efficiency on resin photocatalysis: Study on application and kinetic mechanism using Langmuir Hinshelwood Model"
+      },
+      "gallery": [],
+      "year": "2025",
+      "activities": [],
+      "contributions": [],
+      "features": [],
+      "title": "High efficiency on resin photocatalysis: Study on application and kinetic mechanism using langmuir Hinshelwood Model",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1026918525000472",
+      "journalIcon": ""
     },
     {
       "year": "2025",
@@ -324,11 +348,11 @@
       "activities": [],
       "url": "https://www.jeeng.net/Dispersion-modelling-of-methane-emissions-from-Indonesian-landfills-using-air-quality,207168,0,2.html",
       "id": "v3-1792339809439-95xcg7",
-      "journalWebsite": "https://www.jeeng.net/",
       "en": {
         "title": "Dispersion modeling of methane emissions from Indonesian landfills using air quality dispersion modeling"
       },
-      "title": "Dispersion modelling of methane emissions from Indonesian landfills using air quality dispersion modeling"
+      "title": "Dispersion modelling of methane emissions from Indonesian landfills using air quality dispersion modeling",
+      "journalIcon": ""
     },
     {
       "authors": "Restu Hikmah Ayu Murti, Muhammad Abdus Salam Jawwad, Sheng-Jie You, Ya-Fen Wang",
@@ -341,28 +365,11 @@
       "en": {
         "title": "The investigation of mechanism of isoniazid adsorption onto cassia fistula-based activated carbon"
       },
-      "journalWebsite": "",
       "url": "https://www.sciencedirect.com/science/article/pii/S1026918524000970",
       "contributions": [],
       "journal": "South African Journal of Chemical Engineering",
-      "activities": []
-    },
-    {
-      "journal": "South African Journal of Chemical Engineering",
-      "id": "v3-1792336930304-swwejy",
-      "materials": [],
-      "authors": "Restu Hikmah Ayu Murti, Muhammad Abdus Salam Jawwad, Khusnul Khotimah Ayuningtiyas, Euis Nurul Hidayah",
-      "journalWebsite": "",
-      "en": {
-        "title": "High efficiency on resin photocatalysis: Study on application and kinetic mechanism using Langmuir Hinshelwood Model"
-      },
-      "gallery": [],
-      "year": "2025",
       "activities": [],
-      "contributions": [],
-      "features": [],
-      "title": "High efficiency on resin photocatalysis: Study on application and kinetic mechanism using langmuir Hinshelwood Model",
-      "url": "https://www.sciencedirect.com/science/article/pii/S1026918525000472"
+      "journalIcon": ""
     }
   ],
   "tools": [
@@ -382,8 +389,8 @@
         "Convert & Combine PDF",
         "Split & Manage PDF"
       ],
-      "url": "https://drive.google.com/file/d/1wq2JU2WxlFqfX4FRoHkRyItpQ2HlOkxH/view?usp=sharing",
-      "id": "tool-aspdf"
+      "id": "tool-aspdf",
+      "requestAvailable": true
     }
   ],
   "courses": [
@@ -426,5 +433,75 @@
     }
   ],
   "gradeBoards": [],
-  "slides": []
+  "slides": [],
+  "otherActivities": [
+    {
+      "activities": [],
+      "title": "The 7th International Conference on Environmental Engineering (ICOEE)",
+      "description": "",
+      "date": "July 2026",
+      "certificateUrl": "",
+      "contributions": [],
+      "certificateTitle": "",
+      "gallery": [
+        {
+          "caption": "",
+          "url": "assets/images/1ztTRleWC6wYHsN1Trk2CUsRclX2MGQz8.jpg"
+        },
+        {
+          "featured": true,
+          "caption": "",
+          "url": "assets/images/1RD7bQzYJd1svETfW13gUz5Lxs5zMvh4b.jpg"
+        },
+        {
+          "featured": true,
+          "url": "assets/images/1sdFjt9Qr3OmGs6aus6lXqc235NvFL1NA.jpg",
+          "caption": ""
+        }
+      ],
+      "location": "Bali, Indonesia",
+      "role": "Speaker",
+      "materials": [],
+      "type": "Conference",
+      "id": "v3-1792414894449-smpdz9",
+      "features": [],
+      "organizer": "Institut Teknologi Sepuluh Nopember",
+      "en": {
+        "title": "The 7th International Conference on Environmental Engineering (ICOEE)",
+        "type": "Conference",
+        "role": "Speaker",
+        "organizer": "Sepuluh Nopember Institute of Technology",
+        "location": "Bali, Indonesia"
+      }
+    },
+    {
+      "en": {
+        "title": "中華民國環境工程學會第三十屆年會暨各專門學術研討會",
+        "type": "Conference",
+        "role": "Speaker",
+        "location": "Tainan, Taiwan"
+      },
+      "certificateUrl": "",
+      "contributions": [],
+      "date": "November 2018",
+      "description": "",
+      "activities": [],
+      "location": "Tainan, Taiwan",
+      "certificateTitle": "",
+      "materials": [],
+      "gallery": [
+        {
+          "caption": "",
+          "url": "assets/images/1HBxMjczv9MI-3LIxmlALanDhsciYS8bI.jpg",
+          "featured": true
+        }
+      ],
+      "title": "中華民國環境工程學會第三十屆年會暨各專門學術研討會",
+      "role": "Speaker",
+      "features": [],
+      "type": "Conference",
+      "id": "v3-1792415442468-3omdp6",
+      "organizer": ""
+    }
+  ]
 }
