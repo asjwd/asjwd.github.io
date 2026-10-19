@@ -91,10 +91,16 @@
       "gallery": []
     },
     {
-      "gallery": [],
-      "features": [],
-      "id": "v3-1792341090909-kojqdh",
+      "period": "2025",
+      "role": "Staff Ahli Dinas Lingkungan Hidup Provinsi Jawa Timur",
+      "activities": [],
+      "contributions": [
+        "Reviewer perijinan Kajian Teknis Persetujuan Teknis Pemenuhan Baku Mutu Emisi",
+        "Tenaga Ahli Bimbingan Teknis Dispersi Emisi menggunakan software Aermod"
+      ],
       "organization": "Dinas Lingkungan Hidup Provinsi Jawa Timur",
+      "summary": "",
+      "features": [],
       "en": {
         "role": "Expert Staff of Environment Protection Agency of East Java",
         "contributions": [
@@ -103,15 +109,28 @@
         ],
         "activities": []
       },
-      "role": "Staff Ahli Dinas Lingkungan Hidup Provinsi Jawa Timur",
-      "activities": [],
       "location": "",
       "materials": [],
-      "period": "2025",
-      "summary": "",
-      "contributions": [
-        "Reviewer perijinan Kajian Teknis Persetujuan Teknis Pemenuhan Baku Mutu Emisi",
-        "Tenaga Ahli Bimbingan Teknis Dispersi Emisi menggunakan software Aermod"
+      "id": "v3-1792341090909-kojqdh",
+      "gallery": [
+        {
+          "url": "assets/images/1meC1jiw2_r9QZyIaIf5xd0BHqRL1H-Vb.jpg",
+          "featured": true,
+          "caption": "IMG_4870",
+          "captionEn": "IMG_4870"
+        },
+        {
+          "caption": "IMG_4869",
+          "url": "assets/images/1ZodLYEZtGo6K5jtQDesnZLWLqUm7szYm.jpg",
+          "featured": true,
+          "captionEn": "IMG_4869"
+        },
+        {
+          "url": "assets/images/1LnyFdVc0SpoPdwi6piB6rypjoXgi72hb.jpg",
+          "caption": "IMG_4868",
+          "featured": false,
+          "captionEn": "IMG_4868"
+        }
       ]
     },
     {
