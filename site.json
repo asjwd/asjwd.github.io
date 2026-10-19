@@ -308,6 +308,41 @@
       },
       "year": "2026",
       "role": "Researcher"
+    },
+    {
+      "gallery": [
+        {
+          "caption": "",
+          "url": "assets/images/1sOc23DBMwkMCzMYtYtBEAzyzPJHJJOGj.jpg"
+        },
+        {
+          "caption": "",
+          "url": "assets/images/1UOQUsOynsBr85cjcjFrktBqFrbUJrLK_.jpg"
+        },
+        {
+          "caption": "",
+          "url": "assets/images/1yVeUbbvHCAD1ocHfS3ON_UHM42jMN0Rm.jpg",
+          "featured": true
+        }
+      ],
+      "description": "",
+      "role": "Researcher",
+      "title": "Kajian Sampah di Sungai Bengawan Solo Wilayah Babat, Jawa Timur",
+      "cover": "assets/images/1sOc23DBMwkMCzMYtYtBEAzyzPJHJJOGj.jpg",
+      "en": {
+        "title": "Waste Study in the Bengawan Solo River, Babat Area, East Java",
+        "category": "Study",
+        "role": "Researcher"
+      },
+      "id": "v3-1792418195872-q6a4rf",
+      "features": [],
+      "contributions": [],
+      "materials": [],
+      "year": "2020",
+      "outputs": "",
+      "category": "Kajian",
+      "activities": [],
+      "model": ""
     }
   ],
   "publications": [
@@ -481,6 +516,41 @@
         "organizer": "Sepuluh Nopember Institute of Technology",
         "location": "Bali, Indonesia"
       }
+    },
+    {
+      "description": "",
+      "materials": [],
+      "location": "Tainan, Taiwan",
+      "features": [],
+      "date": "April 2025",
+      "role": "Presenter",
+      "en": {
+        "title": "Theory and Technique Taiwan Forum on Sustainable Environment (T&T TFOSE)",
+        "type": "Conference",
+        "role": "Presenter",
+        "organizer": "Taiwan Association for Aerosol Research",
+        "location": "Tainan, Taiwan"
+      },
+      "type": "Conference",
+      "contributions": [],
+      "id": "v3-1792417699685-x18era",
+      "activities": [],
+      "organizer": "Taiwan Association for Aerosol Research",
+      "certificateUrl": "",
+      "certificateTitle": "",
+      "gallery": [
+        {
+          "caption": "",
+          "featured": true,
+          "url": "assets/images/1OQVB6ItwCYkKTg39JZFFZxWxCGwPxOjj.jpg"
+        },
+        {
+          "url": "assets/images/1mRyjh1AAfYV9fP5r1F98jz4H5Ca987ZL.jpg",
+          "featured": true,
+          "caption": ""
+        }
+      ],
+      "title": "Theory and Technique Taiwan Forum on Sustainable Environment (T&T TFOSE)"
     },
     {
       "en": {
