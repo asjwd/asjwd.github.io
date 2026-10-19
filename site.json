@@ -72,29 +72,38 @@
     {
       "summary": "Rincian program laboratorium dan dokumentasi aktivitas dapat ditambahkan melalui Portfolio Editor.",
       "activities": [],
+      "id": "exp-lab",
+      "gallery": [
+        {
+          "url": "assets/images/10JO-y872MXEIubNMzaed0S5Dz8DNeu2d.jpg",
+          "featured": true,
+          "caption": "IMG_4857",
+          "captionEn": "IMG_4857"
+        }
+      ],
+      "contributions": [],
+      "role": "Kepala Laboratorium Dasar",
+      "companyIcon": "https://www.google.com/s2/favicons?domain=teklingk.upnjatim.ac.id&sz=64",
+      "companyWebsite": "https://teklingk.upnjatim.ac.id/",
+      "organization": "Teknik Lingkungan, UPN 'Veteran' Jawa Timur",
+      "location": "Surabaya",
+      "period": "",
       "en": {
         "role": "Head of Basic Laboratory",
         "summary": "Laboratory program details and activity documentation can be added through the Portfolio Editor.",
         "contributions": [],
         "activities": []
-      },
-      "gallery": [
-        {
-          "featured": true,
-          "caption": "IMG_4857",
-          "url": "assets/images/10JO-y872MXEIubNMzaed0S5Dz8DNeu2d.jpg",
-          "captionEn": "IMG_4857"
-        }
-      ],
-      "contributions": [],
-      "period": "",
-      "role": "Kepala Laboratorium Dasar",
-      "id": "exp-lab",
-      "organization": "Teknik Lingkungan, UPN 'Veteran' Jawa Timur",
-      "location": "Surabaya",
-      "companyIcon": ""
+      }
     },
     {
+      "period": "2026 - Present",
+      "companyIcon": "assets/images/1MZABhkcPVtC4b7xI16skbbs7gSsXbhUC.png",
+      "contributions": [
+        "Reviewer perijinan Kajian Teknis Persetujuan Teknis Pemenuhan Baku Mutu Emisi",
+        "Tenaga Ahli Penyusunan Rancangan Peraturan Wali Kota Surabaya terkait Pertek dan SLO"
+      ],
+      "companyWebsite": "",
+      "gallery": [],
       "en": {
         "role": "Expert Staff of Dinas Lingkungan Hidup of Surabaya",
         "contributions": [
@@ -103,31 +112,48 @@
         ],
         "activities": []
       },
-      "id": "exp-dlh",
-      "period": "2026 - Present",
-      "location": "Surabaya",
       "summary": "",
-      "organization": "Dinas Lingkungan Hidup Kota Surabaya",
       "role": "Staf Ahli Dinas Lingkungan Hidup Kota Surabaya",
-      "contributions": [
-        "Reviewer perijinan Kajian Teknis Persetujuan Teknis Pemenuhan Baku Mutu Emisi",
-        "Tenaga Ahli Penyusunan Rancangan Peraturan Wali Kota Surabaya terkait Pertek dan SLO"
-      ],
-      "activities": [],
-      "gallery": [],
-      "companyIcon": ""
+      "location": "Surabaya",
+      "id": "exp-dlh",
+      "organization": "Dinas Lingkungan Hidup Kota Surabaya",
+      "activities": []
     },
     {
+      "companyWebsite": "",
       "period": "2025",
-      "role": "Staff Ahli Dinas Lingkungan Hidup Provinsi Jawa Timur",
-      "activities": [],
       "contributions": [
         "Reviewer perijinan Kajian Teknis Persetujuan Teknis Pemenuhan Baku Mutu Emisi",
         "Tenaga Ahli Bimbingan Teknis Dispersi Emisi menggunakan software Aermod"
       ],
-      "organization": "Dinas Lingkungan Hidup Provinsi Jawa Timur",
-      "summary": "",
+      "location": "",
       "features": [],
+      "id": "v3-1792341090909-kojqdh",
+      "companyIcon": "assets/images/12134Zj5HwpnSQvR2lFNEGGvu550ml14M.png",
+      "summary": "",
+      "materials": [],
+      "role": "Staff Ahli Dinas Lingkungan Hidup Provinsi Jawa Timur",
+      "gallery": [
+        {
+          "url": "assets/images/1meC1jiw2_r9QZyIaIf5xd0BHqRL1H-Vb.jpg",
+          "caption": "IMG_4870",
+          "featured": true,
+          "captionEn": "IMG_4870"
+        },
+        {
+          "caption": "IMG_4869",
+          "featured": true,
+          "url": "assets/images/1ZodLYEZtGo6K5jtQDesnZLWLqUm7szYm.jpg",
+          "captionEn": "IMG_4869"
+        },
+        {
+          "featured": false,
+          "url": "assets/images/1LnyFdVc0SpoPdwi6piB6rypjoXgi72hb.jpg",
+          "caption": "IMG_4868",
+          "captionEn": "IMG_4868"
+        }
+      ],
+      "activities": [],
       "en": {
         "role": "Expert Staff of Environment Protection Agency of East Java",
         "contributions": [
@@ -136,30 +162,7 @@
         ],
         "activities": []
       },
-      "location": "",
-      "materials": [],
-      "id": "v3-1792341090909-kojqdh",
-      "gallery": [
-        {
-          "url": "assets/images/1meC1jiw2_r9QZyIaIf5xd0BHqRL1H-Vb.jpg",
-          "featured": true,
-          "caption": "IMG_4870",
-          "captionEn": "IMG_4870"
-        },
-        {
-          "caption": "IMG_4869",
-          "url": "assets/images/1ZodLYEZtGo6K5jtQDesnZLWLqUm7szYm.jpg",
-          "featured": true,
-          "captionEn": "IMG_4869"
-        },
-        {
-          "url": "assets/images/1LnyFdVc0SpoPdwi6piB6rypjoXgi72hb.jpg",
-          "caption": "IMG_4868",
-          "featured": false,
-          "captionEn": "IMG_4868"
-        }
-      ],
-      "companyIcon": ""
+      "organization": "Dinas Lingkungan Hidup Provinsi Jawa Timur"
     },
     {
       "id": "exp-consult",
@@ -180,20 +183,21 @@
       }
     },
     {
-      "materials": [],
+      "location": "Bogor",
       "role": "Environment Officer",
-      "period": "2016-2017",
+      "companyWebsite": "",
+      "id": "v3-1792378597654-zrs2un",
+      "materials": [],
+      "contributions": [],
+      "summary": "",
+      "companyIcon": "assets/images/1wuZ4ZU9T-iSoaTCsARIiqTO32Q6Uha43.png",
+      "organization": "PT. Nipress, Tbk.",
       "en": {
         "role": "Environment Officer",
         "contributions": [],
         "activities": []
       },
-      "contributions": [],
-      "features": [],
-      "summary": "",
-      "organization": "PT. Nipress, Tbk.",
       "activities": [],
-      "id": "v3-1792378597654-zrs2un",
       "gallery": [
         {
           "caption": "IMG_4873",
@@ -202,8 +206,8 @@
           "captionEn": "IMG_4873"
         }
       ],
-      "location": "Bogor",
-      "companyIcon": ""
+      "period": "2016-2017",
+      "features": []
     }
   ],
   "projects": [
