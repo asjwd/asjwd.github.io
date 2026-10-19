@@ -68,8 +68,29 @@ function experienceLogo(x){
  if(src)return `<img src="${esc(src)}" alt="" loading="lazy" decoding="async">`;
  return `<svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="14" rx="1.5"/><path d="M8 7V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3M3 13h18M10 13v2h4v-2"/></svg>`;
 }
-function renderExperience(){const el=document.getElementById('experience-list');const all=portfolioData.experiences||[],a=all.slice(0,v10Visible.experiences);el.innerHTML=all.length?a.map(x=>`<button class="experience-item" data-experience="${esc(x.id)}"><div class="experience-icon v15-company-icon">${experienceLogo(x)}</div><div class="experience-main"><div class="experience-top"><h3>${esc(tr(x,'role'))}</h3><span>${esc(x.period||'')}</span></div><p>${esc(x.organization||'')}${x.location?' · '+esc(x.location):''}</p><small>${esc(tr(x,'summary'))}</small></div></button>`).join(''):`<div class="empty-card">${t('emptyExperience')}</div>`;el.querySelectorAll('[data-experience]').forEach(b=>b.addEventListener('click',()=>openExperience(b.dataset.experience)));v10ShowMore('experiences',all.length);}
-function renderProjects(){const all=portfolioData.projects||[],list=all.slice(0,v10Visible.projects);const el=document.getElementById('project-list');el.innerHTML=all.length?list.map(x=>`<button class="project-card" data-project="${esc(x.id)}"><div class="project-cover">${SITE.safeURL(x.cover)?SITE.image(x.cover,tr(x,'title')):`<span class="project-symbol">${isModel(x)?'◎':'▧'}</span>`}<span class="project-type">${esc(tr(x,'category')||'Kajian')}</span></div><div class="project-meta">${esc(x.year||'')} ${x.model?' · '+esc(x.model):''}</div><h3>${esc(tr(x,'title'))}</h3><p>${esc(tr(x,'description'))}</p></button>`).join(''):`<div class="empty-card wide">${t('emptyProject')}</div>`;el.querySelectorAll('[data-project]').forEach(b=>b.addEventListener('click',()=>openProject(b.dataset.project)));v10ShowMore('projects',all.length);}
+// V19: render structured months while preserving legacy year/period/date records.
+const V19_PUBLIC_MONTHS={id:['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'],en:['January','February','March','April','May','June','July','August','September','October','November','December']};
+function v19Period(x){
+ const months=V19_PUBLIC_MONTHS[currentLanguage]||V19_PUBLIC_MONTHS.id;
+ if(x.startMonth&&x.startYear){
+  const a=months[Number(x.startMonth)-1]+' '+x.startYear;
+  if(x.currentlyActive)return a+' – '+(currentLanguage==='id'?'Sekarang':'Present');
+  if(x.endMonth&&x.endYear){const b=months[Number(x.endMonth)-1]+' '+x.endYear;return x.startMonth===x.endMonth&&x.startYear===x.endYear?a:a+' – '+b;}
+  return a;
+ }
+ return String(x.period||x.date||x.year||'');
+}
+function v19PubDate(x){
+ const m=String(x.publicationDate||'').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+ if(m)return `${Number(m[3])} ${V19_PUBLIC_MONTHS[currentLanguage][Number(m[2])-1]} ${m[1]}`;
+ return String(x.year||'');
+}
+function v19SmallLogo(ref,cls='v19-small-logo'){
+ const url=SITE.safeURL(ref||'');return url?`<img class="${cls}" src="${esc(url)}" alt="" width="30" height="30" loading="lazy" decoding="async">`:'';
+}
+
+function renderExperience(){const el=document.getElementById('experience-list');const all=portfolioData.experiences||[],a=all.slice(0,v10Visible.experiences);el.innerHTML=all.length?a.map(x=>`<button class="experience-item" data-experience="${esc(x.id)}"><div class="experience-icon v15-company-icon">${experienceLogo(x)}</div><div class="experience-main"><div class="experience-top"><h3>${esc(tr(x,'role'))}</h3><span>${esc(v19Period(x))}</span></div><p>${esc(x.organization||'')}${x.location?' · '+esc(x.location):''}</p><small>${esc(tr(x,'summary'))}</small></div></button>`).join(''):`<div class="empty-card">${t('emptyExperience')}</div>`;el.querySelectorAll('[data-experience]').forEach(b=>b.addEventListener('click',()=>openExperience(b.dataset.experience)));v10ShowMore('experiences',all.length);}
+function renderProjects(){const all=portfolioData.projects||[],list=all.slice(0,v10Visible.projects);const el=document.getElementById('project-list');el.innerHTML=all.length?list.map(x=>`<button class="project-card" data-project="${esc(x.id)}"><div class="project-cover">${SITE.safeURL(x.cover)?SITE.image(x.cover,tr(x,'title')):`<span class="project-symbol">${isModel(x)?'◎':'▧'}</span>`}<span class="project-type">${esc(tr(x,'category')||'Kajian')}</span></div><div class="project-meta">${esc(v19Period(x))} ${x.model?' · '+esc(x.model):''}</div><h3>${esc(tr(x,'title'))}</h3><p>${esc(tr(x,'description'))}</p>${x.partnerName?`<div class="v19-partner"><span>${esc(x.partnerName)}</span>${v19SmallLogo(x.partnerLogo)}</div>`:''}</button>`).join(''):`<div class="empty-card wide">${t('emptyProject')}</div>`;el.querySelectorAll('[data-project]').forEach(b=>b.addEventListener('click',()=>openProject(b.dataset.project)));v10ShowMore('projects',all.length);}
 // Prefer the actual publisher hostname. If a DOI resolves to doi.org, try a known
 // publisher inferred from journal/publisher metadata; an optional journalWebsite
 // in the Admin overrides inference. Never render an executable protocol.
@@ -96,14 +117,14 @@ function v10PublicationIcon(x){
  const url='https://www.google.com/s2/favicons?domain='+encodeURIComponent(host)+'&sz=64';
  return `<img class="v10-pub-icon" loading="lazy" src="${esc(url)}" alt="" referrerpolicy="no-referrer" onerror="this.replaceWith(document.createTextNode('▤'))">`;
 }
-function renderPublications(){const all=portfolioData.publications||[],list=all.slice(0,v10Visible.publications),el=document.getElementById('publication-list');el.innerHTML=all.length?list.map(x=>`<article class="publication-item v10-publication"><span class="publication-index v10-journal-icon" title="${esc(v10JournalHost(x)||'Jurnal')}">${v10PublicationIcon(x)}</span><div><span class="pub-year">${esc(x.year||'')}</span><h3>${esc(tr(x,'title'))}</h3><p>${esc(x.authors||'')}</p><small>${esc(x.journal||'')}</small></div>${SITE.linkURL(x.url||x.doi)?SITE.external(x.url||x.doi,t('readPaper'),'pub-link'):''}</article>`).join(''):`<div class="empty-card">${t('emptyPublication')}</div>`;v10ShowMore('publications',all.length);}
+function renderPublications(){const all=portfolioData.publications||[],list=all.slice(0,v10Visible.publications),el=document.getElementById('publication-list');el.innerHTML=all.length?list.map(x=>`<article class="publication-item v10-publication"><span class="publication-index v10-journal-icon" title="${esc(v10JournalHost(x)||'Jurnal')}">${v10PublicationIcon(x)}</span><div><span class="pub-year">${esc(v19PubDate(x))}</span><h3>${esc(tr(x,'title'))}</h3><p>${esc(x.authors||'')}</p><small>${esc(x.journal||'')}</small></div>${SITE.linkURL(x.url||x.doi)?SITE.external(x.url||x.doi,t('readPaper'),'pub-link'):''}</article>`).join(''):`<div class="empty-card">${t('emptyPublication')}</div>`;v10ShowMore('publications',all.length);}
 /** V18 — Activities share the existing detail modal but not the Experience list. */
 function renderOtherActivities(){
  const root=document.getElementById('other-activities-list');if(!root)return;
  const all=portfolioData.otherActivities||[],n=v10Visible.otherActivities||5;
  root.innerHTML=all.length?all.slice(0,n).map(x=>`<button type="button" class="v18-activity" data-other-activity="${esc(x.id)}">
- <span class="v18-activity-mark" aria-hidden="true">${activityIcon(x.type)}</span>
- <span class="v18-activity-info"><span class="v18-activity-meta">${esc(x.date||'')}${x.type?` · ${esc(tr(x,'type'))}`:''}${x.role?` · ${esc(tr(x,'role'))}`:''}</span>
+ <span class="v18-activity-mark" aria-hidden="true">${v19SmallLogo(x.organizerIcon)||activityIcon(x.type)}</span>
+ <span class="v18-activity-info"><span class="v18-activity-meta">${esc(v19Period(x))}${x.type?` · ${esc(tr(x,'type'))}`:''}${x.role?` · ${esc(tr(x,'role'))}`:''}</span>
  <strong>${esc(tr(x,'title'))}</strong><small>${esc(tr(x,'organizer'))}${x.location?' · '+esc(tr(x,'location')):''}</small></span>
  </button>`).join(''):`<div class="empty-card">${t('emptyOtherActivities')}</div>`;
  root.querySelectorAll('[data-other-activity]').forEach(b=>b.addEventListener('click',()=>openOtherActivity(b.dataset.otherActivity)));
@@ -115,7 +136,7 @@ function activityIcon(type){
 }
 function openOtherActivity(id){
  const x=(portfolioData?.otherActivities||[]).find(a=>a.id===id);if(!x)return;
- const meta=[tr(x,'type'),x.date,tr(x,'role')].filter(Boolean).map(esc).join(' · ');
+ const meta=[tr(x,'type'),v19Period(x),tr(x,'role')].filter(Boolean).map(esc).join(' · ');
  const organizer=tr(x,'organizer')||'',loc=tr(x,'location')||'';
  const cert=SITE.linkURL(x.certificateUrl||'');
  openModal(`<div class="modal-eyebrow">${t('otherActivitiesTitle')}${meta?' · '+meta:''}</div>
@@ -159,35 +180,28 @@ function openProject(id){
  const gallery=[],seen=new Set();
  for(const photo of x.gallery||[]){if(photo&&SITE.safeURL(photo.url)&&!seen.has(photo.url)){seen.add(photo.url);gallery.push(photo);}}
  if(SITE.safeURL(x.cover)&&!seen.has(x.cover))gallery.unshift({url:x.cover});
- openModal(`<div class="modal-eyebrow">${esc(tr(x,'category'))} ${x.year?' / '+esc(x.year):''}</div><h2 id="modalTitle">${esc(tr(x,'title'))}</h2><p class="modal-org">${esc(tr(x,'role'))} ${x.model?' · '+esc(x.model):''}</p><p>${esc(tr(x,'description'))}</p>${tr(x,'outputs')?`<h3 class="modal-subheading">${t('outputs')}</h3><p>${esc(tr(x,'outputs'))}</p>`:''}${galleryHTML(gallery)}`);
+ openModal(`<div class="modal-eyebrow">${esc(tr(x,'category'))} ${v19Period(x)?' / '+esc(v19Period(x)):''}</div><h2 id="modalTitle">${esc(tr(x,'title'))}</h2><p class="modal-org">${esc(tr(x,'role'))} ${x.model?' · '+esc(x.model):''}</p>${x.partnerName?`<p class="v19-detail-partner">${esc(currentLanguage==='id'?'Mitra Proyek':'Project Partner')}: ${esc(x.partnerName)} ${v19SmallLogo(x.partnerLogo)}</p>`:''}<p>${esc(tr(x,'description'))}</p>${tr(x,'outputs')?`<h3 class="modal-subheading">${t('outputs')}</h3><p>${esc(tr(x,'outputs'))}</p>`:''}${galleryHTML(gallery)}`);
 }
 // V15 — per-session selection: at most 10 randomized photos, loaded progressively.
 function shuffled(list){const a=list.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function collectSlides(){
- const d=portfolioData||{},slides=[];
- for(const x of d.slides||[]){
-  if(SITE.safeURL(x.url))slides.push({url:x.url});
-  for(const ph of x.gallery||[])if(SITE.safeURL(ph.url))slides.push({url:ph.url});
+ const d=portfolioData||{},groups=new Map();
+ const add=(source,url,featured=false)=>{if(!SITE.safeURL(url))return;const key=String(source);if(!groups.has(key))groups.set(key,[]);const photos=groups.get(key);if(!photos.some(p=>p.url===url))photos.push({url,featured});};
+ // Manual slide entries are distinct; photos attached to a single slide record share a source.
+ for(const [i,x] of (d.slides||[]).entries()){
+  const key=x.sourceId||x.activityId||x.projectId?String(x.sourceId||x.activityId||x.projectId):String(x.title||'').trim().toLowerCase()?('activity:'+String(x.title).trim().toLowerCase()):('manual:'+String(x.id||i));
+  add(key,x.url,true);for(const ph of x.gallery||[])add(key,ph.url,true);
  }
- const from=[];
- for(const x of [...(d.projects||[]),...(d.experiences||[]),...(d.otherActivities||[])]){
-  for(const ph of x.gallery||[])if(SITE.safeURL(ph.url))from.push({url:ph.url,featured:!!ph.featured});
- }
- const preferred=from.filter(x=>x.featured);
- slides.push(...(preferred.length?preferred:from));
- const seen=new Set();
- const randomized=shuffled(slides.filter(x=>{if(seen.has(x.url))return false;seen.add(x.url);return true;}));
- // Avoid showing the same first image on successive refreshes of this tab.
- try{
-  const last=sessionStorage.getItem('asj-v15-last-slide');
-  if(last && randomized.length>1 && randomized[0].url===last){
-   const next=randomized.findIndex(x=>x.url!==last);
-   if(next>0)[randomized[0],randomized[next]]=[randomized[next],randomized[0]];
-  }
-  if(randomized.length)sessionStorage.setItem('asj-v15-last-slide',randomized[0].url);
- }catch(_e){}
- return randomized.slice(0,10);
+ const sources=[['projects',d.projects||[]],['experiences',d.experiences||[]],['otherActivities',d.otherActivities||[]]];
+ let anyFeatured=false;
+ for(const [type,items] of sources)for(const [i,x] of items.entries())for(const ph of x.gallery||[]){if(ph.featured)anyFeatured=true;const name=String(x.title||x.role||'').trim().toLowerCase();const source=name?'activity:'+name:type+':'+String(x.id||i);add(source,ph.url,!!ph.featured);}
+ // If a project provides Featured images, use only featured images from that project.
+ const chosen=shuffled([...groups.entries()].map(([source,photos])=>({source,photos:photos.filter(p=>p.featured).length?photos.filter(p=>p.featured):photos})))
+   .filter(group=>group.photos.length).map(group=>shuffled(group.photos)[0]);
+ try{const last=sessionStorage.getItem('asj-v19-last-slide');if(last&&chosen.length>1&&chosen[0].url===last){const n=chosen.findIndex(p=>p.url!==last);if(n>0)[chosen[0],chosen[n]]=[chosen[n],chosen[0]];}if(chosen.length)sessionStorage.setItem('asj-v19-last-slide',chosen[0].url);}catch(_e){}
+ return chosen.slice(0,10);
 }
+
 let slideRequest=0, sessionSlideSelection=null;
 function changeSlide(i){
  if(!activeSlides.length)return;

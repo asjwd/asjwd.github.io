@@ -1,0 +1,7 @@
+/* V19: compact partner and organization icon; no card overflow */
+.project-card .v19-partner{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:auto;padding-top:8px;color:#305b62;font-size:12px;font-weight:650;min-width:0;line-height:1.35}
+.v19-partner span{overflow-wrap:anywhere;text-align:right}
+.v19-small-logo{height:30px!important;width:30px!important;object-fit:contain!important;flex-shrink:0;border-radius:6px;background:#fff;border:1px solid #d7e5e6;padding:2px}
+.v19-detail-partner{display:flex;align-items:center;gap:8px;font-size:14px;color:#31565f}
+.v18-activity-mark img{width:29px!important;height:29px!important;max-width:29px!important;max-height:29px!important;object-fit:contain!important}
+@media(max-width:620px){.project-card .v19-partner{font-size:11px}.v19-small-logo{width:27px!important;height:27px!important}}
