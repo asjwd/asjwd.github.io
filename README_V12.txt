@@ -1,0 +1,1 @@
+V12 PUBLIC. Upload all files and academic/ folder to root repository asjwd/asjwd.github.io. Do not delete or replace site.json. Do not upload admin files. A /academic request may redirect to /academic/ on GitHub Pages.

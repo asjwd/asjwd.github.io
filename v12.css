@@ -1,0 +1,12 @@
+/* V12 branding + layout adjustments (non-destructive overrides) */
+.brand .v12-round-logo,.v12-academic-brand .v12-round-logo{display:block;width:46px;height:46px;min-width:46px;border-radius:50%;object-fit:contain;background:transparent;border:0;box-shadow:none}
+.brand .v12-brand-title,.v12-academic-brand .v12-brand-title{font-size:19px;font-weight:800;letter-spacing:-.035em;line-height:1.13;color:inherit;white-space:nowrap}
+.v12-academic-brand{display:flex;align-items:center;gap:11px}
+.topbar .brand{align-items:center;gap:11px}
+.hero-actions{display:none!important}
+.academic-hero > p,.academic-hero-chip{display:none!important}
+.contact-links,.v7-contact-links{justify-content:flex-start;align-items:flex-start;flex-wrap:wrap}
+@media(max-width:700px){.brand .v12-brand-title,.v12-academic-brand .v12-brand-title{font-size:15px}.brand .v12-round-logo,.v12-academic-brand .v12-round-logo{width:36px;height:36px;min-width:36px}.academic-nav{gap:9px}}
+@media(max-width:420px){.brand .v12-brand-title,.v12-academic-brand .v12-brand-title{font-size:13px}}
+
+@media(max-width:520px){.academic-topbar{height:auto;min-height:67px}.academic-bar{min-height:67px;flex-wrap:wrap;gap:6px;padding-top:8px;padding-bottom:8px}.academic-nav{width:100%;justify-content:space-between;gap:6px;padding:0 0 5px;font-size:11px}.academic-hero{padding-top:32px}}

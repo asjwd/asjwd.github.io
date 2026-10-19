@@ -1,6 +1,6 @@
 'use strict';
 // V2 — public, read-only site data. Editing is deliberately not included in GitHub Pages.
-const SITE_FILE = 'site.json';
+const SITE_FILE = new URL('site.json', document.currentScript?.src || location.href).href;
 const SITE = {
   async load() {
     const response = await fetch(SITE_FILE, {cache: 'no-store'});
