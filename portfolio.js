@@ -2,8 +2,8 @@
 let portfolioData=null, currentLanguage='id', activeSlides=[],slideAt=0,slideTimer=null;
 const V10_VISIBLE_STEP=5, v10Visible={experiences:5,projects:5,publications:5,tools:5};
 const TEXT={
- id:{navExperience:'Pengalaman',navProjects:'Proyek',navPubs:'Publikasi',navTools:'Tools',navContact:'Kontak',heroLabel:'PROFIL PROFESIONAL',explore:'Lihat Pengalaman',slideEmpty:'Dokumentasi kegiatan akan ditampilkan di sini.',metricRoles:'Jabatan',metricProjects:'Proyek',metricModels:'Pemodelan',metricPubs:'Publikasi',aboutLabel:'TENTANG SAYA',aboutTitle:'Tentang saya',affiliation:'Institusi',basedIn:'Lokasi',careerLabel:'PENGALAMAN',career:'Pengalaman Profesional',workLabel:'PROYEK & KAJIAN',work:'Proyek & Kajian',filterAll:'Semua proyek',filterModels:'Pemodelan',filterConsult:'Konsultansi / Kajian',researchLabel:'RISET',research:'Publikasi',softwareLabel:'PERANGKAT DIGITAL',software:'Tools',contactLabel:'KONTAK',messageTitle:'Kirim Pesan',messageIntro:'Silakan kirim pesan Anda. Saya akan merespons sesegera mungkin.',yourEmail:'Email Anda',subject:'Subjek',message:'Pesan',contactHint:'Pengiriman diproses langsung di halaman ini.', sending:'Mengirim pesan...', contactSuccess:'Pesan berhasil terkirim. Terima kasih, saya akan merespons sesegera mungkin.', contactError:'Pesan belum berhasil dikirim. Silakan coba lagi.', contactUncertain:'Konfirmasi pengiriman belum diterima. Pesan mungkin sudah terkirim; periksa kembali sebelum mengirim ulang.', contactSessionLocked:'Pesan Anda sudah terkirim. Untuk mengirim pesan baru, refresh halaman.',sendMessage:'Kirim Pesan',details:'Lihat detail',projectDetails:'Detail proyek',readPaper:'Baca artikel',download:'Unduh aplikasi',emptyExperience:'Belum ada pengalaman profesional.',emptyProject:'Belum ada proyek pada kategori ini.',emptyPublication:'Belum ada publikasi.',emptyTools:'Belum ada aplikasi.',contactNotReady:'Form Mail Me belum diaktifkan. Tambahkan URL Apps Script Contact melalui Portfolio Manager.',contribution:'Kontribusi',activities:'Kegiatan',documentation:'Dokumentasi',outputs:'Hasil dan kontribusi'},
- en:{navExperience:'Experience',navProjects:'Projects',navPubs:'Publications',navTools:'Tools',navContact:'Contact',heroLabel:'PROFESSIONAL PROFILE',explore:'Explore Experience',slideEmpty:'Project and activity documentation will appear here.',metricRoles:'Roles',metricProjects:'Projects',metricModels:'Models',metricPubs:'Publications',aboutLabel:'ABOUT',aboutTitle:'About Me',affiliation:'Affiliation',basedIn:'Location',careerLabel:'CAREER',career:'Professional Experience',workLabel:'PROJECTS & STUDIES',work:'Projects & Studies',filterAll:'All Projects',filterModels:'Modeling',filterConsult:'Consulting / Studies',researchLabel:'RESEARCH',research:'Publications',softwareLabel:'DIGITAL TOOLS',software:'Tools',contactLabel:'CONTACT',messageTitle:'Send a Message',messageIntro:'Please leave your message, and I will respond as soon as possible.',yourEmail:'Your Email',subject:'Subject',message:'Message',contactHint:'Your message will be sent without opening a new tab.', sending:'Sending message...', contactSuccess:'Your message has been sent successfully. Thank you, I will respond as soon as possible.', contactError:'Your message could not be sent. Please try again.', contactUncertain:'Confirmation was not received. Your message may have been sent; please check before trying again.', contactSessionLocked:'Your message has already been sent. Refresh this page to send another message.',sendMessage:'Send Message',details:'View Details',projectDetails:'View Project',readPaper:'Read Paper',download:'Download Application',emptyExperience:'No professional experience yet.',emptyProject:'No projects in this category.',emptyPublication:'No publications yet.',emptyTools:'No tools yet.',contactNotReady:'Mail Me is not configured yet. Add the Contact App Script URL in Portfolio Manager.',contribution:'Key Contributions',activities:'Activities & Assignments',documentation:'Documentation',outputs:'Outputs & Contributions'}
+ id:{navExperience:'Pengalaman',navProjects:'Proyek',navPubs:'Publikasi',navTools:'Tools',navContact:'Kontak',heroLabel:'PROFIL',explore:'Lihat Pengalaman',slideEmpty:'Dokumentasi kegiatan akan ditampilkan di sini.',metricRoles:'Jabatan',metricProjects:'Proyek',metricModels:'Pemodelan',metricPubs:'Publikasi',aboutLabel:'TENTANG SAYA',aboutTitle:'Tentang saya',affiliation:'Institusi',basedIn:'Lokasi',careerLabel:'PENGALAMAN',career:'Pengalaman Profesional',workLabel:'PROYEK & KAJIAN',work:'Proyek & Kajian',filterAll:'Semua proyek',filterModels:'Pemodelan',filterConsult:'Konsultansi / Kajian',researchLabel:'RISET',research:'Publikasi',softwareLabel:'PERANGKAT DIGITAL',software:'Tools',contactLabel:'KONTAK',messageTitle:'Kirim Pesan',messageIntro:'Silakan kirim pesan Anda. Saya akan merespons sesegera mungkin.',yourEmail:'Email Anda',subject:'Subjek',message:'Pesan',contactHint:'Pengiriman diproses langsung di halaman ini.', sending:'Mengirim pesan...', contactSuccess:'Pesan berhasil terkirim. Terima kasih, saya akan merespons sesegera mungkin.', contactError:'Pesan belum berhasil dikirim. Silakan coba lagi.', contactUncertain:'Konfirmasi pengiriman belum diterima. Pesan mungkin sudah terkirim; periksa kembali sebelum mengirim ulang.', contactSessionLocked:'Pesan Anda sudah terkirim. Untuk mengirim pesan baru, refresh halaman.',sendMessage:'Kirim Pesan',details:'Lihat detail',projectDetails:'Detail proyek',readPaper:'Baca artikel',download:'Unduh aplikasi',emptyExperience:'Belum ada pengalaman profesional.',emptyProject:'Belum ada proyek pada kategori ini.',emptyPublication:'Belum ada publikasi.',emptyTools:'Belum ada aplikasi.',contactNotReady:'Form Mail Me belum diaktifkan. Tambahkan URL Apps Script Contact melalui Portfolio Manager.',contribution:'Kontribusi',activities:'Kegiatan',documentation:'Dokumentasi',outputs:'Hasil dan kontribusi'},
+ en:{navExperience:'Experience',navProjects:'Projects',navPubs:'Publications',navTools:'Tools',navContact:'Contact',heroLabel:'PROFILE',explore:'Explore Experience',slideEmpty:'Project and activity documentation will appear here.',metricRoles:'Roles',metricProjects:'Projects',metricModels:'Models',metricPubs:'Publications',aboutLabel:'ABOUT',aboutTitle:'About Me',affiliation:'Affiliation',basedIn:'Location',careerLabel:'CAREER',career:'Professional Experience',workLabel:'PROJECTS & STUDIES',work:'Projects & Studies',filterAll:'All Projects',filterModels:'Modeling',filterConsult:'Consulting / Studies',researchLabel:'RESEARCH',research:'Publications',softwareLabel:'DIGITAL TOOLS',software:'Tools',contactLabel:'CONTACT',messageTitle:'Send a Message',messageIntro:'Please leave your message, and I will respond as soon as possible.',yourEmail:'Your Email',subject:'Subject',message:'Message',contactHint:'Your message will be sent without opening a new tab.', sending:'Sending message...', contactSuccess:'Your message has been sent successfully. Thank you, I will respond as soon as possible.', contactError:'Your message could not be sent. Please try again.', contactUncertain:'Confirmation was not received. Your message may have been sent; please check before trying again.', contactSessionLocked:'Your message has already been sent. Refresh this page to send another message.',sendMessage:'Send Message',details:'View Details',projectDetails:'View Project',readPaper:'Read Paper',download:'Download Application',emptyExperience:'No professional experience yet.',emptyProject:'No projects in this category.',emptyPublication:'No publications yet.',emptyTools:'No tools yet.',contactNotReady:'Mail Me is not configured yet. Add the Contact App Script URL in Portfolio Manager.',contribution:'Key Contributions',activities:'Activities & Assignments',documentation:'Documentation',outputs:'Outputs & Contributions'}
 };
 function t(k){return TEXT[currentLanguage][k]||k;}
 function tr(x,key){if(!x)return '';const en=x.en||{};return (currentLanguage==='en' && typeof en[key]==='string' && en[key].trim())?en[key]:x[key]||'';}
@@ -30,7 +30,13 @@ function v10ShowMore(kind,length){
  btn.addEventListener('click',()=>{v10Visible[kind]=expanded?5:Math.min(length,n+V10_VISIBLE_STEP);({experiences:renderExperience,projects:renderProjects,publications:renderPublications,tools:renderTools})[kind]();});
  more.appendChild(btn);holder.after(more);
 }
-function renderExperience(){const el=document.getElementById('experience-list');const all=portfolioData.experiences||[],a=all.slice(0,v10Visible.experiences);el.innerHTML=all.length?a.map((x,i)=>`<button class="experience-item" data-experience="${esc(x.id)}"><div class="experience-icon">${String(i+1).padStart(2,'0')}</div><div class="experience-main"><div class="experience-top"><h3>${esc(tr(x,'role'))}</h3><span>${esc(x.period||'')}</span></div><p>${esc(x.organization||'')}${x.location?' · '+esc(x.location):''}</p><small>${esc(tr(x,'summary'))}</small></div></button>`).join(''):`<div class="empty-card">${t('emptyExperience')}</div>`;el.querySelectorAll('[data-experience]').forEach(b=>b.addEventListener('click',()=>openExperience(b.dataset.experience)));v10ShowMore('experiences',all.length);}
+// V15: optional institution/company logos replace numbered badges.
+function experienceLogo(x){
+ const src=SITE.safeURL(x.companyIcon||x.organizationIcon||'');
+ if(src)return `<img src="${esc(src)}" alt="" loading="lazy" decoding="async">`;
+ return `<svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="14" rx="1.5"/><path d="M8 7V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3M3 13h18M10 13v2h4v-2"/></svg>`;
+}
+function renderExperience(){const el=document.getElementById('experience-list');const all=portfolioData.experiences||[],a=all.slice(0,v10Visible.experiences);el.innerHTML=all.length?a.map(x=>`<button class="experience-item" data-experience="${esc(x.id)}"><div class="experience-icon v15-company-icon">${experienceLogo(x)}</div><div class="experience-main"><div class="experience-top"><h3>${esc(tr(x,'role'))}</h3><span>${esc(x.period||'')}</span></div><p>${esc(x.organization||'')}${x.location?' · '+esc(x.location):''}</p><small>${esc(tr(x,'summary'))}</small></div></button>`).join(''):`<div class="empty-card">${t('emptyExperience')}</div>`;el.querySelectorAll('[data-experience]').forEach(b=>b.addEventListener('click',()=>openExperience(b.dataset.experience)));v10ShowMore('experiences',all.length);}
 function renderProjects(){const all=portfolioData.projects||[],list=all.slice(0,v10Visible.projects);const el=document.getElementById('project-list');el.innerHTML=all.length?list.map(x=>`<button class="project-card" data-project="${esc(x.id)}"><div class="project-cover">${SITE.safeURL(x.cover)?SITE.image(x.cover,tr(x,'title')):`<span class="project-symbol">${isModel(x)?'◎':'▧'}</span>`}<span class="project-type">${esc(tr(x,'category')||'Kajian')}</span></div><div class="project-meta">${esc(x.year||'')} ${x.model?' · '+esc(x.model):''}</div><h3>${esc(tr(x,'title'))}</h3><p>${esc(tr(x,'description'))}</p><span class="card-link">${t('projectDetails')}</span></button>`).join(''):`<div class="empty-card wide">${t('emptyProject')}</div>`;el.querySelectorAll('[data-project]').forEach(b=>b.addEventListener('click',()=>openProject(b.dataset.project)));v10ShowMore('projects',all.length);}
 // Prefer the actual publisher hostname. If a DOI resolves to doi.org, try a known
 // publisher inferred from journal/publisher metadata; an optional journalWebsite
@@ -81,7 +87,15 @@ function renderContacts(){
 function openModal(html){document.getElementById('modalContent').innerHTML=html;document.getElementById('detailModal').classList.remove('hidden');document.body.style.overflow='hidden';}
 function galleryHTML(g){return Array.isArray(g)&&g.length?`<h3 class="modal-subheading">${t('documentation')}</h3><div class="gallery">${g.filter(x=>SITE.safeURL(x.url)).map(x=>`<figure>${SITE.image(x.url,'Foto dokumentasi kegiatan')}</figure>`).join('')}</div>`:'';}
 function openExperience(id){const x=(portfolioData.experiences||[]).find(x=>x.id===id);if(!x)return;const activities=(trArray(x,'activities')||[]).map(a=>`<li><strong>${esc(a.title)}</strong>${a.date?` <span>${esc(a.date)}</span>`:''}${a.description?`<p>${esc(a.description)}</p>`:''}</li>`).join('');openModal(`<div class="modal-eyebrow">${t('career')}</div><h2 id="modalTitle">${esc(tr(x,'role'))}</h2><p class="modal-org">${esc(x.organization||'')} ${x.period?' · '+esc(x.period):''}</p><p>${esc(tr(x,'summary'))}</p>${trArray(x,'contributions').length?`<h3 class="modal-subheading">${t('contribution')}</h3><ul class="modal-list">${trArray(x,'contributions').map(v=>`<li>${esc(v)}</li>`).join('')}</ul>`:''}${activities?`<h3 class="modal-subheading">${t('activities')}</h3><ul class="activity-list">${activities}</ul>`:''}${galleryHTML(x.gallery)}`);}
-function openProject(id){const x=(portfolioData.projects||[]).find(x=>x.id===id);if(!x)return;openModal(`<div class="modal-eyebrow">${esc(tr(x,'category'))} ${x.year?' / '+esc(x.year):''}</div><h2 id="modalTitle">${esc(tr(x,'title'))}</h2><p class="modal-org">${esc(tr(x,'role'))} ${x.model?' · '+esc(x.model):''}</p>${SITE.safeURL(x.cover)?`<div class="modal-cover">${SITE.image(x.cover,tr(x,'title'))}</div>`:''}<p>${esc(tr(x,'description'))}</p>${tr(x,'outputs')?`<h3 class="modal-subheading">${t('outputs')}</h3><p>${esc(tr(x,'outputs'))}</p>`:''}${galleryHTML(x.gallery)}`);}
+function openProject(id){
+ const x=(portfolioData.projects||[]).find(x=>x.id===id);if(!x)return;
+ // Cover belongs to the documentation gallery, never repeated in the detail header.
+ const gallery=[],seen=new Set();
+ for(const photo of x.gallery||[]){if(photo&&SITE.safeURL(photo.url)&&!seen.has(photo.url)){seen.add(photo.url);gallery.push(photo);}}
+ if(SITE.safeURL(x.cover)&&!seen.has(x.cover))gallery.unshift({url:x.cover});
+ openModal(`<div class="modal-eyebrow">${esc(tr(x,'category'))} ${x.year?' / '+esc(x.year):''}</div><h2 id="modalTitle">${esc(tr(x,'title'))}</h2><p class="modal-org">${esc(tr(x,'role'))} ${x.model?' · '+esc(x.model):''}</p><p>${esc(tr(x,'description'))}</p>${tr(x,'outputs')?`<h3 class="modal-subheading">${t('outputs')}</h3><p>${esc(tr(x,'outputs'))}</p>`:''}${galleryHTML(gallery)}`);
+}
+// V15 — per-session selection: at most 10 randomized photos, loaded progressively.
 function shuffled(list){const a=list.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function collectSlides(){
  const d=portfolioData||{},slides=[];
@@ -96,13 +110,66 @@ function collectSlides(){
  const preferred=from.filter(x=>x.featured);
  slides.push(...(preferred.length?preferred:from));
  const seen=new Set();
- return shuffled(slides.filter(x=>{if(seen.has(x.url))return false;seen.add(x.url);return true;}));
+ const randomized=shuffled(slides.filter(x=>{if(seen.has(x.url))return false;seen.add(x.url);return true;}));
+ // Avoid showing the same first image on successive refreshes of this tab.
+ try{
+  const last=sessionStorage.getItem('asj-v15-last-slide');
+  if(last && randomized.length>1 && randomized[0].url===last){
+   const next=randomized.findIndex(x=>x.url!==last);
+   if(next>0)[randomized[0],randomized[next]]=[randomized[next],randomized[0]];
+  }
+  if(randomized.length)sessionStorage.setItem('asj-v15-last-slide',randomized[0].url);
+ }catch(_e){}
+ return randomized.slice(0,10);
 }
-function changeSlide(i){if(!activeSlides.length)return;slideAt=(i+activeSlides.length)%activeSlides.length;document.querySelectorAll('#heroSlideshow img').forEach((node,index)=>node.classList.toggle('active',index===slideAt));document.querySelectorAll('#slideDots button').forEach((node,index)=>node.classList.toggle('active',index===slideAt));}
-function resetSlideTimer(){clearInterval(slideTimer);if(activeSlides.length>1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches)slideTimer=setInterval(()=>changeSlide(slideAt+1),3000);}
-function renderSlides(){clearInterval(slideTimer);activeSlides=collectSlides();const el=document.getElementById('heroSlideshow'),dot=document.getElementById('slideDots');el.querySelectorAll('img').forEach(n=>n.remove());const empty=el.querySelector('.slide-empty');empty.hidden=activeSlides.length>0;
- activeSlides.forEach((s,i)=>{const im=document.createElement('img');im.src=SITE.safeURL(s.url);im.alt='Foto dokumentasi kegiatan';im.loading=i<2?'eager':'lazy';el.appendChild(im)});
- dot.innerHTML=activeSlides.map((_,i)=>`<button aria-label="Foto ${i+1}" data-slide="${i}" type="button"></button>`).join('');dot.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{changeSlide(Number(b.dataset.slide));resetSlideTimer()}));changeSlide(0);resetSlideTimer();}
+let slideRequest=0, sessionSlideSelection=null;
+function changeSlide(i){
+ if(!activeSlides.length)return;
+ const next=(i+activeSlides.length)%activeSlides.length;
+ const nodes=[...document.querySelectorAll('#heroSlideshow img')],node=nodes[next];
+ if(!node)return;
+ const thisRequest=++slideRequest;
+ const show=()=>{
+  if(thisRequest!==slideRequest)return;
+  slideAt=next;
+  nodes.forEach((image,index)=>image.classList.toggle('active',index===slideAt));
+  document.querySelectorAll('#slideDots button').forEach((b,index)=>b.classList.toggle('active',index===slideAt));
+ };
+ if(!node.getAttribute('src'))node.src=node.dataset.src;
+ if(node.complete && node.naturalWidth){show();return;}
+ // Keep the current slide visible until the selected photo has fully loaded.
+ node.addEventListener('load',show,{once:true});
+ node.addEventListener('error',()=>{
+  // A failed photo is skipped on the next timer tick; never loop requests.
+  node.dataset.failed='1';
+ },{once:true});
+}
+function resetSlideTimer(){
+ clearInterval(slideTimer);
+ if(activeSlides.length>1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  slideTimer=setInterval(()=>changeSlide(slideAt+1),5000);
+ }
+}
+function renderSlides(){
+ clearInterval(slideTimer);
+ if(!sessionSlideSelection)sessionSlideSelection=collectSlides();
+ activeSlides=sessionSlideSelection;slideAt=0;slideRequest++;
+ const el=document.getElementById('heroSlideshow'),dot=document.getElementById('slideDots');
+ el.querySelectorAll('img').forEach(n=>n.remove());
+ const empty=el.querySelector('.slide-empty');empty.hidden=activeSlides.length>0;
+ // Only the first image receives a src. Other images are not fetched until displayed.
+ activeSlides.forEach((s,i)=>{
+  const im=document.createElement('img');im.dataset.src=SITE.safeURL(s.url);
+  im.alt='Foto dokumentasi kegiatan';im.decoding='async';
+  im.loading=i===0?'eager':'lazy';
+  if(i===0){im.src=im.dataset.src;im.classList.add('active');}
+  el.appendChild(im);
+ });
+ dot.innerHTML=activeSlides.map((_,i)=>`<button aria-label="Foto ${i+1}" data-slide="${i}" type="button"></button>`).join('');
+ dot.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{changeSlide(Number(b.dataset.slide));resetSlideTimer()}));
+ if(activeSlides.length){dot.querySelector('button')?.classList.add('active');}
+ resetSlideTimer();
+}
 function closeAll(){document.querySelectorAll('.modal').forEach(m=>m.classList.add('hidden'));document.body.style.overflow='';}
 // V9: Send through a hidden iframe and wait for a signed-by-request completion message.
 // 'success' is never inferred from submitting the form or from the iframe load event.
