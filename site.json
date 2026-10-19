@@ -180,6 +180,55 @@
       "category": "Kajian",
       "description": "Saya mengkaji daya dukung dan daya tampung lingkungan di Pulau Singkep, Kepulauan Riau. Saya mengkaji flora, fauna, dan sumber air di pulau tersebut untuk mengetahui daya dukung pulau sebagai Pulau Kecil sesuai kriteria Kementerian Kelautan dan Perikanan.",
       "contributions": []
+    },
+    {
+      "gallery": [],
+      "materials": [],
+      "role": "Project Leader",
+      "year": "2026",
+      "cover": "",
+      "outputs": "",
+      "title": "Daya Dukung dan Daya Tampung Emisi Udara Kawasan Industri Intiland Ngoro",
+      "model": "",
+      "id": "v3-1792378493948-9h6h2r",
+      "features": [],
+      "contributions": [],
+      "category": "Kajian",
+      "description": "",
+      "activities": [],
+      "en": {
+        "title": "Carrying Capacity and Air Emission Capacity of the Intiland Ngoro Industrial Estate",
+        "category": "Study",
+        "role": "Project Leader"
+      }
+    },
+    {
+      "category": "Kajian",
+      "contributions": [],
+      "description": "",
+      "model": "",
+      "id": "v3-1792378343784-t5bvtl",
+      "features": [],
+      "cover": "assets/images/1L5G2DEJTH-pm1qkwHHHE7iaI23jAIolh.jpg",
+      "outputs": "",
+      "materials": [],
+      "activities": [],
+      "gallery": [
+        {
+          "featured": true,
+          "caption": "316013c4-8b89-4640-8e9f-be4a3b185ad6",
+          "url": "assets/images/1L5G2DEJTH-pm1qkwHHHE7iaI23jAIolh.jpg",
+          "captionEn": "316013c4-8b89-4640-8e9f-be4a3b185ad6"
+        }
+      ],
+      "title": "Kajian Lingkungan Hidup Strategis Kecamatan Ngoro",
+      "en": {
+        "title": "Strategic Environmental Assessment of Ngoro District",
+        "category": "Study",
+        "role": "Researcher"
+      },
+      "year": "2026",
+      "role": "Researcher"
     }
   ],
   "publications": [
