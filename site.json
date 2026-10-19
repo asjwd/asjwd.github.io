@@ -24,6 +24,14 @@
     "orcid": "https://orcid.org/0000-0001-6296-6140",
     "scholar": "https://scholar.google.com/citations?user=8SKtiBMAAAAJ&hl=en",
     "sinta": "https://sinta.kemdiktisaintek.go.id/authors/profile/6762434",
+    "socialOrder": [
+      "mail",
+      "scholar",
+      "orcid",
+      "linkedin",
+      "youtube",
+      "instagram"
+    ],
     "specialties": [
       "Environmental Assessment",
       "Air Quality Modeling",
@@ -37,21 +45,28 @@
   },
   "experiences": [
     {
-      "id": "exp-lab",
-      "role": "Kepala Laboratorium Dasar",
-      "organization": "Teknik Lingkungan, UPN 'Veteran' Jawa Timur",
-      "period": "",
-      "location": "Surabaya",
       "summary": "Rincian program laboratorium dan dokumentasi aktivitas dapat ditambahkan melalui Portfolio Editor.",
-      "contributions": [],
       "activities": [],
-      "gallery": [],
       "en": {
         "role": "Head of Basic Laboratory",
         "summary": "Laboratory program details and activity documentation can be added through the Portfolio Editor.",
         "contributions": [],
         "activities": []
-      }
+      },
+      "gallery": [
+        {
+          "featured": true,
+          "caption": "IMG_4857",
+          "url": "assets/images/10JO-y872MXEIubNMzaed0S5Dz8DNeu2d.jpg",
+          "captionEn": "IMG_4857"
+        }
+      ],
+      "contributions": [],
+      "period": "",
+      "role": "Kepala Laboratorium Dasar",
+      "id": "exp-lab",
+      "organization": "Teknik Lingkungan, UPN 'Veteran' Jawa Timur",
+      "location": "Surabaya"
     },
     {
       "en": {
