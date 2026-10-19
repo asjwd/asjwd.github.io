@@ -1,6 +1,6 @@
 'use strict';
 let portfolioData=null, currentLanguage='id', activeSlides=[],slideAt=0,slideTimer=null;
-const V10_VISIBLE_STEP=5, v10Visible={experiences:5,projects:5,publications:5,tools:5};
+const V10_VISIBLE_STEP=5, v10Visible={experiences:5,projects:6,publications:5,tools:5};
 const TEXT={
  id:{navExperience:'Pengalaman',navProjects:'Proyek',navPubs:'Publikasi',navTools:'Tools',navContact:'Kontak',heroLabel:'PROFIL',explore:'Lihat Pengalaman',slideEmpty:'Dokumentasi kegiatan akan ditampilkan di sini.',metricRoles:'Jabatan',metricProjects:'Proyek',metricModels:'Pemodelan',metricPubs:'Publikasi',aboutLabel:'TENTANG SAYA',aboutTitle:'Tentang saya',degreeBachelor:'Sarjana',degreeMaster:'Magister',degreeDoctorate:'Doktor',graduationYear:'Lulus',affiliation:'Institusi',basedIn:'Lokasi',careerLabel:'PENGALAMAN',career:'Pengalaman Profesional',workLabel:'PROYEK & KAJIAN',work:'Proyek & Kajian',filterAll:'Semua proyek',filterModels:'Pemodelan',filterConsult:'Konsultansi / Kajian',researchLabel:'RISET',research:'Publikasi',softwareLabel:'PERANGKAT DIGITAL',software:'Tools',contactLabel:'KONTAK',messageTitle:'Kirim Pesan',messageIntro:'Silakan kirim pesan Anda. Saya akan merespons sesegera mungkin.',yourEmail:'Email Anda',subject:'Subjek',message:'Pesan',contactHint:'Pengiriman diproses langsung di halaman ini.', sending:'Mengirim pesan...', contactSuccess:'Pesan berhasil terkirim. Terima kasih, saya akan merespons sesegera mungkin.', contactError:'Pesan belum berhasil dikirim. Silakan coba lagi.', contactUncertain:'Konfirmasi pengiriman belum diterima. Pesan mungkin sudah terkirim; periksa kembali sebelum mengirim ulang.', contactSessionLocked:'Pesan Anda sudah terkirim. Untuk mengirim pesan baru, refresh halaman.',sendMessage:'Kirim Pesan',details:'Lihat detail',projectDetails:'Detail proyek',readPaper:'Baca artikel',download:'Unduh aplikasi',emptyExperience:'Belum ada pengalaman profesional.',emptyProject:'Belum ada proyek pada kategori ini.',emptyPublication:'Belum ada publikasi.',emptyTools:'Belum ada aplikasi.',contactNotReady:'Form Mail Me belum diaktifkan. Tambahkan URL Apps Script Contact melalui Portfolio Manager.',contribution:'Kontribusi',activities:'Kegiatan',documentation:'Dokumentasi',outputs:'Hasil dan kontribusi'},
  en:{navExperience:'Experience',navProjects:'Projects',navPubs:'Publications',navTools:'Tools',navContact:'Contact',heroLabel:'PROFILE',explore:'Explore Experience',slideEmpty:'Project and activity documentation will appear here.',metricRoles:'Roles',metricProjects:'Projects',metricModels:'Models',metricPubs:'Publications',aboutLabel:'ABOUT',aboutTitle:'About Me',degreeBachelor:'Bachelor',degreeMaster:'Master',degreeDoctorate:'Doctorate',graduationYear:'Graduated',affiliation:'Affiliation',basedIn:'Location',careerLabel:'CAREER',career:'Professional Experience',workLabel:'PROJECTS & STUDIES',work:'Projects & Studies',filterAll:'All Projects',filterModels:'Modeling',filterConsult:'Consulting / Studies',researchLabel:'RESEARCH',research:'Publications',softwareLabel:'DIGITAL TOOLS',software:'Tools',contactLabel:'CONTACT',messageTitle:'Send a Message',messageIntro:'Please leave your message, and I will respond as soon as possible.',yourEmail:'Your Email',subject:'Subject',message:'Message',contactHint:'Your message will be sent without opening a new tab.', sending:'Sending message...', contactSuccess:'Your message has been sent successfully. Thank you, I will respond as soon as possible.', contactError:'Your message could not be sent. Please try again.', contactUncertain:'Confirmation was not received. Your message may have been sent; please check before trying again.', contactSessionLocked:'Your message has already been sent. Refresh this page to send another message.',sendMessage:'Send Message',details:'View Details',projectDetails:'View Project',readPaper:'Read Paper',download:'Download Application',emptyExperience:'No professional experience yet.',emptyProject:'No projects in this category.',emptyPublication:'No publications yet.',emptyTools:'No tools yet.',contactNotReady:'Mail Me is not configured yet. Add the Contact App Script URL in Portfolio Manager.',contribution:'Key Contributions',activities:'Activities & Assignments',documentation:'Documentation',outputs:'Outputs & Contributions'}
@@ -23,31 +23,43 @@ function renderEducation(profile){
  const root=document.getElementById('education-grid');if(!root)return;
  const education=profile.education||{};
  const degrees=[['bachelor','degreeBachelor'],['master','degreeMaster'],['doctorate','degreeDoctorate']];
- root.innerHTML=degrees.map(([key,label])=>{
-  const item=education[key]||{};
-  const campus=String(item.institution||'').trim();
-  const major=String(currentLanguage==='en'?(item.majorEn||item.major||''):(item.major||''));
-  const year=String(item.year||'').trim();
-  const icon=SITE.safeURL(item.logo||'');
-  const filled=Boolean(campus||major||year||icon);
-  return `<div class="v16-degree${filled?'':' v16-degree-empty'}">
-   <div class="v16-degree-title">${esc(t(label))}</div>
-   ${filled?`<div class="v16-degree-body">${icon?`<img class="v16-degree-logo" src="${esc(icon)}" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">`:''}
-    <div class="v16-degree-info">${campus?`<strong>${esc(campus)}</strong>`:''}${major?`<span>${esc(major)}</span>`:''}${year?`<small>${esc(t('graduationYear'))} ${esc(year)}</small>`:''}</div></div>`:''}
-  </div>`;
+ const filled=degrees.filter(([key])=>{
+   const d=education[key]||{};return !!String(d.institution||d.major||d.year||'').trim();
+ });
+ root.innerHTML=filled.map(([key,label])=>{
+  const d=education[key]||{},logo=SITE.safeURL(d.logo||'');
+  const major=currentLanguage==='en'?(d.majorEn||d.major||''):(d.major||'');
+  return `<button type="button" class="v16-degree v17-degree" data-degree="${esc(key)}" aria-label="${esc(t(label))}: ${esc(d.institution||'')}">
+    <div class="v16-degree-title">${esc(t(label))}</div><div class="v16-degree-body">${logo?`<img class="v16-degree-logo" src="${esc(logo)}" alt="" loading="lazy" decoding="async">`:''}
+    <div class="v16-degree-info"><strong>${esc(d.institution||'')}</strong><span>${esc(major)}</span>${d.year?`<small>${esc(t('graduationYear'))} ${esc(d.year)}</small>`:''}</div></div>
+  </button>`;
  }).join('');
+ root.closest('.v16-education').hidden=!filled.length;
+ root.style.gridTemplateColumns=filled.length===1?'minmax(0,1fr)':filled.length===2?'repeat(2,minmax(0,1fr))':'';
+ root.querySelectorAll('[data-degree]').forEach(el=>el.addEventListener('click',()=>openEducation(el.dataset.degree)));
 }
+function openEducation(key){
+ const d=portfolioData?.profile?.education?.[key]||{},labels={bachelor:'degreeBachelor',master:'degreeMaster',doctorate:'degreeDoctorate'};
+ const label=t(labels[key]||'degreeBachelor'),major=currentLanguage==='en'?(d.majorEn||d.major||''):(d.major||'');
+ const logo=SITE.safeURL(d.logo||'');
+ const gallery=(d.gallery||[]).filter(ph=>ph&&SITE.safeURL(ph.url));
+ openModal(`<div class="modal-eyebrow">${esc(label)}</div><h2 id="modalTitle">${esc(d.institution||label)}</h2>
+   <div class="v17-edu-heading">${logo?`<img src="${esc(logo)}" alt="" class="v17-edu-modal-logo">`:''}<div>${major?`<p>${esc(major)}</p>`:''}${d.year?`<p>${esc(t('graduationYear'))} ${esc(d.year)}</p>`:''}</div></div>
+   ${d.description?`<p>${esc(currentLanguage==='en'?(d.descriptionEn||d.description):d.description)}</p>`:''}${galleryHTML(gallery)}`);
+}
+
 function isModel(x){return /model|pemodelan|aermod|wrf|calpuff|gis/i.test([x.category,x.model,x.title].join(' '));}
 function v10ShowMore(kind,length){
  const id=kind==='experiences'?'experience-list':kind==='projects'?'project-list':kind==='publications'?'publication-list':'tools-list';
  const holder=document.getElementById(id),old=holder.nextElementSibling;
  if(old?.classList.contains('v10-more'))old.remove();
- if(length<=V10_VISIBLE_STEP)return;
- const n=v10Visible[kind]||5,expanded=n>=length,remaining=Math.max(0,length-n);
+ const step=kind==='projects'?6:V10_VISIBLE_STEP;
+ if(length<=step)return;
+ const n=v10Visible[kind]||step,expanded=n>=length,remaining=Math.max(0,length-n);
  const more=document.createElement('div');more.className='v10-more';
  const btn=document.createElement('button');btn.type='button';btn.className='btn v10-more-button';
  btn.textContent=expanded?(currentLanguage==='id'?'Tampilkan lebih sedikit':'Show less'):(currentLanguage==='id'?`Lihat lebih banyak (${remaining})`:`Show more (${remaining})`);
- btn.addEventListener('click',()=>{v10Visible[kind]=expanded?5:Math.min(length,n+V10_VISIBLE_STEP);({experiences:renderExperience,projects:renderProjects,publications:renderPublications,tools:renderTools})[kind]();});
+ btn.addEventListener('click',()=>{v10Visible[kind]=expanded?step:Math.min(length,n+step);({experiences:renderExperience,projects:renderProjects,publications:renderPublications,tools:renderTools})[kind]();});
  more.appendChild(btn);holder.after(more);
 }
 // V15: optional institution/company logos replace numbered badges.
@@ -57,12 +69,12 @@ function experienceLogo(x){
  return `<svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="14" rx="1.5"/><path d="M8 7V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3M3 13h18M10 13v2h4v-2"/></svg>`;
 }
 function renderExperience(){const el=document.getElementById('experience-list');const all=portfolioData.experiences||[],a=all.slice(0,v10Visible.experiences);el.innerHTML=all.length?a.map(x=>`<button class="experience-item" data-experience="${esc(x.id)}"><div class="experience-icon v15-company-icon">${experienceLogo(x)}</div><div class="experience-main"><div class="experience-top"><h3>${esc(tr(x,'role'))}</h3><span>${esc(x.period||'')}</span></div><p>${esc(x.organization||'')}${x.location?' · '+esc(x.location):''}</p><small>${esc(tr(x,'summary'))}</small></div></button>`).join(''):`<div class="empty-card">${t('emptyExperience')}</div>`;el.querySelectorAll('[data-experience]').forEach(b=>b.addEventListener('click',()=>openExperience(b.dataset.experience)));v10ShowMore('experiences',all.length);}
-function renderProjects(){const all=portfolioData.projects||[],list=all.slice(0,v10Visible.projects);const el=document.getElementById('project-list');el.innerHTML=all.length?list.map(x=>`<button class="project-card" data-project="${esc(x.id)}"><div class="project-cover">${SITE.safeURL(x.cover)?SITE.image(x.cover,tr(x,'title')):`<span class="project-symbol">${isModel(x)?'◎':'▧'}</span>`}<span class="project-type">${esc(tr(x,'category')||'Kajian')}</span></div><div class="project-meta">${esc(x.year||'')} ${x.model?' · '+esc(x.model):''}</div><h3>${esc(tr(x,'title'))}</h3><p>${esc(tr(x,'description'))}</p><span class="card-link">${t('projectDetails')}</span></button>`).join(''):`<div class="empty-card wide">${t('emptyProject')}</div>`;el.querySelectorAll('[data-project]').forEach(b=>b.addEventListener('click',()=>openProject(b.dataset.project)));v10ShowMore('projects',all.length);}
+function renderProjects(){const all=portfolioData.projects||[],list=all.slice(0,v10Visible.projects);const el=document.getElementById('project-list');el.innerHTML=all.length?list.map(x=>`<button class="project-card" data-project="${esc(x.id)}"><div class="project-cover">${SITE.safeURL(x.cover)?SITE.image(x.cover,tr(x,'title')):`<span class="project-symbol">${isModel(x)?'◎':'▧'}</span>`}<span class="project-type">${esc(tr(x,'category')||'Kajian')}</span></div><div class="project-meta">${esc(x.year||'')} ${x.model?' · '+esc(x.model):''}</div><h3>${esc(tr(x,'title'))}</h3><p>${esc(tr(x,'description'))}</p></button>`).join(''):`<div class="empty-card wide">${t('emptyProject')}</div>`;el.querySelectorAll('[data-project]').forEach(b=>b.addEventListener('click',()=>openProject(b.dataset.project)));v10ShowMore('projects',all.length);}
 // Prefer the actual publisher hostname. If a DOI resolves to doi.org, try a known
 // publisher inferred from journal/publisher metadata; an optional journalWebsite
 // in the Admin overrides inference. Never render an executable protocol.
 function v10JournalHost(x){
- let raw=String(x.journalWebsite||x.publisherUrl||x.url||x.doi||'').trim();
+ let raw=String(x.url||x.doi||x.publisherUrl||x.journalWebsite||'').trim();
  if(raw && !/^https?:\/\//i.test(raw) && /^10\.\d{4,9}\//.test(raw))raw='https://doi.org/'+raw;
  let host='';try{host=new URL(raw).hostname.replace(/^www\./,'').toLowerCase()}catch(_e){}
  if(!host || ['doi.org','dx.doi.org'].includes(host)){
@@ -77,13 +89,20 @@ function v10JournalHost(x){
  return /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(host)?host:'';
 }
 function v10PublicationIcon(x){
+ const manual=SITE.safeURL(x.journalIcon||'');
+ if(manual)return `<img class="v10-pub-icon" loading="lazy" src="${esc(manual)}" alt="" onerror="this.replaceWith(document.createTextNode('▤'))">`;
  const host=v10JournalHost(x),fallback='<span class="v10-pub-fallback" aria-hidden="true">▤</span>';
  if(!host)return fallback;
  const url='https://www.google.com/s2/favicons?domain='+encodeURIComponent(host)+'&sz=64';
  return `<img class="v10-pub-icon" loading="lazy" src="${esc(url)}" alt="" referrerpolicy="no-referrer" onerror="this.replaceWith(document.createTextNode('▤'))">`;
 }
 function renderPublications(){const all=portfolioData.publications||[],list=all.slice(0,v10Visible.publications),el=document.getElementById('publication-list');el.innerHTML=all.length?list.map(x=>`<article class="publication-item v10-publication"><span class="publication-index v10-journal-icon" title="${esc(v10JournalHost(x)||'Jurnal')}">${v10PublicationIcon(x)}</span><div><span class="pub-year">${esc(x.year||'')}</span><h3>${esc(tr(x,'title'))}</h3><p>${esc(x.authors||'')}</p><small>${esc(x.journal||'')}</small></div>${SITE.linkURL(x.url||x.doi)?SITE.external(x.url||x.doi,t('readPaper'),'pub-link'):''}</article>`).join(''):`<div class="empty-card">${t('emptyPublication')}</div>`;v10ShowMore('publications',all.length);}
-function renderTools(){const all=portfolioData.tools||[],list=all.slice(0,v10Visible.tools),el=document.getElementById('tools-list');el.innerHTML=all.length?list.map(x=>`<div class="tool-card"><div class="tool-icon">${esc((x.name||'A')[0])}</div><div class="tool-body"><div class="tool-header"><h3>${esc(x.name)}</h3>${x.version?`<span>Version ${esc(x.version)}</span>`:''}</div><p>${esc(tr(x,'description'))}</p><div class="tags">${trArray(x,'features').map(f=>`<span class="tag">${esc(f)}</span>`).join('')}</div></div>${SITE.linkURL(x.url)?SITE.external(x.url,t('download'),'tool-download'):''}</div>`).join(''):`<div class="empty-card">${t('emptyTools')}</div>`;v10ShowMore('tools',all.length);}
+function renderTools(){
+ const all=portfolioData.tools||[],list=all.slice(0,v10Visible.tools),el=document.getElementById('tools-list');
+ el.innerHTML=all.length?list.map(x=>`<div class="tool-card"><div class="tool-icon">${esc((x.name||'A')[0])}</div><div class="tool-body"><div class="tool-header"><h3>${esc(x.name)}</h3>${x.version?`<span>Version ${esc(x.version)}</span>`:''}</div><p>${esc(tr(x,'description'))}</p><div class="tags">${trArray(x,'features').map(f=>`<span class="tag">${esc(f)}</span>`).join('')}</div></div><button type="button" class="btn v17-request-button" data-request-tool="${esc(x.id)}" ${x.requestAvailable===false?'disabled title="Not yet available"':''}>${currentLanguage==='id'?'Minta Link Unduhan':'Request Download'}</button></div>`).join(''):`<div class="empty-card">${t('emptyTools')}</div>`;
+ el.querySelectorAll('[data-request-tool]').forEach(btn=>btn.addEventListener('click',()=>openToolRequest(btn.dataset.requestTool)));
+ v10ShowMore('tools',all.length);
+}
 const ICONS={linkedin:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0a66c2"/><path d="M5 10h3v9H5zm1.5-5a1.7 1.7 0 110 3.4 1.7 1.7 0 010-3.4zM10 10h2.8v1.3c.5-.9 1.5-1.5 2.9-1.5 3 0 3.3 2 3.3 4.5V19h-3v-4.3c0-1.1 0-2.4-1.6-2.4-1.6 0-1.8 1.2-1.8 2.4V19H10z" fill="white"/></svg>',instagram:'<svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="ig"><stop stop-color="#feda75"/><stop offset=".45" stop-color="#d62976"/><stop offset="1" stop-color="#4f5bd5"/></linearGradient></defs><rect x="0" y="0" width="24" height="24" rx="6" fill="url(#ig)"/><rect x="5" y="5" width="14" height="14" rx="4" stroke="white" stroke-width="2" fill="none"/><circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" fill="none"/><circle cx="17" cy="7" r="1.2" fill="white"/></svg>',youtube:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="m10 8 7 4-7 4z" fill="#fff"/></svg>',orcid:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#a6ce39"/><circle cx="6.8" cy="7.5" r="1.2" fill="#fff"/><path fill="#fff" d="M6 10h1.7v8H6zm4.1-4h4.2c4.2 0 6.7 2.3 6.7 6s-2.5 6-6.7 6h-4.2zm3 2.2v7.6h1.2c2.7 0 4.3-1.3 4.3-3.8s-1.6-3.8-4.3-3.8z"/></svg>'};
 function linkMarkup(label,url,icon){const safe=SITE.linkURL(url);if(!safe)return '';return `<a href="${esc(safe)}" target="_blank" rel="noopener noreferrer"><span class="brand-icon">${icon}</span><span>${esc(label)}</span></a>`;}
 function renderContacts(){
@@ -261,6 +280,42 @@ function submitContactSamePage(event){
  // Do not call preventDefault: the standard POST targets only the hidden iframe.
 }
 
+// V17 — Tool request via separate public Apps Script receiver; no download URL in page data.
+let toolRequestPending=false,toolRequestSent=new Set(),toolRequestNonce='',toolRequestTimer=null,toolCurrentId='';
+function toolMessage(text,ok){const n=document.getElementById('toolRequestFeedback');n.hidden=false;n.className='contact-result '+(ok?'success':'error');n.textContent=text;}
+function openToolRequest(id){
+ const tool=(portfolioData?.tools||[]).find(x=>x.id===id);if(!tool)return;
+ toolCurrentId=id;
+ const modal=document.getElementById('toolRequestModal'),form=document.getElementById('toolRequestForm');
+ document.getElementById('toolRequestTitle').textContent=currentLanguage==='id'?'Permintaan Aplikasi: '+tool.name:'Request Access: '+tool.name;
+ document.getElementById('toolRequestDescription').textContent=tr(tool,'description');
+ modal.classList.remove('hidden');document.body.style.overflow='hidden';
+ document.getElementById('toolRequestId').value=id;
+ document.getElementById('toolStartedAt').value=String(Date.now());
+ document.getElementById('toolRequestFeedback').hidden=true;
+ const wasSent=toolRequestSent.has(id);
+ form.hidden=wasSent;document.getElementById('toolRequestSubmit').disabled=wasSent||toolRequestPending;
+ if(wasSent)toolMessage(currentLanguage==='id'?'Permintaan sudah dikirim. Silakan tunggu balasan melalui email.':'Request received. Please check your email for a response.',true);
+}
+function submitToolRequest(event){
+ const form=event.target;
+ if(toolRequestPending||toolRequestSent.has(toolCurrentId)){event.preventDefault();return;}
+ const url=SITE.linkURL(portfolioData?.profile?.contactFormUrl||'');
+ if(!url){event.preventDefault();toolMessage('Layanan permintaan belum tersedia. Silakan coba lagi nanti.',false);return;}
+ form.action=url;toolRequestNonce=newContactRequestId();document.getElementById('toolRequestNonce').value=toolRequestNonce;
+ toolRequestPending=true;document.getElementById('toolRequestSubmit').disabled=true;
+ toolRequestTimer=setTimeout(()=>{if(!toolRequestPending)return;toolRequestPending=false;toolMessage('Konfirmasi server belum diterima. Jangan mengirim permintaan kedua sebelum memastikan email masuk.',false);},25000);
+}
+window.addEventListener('message',function(event){
+ const d=event.data;if(!toolRequestPending||!d||d.type!=='ASJ_TOOL_RESULT_V17'||d.requestId!==toolRequestNonce)return;
+ const origin=String(event.origin||'');
+ if(!(origin==='null'||/^https:\/\/(?:[a-z0-9-]+\.)*(?:googleusercontent\.com|google\.com)$/.test(origin)))return;
+ clearTimeout(toolRequestTimer);toolRequestPending=false;
+ if(d.ok){toolRequestSent.add(toolCurrentId);document.getElementById('toolRequestForm').hidden=true;toolMessage(currentLanguage==='id'?'Permintaan berhasil dikirim. Link akan dikirim setelah ditinjau.':'Request sent. A download link may be provided after review.',true);}
+ else {document.getElementById('toolRequestSubmit').disabled=false;toolMessage(d.message||'Permintaan belum terkirim.',false);}
+});
+document.querySelectorAll('[data-tool-close]').forEach(n=>n.addEventListener('click',()=>{document.getElementById('toolRequestModal').classList.add('hidden');document.body.style.overflow='';}));
+document.getElementById('toolRequestForm').addEventListener('submit',submitToolRequest);
 document.querySelectorAll('[data-close],[data-contact-close]').forEach(n=>n.addEventListener('click',closeAll));document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
 document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>{currentLanguage=b.dataset.lang;try{localStorage.setItem('portfolioLangV7',currentLanguage)}catch(e){};if(portfolioData)renderPortfolio(portfolioData)}));
 try{if(localStorage.getItem('portfolioLangV7')==='en')currentLanguage='en';}catch(e){}

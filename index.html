@@ -3,7 +3,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#112b3b"><meta name="description" content="Portofolio profesional dosen, peneliti, dan konsultan lingkungan.">
 <link rel="icon" type="image/png" href="asj-square.png?v=13"><link rel="icon" href="favicon.ico?v=13" sizes="any">
-<title>Professional Portfolio</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v7.css"><link rel="stylesheet" href="v9.css"><link rel="stylesheet" href="v10.css?v=13"><link rel="stylesheet" href="v12.css?v=13"><link rel="stylesheet" href="v13.css?v=13"><link rel="stylesheet" href="v14.css?v=14"><link rel="stylesheet" href="v15.css?v=15"><link rel="stylesheet" href="v16.css?v=16"></head>
+<title>Professional Portfolio</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v7.css"><link rel="stylesheet" href="v9.css"><link rel="stylesheet" href="v10.css?v=13"><link rel="stylesheet" href="v12.css?v=13"><link rel="stylesheet" href="v13.css?v=13"><link rel="stylesheet" href="v14.css?v=14"><link rel="stylesheet" href="v15.css?v=15"><link rel="stylesheet" href="v16.css?v=16"><link rel="stylesheet" href="v17.css?v=17"></head>
 <body data-page="portfolio">
 <header class="topbar"><div class="shell topbar-inner">
 <a class="brand" href="index.html"><img class="nav-favicon v12-round-logo" src="asj-round.png?v=13" alt="asj"><span class="v12-brand-title">My Portfolio</span></a>
@@ -20,11 +20,30 @@
 <section id="tools" class="content-section"><div class="section-heading"><div><span class="section-label" data-i18n="softwareLabel">PERANGKAT DIGITAL</span><h2 data-i18n="software">Tools</h2></div></div><div id="tools-list" class="tool-grid"></div></section>
 <section id="contact" class="content-section contact-section"><div><span class="section-label" data-i18n="contactLabel">KONTAK</span><h2>Let's Connect</h2></div><div id="contact-links" class="contact-links v7-contact-links"></div></section>
 </section></main>
-<footer class="site-footer"><div class="shell footer-inner"><span>© 2026 as.jawwad<span id="year" hidden></span></span><a href="academic">Academic Portal</a></div></footer>
+<footer class="site-footer"><div class="shell footer-inner"><span>© 2026 as.jawwad<span id="year" hidden></span></span></div></footer>
 <div id="detailModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-backdrop" data-close></div><div class="modal-card"><button type="button" class="modal-close" data-close aria-label="Tutup">×</button><div id="modalContent"></div></div></div>
 <div id="contactModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle"><div class="modal-backdrop" data-contact-close></div><div class="modal-card contact-modal-card"><button class="modal-close" data-contact-close type="button" aria-label="Tutup">×</button><h2 id="contactModalTitle" data-i18n="messageTitle">Kirim Pesan</h2><p class="contact-intro" data-i18n="messageIntro">Silakan kirim pesan Anda. Saya akan merespons sesegera mungkin.</p><div id="contactNotReady" class="contact-not-ready" hidden>Form belum terhubung. Tambahkan URL Apps Script Contact pada Portfolio Manager.</div>
 <div id="contactResult" class="contact-result" role="status" aria-live="polite" hidden></div>
 <form id="contactForm" target="portfolioContactSubmit" method="post" accept-charset="UTF-8"><label for="senderMail" data-i18n="yourEmail">Email Anda</label><input id="senderMail" name="sender" type="email" autocomplete="email" required maxlength="254" placeholder="nama@example.com"><label for="subjectMail" data-i18n="subject">Subjek</label><input id="subjectMail" name="subject" required minlength="4" maxlength="160"><label for="bodyMail" data-i18n="message">Pesan</label><textarea id="bodyMail" name="message" required minlength="15" maxlength="5000" rows="6"></textarea><div class="honeypot" aria-hidden="true"><label>Company<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div><input name="startedAt" id="contactStartedAt" type="hidden"><input name="requestId" id="contactRequestId" type="hidden"><div class="contact-info" id="contactHint" data-i18n="contactHint">Pengiriman diproses langsung di halaman ini.</div><button id="submitContact" class="btn btn-primary" type="submit" data-i18n="sendMessage">Kirim Pesan</button></form>
 </div></div>
+<div id="toolRequestModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="toolRequestTitle">
+  <div class="modal-backdrop" data-tool-close></div>
+  <div class="modal-card contact-modal-card">
+    <button class="modal-close" type="button" data-tool-close aria-label="Tutup">×</button>
+    <h2 id="toolRequestTitle">Request Download</h2>
+    <p id="toolRequestDescription" class="contact-intro"></p>
+    <div id="toolRequestFeedback" class="contact-result" role="status" aria-live="polite" hidden></div>
+    <form id="toolRequestForm" method="post" target="portfolioContactSubmit">
+      <label for="toolRequesterName">Full Name</label><input id="toolRequesterName" name="fullName" required minlength="2" maxlength="100" autocomplete="name">
+      <label for="toolRequesterRole">Position / Role</label><input id="toolRequesterRole" name="role" required maxlength="100">
+      <label for="toolRequesterOrg">Institution / Organization</label><input id="toolRequesterOrg" name="institution" required maxlength="150">
+      <label for="toolRequesterEmail">Email Address</label><input id="toolRequesterEmail" name="email" type="email" required maxlength="254" autocomplete="email">
+      <input type="hidden" name="action" value="tool_request"><input type="hidden" name="toolId" id="toolRequestId">
+      <input type="hidden" name="requestId" id="toolRequestNonce"><input type="hidden" name="startedAt" id="toolStartedAt">
+      <div class="honeypot" aria-hidden="true"><label>Company<input name="company" autocomplete="off" tabindex="-1"></label></div>
+      <button id="toolRequestSubmit" class="btn btn-primary" type="submit">Submit Request</button>
+    </form>
+  </div>
+</div>
 <iframe id="contactSubmissionFrame" name="portfolioContactSubmit" title="Konfirmasi pengiriman pesan" tabindex="-1" class="contact-submit-frame" aria-hidden="true"></iframe>
-<script src="common.js?v=16"></script><script src="portfolio.js?v=16"></script></body></html>
+<script src="common.js?v=16"></script><script src="portfolio.js?v=17"></script></body></html>
