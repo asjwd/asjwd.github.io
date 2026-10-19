@@ -178,33 +178,39 @@
   ],
   "projects": [
     {
-      "outputs": "",
       "title": "Kajian Daya Dukung dan Daya Tampung Lingkungan Pulau Singkep, Kepulauan Riau",
-      "features": [],
       "model": "",
-      "cover": "assets/images/1OWXkpCXdXhtwWRvkwxCDkSMf1PnqNS3d.webp",
+      "features": [],
+      "outputs": "",
+      "materials": [],
       "role": "Researcher",
+      "id": "v3-1792342124524-pbh8vw",
       "en": {
         "title": "Study of the Environmental Carrying Capacity and Intake Capacity of Singkep Island, Riau Islands",
         "category": "Study",
         "role": "Researcher",
         "description": "I studied the environmental carrying capacity and capacity of Singkep Island, Riau Islands. I examined the island's flora, fauna, and water resources to determine its carrying capacity as a Small Island, as determined by the Ministry of Maritime Affairs and Fisheries."
       },
+      "category": "Kajian",
+      "contributions": [],
       "activities": [],
       "year": "2024",
       "gallery": [
         {
+          "caption": "WhatsApp Image 2026-10-19 at 08.31.34",
           "url": "assets/images/1OWXkpCXdXhtwWRvkwxCDkSMf1PnqNS3d.webp",
           "featured": true,
-          "caption": "WhatsApp Image 2026-10-19 at 08.31.34",
           "captionEn": "WhatsApp Image 2026-10-19 at 08.31.34"
+        },
+        {
+          "url": "assets/images/1chU7LgAeNOHkukWFjvfMJ99a69dX4foc.jpg",
+          "featured": true,
+          "caption": "IMG_4875",
+          "captionEn": "IMG_4875"
         }
       ],
-      "materials": [],
-      "id": "v3-1792342124524-pbh8vw",
-      "category": "Kajian",
-      "description": "Saya mengkaji daya dukung dan daya tampung lingkungan di Pulau Singkep, Kepulauan Riau. Saya mengkaji flora, fauna, dan sumber air di pulau tersebut untuk mengetahui daya dukung pulau sebagai Pulau Kecil sesuai kriteria Kementerian Kelautan dan Perikanan.",
-      "contributions": []
+      "cover": "assets/images/1OWXkpCXdXhtwWRvkwxCDkSMf1PnqNS3d.webp",
+      "description": "Saya mengkaji daya dukung dan daya tampung lingkungan di Pulau Singkep, Kepulauan Riau. Saya mengkaji flora, fauna, dan sumber air di pulau tersebut untuk mengetahui daya dukung pulau sebagai Pulau Kecil sesuai kriteria Kementerian Kelautan dan Perikanan."
     },
     {
       "gallery": [],
@@ -356,13 +362,6 @@
     }
   ],
   "portalLinks": [
-    {
-      "id": "p-course",
-      "title": "Courses",
-      "description": "Sistem aktivitas dan tugas perkuliahan",
-      "icon": "book",
-      "url": ""
-    },
     {
       "id": "p-capstone",
       "title": "Bimbingan Capstone",
