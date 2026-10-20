@@ -1,30 +1,71 @@
-'use strict';
-let academicData;
-const V10_AC_LIMIT=5, acVisible={courses:5,services:5,grades:5}, acMaterialsVisible={};
-const $$=x=>SITE.escape(x);
-function renderAcademic(data){academicData=data;document.getElementById('year').textContent=new Date().getFullYear();const list=document.getElementById('courses-list');const courses=data.courses||[];list.innerHTML=courses.length?courses.slice(0,acVisible.courses).map((c,i)=>`<article class="course-card"><div class="course-head"><div class="course-no">${String(i+1).padStart(2,'0')}</div><div class="course-head-main"><div class="course-period">${$$(c.period||'')}</div><h3>${$$(c.title)}</h3><p>${$$(c.description||'')}</p></div><span class="course-count">${(c.materials||[]).length} materi</span></div><div class="material-list">${(c.materials||[]).length?c.materials.slice(0,acMaterialsVisible[c.id]||5).map((m,j)=>`<div class="material"><div class="material-index">${String(j+1).padStart(2,'0')}</div><span>${$$(m.title)}</span><button class="material-button" data-material="${$$(c.id)}:${j}">Buka</button></div>`).join(''):'<div class="course-empty">Belum ada materi. Tambahkan tautan PDF/Google Drive melalui Portfolio Editor.</div>'}${(c.materials||[]).length>5?`<div class="v10-ac-more"><button type="button" class="v10-ac-btn" data-material-more="${$$(c.id)}">${(acMaterialsVisible[c.id]||5)>=(c.materials||[]).length?'Tampilkan lebih sedikit':'Lihat lebih banyak'}</button></div>`:''}</div></article>`).join(''):'<div class="empty-card">Belum ada mata kuliah.</div>';
- list.querySelectorAll('[data-material]').forEach(btn=>btn.addEventListener('click',()=>{let [id,number]=btn.dataset.material.split(':');const course=courses.find(x=>x.id===id), m=course?.materials?.[Number(number)];if(m)openPDF(m)}));
- const icons=['✦','◇','◎','▣','↗'];document.getElementById('portal-links').innerHTML=(data.portalLinks||[]).slice(0,acVisible.services).map((p,i)=>`<article class="service-card"><div class="service-icon">${icons[i%icons.length]}</div><h3>${$$(p.title)}</h3><p>${$$(p.description||'')}</p>${SITE.linkURL(p.url)?`<a class="service-link" href="${$$(SITE.linkURL(p.url))}" target="_blank" rel="noopener noreferrer">Buka sistem</a>`:'<span class="service-unavailable">Tautan belum dikonfigurasi</span>'}</article>`).join('');
- v10AcadMore('courses',courses.length,document.getElementById('courses-list'));v10AcadMore('services',(data.portalLinks||[]).length,document.getElementById('portal-links'));
- document.querySelectorAll('[data-material-more]').forEach(b=>b.addEventListener('click',()=>{const id=b.dataset.materialMore,course=(academicData.courses||[]).find(x=>x.id===id);if(!course)return;acMaterialsVisible[id]=(acMaterialsVisible[id]||5)>=course.materials.length?5:Math.min(course.materials.length,(acMaterialsVisible[id]||5)+5);renderAcademic(academicData)}));
- const boards=data.gradeBoards||[], select=document.getElementById('gradeBoardSelect');select.innerHTML=boards.length?boards.map(b=>`<option value="${$$(b.id)}">${$$(b.course)} · ${$$(b.className)} · ${$$(b.period)}</option>`).join(''):'<option value="">Belum ada pengumuman nilai</option>';select.disabled=!boards.length;select.addEventListener('change',renderGrades);renderGrades();
+"use strict";
+// V21: search is a local UI placeholder only. No name/NPM is sent or persisted.
+let academicData=null, acLanguage='id';
+const acVisible={grades:5};
+const AC_TEXT={
+ id:{navGrades:'Pengumuman Nilai',eyebrow:'PORTAL MAHASISWA',searchLabel:'AKSES MAHASISWA',searchHeading:'Cari akses mahasiswa',searchButton:'Cari',searchPlaceholder:'Masukkan nama atau NPM',searchAria:'Nama atau NPM',searchNote:'Pencarian akses mahasiswa akan tersedia pada tahap berikutnya.',searchResponse:'Sistem masih dalam pengembangan. Silakan kembali lagi nanti.',gradesLabel:'NILAI',gradesHeading:'Pengumuman Nilai',selectBoard:'Pilih pengumuman nilai',privacyNote:'Perhatian: nilai ini bersifat publik. Identitas yang disamarkan sebagian masih mungkin dikenali dalam kelas kecil.',noBoards:'Belum ada pengumuman nilai',noGrades:'Belum ada nilai yang dipublikasikan.',highest:'Diurutkan dari nilai tertinggi',students:'mahasiswa',rank:'Peringkat',npm:'NPM (disamarkan)',firstName:'Nama depan',score:'Nilai',grade:'Grade',showMore:'Lihat lebih banyak',showLess:'Tampilkan lebih sedikit'},
+ en:{navGrades:'Grade Announcements',eyebrow:'STUDENT PORTAL',searchLabel:'STUDENT ACCESS',searchHeading:'Student access search',searchButton:'Search',searchPlaceholder:'Enter name or student ID (NPM)',searchAria:'Name or student ID (NPM)',searchNote:'Student access search will be available in a future update.',searchResponse:'This system is currently under development. Please check back later.',gradesLabel:'GRADES',gradesHeading:'Grade Announcements',selectBoard:'Select a grade announcement',privacyNote:'Note: these grades are public. Partially masked identities may still be recognizable in small classes.',noBoards:'No grade announcements yet',noGrades:'No grades have been published.',highest:'Sorted by highest score',students:'students',rank:'Rank',npm:'NPM (masked)',firstName:'First name',score:'Score',grade:'Grade',showMore:'Show more',showLess:'Show less'}
+};
+function acT(key){return AC_TEXT[acLanguage][key]||key;}
+function acEsc(value){return SITE.escape(value);}
+function acLoadLang(){try{const saved=localStorage.getItem('portfolioLangV7');if(saved==='en'||saved==='id')acLanguage=saved;}catch(_){}}
+function acSetLang(lang){
+ if(lang!=='id'&&lang!=='en')return;
+ acLanguage=lang;
+ document.documentElement.lang=lang;
+ document.querySelectorAll('[data-ac-i18n]').forEach(n=>n.textContent=acT(n.dataset.acI18n));
+ document.querySelectorAll('[data-ac-lang]').forEach(b=>{b.classList.toggle('active',b.dataset.acLang===lang);b.setAttribute('aria-pressed',String(b.dataset.acLang===lang));});
+ const input=document.getElementById('studentQuery');input.placeholder=acT('searchPlaceholder');input.setAttribute('aria-label',acT('searchAria'));
+ const response=document.getElementById('studentSearchResponse');if(!response.hidden)response.textContent=acT('searchResponse');
+ try{localStorage.setItem('portfolioLangV7',lang);}catch(_){}
+ document.title='My Academic Portal';
+ if(academicData)acRenderGrades();
 }
-function renderGrades(){const id=document.getElementById('gradeBoardSelect').value;const board=(academicData?.gradeBoards||[]).find(x=>x.id===id),el=document.getElementById('grade-table');if(!board){el.innerHTML='<div class="empty-card">Belum ada nilai yang dipublikasikan.</div>';return;}let rows=[...(board.rows||[])].sort((a,b)=>Number(b.score)-Number(a.score));let previous=null,rank=0;rows=rows.map((x,i)=>{const s=Number(x.score);if(previous===null||s!==previous)rank=i+1;previous=s;return {...x,rank}});el.innerHTML=`<div class="grade-summary"><div><strong>${SITE.escape(board.course)}</strong><span>${SITE.escape(board.className)} · ${SITE.escape(board.period)} · ${rows.length} mahasiswa</span></div><span>Nilai tertinggi dahulu</span></div><div class="table-scroll"><table class="grades-table"><thead><tr><th>Rank</th><th>NPM (masked)</th><th>Nama depan</th><th>Nilai</th><th>Grade</th></tr></thead><tbody>${rows.slice(0,acVisible.grades).map(x=>`<tr><td>${x.rank}</td><td class="mono">${SITE.escape(x.npm)}</td><td>${SITE.escape(x.name)}</td><td><strong>${SITE.escape(x.score)}</strong></td><td><span class="grade-pill">${SITE.escape(x.grade)}</span></td></tr>`).join('')}</tbody></table></div>`;v10AcadMore('grades',rows.length,el);}
-function v10AcadMore(kind,total,holder){
- const old=holder.nextElementSibling;
- if(old?.classList?.contains('v10-ac-more'))old.remove();
- if(total<=V10_AC_LIMIT)return;
- const expanded=acVisible[kind]>=total;
+function acSearch(e){
+ e.preventDefault();
+ const input=document.getElementById('studentQuery');
+ if(!input.value.trim()){input.focus();return;}
+ const response=document.getElementById('studentSearchResponse');response.hidden=false;
+ response.textContent=acT('searchResponse');
+ // Deliberately no network request, logging, storage, or authorization.
+}
+function acRender(data){
+ academicData=data;
+ const select=document.getElementById('gradeBoardSelect');
+ const old=select.value;
+ const boards=Array.isArray(data.gradeBoards)?data.gradeBoards:[];
+ select.innerHTML=boards.length?boards.map(b=>`<option value="${acEsc(b.id)}">${acEsc(b.course||'')} · ${acEsc(b.className||'')} · ${acEsc(b.period||'')}</option>`).join(''):`<option value="">${acEsc(acT('noBoards'))}</option>`;
+ if(boards.some(b=>String(b.id)===old))select.value=old;
+ select.disabled=!boards.length;
+ acRenderGrades();
+}
+function acRenderGrades(){
+ const boards=academicData?.gradeBoards||[];
+ const select=document.getElementById('gradeBoardSelect');
+ if(!boards.length)select.innerHTML=`<option value="">${acEsc(acT('noBoards'))}</option>`;
+ const board=boards.find(x=>String(x.id)===select.value);
+ const el=document.getElementById('grade-table');
+ const oldMore=el.nextElementSibling;
+ if(oldMore?.classList?.contains('v10-ac-more'))oldMore.remove();
+ if(!board){el.innerHTML=`<div class="empty-card">${acEsc(acT('noGrades'))}</div>`;return;}
+ let rows=Array.isArray(board.rows)?[...board.rows]:[];
+ rows.sort((a,b)=>(Number(b.score)||0)-(Number(a.score)||0));
+ let prior=null,rank=0;
+ rows=rows.map((x,i)=>{const s=Number(x.score)||0;if(prior===null||s!==prior)rank=i+1;prior=s;return {...x,rank};});
+ el.innerHTML=`<div class="grade-summary"><div><strong>${acEsc(board.course||'')}</strong><span>${acEsc(board.className||'')} · ${acEsc(board.period||'')} · ${rows.length} ${acEsc(acT('students'))}</span></div><span>${acEsc(acT('highest'))}</span></div><div class="table-scroll"><table class="grades-table"><thead><tr><th>${acEsc(acT('rank'))}</th><th>${acEsc(acT('npm'))}</th><th>${acEsc(acT('firstName'))}</th><th>${acEsc(acT('score'))}</th><th>${acEsc(acT('grade'))}</th></tr></thead><tbody>${rows.slice(0,acVisible.grades).map(x=>`<tr><td>${x.rank}</td><td class="mono">${acEsc(x.npm)}</td><td>${acEsc(x.name)}</td><td><strong>${acEsc(x.score)}</strong></td><td><span class="grade-pill">${acEsc(x.grade)}</span></td></tr>`).join('')}</tbody></table></div>`;
+ if(rows.length<=5)return;
  const wrap=document.createElement('div');wrap.className='v10-ac-more';
- const b=document.createElement('button');b.type='button';b.className='v10-ac-btn';
- b.textContent=expanded?'Tampilkan lebih sedikit':`Lihat lebih banyak (${total-acVisible[kind]})`;
- b.addEventListener('click',()=>{
-  acVisible[kind]=expanded?5:Math.min(total,acVisible[kind]+5);
-  if(kind==='grades')renderGrades();else renderAcademic(academicData);
- });
- wrap.appendChild(b);holder.after(wrap);
+ const button=document.createElement('button');button.type='button';button.className='v10-ac-btn';
+ const expanded=acVisible.grades>=rows.length;
+ button.textContent=expanded?acT('showLess'):`${acT('showMore')} (${rows.length-acVisible.grades})`;
+ button.addEventListener('click',()=>{acVisible.grades=expanded?5:Math.min(rows.length,acVisible.grades+5);acRenderGrades();});
+ wrap.appendChild(button);el.after(wrap);
 }
-function openPDF(m){const url=SITE.drivePreview(m.url);if(!url){return;}const isPDF=/\.pdf([?#]|$)/i.test(url)||/drive\.google\.com\/file\/d\//.test(url);if(!isPDF){window.open(SITE.linkURL(m.url),'_blank','noopener,noreferrer');return;}const modal=document.getElementById('pdfModal');document.getElementById('pdfTitle').textContent=m.title;document.getElementById('pdfFrame').src=url;document.getElementById('pdfExternal').href=SITE.linkURL(m.url);modal.classList.remove('hidden');document.body.style.overflow='hidden';}
-function closePDF(){document.getElementById('pdfFrame').src='about:blank';document.getElementById('pdfModal').classList.add('hidden');document.body.style.overflow='';}
-document.querySelectorAll('[data-pdf-close]').forEach(n=>n.addEventListener('click',closePDF));document.addEventListener('keydown',e=>{if(e.key==='Escape')closePDF()});
-SITE.load().then(renderAcademic).catch(e=>{document.querySelector('.academic-main').innerHTML=`<div class="empty-card">Tidak dapat memuat site.json: ${SITE.escape(e.message)}</div>`});
+acLoadLang();
+acSetLang(acLanguage);
+document.getElementById('studentSearchForm').addEventListener('submit',acSearch);
+document.querySelectorAll('[data-ac-lang]').forEach(b=>b.addEventListener('click',()=>acSetLang(b.dataset.acLang)));
+document.getElementById('gradeBoardSelect').addEventListener('change',()=>{acVisible.grades=5;acRenderGrades();});
+SITE.load().then(acRender).catch(e=>{
+ document.getElementById('grade-table').innerHTML=`<div class="empty-card">${acEsc(acLanguage==='id'?'Tidak dapat memuat data pengumuman nilai.':'Unable to load grade announcements.')}</div>`;
+});

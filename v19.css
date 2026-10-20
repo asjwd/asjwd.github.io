@@ -55,3 +55,64 @@
   .v13-facts .v16-degree-info span{font-size:9.5px}
   .project-card .v19-partner{margin-left:15px;margin-right:15px}
 }
+
+/* V21: compact project partner badge on cover; never create a second partner row. */
+.project-cover>.v21-partner-badge{
+  position:absolute;z-index:3;left:12px;bottom:12px;
+  display:inline-flex;align-items:center;gap:7px;
+  max-width:calc(100% - 24px);min-height:30px;
+  padding:5px 9px;background:#fff;color:#24535b;
+  border:1px solid rgba(215,229,230,.85);
+  border-radius:8px;box-shadow:0 2px 10px rgba(17,43,59,.12);
+  text-align:left;font-weight:700;font-size:11px;line-height:1.3;
+  pointer-events:none;
+}
+.project-cover>.v21-partner-badge .v21-partner-logo{
+  width:25px!important;height:25px!important;flex:0 0 25px;
+  padding:1px;border:0;border-radius:3px;background:#fff;
+  object-fit:contain!important;
+}
+.project-cover>.v21-partner-badge .v21-partner-name{
+  min-width:0;white-space:normal;overflow-wrap:anywhere;text-align:left;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+/* V21: Academic Portal. Existing grade table styles remain in styles.css. */
+.v21-ac-topbar .academic-bar{gap:20px}
+.v21-ac-top-actions{display:flex;align-items:center;gap:14px;margin-left:auto}
+.v21-ac-top-actions .lang-switch{display:flex;align-items:center;gap:3px;background:#f0f5f6;border:1px solid #d4e2e5;border-radius:10px;padding:4px}
+.v21-ac-top-actions .lang-switch button{border:0;border-radius:7px;padding:7px 11px;font-size:12px;font-weight:750;color:#607984;background:transparent;cursor:pointer}
+.v21-ac-top-actions .lang-switch button.active{color:#fff;background:#173f4b}
+.v21-ac-top-actions .lang-switch button:focus-visible{outline:2px solid #3caca6;outline-offset:2px}
+.v21-ac-nav{font-size:12px;font-weight:700;color:#466771;white-space:nowrap}
+.v21-ac-main{max-width:1100px}
+.v21-ac-hero{padding:48px 0 20px}
+.v21-ac-hero h1{margin:12px 0 0}
+.v21-ac-search{padding-top:20px!important}
+.v21-ac-search-card{background:#fff;border:1px solid #e0e8e9;border-radius:14px;padding:27px;margin-top:14px}
+.v21-ac-search-card label{display:block;font-size:12px;color:#345965;font-weight:750;margin-bottom:10px}
+.v21-ac-search-form{display:flex;align-items:stretch;gap:10px}
+.v21-ac-search-form input{flex:1;min-width:0;border:1px solid #ccdcdf;border-radius:8px;padding:12px 15px;font-size:14px;color:#173343;background:#fff;outline-offset:2px}
+.v21-ac-search-form button{border:0;border-radius:8px;background:#176b67;color:white;padding:10px 22px;font-weight:750;font-size:13px;white-space:nowrap;cursor:pointer}
+.v21-ac-search-form button:hover{background:#135e5a}
+.v21-ac-search-form button:focus-visible{outline:2px solid #3b9e97;outline-offset:3px}
+.v21-ac-search-response{margin-top:15px;padding:13px 16px;border:1px solid #bfdad7;background:#f1f8f7;color:#275b60;border-radius:8px;font-size:13px;line-height:1.6}
+.v21-ac-search-response[hidden]{display:none!important}
+.v21-ac-search-note{color:#82949b;font-size:11px;margin-top:10px}
+.v21-ac-grades{padding-top:35px!important}
+.v21-ac-grades .section-heading{margin-bottom:14px}
+.v21-ac-grades .section-heading>div{width:100%}
+.v21-ac-grades .grade-picker{margin-bottom:16px}
+.v21-ac-footer .footer-inner{justify-content:flex-end}
+@media (max-width:620px){
+ .v21-ac-topbar .academic-bar{flex-wrap:nowrap;gap:10px;padding-top:8px;padding-bottom:8px}
+ .v21-ac-topbar .v12-academic-brand .v12-brand-title{font-size:12px;line-height:1.2}
+ .v21-ac-top-actions{gap:8px}
+ .v21-ac-nav{display:none}
+ .v21-ac-top-actions .lang-switch button{padding:7px 9px;font-size:11px}
+ .v21-ac-search-card{padding:18px}
+ .v21-ac-search-form{flex-direction:column}
+ .v21-ac-search-form button{width:100%;padding:11px 15px}
+ .v21-ac-hero{padding:27px 0 14px}
+ .v21-ac-search{padding-top:16px!important}
+ .v21-ac-grades{padding-top:30px!important}
+}
