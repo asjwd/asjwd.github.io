@@ -76,35 +76,34 @@
   },
   "experiences": [
     {
-      "role": "Kepala Laboratorium Dasar",
       "endMonth": "",
-      "contributions": [],
-      "id": "exp-lab",
-      "startMonth": "09",
-      "location": "Surabaya",
       "activities": [],
-      "companyWebsite": "https://teklingk.upnjatim.ac.id/",
-      "period": "September 2026 – Now",
+      "startYear": "2026",
       "en": {
         "role": "Head of Basic Laboratory",
-        "summary": "Laboratory program details and activity documentation can be added through the Portfolio Editor.",
         "contributions": [],
         "activities": []
       },
-      "startYear": "2026",
       "gallery": [
         {
-          "url": "assets/images/10JO-y872MXEIubNMzaed0S5Dz8DNeu2d.jpg",
-          "featured": true,
           "caption": "IMG_4857",
+          "featured": true,
+          "url": "assets/images/10JO-y872MXEIubNMzaed0S5Dz8DNeu2d.jpg",
           "captionEn": "IMG_4857"
         }
       ],
-      "companyIcon": "https://www.google.com/s2/favicons?domain=teklingk.upnjatim.ac.id&sz=64",
-      "summary": "Rincian program laboratorium dan dokumentasi aktivitas dapat ditambahkan melalui Portfolio Editor.",
       "currentlyActive": true,
+      "role": "Kepala Laboratorium Dasar",
+      "startMonth": "09",
+      "companyWebsite": "https://teklingk.upnjatim.ac.id/",
+      "endYear": "",
       "organization": "Teknik Lingkungan, UPN 'Veteran' Jawa Timur",
-      "endYear": ""
+      "location": "Surabaya",
+      "contributions": [],
+      "period": "September 2026 – Now",
+      "summary": "",
+      "id": "exp-lab",
+      "companyIcon": "https://www.google.com/s2/favicons?domain=teklingk.upnjatim.ac.id&sz=64"
     },
     {
       "activities": [],
@@ -325,24 +324,33 @@
       "role": "Project Leader"
     },
     {
+      "period": "Juli 2026 – Now",
+      "model": "",
+      "outputs": "",
+      "endMonth": "",
+      "title": "Kajian Lingkungan Hidup Strategis Kecamatan Ngoro",
+      "currentlyActive": true,
       "en": {
         "title": "Strategic Environmental Assessment of Ngoro District",
         "category": "Study",
         "role": "Researcher"
       },
       "startYear": "2026",
-      "cover": "assets/images/1L5G2DEJTH-pm1qkwHHHE7iaI23jAIolh.jpg",
       "year": "2026",
-      "title": "Kajian Lingkungan Hidup Strategis Kecamatan Ngoro",
-      "currentlyActive": true,
-      "materials": [],
-      "startMonth": "07",
-      "outputs": "",
-      "activities": [],
-      "contributions": [],
-      "model": "",
       "category": "Kajian",
-      "period": "Juli 2026 – Now",
+      "id": "v3-1792378343784-t5bvtl",
+      "endYear": "",
+      "activities": [],
+      "startMonth": "07",
+      "partnerName": "Kecamatan Ngoro, Mojokerto",
+      "partnerLogo": "assets/images/1bDLmPRjHRCqpAikBB8ZlW0cHeR7s9LAs.png",
+      "materials": [],
+      "contributions": [],
+      "description": "",
+      "features": [],
+      "role": "Researcher",
+      "partnerWebsite": "",
+      "cover": "assets/images/1L5G2DEJTH-pm1qkwHHHE7iaI23jAIolh.jpg",
       "gallery": [
         {
           "url": "assets/images/1L5G2DEJTH-pm1qkwHHHE7iaI23jAIolh.jpg",
@@ -350,16 +358,7 @@
           "featured": true,
           "captionEn": "316013c4-8b89-4640-8e9f-be4a3b185ad6"
         }
-      ],
-      "endMonth": "",
-      "partnerLogo": "assets/images/1bDLmPRjHRCqpAikBB8ZlW0cHeR7s9LAs.png",
-      "partnerName": "",
-      "description": "",
-      "features": [],
-      "role": "Researcher",
-      "id": "v3-1792378343784-t5bvtl",
-      "partnerWebsite": "",
-      "endYear": ""
+      ]
     },
     {
       "cover": "assets/images/1sOc23DBMwkMCzMYtYtBEAzyzPJHJJOGj.jpg",
@@ -558,7 +557,164 @@
       "url": ""
     }
   ],
-  "gradeBoards": [],
+  "gradeBoards": [
+    {
+      "id": "v3-1792516268178-z08p37",
+      "course": "Matematika 1",
+      "className": "Kelas A",
+      "period": "Gasal 2026/2027",
+      "publishedAt": "2026-10-20",
+      "rows": [
+        {
+          "rank": 1,
+          "npm": "26••••001",
+          "name": "Lazuardi",
+          "score": 86,
+          "grade": "A"
+        },
+        {
+          "rank": 1,
+          "npm": "26••••002",
+          "name": "Andhika",
+          "score": 86,
+          "grade": "A-"
+        },
+        {
+          "rank": 1,
+          "npm": "26••••003",
+          "name": "Avisa",
+          "score": 86,
+          "grade": "A"
+        },
+        {
+          "rank": 1,
+          "npm": "26••••004",
+          "name": "Adinda",
+          "score": 86,
+          "grade": "A-"
+        },
+        {
+          "rank": 1,
+          "npm": "26••••005",
+          "name": "Muhammad",
+          "score": 86,
+          "grade": "A"
+        },
+        {
+          "rank": 1,
+          "npm": "26••••006",
+          "name": "Fikarul",
+          "score": 86,
+          "grade": "A-"
+        },
+        {
+          "rank": 7,
+          "npm": "26••••007",
+          "name": "Kania",
+          "score": 45,
+          "grade": "A"
+        },
+        {
+          "rank": 8,
+          "npm": "26••••008",
+          "name": "Yerivin",
+          "score": 42.5,
+          "grade": "A-"
+        },
+        {
+          "rank": 9,
+          "npm": "26••••009",
+          "name": "Zahra",
+          "score": 40,
+          "grade": "A"
+        },
+        {
+          "rank": 9,
+          "npm": "26••••010",
+          "name": "Jasmine",
+          "score": 40,
+          "grade": "A-"
+        },
+        {
+          "rank": 11,
+          "npm": "26••••011",
+          "name": "Ahmad",
+          "score": 37.5,
+          "grade": "A"
+        },
+        {
+          "rank": 11,
+          "npm": "26••••012",
+          "name": "Bagas",
+          "score": 37.5,
+          "grade": "A-"
+        },
+        {
+          "rank": 11,
+          "npm": "26••••013",
+          "name": "Anugrah",
+          "score": 37.5,
+          "grade": "A"
+        },
+        {
+          "rank": 14,
+          "npm": "26••••014",
+          "name": "Moch.",
+          "score": 35,
+          "grade": "A-"
+        },
+        {
+          "rank": 14,
+          "npm": "26••••015",
+          "name": "Shinta",
+          "score": 35,
+          "grade": "A"
+        },
+        {
+          "rank": 14,
+          "npm": "26••••016",
+          "name": "Bonaventura",
+          "score": 35,
+          "grade": "A-"
+        },
+        {
+          "rank": 17,
+          "npm": "26••••017",
+          "name": "Radita",
+          "score": 32.5,
+          "grade": "A"
+        },
+        {
+          "rank": 17,
+          "npm": "26••••018",
+          "name": "Rahadian",
+          "score": 32.5,
+          "grade": "A-"
+        },
+        {
+          "rank": 19,
+          "npm": "26••••019",
+          "name": "Rangga",
+          "score": 31.75,
+          "grade": "A"
+        },
+        {
+          "rank": 20,
+          "npm": "26••••020",
+          "name": "Fayri",
+          "score": 31,
+          "grade": "A-"
+        },
+        {
+          "rank": 21,
+          "npm": "26••••021",
+          "name": "Keysha",
+          "score": 30.25,
+          "grade": "A"
+        }
+      ]
+    }
+  ],
   "slides": [],
   "otherActivities": [
     {
