@@ -11,7 +11,19 @@ function trArray(x,key){if(!x)return [];const en=x.en||{};return currentLanguage
 function esc(x){return SITE.escape(x);}
 function fillLangText(){document.documentElement.lang=currentLanguage;document.querySelectorAll('[data-i18n]').forEach(n=>n.textContent=t(n.dataset.i18n));document.querySelectorAll('[data-lang]').forEach(n=>{n.classList.toggle('active',n.dataset.lang===currentLanguage);n.setAttribute('aria-pressed',String(n.dataset.lang===currentLanguage));});}
 function renderPortfolio(data){portfolioData=data;const p=data.profile||{};document.title=(p.name||'Portfolio')+' — '+(currentLanguage==='id'?'Portofolio':'Professional Portfolio');fillLangText();
- document.querySelector('#profile-name').textContent=p.name||'Academic Portfolio';document.querySelector('#profile-title').textContent=tr(p,'title');document.querySelector('#profile-tagline').textContent=tr(p,'tagline');document.querySelector('#about-text').textContent=tr(p,'about')||'—';document.querySelector('#profile-institution').textContent=p.institution||'—';document.querySelector('#profile-location').textContent=p.location||'—';
+ document.querySelector('#profile-name').textContent=p.name||'Academic Portfolio';document.querySelector('#profile-title').textContent=tr(p,'title');document.querySelector('#profile-tagline').textContent=tr(p,'tagline');document.querySelector('#about-text').textContent=tr(p,'about')||'—';const inst=document.querySelector('#profile-institution');
+  if(inst){
+    const defaultInstitutionUrl='https://teklingk.upnjatim.ac.id/jawwad/';
+    const rawUrl=p.institutionUrl||defaultInstitutionUrl;
+    const link=SITE.linkURL(rawUrl);
+    const directIcon=SITE.safeURL(p.institutionIcon||'');
+    const iconHost=(()=>{try{const u=new URL(p.institutionIconWebsite||rawUrl);return u.protocol==='https:'||u.protocol==='http:'?u.hostname:'';}catch(_){return '';}})();
+    const icon=directIcon||(iconHost?'https://www.google.com/s2/favicons?domain='+encodeURIComponent(iconHost)+'&sz=64':'');
+    const text=esc(p.institution||'—');
+    inst.href=link||defaultInstitutionUrl;
+    inst.innerHTML='<span class="institution-title">'+text+'</span>'+(icon?'<img class="v22-institution-logo" src="'+esc(icon)+'" alt="Logo institusi" width="24" height="24" loading="lazy" decoding="async" onerror="this.hidden=true">':'');
+  }
+  document.querySelector('#profile-location').textContent=p.location||'—';
  const ava=document.getElementById('profile-avatar');ava.innerHTML=SITE.safeURL(p.avatar)?SITE.image(p.avatar,p.name):`<span>${esc(SITE.avatarInitials(p.name))}</span>`;
  const hero=document.querySelector('.hero');if(SITE.safeURL(p.banner))hero.style.backgroundImage=`linear-gradient(100deg,rgba(13,40,55,.94),rgba(14,51,63,.83)),url("${SITE.safeURL(p.banner).replaceAll('"','%22')}")`;
  document.getElementById('specialty-tags').innerHTML=trArray(p,'specialties').map(x=>`<span class="tag">${esc(x)}</span>`).join('');

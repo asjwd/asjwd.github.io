@@ -116,3 +116,18 @@
  .v21-ac-search{padding-top:16px!important}
  .v21-ac-grades{padding-top:30px!important}
 }
+
+/* V22 — institution link, compact 24px logo on right */
+#profile-institution.institution-link{display:inline-flex;align-items:center;justify-content:flex-start;flex-wrap:wrap;gap:6px 7px;max-width:100%;min-width:0;text-decoration:none}
+#profile-institution .institution-title{min-width:0;overflow-wrap:break-word}
+#profile-institution .v22-institution-logo{width:24px!important;height:24px!important;max-width:24px;max-height:24px;object-fit:contain!important;flex:0 0 24px;padding:2px;background:#fff;border:1px solid #d9e9e8;border-radius:5px}
+#profile-institution .v22-institution-logo[hidden]{display:none!important}
+#profile-institution:hover .institution-title{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:540px){#profile-institution .v22-institution-logo{width:21px!important;height:21px!important;flex-basis:21px}}
+
+/* V23: clearer grade availability information, compact academic layout */
+.academic-body .v21-ac-main{padding-top:20px!important}
+.academic-body .v21-ac-search{margin-top:0!important}
+.grade-summary .v23-expiry-note{font-size:12px;color:#456a70;white-space:normal;text-align:right;max-width:330px;line-height:1.5}
+.grades-table th,.grades-table td{white-space:nowrap}
+@media(max-width:700px){.grade-summary{display:flex;flex-direction:column;align-items:flex-start;gap:7px}.grade-summary .v23-expiry-note{text-align:left;max-width:none}}
