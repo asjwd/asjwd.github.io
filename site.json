@@ -4,36 +4,38 @@
     "about": "Saya adalah dosen dan peneliti di bidang Teknik Lingkungan dengan minat pada pemantauan kualitas udara, pemodelan pencemaran lingkungan, dan pengolahan air dengan metode adsorpsi dan fotokatalisis.\n\nFokus penelitian saya mencakup kualitas udara, pengolahan air, dan kajian dampak lingkungan, dengan penekanan pada penerapan metode komputasi dan pemodelan atmosfer menggunakan perangkat seperti WRF-Chem dan AERMOD.",
     "avatar": "assets/images/1HOHCiyAIauE2o1n3pTk6exFI6wGmrXLF.webp",
     "banner": "",
+    "brandingRound": "",
+    "brandingSquare": "",
     "contactFormUrl": "https://script.google.com/macros/s/AKfycbzsyunPGbY7EKWLzN4pnphb6q0UDn-0Ys-W_ZVcJI3vaQwSKmRPLWny2u5BPtKWI4_W/exec",
     "education": {
-      "master": {
-        "year": "2019",
+      "bachelor": {
+        "major": "Ilmu dan Teknologi Lingkungan",
+        "logoWebsite": "https://unair.ac.id/",
+        "year": "2016",
+        "description": "",
         "gallery": [],
+        "institution": "Universitas Airlangga",
+        "logo": "",
+        "majorEn": "Environmental Science and Technology"
+      },
+      "master": {
         "institution": "Chung Yuan Christian University",
         "major": "Environmental Engineering",
-        "description": "",
         "logo": "",
+        "year": "2019",
+        "description": "",
+        "gallery": [],
         "logoWebsite": "https://eng.cycu.edu.tw/",
         "majorEn": "Environmental Engineering"
       },
-      "bachelor": {
-        "logoWebsite": "https://unair.ac.id/",
-        "major": "Ilmu dan Teknologi Lingkungan",
-        "description": "",
-        "year": "2016",
-        "institution": "Universitas Airlangga",
-        "logo": "",
-        "gallery": [],
-        "majorEn": "Environmental Science and Technology"
-      },
       "doctorate": {
-        "institution": "",
-        "gallery": [],
-        "description": "",
         "logo": "",
         "logoWebsite": "",
-        "major": "",
-        "year": ""
+        "description": "",
+        "institution": "",
+        "gallery": [],
+        "year": "",
+        "major": ""
       }
     },
     "en": {
@@ -49,6 +51,9 @@
     },
     "instagram": "",
     "institution": "Environmental Engineering — UPN 'Veteran' Jawa Timur",
+    "institutionIcon": "",
+    "institutionIconWebsite": "https://teklingk.upnjatim.ac.id/jawwad/",
+    "institutionUrl": "https://teklingk.upnjatim.ac.id/jawwad/",
     "linkedin": "https://www.linkedin.com/in/asjwd/",
     "location": "Surabaya, Indonesia",
     "name": "Muhammad A. S. Jawwad",
@@ -72,39 +77,38 @@
     "tagline": "Teaching, research, environmental assessment, and technical consulting.",
     "title": "Lecturer · Researcher · Environmental Consultant",
     "upnProfile": "https://teklingk.upnjatim.ac.id/jawwad/",
-    "youtube": "https://www.youtube.com/@muhammada.s.jawwad2208",
-    "institutionIcon": ""
+    "youtube": "https://www.youtube.com/@muhammada.s.jawwad2208"
   },
   "experiences": [
     {
+      "contributions": [],
+      "companyWebsite": "https://teklingk.upnjatim.ac.id/",
+      "summary": "",
+      "startYear": "2026",
       "endMonth": "",
       "activities": [],
-      "startYear": "2026",
+      "startMonth": "09",
+      "location": "Surabaya",
+      "companyIcon": "",
+      "organization": "Teknik Lingkungan, UPN 'Veteran' Jawa Timur",
+      "endYear": "",
+      "gallery": [
+        {
+          "featured": true,
+          "caption": "IMG_4857",
+          "url": "assets/images/10JO-y872MXEIubNMzaed0S5Dz8DNeu2d.jpg",
+          "captionEn": "IMG_4857"
+        }
+      ],
       "en": {
         "role": "Head of Basic Laboratory",
         "contributions": [],
         "activities": []
       },
-      "gallery": [
-        {
-          "caption": "IMG_4857",
-          "featured": true,
-          "url": "assets/images/10JO-y872MXEIubNMzaed0S5Dz8DNeu2d.jpg",
-          "captionEn": "IMG_4857"
-        }
-      ],
-      "currentlyActive": true,
       "role": "Kepala Laboratorium Dasar",
-      "startMonth": "09",
-      "companyWebsite": "https://teklingk.upnjatim.ac.id/",
-      "endYear": "",
-      "organization": "Teknik Lingkungan, UPN 'Veteran' Jawa Timur",
-      "location": "Surabaya",
-      "contributions": [],
-      "period": "September 2026 – Now",
-      "summary": "",
+      "currentlyActive": true,
       "id": "exp-lab",
-      "companyIcon": ""
+      "period": "September 2026 – Now"
     },
     {
       "activities": [],
@@ -136,29 +140,29 @@
       ]
     },
     {
-      "startMonth": "09",
-      "materials": [],
-      "startYear": "2025",
-      "role": "Trainer",
       "endYear": "",
-      "endMonth": "",
       "activities": [],
-      "organization": "PT. Heccons Glori Indonesia",
+      "endMonth": "",
       "summary": "",
       "period": "September 2025 – Now",
-      "currentlyActive": true,
-      "contributions": [],
-      "gallery": [],
-      "companyWebsite": "https://heccons.id/",
-      "companyIcon": "",
+      "startMonth": "09",
+      "role": "Trainer",
       "features": [],
+      "contributions": [],
+      "companyWebsite": "https://heccons.id/",
+      "location": "Surabaya",
+      "materials": [],
+      "id": "v3-1792416121959-4e0ml7",
+      "organization": "PT. Heccons Glori Indonesia",
+      "startYear": "2025",
       "en": {
         "role": "Trainer",
         "contributions": [],
         "activities": []
       },
-      "id": "v3-1792416121959-4e0ml7",
-      "location": "Surabaya"
+      "currentlyActive": true,
+      "gallery": [],
+      "companyIcon": ""
     },
     {
       "companyIcon": "assets/images/12134Zj5HwpnSQvR2lFNEGGvu550ml14M.png",
