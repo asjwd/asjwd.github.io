@@ -4,38 +4,38 @@
     "about": "Saya adalah dosen dan peneliti di bidang Teknik Lingkungan dengan minat pada pemantauan kualitas udara, pemodelan pencemaran lingkungan, dan pengolahan air dengan metode adsorpsi dan fotokatalisis.\n\nFokus penelitian saya mencakup kualitas udara, pengolahan air, dan kajian dampak lingkungan, dengan penekanan pada penerapan metode komputasi dan pemodelan atmosfer menggunakan perangkat seperti WRF-Chem dan AERMOD.",
     "avatar": "assets/images/1HOHCiyAIauE2o1n3pTk6exFI6wGmrXLF.webp",
     "banner": "",
-    "brandingRound": "",
-    "brandingSquare": "",
+    "brandingRound": "assets/images/1g5j8p3PgXAFzBiTp9hqxPQMFs_c3JVZw.png",
+    "brandingSquare": "assets/images/1QKQF8W0Pu0FK8RZKsYYGAekwQ0sYc9iJ.png",
     "contactFormUrl": "https://script.google.com/macros/s/AKfycbzsyunPGbY7EKWLzN4pnphb6q0UDn-0Ys-W_ZVcJI3vaQwSKmRPLWny2u5BPtKWI4_W/exec",
     "education": {
+      "doctorate": {
+        "institution": "",
+        "logo": "",
+        "logoWebsite": "",
+        "year": "",
+        "gallery": [],
+        "major": "",
+        "description": ""
+      },
       "bachelor": {
         "major": "Ilmu dan Teknologi Lingkungan",
-        "logoWebsite": "https://unair.ac.id/",
-        "year": "2016",
-        "description": "",
         "gallery": [],
+        "description": "",
+        "year": "2016",
         "institution": "Universitas Airlangga",
         "logo": "",
+        "logoWebsite": "https://unair.ac.id/",
         "majorEn": "Environmental Science and Technology"
       },
       "master": {
-        "institution": "Chung Yuan Christian University",
+        "logoWebsite": "https://eng.cycu.edu.tw/",
         "major": "Environmental Engineering",
+        "institution": "Chung Yuan Christian University",
+        "description": "",
         "logo": "",
         "year": "2019",
-        "description": "",
         "gallery": [],
-        "logoWebsite": "https://eng.cycu.edu.tw/",
         "majorEn": "Environmental Engineering"
-      },
-      "doctorate": {
-        "logo": "",
-        "logoWebsite": "",
-        "description": "",
-        "institution": "",
-        "gallery": [],
-        "year": "",
-        "major": ""
       }
     },
     "en": {
