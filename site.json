@@ -12,7 +12,7 @@
         "institution": "Chung Yuan Christian University",
         "major": "Environmental Engineering",
         "description": "",
-        "logo": "https://www.google.com/s2/favicons?domain=eng.cycu.edu.tw&sz=64",
+        "logo": "",
         "logoWebsite": "https://eng.cycu.edu.tw/",
         "majorEn": "Environmental Engineering"
       },
@@ -22,7 +22,7 @@
         "description": "",
         "year": "2016",
         "institution": "Universitas Airlangga",
-        "logo": "https://www.google.com/s2/favicons?domain=unair.ac.id&sz=64",
+        "logo": "",
         "gallery": [],
         "majorEn": "Environmental Science and Technology"
       },
@@ -72,7 +72,8 @@
     "tagline": "Teaching, research, environmental assessment, and technical consulting.",
     "title": "Lecturer · Researcher · Environmental Consultant",
     "upnProfile": "https://teklingk.upnjatim.ac.id/jawwad/",
-    "youtube": "https://www.youtube.com/@muhammada.s.jawwad2208"
+    "youtube": "https://www.youtube.com/@muhammada.s.jawwad2208",
+    "institutionIcon": ""
   },
   "experiences": [
     {
@@ -103,7 +104,7 @@
       "period": "September 2026 – Now",
       "summary": "",
       "id": "exp-lab",
-      "companyIcon": "https://www.google.com/s2/favicons?domain=teklingk.upnjatim.ac.id&sz=64"
+      "companyIcon": ""
     },
     {
       "activities": [],
@@ -149,7 +150,7 @@
       "contributions": [],
       "gallery": [],
       "companyWebsite": "https://heccons.id/",
-      "companyIcon": "https://www.google.com/s2/favicons?domain=heccons.id&sz=64",
+      "companyIcon": "",
       "features": [],
       "en": {
         "role": "Trainer",
@@ -364,7 +365,7 @@
       "cover": "assets/images/1sOc23DBMwkMCzMYtYtBEAzyzPJHJJOGj.jpg",
       "currentlyActive": false,
       "endYear": "2021",
-      "partnerLogo": "https://www.google.com/s2/favicons?domain=waste4change.com&sz=64",
+      "partnerLogo": "",
       "model": "",
       "id": "v3-1792418195872-q6a4rf",
       "year": "2020",
@@ -564,177 +565,9 @@
       "className": "Kelas A",
       "period": "Gasal 2026/2027",
       "publishedAt": "2026-10-20",
-      "rows": [
-        {
-          "rank": 1,
-          "npm": "26••••001",
-          "name": "Lazuardi",
-          "score": 86,
-          "grade": "A",
-          "extras": []
-        },
-        {
-          "rank": 1,
-          "npm": "26••••002",
-          "name": "Andhika",
-          "score": 86,
-          "grade": "A-",
-          "extras": []
-        },
-        {
-          "rank": 1,
-          "npm": "26••••003",
-          "name": "Avisa",
-          "score": 86,
-          "grade": "A",
-          "extras": []
-        },
-        {
-          "rank": 1,
-          "npm": "26••••004",
-          "name": "Adinda",
-          "score": 86,
-          "grade": "A-",
-          "extras": []
-        },
-        {
-          "rank": 1,
-          "npm": "26••••005",
-          "name": "Muhammad",
-          "score": 86,
-          "grade": "A",
-          "extras": []
-        },
-        {
-          "rank": 1,
-          "npm": "26••••006",
-          "name": "Fikarul",
-          "score": 86,
-          "grade": "A-",
-          "extras": []
-        },
-        {
-          "rank": 7,
-          "npm": "26••••007",
-          "name": "Kania",
-          "score": 45,
-          "grade": "A",
-          "extras": []
-        },
-        {
-          "rank": 8,
-          "npm": "26••••008",
-          "name": "Yerivin",
-          "score": 42.5,
-          "grade": "A-",
-          "extras": []
-        },
-        {
-          "rank": 9,
-          "npm": "26••••009",
-          "name": "Zahra",
-          "score": 40,
-          "grade": "A",
-          "extras": []
-        },
-        {
-          "rank": 9,
-          "npm": "26••••010",
-          "name": "Jasmine",
-          "score": 40,
-          "grade": "A-",
-          "extras": []
-        },
-        {
-          "rank": 11,
-          "npm": "26••••011",
-          "name": "Ahmad",
-          "score": 37.5,
-          "grade": "A",
-          "extras": []
-        },
-        {
-          "rank": 11,
-          "npm": "26••••012",
-          "name": "Bagas",
-          "score": 37.5,
-          "grade": "A-",
-          "extras": []
-        },
-        {
-          "rank": 11,
-          "npm": "26••••013",
-          "name": "Anugrah",
-          "score": 37.5,
-          "grade": "A",
-          "extras": []
-        },
-        {
-          "rank": 14,
-          "npm": "26••••014",
-          "name": "Moch.",
-          "score": 35,
-          "grade": "A-",
-          "extras": []
-        },
-        {
-          "rank": 14,
-          "npm": "26••••015",
-          "name": "Shinta",
-          "score": 35,
-          "grade": "A",
-          "extras": []
-        },
-        {
-          "rank": 14,
-          "npm": "26••••016",
-          "name": "Bonaventura",
-          "score": 35,
-          "grade": "A-",
-          "extras": []
-        },
-        {
-          "rank": 17,
-          "npm": "26••••017",
-          "name": "Radita",
-          "score": 32.5,
-          "grade": "A",
-          "extras": []
-        },
-        {
-          "rank": 17,
-          "npm": "26••••018",
-          "name": "Rahadian",
-          "score": 32.5,
-          "grade": "A-",
-          "extras": []
-        },
-        {
-          "rank": 19,
-          "npm": "26••••019",
-          "name": "Rangga",
-          "score": 31.75,
-          "grade": "A",
-          "extras": []
-        },
-        {
-          "rank": 20,
-          "npm": "26••••020",
-          "name": "Fayri",
-          "score": 31,
-          "grade": "A-",
-          "extras": []
-        },
-        {
-          "rank": 21,
-          "npm": "26••••021",
-          "name": "Keysha",
-          "score": 30.25,
-          "grade": "A",
-          "extras": []
-        }
-      ],
-      "expiresAt": "2026-10-26T17:00:00.000Z"
+      "expiresAt": "2026-10-26T17:00:00.000Z",
+      "rowsFile": "assets/grades/v3-1792516268178-z08p37.json",
+      "rowCount": 21
     }
   ],
   "slides": [],
@@ -745,7 +578,7 @@
       "id": "v3-1792414894449-smpdz9",
       "certificateUrl": "",
       "materials": [],
-      "organizerIcon": "https://www.google.com/s2/favicons?domain=www.its.ac.id&sz=64",
+      "organizerIcon": "",
       "activities": [],
       "currentlyActive": false,
       "title": "The 7th International Conference on Environmental Engineering (ICOEE)",
@@ -823,7 +656,7 @@
       },
       "location": "Tainan, Taiwan",
       "certificateTitle": "",
-      "organizerIcon": "https://www.google.com/s2/favicons?domain=www.taar.org.tw&sz=64",
+      "organizerIcon": "",
       "organizerWebsite": "https://www.taar.org.tw/",
       "activities": []
     },
