@@ -154,3 +154,8 @@
 .v24-ac-main{padding-top:24px}
 .v24-ac-main .content-section{margin-top:22px}
 @media(max-width:690px){.v24-tool-list{grid-template-columns:1fr}.v24-tool-list .tool-card{padding:15px}.v24-ac-grade .table-scroll{overflow:auto}}
+
+/* V25 — high contrast time on dark grade header, modest responsive header. */
+.v24-ac-grade .grade-summary .v23-expiry-note,
+.grade-summary .v23-expiry-note{color:#ffffff!important;opacity:1!important;font-weight:600;}
+.v24-ac-grade .grade-summary .v23-expiry-note{max-width:380px;}
