@@ -595,7 +595,26 @@
       "url": ""
     }
   ],
-  "gradeBoards": [],
+  "gradeBoards": [
+    {
+      "id": "v3-1792599268608-6bj1r8",
+      "course": "Matematika 1",
+      "className": "Kelas A",
+      "period": "Gasal 2026/2027",
+      "columns": [
+        "Assessment 1",
+        "Nilai UTS",
+        "Kuis Pra-UTS",
+        "Bonus Stars",
+        "Keterangan"
+      ],
+      "showGrade": false,
+      "publishedAt": "2026-10-21T16:15:07.194Z",
+      "expiresAt": "2026-10-28T16:15:07.194Z",
+      "rowsFile": "assets/grades/v3-1792599268608-6bj1r8.json",
+      "rowCount": 125
+    }
+  ],
   "slides": [],
   "otherActivities": [
     {
