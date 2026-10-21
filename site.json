@@ -10,7 +10,7 @@
     "education": {
       "master": {
         "year": "2019",
-        "logo": "",
+        "logo": "assets/icons/6c2017278165c799.png",
         "major": "Environmental Engineering",
         "description": "",
         "institution": "Chung Yuan Christian University",
@@ -32,7 +32,7 @@
         "year": "2016",
         "description": "",
         "institution": "Universitas Airlangga",
-        "logo": "",
+        "logo": "assets/icons/eb1eb8ed8f53f39a.png",
         "gallery": [],
         "major": "Ilmu dan Teknologi Lingkungan",
         "majorEn": "Environmental Science and Technology"
@@ -51,7 +51,7 @@
     },
     "instagram": "",
     "institution": "Environmental Engineering — UPN 'Veteran' Jawa Timur",
-    "institutionIcon": "",
+    "institutionIcon": "assets/icons/2c0cd0e3bec63ba0.png",
     "institutionIconWebsite": "https://teklingk.upnjatim.ac.id/jawwad/",
     "institutionUrl": "https://teklingk.upnjatim.ac.id/jawwad/",
     "linkedin": "https://www.linkedin.com/in/asjwd/",
@@ -89,7 +89,7 @@
       "activities": [],
       "startMonth": "09",
       "location": "Surabaya",
-      "companyIcon": "",
+      "companyIcon": "assets/icons/2c0cd0e3bec63ba0.png",
       "organization": "Teknik Lingkungan, UPN 'Veteran' Jawa Timur",
       "endYear": "",
       "gallery": [
@@ -162,7 +162,7 @@
       },
       "currentlyActive": true,
       "gallery": [],
-      "companyIcon": ""
+      "companyIcon": "assets/icons/a31bd6c316c6eb48.png"
     },
     {
       "companyIcon": "assets/images/12134Zj5HwpnSQvR2lFNEGGvu550ml14M.png",
@@ -369,7 +369,7 @@
       "cover": "assets/images/1sOc23DBMwkMCzMYtYtBEAzyzPJHJJOGj.jpg",
       "currentlyActive": false,
       "endYear": "2021",
-      "partnerLogo": "",
+      "partnerLogo": "assets/icons/ffdf6d08f0990a46.png",
       "model": "",
       "id": "v3-1792418195872-q6a4rf",
       "year": "2020",
@@ -417,7 +417,7 @@
       "id": "v3-1792337061093-qutd4i",
       "journal": "South African Journal of Chemical Engineering",
       "contributions": [],
-      "journalIcon": "",
+      "journalIcon": "assets/icons/3eb11266d222cab4.png",
       "en": {
         "title": "Taguchi-optimized palmyra palm shell activated carbon for mitigating CO, HC, and NOx emissions in a fixed-bed motorcycle exhaust system"
       },
@@ -442,7 +442,7 @@
       "id": "v3-1792336930304-swwejy",
       "authors": "Restu Hikmah Ayu Murti, Muhammad Abdus Salam Jawwad, Khusnul Khotimah Ayuningtiyas, Euis Nurul Hidayah",
       "activities": [],
-      "journalIcon": "",
+      "journalIcon": "assets/icons/3eb11266d222cab4.png",
       "url": "https://www.sciencedirect.com/science/article/pii/S1026918525000472",
       "journal": "South African Journal of Chemical Engineering",
       "features": []
@@ -481,7 +481,7 @@
       "features": [],
       "gallery": [],
       "materials": [],
-      "journalIcon": ""
+      "journalIcon": "assets/icons/3eb11266d222cab4.png"
     },
     {
       "en": {
@@ -489,7 +489,7 @@
       },
       "journal": "Environmental Quality Management",
       "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/tqem.22140",
-      "journalIcon": "",
+      "journalIcon": "assets/icons/abfea0ca5712ebbb.png",
       "materials": [],
       "id": "v3-1792420049645-otnsvn",
       "year": "2023",
@@ -570,6 +570,7 @@
       "period": "Gasal 2026/2027",
       "publishedAt": "2026-10-20",
       "expiresAt": "2026-10-26T17:00:00.000Z",
+      "columns": [],
       "rowsFile": "assets/grades/v3-1792516268178-z08p37.json",
       "rowCount": 21
     }
@@ -582,7 +583,7 @@
       "id": "v3-1792414894449-smpdz9",
       "certificateUrl": "",
       "materials": [],
-      "organizerIcon": "",
+      "organizerIcon": "assets/icons/81b471a88c9747d9.png",
       "activities": [],
       "currentlyActive": false,
       "title": "The 7th International Conference on Environmental Engineering (ICOEE)",
