@@ -645,6 +645,25 @@
       "location": "Bali, Indonesia"
     },
     {
+      "id": "v3-1792417699685-x18era",
+      "contributions": [],
+      "date": "April 2025",
+      "features": [],
+      "gallery": [
+        {
+          "caption": "",
+          "featured": true,
+          "url": "assets/images/1OQVB6ItwCYkKTg39JZFFZxWxCGwPxOjj.jpg"
+        },
+        {
+          "featured": true,
+          "caption": "",
+          "url": "assets/images/1mRyjh1AAfYV9fP5r1F98jz4H5Ca987ZL.jpg"
+        }
+      ],
+      "organizerIcon": "",
+      "activities": [],
+      "title": "Theory and Technique Taiwan Forum on Sustainable Environment (T&T TFOSE)",
       "en": {
         "title": "Theory and Technique Taiwan Forum on Sustainable Environment (T&T TFOSE)",
         "type": "Conference",
@@ -652,39 +671,20 @@
         "organizer": "Taiwan Association for Aerosol Research",
         "location": "Tainan, Taiwan"
       },
-      "activities": [],
-      "materials": [],
-      "description": "",
-      "endYear": "",
-      "contributions": [],
-      "organizer": "Taiwan Association for Aerosol Research",
-      "location": "Tainan, Taiwan",
-      "organizerIcon": "",
-      "id": "v3-1792417699685-x18era",
       "role": "Presenter",
-      "organizerWebsite": "https://www.taar.org.tw/",
-      "startYear": "2025",
       "startMonth": "04",
       "type": "Conference",
-      "currentlyActive": false,
-      "title": "Theory and Technique Taiwan Forum on Sustainable Environment (T&T TFOSE)",
-      "gallery": [
-        {
-          "featured": true,
-          "url": "assets/images/1OQVB6ItwCYkKTg39JZFFZxWxCGwPxOjj.jpg",
-          "caption": ""
-        },
-        {
-          "featured": true,
-          "url": "assets/images/1mRyjh1AAfYV9fP5r1F98jz4H5Ca987ZL.jpg",
-          "caption": ""
-        }
-      ],
-      "features": [],
-      "date": "April 2025",
-      "endMonth": "",
+      "description": "",
+      "startYear": "2025",
+      "organizer": "Taiwan Association for Aerosol Research",
+      "endYear": "",
+      "certificateTitle": "",
       "certificateUrl": "",
-      "certificateTitle": ""
+      "materials": [],
+      "currentlyActive": false,
+      "location": "Tainan, Taiwan",
+      "endMonth": "",
+      "organizerWebsite": "https://www.taar.org.tw/"
     },
     {
       "id": "v3-1792415442468-3omdp6",
