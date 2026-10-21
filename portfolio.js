@@ -18,7 +18,8 @@ function renderPortfolio(data){portfolioData=data;const p=data.profile||{};docum
     const link=SITE.linkURL(rawUrl);
     const directIcon=SITE.safeURL(p.institutionIcon||'');
     const iconHost=(()=>{try{const u=new URL(p.institutionIconWebsite||rawUrl);return u.protocol==='https:'||u.protocol==='http:'?u.hostname:'';}catch(_){return '';}})();
-    const icon=directIcon||(iconHost?'https://www.google.com/s2/favicons?domain='+encodeURIComponent(iconHost)+'&sz=64':'');
+    // V24: use only the cached GitHub icon. No external favicon request by visitors.
+    const icon=directIcon;
     const text=esc(p.institution||'—');
     inst.href=link||defaultInstitutionUrl;
     inst.innerHTML='<span class="institution-title">'+text+'</span>'+(icon?'<img class="v22-institution-logo" src="'+esc(icon)+'" alt="Logo institusi" width="24" height="24" loading="lazy" decoding="async" onerror="this.hidden=true">':'');
@@ -29,8 +30,16 @@ function renderPortfolio(data){portfolioData=data;const p=data.profile||{};docum
  document.getElementById('specialty-tags').innerHTML=trArray(p,'specialties').map(x=>`<span class="tag">${esc(x)}</span>`).join('');
  renderEducation(p);
  document.getElementById('year').textContent=new Date().getFullYear();
- renderExperience();renderProjects();renderPublications();renderOtherActivities();renderTools();renderContacts();renderSlides();}
+ renderExperience();renderProjects();renderPublications();renderOtherActivities();renderContacts();renderSlides();pm24ApplyBranding(p);}
 // V16: Education is an optional object in Profile; existing Profiles continue to work.
+function pm24ApplyBranding(profile){
+ const round=SITE.safeURL(profile.brandingRound||'');
+ const square=SITE.safeURL(profile.brandingSquare||'');
+ if(round)document.querySelectorAll('.v12-round-logo,.v12-academic-brand img,.nav-favicon').forEach(i=>{i.src=round;});
+ if(square)document.querySelectorAll('link[rel="icon"]').forEach(l=>{l.href=square;});
+ const link=document.getElementById('profile-institution');
+ if(link){const text=link.textContent;const logo=SITE.safeURL(profile.institutionIcon||'');link.innerHTML=(logo?`<img src="${esc(logo)}" class="v24-affiliation-logo" alt="" loading="lazy">`:'')+`<span>${esc(text)}</span><span class="v24-affiliation-arrow" aria-hidden="true">↗</span>`;if(profile.institutionUrl&&SITE.linkURL(profile.institutionUrl))link.href=SITE.linkURL(profile.institutionUrl);}
+}
 function renderEducation(profile){
  const root=document.getElementById('education-grid');if(!root)return;
  const education=profile.education||{};
@@ -124,10 +133,8 @@ function v10JournalHost(x){
 function v10PublicationIcon(x){
  const manual=SITE.safeURL(x.journalIcon||'');
  if(manual)return `<img class="v10-pub-icon" loading="lazy" src="${esc(manual)}" alt="" onerror="this.replaceWith(document.createTextNode('▤'))">`;
- const host=v10JournalHost(x),fallback='<span class="v10-pub-fallback" aria-hidden="true">▤</span>';
- if(!host)return fallback;
- const url='https://www.google.com/s2/favicons?domain='+encodeURIComponent(host)+'&sz=64';
- return `<img class="v10-pub-icon" loading="lazy" src="${esc(url)}" alt="" referrerpolicy="no-referrer" onerror="this.replaceWith(document.createTextNode('▤'))">`;
+ // V24: published journal icons are local GitHub assets; unavailable icons show fallback.
+ return '<span class="v10-pub-fallback" aria-hidden="true">▤</span>';
 }
 function renderPublications(){const all=portfolioData.publications||[],list=all.slice(0,v10Visible.publications),el=document.getElementById('publication-list');el.innerHTML=all.length?list.map(x=>`<article class="publication-item v10-publication"><span class="publication-index v10-journal-icon" title="${esc(v10JournalHost(x)||'Jurnal')}">${v10PublicationIcon(x)}</span><div><span class="pub-year">${esc(v19PubDate(x))}</span><h3>${esc(tr(x,'title'))}</h3><p>${esc(x.authors||'')}</p><small>${esc(x.journal||'')}</small></div>${SITE.linkURL(x.url||x.doi)?SITE.external(x.url||x.doi,t('readPaper'),'pub-link'):''}</article>`).join(''):`<div class="empty-card">${t('emptyPublication')}</div>`;v10ShowMore('publications',all.length);}
 /** V18 — Activities share the existing detail modal but not the Experience list. */
