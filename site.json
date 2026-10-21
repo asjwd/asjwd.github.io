@@ -216,29 +216,36 @@
     },
     {
       "startMonth": "06",
-      "activities": [],
-      "contributions": [],
-      "endYear": "",
-      "location": "Surabaya, Indonesia",
-      "organization": "PT Sucofindo",
-      "companyWebsite": "",
+      "role": "Environment Specialist",
       "companyIcon": "assets/images/12v-fEAAedUgP9XIQp3FoKHxvC8qQDsbm.png",
-      "currentlyActive": true,
-      "en": {
-        "role": "Environment Specialist",
-        "summary": "I assisted several projects as an expert for several activities, including an air emission study for a sorbitol industry from America, an air and water emission study for a PMA animal feed company from Singapore, and a mass balance study of glycerin combustion emissions in Kalimantan.",
-        "contributions": [],
-        "activities": []
-      },
-      "gallery": [],
-      "startYear": "2023",
+      "companyWebsite": "",
+      "organization": "PT Sucofindo",
+      "materials": [],
       "features": [],
       "endMonth": "",
-      "summary": "Saya membantu beberapa proyek sebagai tenaga ahli untuk beberapa kegiatan, antara lain kajian emisi udara untuk suatu industri sorbitol dari Amerika, kajian emisi udara dan air untuk perusahaan pakan ternak PMA dari Singapura, dan kajian neraca massa emisi pembakaran gliserin di Kalimantan.",
-      "materials": [],
-      "role": "Environment Specialist",
+      "gallery": [],
       "id": "v3-1792595524817-lsa9sa",
-      "period": "Juni 2023 – Now"
+      "startYear": "2023",
+      "summary": "",
+      "en": {
+        "role": "Environment Specialist",
+        "contributions": [
+          "Expert staff for several activities, including air emissions studies for a sorbitol industry from America",
+          "Air and water emission study expert for PMA animal feed company from Singapore",
+          "Experts studying the mass balance of glycerin combustion emissions in Kalimantan."
+        ],
+        "activities": []
+      },
+      "location": "Surabaya, Indonesia",
+      "activities": [],
+      "contributions": [
+        "Tenaga ahli untuk beberapa kegiatan, antara lain kajian emisi udara untuk suatu industri sorbitol dari Amerika",
+        "Tenaga ahli kajian emisi udara dan air untuk perusahaan pakan ternak PMA dari Singapura",
+        "Tenaga ahli kajian neraca massa emisi pembakaran gliserin di Kalimantan."
+      ],
+      "period": "Juni 2023 – Now",
+      "endYear": "",
+      "currentlyActive": true
     },
     {
       "period": "Agustus 2016 – Februari 2017",
@@ -588,19 +595,7 @@
       "url": ""
     }
   ],
-  "gradeBoards": [
-    {
-      "id": "v3-1792516268178-z08p37",
-      "course": "Matematika 1",
-      "className": "Kelas A",
-      "period": "Gasal 2026/2027",
-      "publishedAt": "2026-10-20",
-      "expiresAt": "2026-10-26T17:00:00.000Z",
-      "columns": [],
-      "rowsFile": "assets/grades/v3-1792516268178-z08p37.json",
-      "rowCount": 21
-    }
-  ],
+  "gradeBoards": [],
   "slides": [],
   "otherActivities": [
     {
@@ -650,34 +645,6 @@
       "location": "Bali, Indonesia"
     },
     {
-      "gallery": [
-        {
-          "featured": true,
-          "caption": "",
-          "url": "assets/images/1OQVB6ItwCYkKTg39JZFFZxWxCGwPxOjj.jpg"
-        },
-        {
-          "caption": "",
-          "url": "assets/images/1mRyjh1AAfYV9fP5r1F98jz4H5Ca987ZL.jpg",
-          "featured": true
-        }
-      ],
-      "startYear": "2025",
-      "type": "Conference",
-      "description": "",
-      "endMonth": "",
-      "title": "Theory and Technique Taiwan Forum on Sustainable Environment (T&T TFOSE)",
-      "role": "Presenter",
-      "date": "April 2025",
-      "certificateUrl": "",
-      "endYear": "",
-      "materials": [],
-      "contributions": [],
-      "features": [],
-      "organizer": "Taiwan Association for Aerosol Research",
-      "id": "v3-1792417699685-x18era",
-      "currentlyActive": false,
-      "startMonth": "04",
       "en": {
         "title": "Theory and Technique Taiwan Forum on Sustainable Environment (T&T TFOSE)",
         "type": "Conference",
@@ -685,11 +652,39 @@
         "organizer": "Taiwan Association for Aerosol Research",
         "location": "Tainan, Taiwan"
       },
+      "activities": [],
+      "materials": [],
+      "description": "",
+      "endYear": "",
+      "contributions": [],
+      "organizer": "Taiwan Association for Aerosol Research",
       "location": "Tainan, Taiwan",
-      "certificateTitle": "",
       "organizerIcon": "",
+      "id": "v3-1792417699685-x18era",
+      "role": "Presenter",
       "organizerWebsite": "https://www.taar.org.tw/",
-      "activities": []
+      "startYear": "2025",
+      "startMonth": "04",
+      "type": "Conference",
+      "currentlyActive": false,
+      "title": "Theory and Technique Taiwan Forum on Sustainable Environment (T&T TFOSE)",
+      "gallery": [
+        {
+          "featured": true,
+          "url": "assets/images/1OQVB6ItwCYkKTg39JZFFZxWxCGwPxOjj.jpg",
+          "caption": ""
+        },
+        {
+          "featured": true,
+          "url": "assets/images/1mRyjh1AAfYV9fP5r1F98jz4H5Ca987ZL.jpg",
+          "caption": ""
+        }
+      ],
+      "features": [],
+      "date": "April 2025",
+      "endMonth": "",
+      "certificateUrl": "",
+      "certificateTitle": ""
     },
     {
       "id": "v3-1792415442468-3omdp6",
