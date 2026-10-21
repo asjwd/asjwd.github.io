@@ -645,25 +645,11 @@
       "location": "Bali, Indonesia"
     },
     {
-      "id": "v3-1792417699685-x18era",
       "contributions": [],
-      "date": "April 2025",
-      "features": [],
-      "gallery": [
-        {
-          "caption": "",
-          "featured": true,
-          "url": "assets/images/1OQVB6ItwCYkKTg39JZFFZxWxCGwPxOjj.jpg"
-        },
-        {
-          "featured": true,
-          "caption": "",
-          "url": "assets/images/1mRyjh1AAfYV9fP5r1F98jz4H5Ca987ZL.jpg"
-        }
-      ],
-      "organizerIcon": "",
-      "activities": [],
-      "title": "Theory and Technique Taiwan Forum on Sustainable Environment (T&T TFOSE)",
+      "id": "v3-1792417699685-x18era",
+      "startYear": "2025",
+      "organizer": "Taiwan Association for Aerosol Research",
+      "endMonth": "",
       "en": {
         "title": "Theory and Technique Taiwan Forum on Sustainable Environment (T&T TFOSE)",
         "type": "Conference",
@@ -671,20 +657,34 @@
         "organizer": "Taiwan Association for Aerosol Research",
         "location": "Tainan, Taiwan"
       },
-      "role": "Presenter",
-      "startMonth": "04",
-      "type": "Conference",
-      "description": "",
-      "startYear": "2025",
-      "organizer": "Taiwan Association for Aerosol Research",
-      "endYear": "",
-      "certificateTitle": "",
       "certificateUrl": "",
+      "endYear": "",
+      "organizerWebsite": "https://www.taar.org.tw/",
+      "gallery": [
+        {
+          "featured": true,
+          "caption": "",
+          "url": "assets/images/1OQVB6ItwCYkKTg39JZFFZxWxCGwPxOjj.jpg"
+        },
+        {
+          "url": "assets/images/1mRyjh1AAfYV9fP5r1F98jz4H5Ca987ZL.jpg",
+          "caption": "",
+          "featured": true
+        }
+      ],
       "materials": [],
+      "type": "Conference",
+      "startMonth": "04",
       "currentlyActive": false,
+      "role": "Presenter",
+      "certificateTitle": "",
       "location": "Tainan, Taiwan",
-      "endMonth": "",
-      "organizerWebsite": "https://www.taar.org.tw/"
+      "title": "Theory and Technique Taiwan Forum on Sustainable Environment (T&T TFOSE)",
+      "description": "",
+      "organizerIcon": "assets/images/1WPWiQpgaNtpIYJ0FidAQTbWGg3r7iZO7.png",
+      "date": "April 2025",
+      "features": [],
+      "activities": []
     },
     {
       "id": "v3-1792415442468-3omdp6",
