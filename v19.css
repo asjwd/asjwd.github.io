@@ -159,3 +159,6 @@
 .v24-ac-grade .grade-summary .v23-expiry-note,
 .grade-summary .v23-expiry-note{color:#ffffff!important;opacity:1!important;font-weight:600;}
 .v24-ac-grade .grade-summary .v23-expiry-note{max-width:380px;}
+
+/* V27: only one external link arrow, provided by HTML */
+#profile-institution::after,#profile-institution .institution-title::after{content:none!important;display:none!important;}
