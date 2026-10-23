@@ -173,3 +173,12 @@
 .v28-cert-card[href]:hover{border-color:#6eabae;background:#eff7f5}
 .v28-contact-icon{display:flex;justify-content:center;align-items:center}
 .v28-contact-icon img{width:28px;height:28px;max-height:28px;object-fit:contain}
+
+
+/* V29 — certifications use a stable grid, no width changes due to long names */
+.v28-certifications{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch;gap:8px;width:100%}
+.v28-cert-card{width:100%;min-width:0;max-width:100%;display:flex!important;align-items:center;gap:9px;overflow:hidden}
+.v28-cert-card img{width:32px;height:32px;flex:0 0 32px;object-fit:contain}
+.v28-cert-card span{min-width:0;overflow-wrap:anywhere;word-break:normal}
+.v28-cert-card strong,.v28-cert-card small{white-space:normal;overflow-wrap:anywhere;line-height:1.4}
+@media(max-width:680px){.v28-certifications{grid-template-columns:1fr!important}.v28-cert-card{padding:10px 12px}}

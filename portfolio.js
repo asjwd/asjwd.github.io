@@ -187,9 +187,11 @@ function linkMarkup(label,url,icon){const safe=SITE.linkURL(url);if(!safe)return
 function renderContacts(){
  const p=portfolioData.profile||{},el=document.getElementById('contact-links');if(!el)return;
  const legacy=[['linkedin','LinkedIn'],['instagram','Instagram'],['youtube','YouTube'],['scholar','Google Scholar'],['orcid','ORCID'],['sinta','SINTA'],['upnProfile','UPN Profile']].filter(([k])=>p[k]).map(([k,name])=>({id:'legacy-'+k,name,url:p[k],type:'link',platform:k}));
- legacy.push({id:'legacy-mail',name:'Mail Me',type:'mail'});
  const order=p.socialOrder||[],ordered=legacy.sort((a,b)=>(order.indexOf(a.platform)<0?999:order.indexOf(a.platform))-(order.indexOf(b.platform)<0?999:order.indexOf(b.platform)));
- const items=Array.isArray(p.contacts)?p.contacts:ordered;
+ const links=(Array.isArray(p.contacts)?p.contacts:ordered).filter(c=>c.type!=='mail'&&!/^(mail me|kirim pesan)$/i.test(String(c.name||'')));
+ const oldMail=(p.contacts||[]).find(c=>c.type==='mail');
+ const mail={id:'built-in-mail',type:'mail',name:currentLanguage==='id'?'Mail Me':'Mail Me',icon:p.mailContactIcon||oldMail?.icon||''};
+ const items=[mail,...links];
  el.innerHTML=items.map(c=>{
    const name=esc(c.name||'Contact');const img=SITE.safeURL(c.icon||'')?`<img src="${esc(c.icon)}" alt="" loading="lazy">`:c.type==='mail'?'✉':(c.platform&&ICONS[c.platform]?ICONS[c.platform]:'↗');
    const body=`<span class="brand-icon v28-contact-icon">${img}</span><span>${name}</span>`;
