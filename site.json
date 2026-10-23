@@ -8,107 +8,133 @@
     "brandingSquare": "",
     "certifications": [
       {
+        "id": "v3-1792728711315-lhq45s",
+        "logoWebsite": "https://bnsp.go.id/",
+        "url": "",
+        "logo": "assets/icons/69a8fae1abe6af4e.png",
+        "issuer": "BNSP",
+        "score": "",
+        "name": "Auditor Lingkungan",
+        "expiry": "",
+        "year": "",
+        "nameEn": "Environmental Auditor",
+        "issuerEn": "BNSP"
+      },
+      {
+        "issuer": "國家華語測驗推動工作委員會",
+        "logo": "assets/images/1gbraMbuMKpiiYs2rSlPq-w2d1_r4BYUP.png",
+        "year": "",
+        "logoWebsite": "",
         "url": "",
         "score": "A2",
-        "name": "TOCFL",
         "id": "v3-1792728460948-64ufzu",
-        "logo": "assets/images/1gbraMbuMKpiiYs2rSlPq-w2d1_r4BYUP.png",
-        "logoWebsite": "",
-        "year": "",
+        "name": "TOCFL",
         "expiry": "",
-        "issuer": "國家華語測驗推動工作委員會",
         "nameEn": "TOCFL",
         "issuerEn": "國家華語測驗推動工作委員會"
       },
       {
-        "name": "IELTS",
-        "score": "6.5",
-        "url": "",
-        "id": "v3-1792728490016-wd7u1u",
-        "logo": "assets/images/14daS_t3kPN7v0DthXoKmzZW-Qn0N6Uke.png",
-        "logoWebsite": "",
         "year": "",
         "expiry": "",
+        "name": "IELTS",
+        "score": "6.5",
+        "logo": "assets/images/14daS_t3kPN7v0DthXoKmzZW-Qn0N6Uke.png",
         "issuer": "British Council",
+        "url": "",
+        "id": "v3-1792728490016-wd7u1u",
+        "logoWebsite": "",
         "nameEn": "IELTS",
         "issuerEn": "British Council"
+      },
+      {
+        "logoWebsite": "https://bnsp.go.id/",
+        "year": "",
+        "id": "v3-1792728676091-nn45p4",
+        "expiry": "",
+        "name": "Asesor Kompetensi",
+        "score": "",
+        "logo": "assets/icons/69a8fae1abe6af4e.png",
+        "issuer": "BNSP",
+        "url": "",
+        "nameEn": "Competency Assessor",
+        "issuerEn": "BNSP"
       }
     ],
     "contactFormUrl": "https://script.google.com/macros/s/AKfycbzsyunPGbY7EKWLzN4pnphb6q0UDn-0Ys-W_ZVcJI3vaQwSKmRPLWny2u5BPtKWI4_W/exec",
     "contacts": [
       {
-        "icon": "",
-        "type": "mail",
-        "id": "legacy-mail",
         "name": "Mail Me",
-        "url": ""
+        "id": "legacy-mail",
+        "url": "",
+        "icon": "",
+        "type": "mail"
       },
       {
-        "name": "Google Scholar",
+        "type": "link",
         "icon": "assets/icons/44450f1a0fbf1acb.png",
-        "id": "legacy-scholar",
-        "type": "link",
-        "url": "https://scholar.google.com/citations?user=8SKtiBMAAAAJ&hl=en"
+        "url": "https://scholar.google.com/citations?user=8SKtiBMAAAAJ&hl=en",
+        "name": "Google Scholar",
+        "id": "legacy-scholar"
       },
       {
-        "url": "https://orcid.org/0000-0001-6296-6140",
-        "type": "link",
-        "id": "legacy-orcid",
         "icon": "assets/icons/9c9f0c131fa9009c.png",
+        "type": "link",
+        "url": "https://orcid.org/0000-0001-6296-6140",
+        "id": "legacy-orcid",
         "name": "ORCID"
       },
       {
-        "icon": "assets/icons/f54db463750940e0.png",
-        "type": "link",
-        "url": "https://www.linkedin.com/in/asjwd/",
         "name": "LinkedIn",
-        "id": "legacy-linkedin"
+        "url": "https://www.linkedin.com/in/asjwd/",
+        "type": "link",
+        "id": "legacy-linkedin",
+        "icon": "assets/icons/f54db463750940e0.png"
       },
       {
         "type": "link",
-        "url": "https://www.youtube.com/@muhammada.s.jawwad2208",
         "icon": "assets/icons/14dd5266c70789bd.png",
         "name": "YouTube",
+        "url": "https://www.youtube.com/@muhammada.s.jawwad2208",
         "id": "legacy-youtube"
       },
       {
-        "icon": "assets/images/1Gc_L-YO3YgTSmHOiydzGj0eyLl4uV3Ee.png",
-        "type": "link",
+        "url": "https://sinta.kemdiktisaintek.go.id/authors/profile/6762434",
         "id": "legacy-sinta",
         "name": "SINTA",
-        "url": "https://sinta.kemdiktisaintek.go.id/authors/profile/6762434",
+        "icon": "assets/images/1Gc_L-YO3YgTSmHOiydzGj0eyLl4uV3Ee.png",
+        "type": "link",
         "iconWebsite": "https://sinta.kemdiktisaintek.go.id/authors/profile/6762434"
       }
     ],
     "education": {
       "bachelor": {
         "major": "Ilmu dan Teknologi Lingkungan",
-        "description": "",
-        "year": "2016",
-        "logoWebsite": "https://unair.ac.id/",
-        "gallery": [],
         "institution": "Universitas Airlangga",
+        "logoWebsite": "https://unair.ac.id/",
         "logo": "assets/icons/eb1eb8ed8f53f39a.png",
+        "description": "",
+        "gallery": [],
+        "year": "2016",
         "majorEn": "Environmental Science and Technology"
       },
       "master": {
-        "logo": "assets/icons/6c2017278165c799.png",
-        "gallery": [],
-        "major": "Environmental Engineering",
+        "year": "2019",
         "description": "",
         "logoWebsite": "https://eng.cycu.edu.tw/",
-        "year": "2019",
+        "logo": "assets/icons/6c2017278165c799.png",
         "institution": "Chung Yuan Christian University",
+        "gallery": [],
+        "major": "Environmental Engineering",
         "majorEn": "Environmental Engineering"
       },
       "doctorate": {
         "logoWebsite": "",
-        "logo": "",
         "description": "",
         "gallery": [],
         "year": "",
-        "institution": "",
-        "major": ""
+        "major": "",
+        "logo": "",
+        "institution": ""
       }
     },
     "en": {
