@@ -27,8 +27,8 @@ function renderPortfolio(data){portfolioData=data;const p=data.profile||{};docum
   document.querySelector('#profile-location').textContent=p.location||'—';
  const ava=document.getElementById('profile-avatar');ava.innerHTML=SITE.safeURL(p.avatar)?SITE.image(p.avatar,p.name):`<span>${esc(SITE.avatarInitials(p.name))}</span>`;
  const hero=document.querySelector('.hero');if(SITE.safeURL(p.banner))hero.style.backgroundImage=`linear-gradient(100deg,rgba(13,40,55,.94),rgba(14,51,63,.83)),url("${SITE.safeURL(p.banner).replaceAll('"','%22')}")`;
- document.getElementById('specialty-tags').innerHTML=trArray(p,'specialties').map(x=>`<span class="tag">${esc(x)}</span>`).join('');
- renderEducation(p);
+ document.getElementById('specialty-tags')?.remove();
+ renderEducation(p);renderCertifications(p);
  document.getElementById('year').textContent=new Date().getFullYear();
  renderExperience();renderProjects();renderPublications();renderOtherActivities();renderContacts();renderSlides();pm24ApplyBranding(p);}
 // V16: Education is an optional object in Profile; existing Profiles continue to work.
@@ -58,6 +58,18 @@ function renderEducation(profile){
  root.closest('.v16-education').hidden=!filled.length;
  root.style.gridTemplateColumns=filled.length===1?'minmax(0,1fr)':filled.length===2?'repeat(2,minmax(0,1fr))':'';
  root.querySelectorAll('[data-degree]').forEach(el=>el.addEventListener('click',()=>openEducation(el.dataset.degree)));
+}
+// V28 — compact certificates immediately below education, without a section title.
+function renderCertifications(profile){
+ const el=document.getElementById('certification-list');if(!el)return;
+ const certs=Array.isArray(profile.certifications)?profile.certifications:[];
+ el.hidden=!certs.length;
+ el.innerHTML=certs.map(c=>{
+  const icon=SITE.safeURL(c.logo||'');const name=currentLanguage==='en'?(c.nameEn||c.name):(c.name||'');
+  const label=[name,c.score].filter(Boolean).join(' ');const details=[c.issuer,c.year].filter(Boolean).join(' · ');
+  const html=`${icon?`<img src="${esc(icon)}" alt="" loading="lazy" decoding="async">`:''}<span><strong>${esc(label)}</strong>${details?`<small>${esc(details)}</small>`:''}</span>`;
+  const url=SITE.linkURL(c.url||'');return url?`<a class="v28-cert-card" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${html}</a>`:`<span class="v28-cert-card">${html}</span>`;
+ }).join('');
 }
 function openEducation(key){
  const d=portfolioData?.profile?.education?.[key]||{},labels={bachelor:'degreeBachelor',master:'degreeMaster',doctorate:'degreeDoctorate'};
@@ -173,21 +185,18 @@ function renderTools(){
 const ICONS={linkedin:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0a66c2"/><path d="M5 10h3v9H5zm1.5-5a1.7 1.7 0 110 3.4 1.7 1.7 0 010-3.4zM10 10h2.8v1.3c.5-.9 1.5-1.5 2.9-1.5 3 0 3.3 2 3.3 4.5V19h-3v-4.3c0-1.1 0-2.4-1.6-2.4-1.6 0-1.8 1.2-1.8 2.4V19H10z" fill="white"/></svg>',instagram:'<svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="ig"><stop stop-color="#feda75"/><stop offset=".45" stop-color="#d62976"/><stop offset="1" stop-color="#4f5bd5"/></linearGradient></defs><rect x="0" y="0" width="24" height="24" rx="6" fill="url(#ig)"/><rect x="5" y="5" width="14" height="14" rx="4" stroke="white" stroke-width="2" fill="none"/><circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" fill="none"/><circle cx="17" cy="7" r="1.2" fill="white"/></svg>',youtube:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="m10 8 7 4-7 4z" fill="#fff"/></svg>',orcid:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#a6ce39"/><circle cx="6.8" cy="7.5" r="1.2" fill="#fff"/><path fill="#fff" d="M6 10h1.7v8H6zm4.1-4h4.2c4.2 0 6.7 2.3 6.7 6s-2.5 6-6.7 6h-4.2zm3 2.2v7.6h1.2c2.7 0 4.3-1.3 4.3-3.8s-1.6-3.8-4.3-3.8z"/></svg>'};
 function linkMarkup(label,url,icon){const safe=SITE.linkURL(url);if(!safe)return '';return `<a href="${esc(safe)}" target="_blank" rel="noopener noreferrer"><span class="brand-icon">${icon}</span><span>${esc(label)}</span></a>`;}
 function renderContacts(){
- const p=portfolioData.profile||{};
- const scholar='<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#4285f4"/><path d="M3 10 12 4l9 6-9 6z" fill="#fff"/><path d="M7 13v3.2c1.6 2 8.4 2 10 0V13l-5 3.1z" fill="#e9f2ff"/><path d="M20 10v6" stroke="#fff" stroke-width="1.4"/></svg>';
- const entries={
-  linkedin:linkMarkup('LinkedIn',p.linkedin,ICONS.linkedin),
-  instagram:linkMarkup('Instagram',p.instagram,ICONS.instagram),
-  youtube:linkMarkup('YouTube',p.youtube,ICONS.youtube),
-  scholar:linkMarkup('Google Scholar',p.scholar,scholar),
-  orcid:linkMarkup('ORCID',p.orcid,ICONS.orcid),
-  mail:'<button type="button" id="openContact"><span class="brand-icon mail">✉</span><span>Mail Me</span></button>'
- };
- const defaults=['linkedin','instagram','youtube','scholar','orcid','mail'];
- const order=Array.isArray(p.socialOrder)?p.socialOrder.filter(k=>defaults.includes(k)):[];
- const unique=[...new Set([...order,...defaults])];
- document.getElementById('contact-links').innerHTML=unique.map(key=>entries[key]||'').filter(Boolean).join('');
- document.getElementById('openContact')?.addEventListener('click',openContact);
+ const p=portfolioData.profile||{},el=document.getElementById('contact-links');if(!el)return;
+ const legacy=[['linkedin','LinkedIn'],['instagram','Instagram'],['youtube','YouTube'],['scholar','Google Scholar'],['orcid','ORCID'],['sinta','SINTA'],['upnProfile','UPN Profile']].filter(([k])=>p[k]).map(([k,name])=>({id:'legacy-'+k,name,url:p[k],type:'link',platform:k}));
+ legacy.push({id:'legacy-mail',name:'Mail Me',type:'mail'});
+ const order=p.socialOrder||[],ordered=legacy.sort((a,b)=>(order.indexOf(a.platform)<0?999:order.indexOf(a.platform))-(order.indexOf(b.platform)<0?999:order.indexOf(b.platform)));
+ const items=Array.isArray(p.contacts)?p.contacts:ordered;
+ el.innerHTML=items.map(c=>{
+   const name=esc(c.name||'Contact');const img=SITE.safeURL(c.icon||'')?`<img src="${esc(c.icon)}" alt="" loading="lazy">`:c.type==='mail'?'✉':(c.platform&&ICONS[c.platform]?ICONS[c.platform]:'↗');
+   const body=`<span class="brand-icon v28-contact-icon">${img}</span><span>${name}</span>`;
+   if(c.type==='mail')return `<button type="button" data-v28-mail>${body}</button>`;
+   const u=SITE.linkURL(c.url||'');return u?`<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${body}</a>`:'';
+ }).join('');
+ el.querySelectorAll('[data-v28-mail]').forEach(b=>b.addEventListener('click',openContact));
 }
 
 function openModal(html){document.getElementById('modalContent').innerHTML=html;document.getElementById('detailModal').classList.remove('hidden');document.body.style.overflow='hidden';}
