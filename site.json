@@ -6,114 +6,147 @@
     "banner": "",
     "brandingRound": "",
     "brandingSquare": "",
+    "certifications": [],
     "contactFormUrl": "https://script.google.com/macros/s/AKfycbzsyunPGbY7EKWLzN4pnphb6q0UDn-0Ys-W_ZVcJI3vaQwSKmRPLWny2u5BPtKWI4_W/exec",
-    "education": {
-      "master": {
-        "year": "2019",
-        "logo": "assets/icons/6c2017278165c799.png",
-        "major": "Environmental Engineering",
-        "description": "",
-        "institution": "Chung Yuan Christian University",
-        "logoWebsite": "https://eng.cycu.edu.tw/",
-        "gallery": [],
-        "majorEn": "Environmental Engineering"
+    "contacts": [
+      {
+        "id": "legacy-mail",
+        "url": "",
+        "icon": "",
+        "name": "Mail Me",
+        "type": "mail"
       },
+      {
+        "id": "legacy-scholar",
+        "icon": "assets/icons/44450f1a0fbf1acb.png",
+        "name": "Google Scholar",
+        "url": "https://scholar.google.com/citations?user=8SKtiBMAAAAJ&hl=en",
+        "type": "link"
+      },
+      {
+        "id": "legacy-orcid",
+        "url": "https://orcid.org/0000-0001-6296-6140",
+        "icon": "assets/icons/9c9f0c131fa9009c.png",
+        "name": "ORCID",
+        "type": "link"
+      },
+      {
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com/in/asjwd/",
+        "icon": "assets/icons/f54db463750940e0.png",
+        "type": "link",
+        "id": "legacy-linkedin"
+      },
+      {
+        "id": "legacy-youtube",
+        "type": "link",
+        "name": "YouTube",
+        "icon": "assets/icons/14dd5266c70789bd.png",
+        "url": "https://www.youtube.com/@muhammada.s.jawwad2208"
+      },
+      {
+        "url": "https://sinta.kemdiktisaintek.go.id/authors/profile/6762434",
+        "id": "legacy-sinta",
+        "name": "SINTA",
+        "icon": "",
+        "type": "link"
+      },
+      {
+        "type": "link",
+        "url": "https://teklingk.upnjatim.ac.id/jawwad/",
+        "icon": "assets/icons/2c0cd0e3bec63ba0.png",
+        "id": "legacy-upnProfile",
+        "name": "UPN Profile"
+      }
+    ],
+    "education": {
       "doctorate": {
         "gallery": [],
-        "major": "",
         "logoWebsite": "",
+        "major": "",
         "logo": "",
+        "description": "",
         "year": "",
-        "institution": "",
-        "description": ""
+        "institution": ""
       },
       "bachelor": {
-        "logoWebsite": "https://unair.ac.id/",
+        "gallery": [],
+        "institution": "Universitas Airlangga",
         "year": "2016",
         "description": "",
-        "institution": "Universitas Airlangga",
-        "logo": "assets/icons/eb1eb8ed8f53f39a.png",
-        "gallery": [],
         "major": "Ilmu dan Teknologi Lingkungan",
+        "logo": "assets/icons/eb1eb8ed8f53f39a.png",
+        "logoWebsite": "https://unair.ac.id/",
         "majorEn": "Environmental Science and Technology"
+      },
+      "master": {
+        "logoWebsite": "https://eng.cycu.edu.tw/",
+        "logo": "assets/icons/6c2017278165c799.png",
+        "description": "",
+        "gallery": [],
+        "major": "Environmental Engineering",
+        "institution": "Chung Yuan Christian University",
+        "year": "2019",
+        "majorEn": "Environmental Engineering"
       }
     },
     "en": {
       "about": "I’m an Environmental Engineering lecturer and researcher with a strong interest in environmental modeling, scientific computing, and digital innovation.\n\nMy work focuses on air quality, water treatment, and environmental impact assessment, with an emphasis on applying computational tools and atmospheric modeling systems such as WRF-Chem and AERMOD to environmental research.",
       "title": "Lecturer · Researcher · Environmental Consultant",
       "tagline": "Teaching, research, environmental assessment, and technical consulting.",
-      "specialties": [
-        "Environmental Assessment",
-        "Air Quality Modeling",
-        "Water & Wastewater",
-        "Environmental Engineering"
-      ]
+      "specialties": []
     },
     "instagram": "",
     "institution": "Environmental Engineering — UPN 'Veteran' Jawa Timur",
     "institutionIcon": "assets/icons/2c0cd0e3bec63ba0.png",
     "institutionIconWebsite": "https://teklingk.upnjatim.ac.id/jawwad/",
     "institutionUrl": "https://teklingk.upnjatim.ac.id/jawwad/",
-    "linkedin": "https://www.linkedin.com/in/asjwd/",
+    "linkedin": "",
     "location": "Surabaya, Indonesia",
     "name": "Muhammad A. S. Jawwad",
-    "orcid": "https://orcid.org/0000-0001-6296-6140",
-    "scholar": "https://scholar.google.com/citations?user=8SKtiBMAAAAJ&hl=en",
-    "sinta": "https://sinta.kemdiktisaintek.go.id/authors/profile/6762434",
-    "socialOrder": [
-      "mail",
-      "scholar",
-      "orcid",
-      "linkedin",
-      "youtube",
-      "instagram"
-    ],
-    "specialties": [
-      "Environmental Assessment",
-      "Air Quality Modeling",
-      "Water & Wastewater",
-      "Environmental Engineering"
-    ],
+    "orcid": "",
+    "scholar": "",
+    "sinta": "",
     "tagline": "Teaching, research, environmental assessment, and technical consulting.",
     "title": "Lecturer · Researcher · Environmental Consultant",
-    "upnProfile": "https://teklingk.upnjatim.ac.id/jawwad/",
-    "youtube": "https://www.youtube.com/@muhammada.s.jawwad2208"
+    "upnProfile": "",
+    "youtube": ""
   },
   "experiences": [
     {
+      "id": "exp-lab",
+      "contributions": [],
       "endYear": "",
-      "currentlyActive": true,
-      "location": "Surabaya",
-      "gallery": [
-        {
-          "featured": true,
-          "caption": "IMG_4857",
-          "url": "assets/images/10JO-y872MXEIubNMzaed0S5Dz8DNeu2d.jpg",
-          "captionEn": "IMG_4857"
-        },
-        {
-          "url": "assets/images/1O14dwkoW3QvUnY7o6rwfV7iD7C9GqlB2.jpg",
-          "featured": true,
-          "caption": ""
-        }
-      ],
       "period": "September 2020 – Now",
-      "endMonth": "",
       "startYear": "2020",
       "startMonth": "09",
-      "id": "exp-lab",
-      "companyIcon": "assets/icons/2c0cd0e3bec63ba0.png",
+      "location": "Surabaya",
+      "currentlyActive": true,
       "summary": "",
-      "contributions": [],
-      "role": "Dosen",
-      "organization": "Teknik Lingkungan, UPN 'Veteran' Jawa Timur",
       "companyWebsite": "https://teklingk.upnjatim.ac.id/",
       "en": {
         "role": "Lecturer",
         "contributions": [],
         "activities": []
       },
-      "activities": []
+      "endMonth": "",
+      "organization": "Teknik Lingkungan, UPN 'Veteran' Jawa Timur",
+      "gallery": [
+        {
+          "url": "assets/images/1O14dwkoW3QvUnY7o6rwfV7iD7C9GqlB2.jpg",
+          "featured": true,
+          "caption": ""
+        },
+        {
+          "url": "assets/images/10JO-y872MXEIubNMzaed0S5Dz8DNeu2d.jpg",
+          "caption": "IMG_4857",
+          "featured": true,
+          "captionEn": "IMG_4857"
+        }
+      ],
+      "activities": [],
+      "companyIcon": "assets/icons/2c0cd0e3bec63ba0.png",
+      "role": "Dosen"
     },
     {
       "startYear": "2026",
