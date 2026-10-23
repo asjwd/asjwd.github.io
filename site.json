@@ -6,88 +6,109 @@
     "banner": "",
     "brandingRound": "",
     "brandingSquare": "",
-    "certifications": [],
+    "certifications": [
+      {
+        "url": "",
+        "score": "A2",
+        "name": "TOCFL",
+        "id": "v3-1792728460948-64ufzu",
+        "logo": "assets/images/1gbraMbuMKpiiYs2rSlPq-w2d1_r4BYUP.png",
+        "logoWebsite": "",
+        "year": "",
+        "expiry": "",
+        "issuer": "國家華語測驗推動工作委員會",
+        "nameEn": "TOCFL",
+        "issuerEn": "國家華語測驗推動工作委員會"
+      },
+      {
+        "name": "IELTS",
+        "score": "6.5",
+        "url": "",
+        "id": "v3-1792728490016-wd7u1u",
+        "logo": "assets/images/14daS_t3kPN7v0DthXoKmzZW-Qn0N6Uke.png",
+        "logoWebsite": "",
+        "year": "",
+        "expiry": "",
+        "issuer": "British Council",
+        "nameEn": "IELTS",
+        "issuerEn": "British Council"
+      }
+    ],
     "contactFormUrl": "https://script.google.com/macros/s/AKfycbzsyunPGbY7EKWLzN4pnphb6q0UDn-0Ys-W_ZVcJI3vaQwSKmRPLWny2u5BPtKWI4_W/exec",
     "contacts": [
       {
-        "id": "legacy-mail",
-        "url": "",
         "icon": "",
+        "type": "mail",
+        "id": "legacy-mail",
         "name": "Mail Me",
-        "type": "mail"
+        "url": ""
       },
       {
-        "id": "legacy-scholar",
-        "icon": "assets/icons/44450f1a0fbf1acb.png",
         "name": "Google Scholar",
-        "url": "https://scholar.google.com/citations?user=8SKtiBMAAAAJ&hl=en",
-        "type": "link"
+        "icon": "assets/icons/44450f1a0fbf1acb.png",
+        "id": "legacy-scholar",
+        "type": "link",
+        "url": "https://scholar.google.com/citations?user=8SKtiBMAAAAJ&hl=en"
       },
       {
-        "id": "legacy-orcid",
         "url": "https://orcid.org/0000-0001-6296-6140",
+        "type": "link",
+        "id": "legacy-orcid",
         "icon": "assets/icons/9c9f0c131fa9009c.png",
-        "name": "ORCID",
-        "type": "link"
+        "name": "ORCID"
       },
       {
-        "name": "LinkedIn",
-        "url": "https://www.linkedin.com/in/asjwd/",
         "icon": "assets/icons/f54db463750940e0.png",
         "type": "link",
+        "url": "https://www.linkedin.com/in/asjwd/",
+        "name": "LinkedIn",
         "id": "legacy-linkedin"
       },
       {
-        "id": "legacy-youtube",
         "type": "link",
-        "name": "YouTube",
+        "url": "https://www.youtube.com/@muhammada.s.jawwad2208",
         "icon": "assets/icons/14dd5266c70789bd.png",
-        "url": "https://www.youtube.com/@muhammada.s.jawwad2208"
+        "name": "YouTube",
+        "id": "legacy-youtube"
       },
       {
-        "url": "https://sinta.kemdiktisaintek.go.id/authors/profile/6762434",
+        "icon": "assets/images/1Gc_L-YO3YgTSmHOiydzGj0eyLl4uV3Ee.png",
+        "type": "link",
         "id": "legacy-sinta",
         "name": "SINTA",
-        "icon": "",
-        "type": "link"
-      },
-      {
-        "type": "link",
-        "url": "https://teklingk.upnjatim.ac.id/jawwad/",
-        "icon": "assets/icons/2c0cd0e3bec63ba0.png",
-        "id": "legacy-upnProfile",
-        "name": "UPN Profile"
+        "url": "https://sinta.kemdiktisaintek.go.id/authors/profile/6762434",
+        "iconWebsite": "https://sinta.kemdiktisaintek.go.id/authors/profile/6762434"
       }
     ],
     "education": {
-      "doctorate": {
-        "gallery": [],
-        "logoWebsite": "",
-        "major": "",
-        "logo": "",
-        "description": "",
-        "year": "",
-        "institution": ""
-      },
       "bachelor": {
+        "major": "Ilmu dan Teknologi Lingkungan",
+        "description": "",
+        "year": "2016",
+        "logoWebsite": "https://unair.ac.id/",
         "gallery": [],
         "institution": "Universitas Airlangga",
-        "year": "2016",
-        "description": "",
-        "major": "Ilmu dan Teknologi Lingkungan",
         "logo": "assets/icons/eb1eb8ed8f53f39a.png",
-        "logoWebsite": "https://unair.ac.id/",
         "majorEn": "Environmental Science and Technology"
       },
       "master": {
-        "logoWebsite": "https://eng.cycu.edu.tw/",
         "logo": "assets/icons/6c2017278165c799.png",
-        "description": "",
         "gallery": [],
         "major": "Environmental Engineering",
-        "institution": "Chung Yuan Christian University",
+        "description": "",
+        "logoWebsite": "https://eng.cycu.edu.tw/",
         "year": "2019",
+        "institution": "Chung Yuan Christian University",
         "majorEn": "Environmental Engineering"
+      },
+      "doctorate": {
+        "logoWebsite": "",
+        "logo": "",
+        "description": "",
+        "gallery": [],
+        "year": "",
+        "institution": "",
+        "major": ""
       }
     },
     "en": {
