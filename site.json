@@ -666,27 +666,7 @@
       "gallery": []
     }
   ],
-  "tools": [
-    {
-      "icon": "file",
-      "description": "Desktop PDF utility: convert, combine, split, and manage PDF documents. 100% offline, no need to upload to web and risk your privacy.",
-      "version": "",
-      "en": {
-        "description": "Desktop PDF utility: convert, combine, split, and manage PDF documents. 100% offline, no need to upload to web and risk your privacy.",
-        "features": [
-          "Convert & Combine PDF",
-          "Split & Manage PDF"
-        ]
-      },
-      "name": "ASPDF",
-      "features": [
-        "Convert & Combine PDF",
-        "Split & Manage PDF"
-      ],
-      "id": "tool-aspdf",
-      "requestAvailable": true
-    }
-  ],
+  "tools": [],
   "courses": [
     {
       "id": "course-mat1",
@@ -745,8 +725,8 @@
         "name": false,
         "score": false
       },
-      "publishedAt": "2026-10-24T02:56:39.674Z",
-      "expiresAt": "2026-10-31T02:56:39.674Z",
+      "publishedAt": "2026-10-24T02:56:46.384Z",
+      "expiresAt": "2026-10-31T02:56:46.384Z",
       "rowsFile": "assets/grades/v3-1792810589689-qeoquk.json",
       "rowCount": 125
     }
