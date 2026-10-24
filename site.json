@@ -339,6 +339,26 @@
       "currentlyActive": true
     },
     {
+      "id": "v3-1792809623610-cwmuag",
+      "gallery": [],
+      "materials": [],
+      "contributions": [],
+      "activities": [],
+      "features": [],
+      "role": "Asisten Riset",
+      "organization": "Circular Society Lab, CYCU",
+      "location": "Zhongli, Taiwan",
+      "startMonth": "09",
+      "startYear": "2017",
+      "endMonth": "08",
+      "endYear": "2019",
+      "currentlyActive": false,
+      "period": "September 2017 – Agustus 2019",
+      "companyIcon": "assets/images/cc7baf5d548d91d09391401256b02b1c.png",
+      "companyWebsite": "",
+      "en": {}
+    },
+    {
       "period": "Agustus 2016 – Februari 2017",
       "startMonth": "08",
       "startYear": "2016",
@@ -369,6 +389,26 @@
       "companyWebsite": "",
       "activities": [],
       "contributions": []
+    },
+    {
+      "id": "v3-1792809348855-oh91wh",
+      "gallery": [],
+      "materials": [],
+      "contributions": [],
+      "activities": [],
+      "features": [],
+      "role": "Tim Riset Limbah Padat",
+      "organization": "Universitas Airlangga",
+      "location": "Surabaya, Indonesia",
+      "startMonth": "01",
+      "startYear": "2014",
+      "endMonth": "07",
+      "endYear": "2016",
+      "currentlyActive": false,
+      "period": "Januari 2014 – Juli 2016",
+      "companyIcon": "https://www.google.com/s2/favicons?domain=unair.ac.id&sz=64",
+      "companyWebsite": "https://unair.ac.id/",
+      "en": {}
     }
   ],
   "projects": [
