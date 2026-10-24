@@ -339,6 +339,26 @@
       "currentlyActive": true
     },
     {
+      "id": "v3-1792858121909-kq17dg",
+      "gallery": [],
+      "materials": [],
+      "contributions": [],
+      "activities": [],
+      "features": [],
+      "role": "TEST V31",
+      "organization": "GitHub JSON Trial",
+      "location": "",
+      "startMonth": "10",
+      "startYear": "2026",
+      "endMonth": "",
+      "endYear": "",
+      "currentlyActive": true,
+      "period": "Oktober 2026 – Now",
+      "companyIcon": "assets/images/fe23772edaf33bad5441972d2914de6e.png",
+      "companyWebsite": "",
+      "en": {}
+    },
+    {
       "id": "v3-1792809623610-cwmuag",
       "gallery": [],
       "materials": [],
@@ -408,26 +428,6 @@
       "period": "Januari 2014 – Juli 2016",
       "companyIcon": "https://www.google.com/s2/favicons?domain=unair.ac.id&sz=64",
       "companyWebsite": "https://unair.ac.id/",
-      "en": {}
-    },
-    {
-      "id": "v3-1792858121909-kq17dg",
-      "gallery": [],
-      "materials": [],
-      "contributions": [],
-      "activities": [],
-      "features": [],
-      "role": "TEST V31",
-      "organization": "GitHub JSON Trial",
-      "location": "",
-      "startMonth": "10",
-      "startYear": "2026",
-      "endMonth": "",
-      "endYear": "",
-      "currentlyActive": true,
-      "period": "Oktober 2026 – Now",
-      "companyIcon": "assets/images/fe23772edaf33bad5441972d2914de6e.png",
-      "companyWebsite": "",
       "en": {}
     }
   ],
