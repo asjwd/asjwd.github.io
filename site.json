@@ -681,37 +681,37 @@
   ],
   "tools": [
     {
-      "materials": [],
-      "description": "Tertarik membuat portofolio seperti ini? Saya share gratis. Panduan file txt tersedia.",
-      "features": [],
-      "id": "v3-1792944678925-s0m1ee",
-      "version": "",
-      "name": "Portfolio Maker",
-      "gallery": [],
-      "activities": [],
-      "contributions": [],
-      "releaseYear": "",
       "en": {
-        "description": "Interested in creating a portfolio like this? I'm sharing it for free. A txt file guide is available.",
+        "description": "Portfolio Maker is a ZIP package containing a professional portfolio website template that allows users to independently create and manage their own personal portfolios. The package includes a public portfolio page, a content management editor, and a step-by-step installation guide.\nUsers can showcase their profiles, education, work experience, projects, publications, certifications, and other professional activities. The website is fully customizable and can be published for free using GitHub Pages, with no coding skills required.",
         "features": []
       },
+      "contributions": [],
+      "name": "Portfolio Maker",
+      "materials": [],
+      "features": [],
+      "gallery": [],
+      "releaseYear": "",
+      "activities": [],
+      "id": "v3-1792944678925-s0m1ee",
+      "version": "",
+      "description": "Portfolio Maker is a ZIP package containing a professional portfolio website template that allows users to independently create and manage their own personal portfolios. The package includes a public portfolio page, a content management editor, and a step-by-step installation guide.\nUsers can showcase their profiles, education, work experience, projects, publications, certifications, and other professional activities. The website is fully customizable and can be published for free using GitHub Pages, with no coding skills required.",
       "requestAvailable": true
     },
     {
-      "gallery": [],
-      "materials": [],
-      "activities": [],
-      "releaseYear": "",
-      "id": "v3-1792944770164-cxnew6",
-      "features": [],
-      "description": "Sering menggunakan ilovepdf dan semacamnya? Ganti dengan ini. 100% offline, tanpa upload dan tanpa resiko bocor data.",
       "en": {
-        "description": "Frequently use ilovepdf and similar services? Replace them with this. 100% offline, no uploads, and no risk of data leaks.",
+        "description": "AS.PDF is a 100% offline desktop application for managing PDF files easily and securely.\nFrequently using iLovePDF or similar online tools? Switch to AS.PDF! Convert, combine, split, compress, arrange pages, add signatures, watermarks, and password protection—all in one application.\n100% offline. No uploads. No cloud storage. No risk of data leaks from uploading files to online services. Your documents stay on your device, giving you full control over your files and privacy.",
         "features": []
       },
       "name": "as.pdf",
+      "materials": [],
+      "releaseYear": "",
       "version": "",
       "contributions": [],
+      "activities": [],
+      "description": "AS.PDF is a 100% offline desktop application for managing PDF files easily and securely.\nFrequently using iLovePDF or similar online tools? Switch to AS.PDF! Convert, combine, split, compress, arrange pages, add signatures, watermarks, and password protection—all in one application.\n100% offline. No uploads. No cloud storage. No risk of data leaks from uploading files to online services.Your documents stay on your device, giving you full control over your files and privacy.",
+      "id": "v3-1792944770164-cxnew6",
+      "gallery": [],
+      "features": [],
       "requestAvailable": true
     }
   ],
