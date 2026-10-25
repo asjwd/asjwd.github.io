@@ -3,9 +3,9 @@
   "profile": {
     "about": "Saya adalah dosen dan peneliti di bidang Teknik Lingkungan dengan minat pada pemantauan kualitas udara, pemodelan pencemaran lingkungan, dan pengolahan air dengan metode adsorpsi dan fotokatalisis.\n\nFokus penelitian saya mencakup kualitas udara, pengolahan air, dan kajian dampak lingkungan, dengan penekanan pada penerapan metode komputasi dan pemodelan atmosfer menggunakan perangkat seperti WRF-Chem dan AERMOD.",
     "academicVisibility": {
-      "tools": false,
+      "courses": true,
       "portalLinks": false,
-      "courses": false,
+      "tools": false,
       "gradeBoards": true
     },
     "avatar": "assets/images/1HOHCiyAIauE2o1n3pTk6exFI6wGmrXLF.webp",
@@ -14,53 +14,53 @@
     "brandingSquare": "",
     "certifications": [
       {
-        "year": "",
+        "logoWebsite": "https://bnsp.go.id/",
         "url": "",
         "expiry": "",
-        "issuer": "BNSP",
-        "id": "v3-1792728711315-lhq45s",
-        "logo": "assets/icons/69a8fae1abe6af4e.png",
-        "logoWebsite": "https://bnsp.go.id/",
-        "name": "Auditor Lingkungan",
         "score": "",
+        "id": "v3-1792728711315-lhq45s",
+        "year": "",
+        "logo": "assets/icons/69a8fae1abe6af4e.png",
+        "name": "Auditor Lingkungan",
+        "issuer": "BNSP",
         "nameEn": "Environmental Auditor",
         "issuerEn": "BNSP"
       },
       {
-        "logo": "assets/images/1gbraMbuMKpiiYs2rSlPq-w2d1_r4BYUP.png",
-        "issuer": "國家華語測驗推動工作委員會",
-        "logoWebsite": "",
-        "name": "TOCFL",
-        "expiry": "",
         "id": "v3-1792728460948-64ufzu",
-        "score": "A2",
+        "name": "TOCFL",
         "year": "",
+        "logo": "assets/images/1gbraMbuMKpiiYs2rSlPq-w2d1_r4BYUP.png",
+        "logoWebsite": "",
+        "expiry": "",
         "url": "",
+        "issuer": "國家華語測驗推動工作委員會",
+        "score": "A2",
         "nameEn": "TOCFL",
         "issuerEn": "國家華語測驗推動工作委員會"
       },
       {
-        "id": "v3-1792728490016-wd7u1u",
         "score": "6.5",
         "year": "",
-        "logoWebsite": "",
-        "url": "",
-        "name": "IELTS",
+        "id": "v3-1792728490016-wd7u1u",
         "logo": "assets/images/14daS_t3kPN7v0DthXoKmzZW-Qn0N6Uke.png",
-        "expiry": "",
         "issuer": "British Council",
+        "name": "IELTS",
+        "logoWebsite": "",
+        "expiry": "",
+        "url": "",
         "nameEn": "IELTS",
         "issuerEn": "British Council"
       },
       {
         "url": "",
-        "logoWebsite": "https://bnsp.go.id/",
-        "score": "",
-        "name": "Asesor Kompetensi",
-        "id": "v3-1792728676091-nn45p4",
         "logo": "assets/icons/69a8fae1abe6af4e.png",
         "year": "",
+        "name": "Asesor Kompetensi",
+        "score": "",
+        "logoWebsite": "https://bnsp.go.id/",
         "issuer": "BNSP",
+        "id": "v3-1792728676091-nn45p4",
         "expiry": "",
         "nameEn": "Competency Assessor",
         "issuerEn": "BNSP"
@@ -69,78 +69,78 @@
     "contactFormUrl": "https://script.google.com/macros/s/AKfycbzsyunPGbY7EKWLzN4pnphb6q0UDn-0Ys-W_ZVcJI3vaQwSKmRPLWny2u5BPtKWI4_W/exec",
     "contacts": [
       {
+        "id": "legacy-mail",
         "name": "Mail Me",
         "type": "mail",
-        "id": "legacy-mail",
-        "url": "",
-        "icon": ""
+        "icon": "",
+        "url": ""
       },
       {
-        "url": "https://scholar.google.com/citations?user=8SKtiBMAAAAJ&hl=en",
         "icon": "assets/icons/44450f1a0fbf1acb.png",
-        "id": "legacy-scholar",
+        "url": "https://scholar.google.com/citations?user=8SKtiBMAAAAJ&hl=en",
         "type": "link",
-        "name": "Google Scholar"
+        "name": "Google Scholar",
+        "id": "legacy-scholar"
       },
       {
-        "name": "ORCID",
-        "type": "link",
         "id": "legacy-orcid",
         "icon": "assets/icons/9c9f0c131fa9009c.png",
-        "url": "https://orcid.org/0000-0001-6296-6140"
+        "url": "https://orcid.org/0000-0001-6296-6140",
+        "name": "ORCID",
+        "type": "link"
       },
       {
-        "url": "https://www.linkedin.com/in/asjwd/",
         "name": "LinkedIn",
         "type": "link",
+        "url": "https://www.linkedin.com/in/asjwd/",
         "id": "legacy-linkedin",
         "icon": "assets/icons/f54db463750940e0.png"
       },
       {
-        "icon": "assets/icons/14dd5266c70789bd.png",
-        "url": "https://www.youtube.com/@muhammada.s.jawwad2208",
         "id": "legacy-youtube",
+        "type": "link",
         "name": "YouTube",
-        "type": "link"
+        "url": "https://www.youtube.com/@muhammada.s.jawwad2208",
+        "icon": "assets/icons/14dd5266c70789bd.png"
       },
       {
-        "id": "legacy-sinta",
+        "iconWebsite": "https://sinta.kemdiktisaintek.go.id/authors/profile/6762434",
         "type": "link",
         "name": "SINTA",
-        "iconWebsite": "https://sinta.kemdiktisaintek.go.id/authors/profile/6762434",
+        "id": "legacy-sinta",
         "icon": "assets/images/1Gc_L-YO3YgTSmHOiydzGj0eyLl4uV3Ee.png",
         "url": "https://sinta.kemdiktisaintek.go.id/authors/profile/6762434"
       }
     ],
     "education": {
-      "master": {
-        "logo": "assets/icons/6c2017278165c799.png",
-        "description": "",
-        "logoWebsite": "https://eng.cycu.edu.tw/",
-        "institution": "Chung Yuan Christian University",
-        "gallery": [],
-        "year": "2019",
-        "major": "Environmental Engineering",
-        "majorEn": "Environmental Engineering"
-      },
-      "doctorate": {
-        "year": "",
-        "major": "",
-        "description": "",
-        "gallery": [],
-        "logoWebsite": "",
-        "logo": "",
-        "institution": ""
-      },
       "bachelor": {
         "description": "",
-        "logo": "assets/icons/eb1eb8ed8f53f39a.png",
-        "gallery": [],
         "institution": "Universitas Airlangga",
-        "logoWebsite": "https://unair.ac.id/",
         "major": "Ilmu dan Teknologi Lingkungan",
+        "gallery": [],
         "year": "2016",
+        "logoWebsite": "https://unair.ac.id/",
+        "logo": "assets/icons/eb1eb8ed8f53f39a.png",
         "majorEn": "Environmental Science and Technology"
+      },
+      "doctorate": {
+        "gallery": [],
+        "institution": "",
+        "major": "",
+        "description": "",
+        "logoWebsite": "",
+        "year": "",
+        "logo": ""
+      },
+      "master": {
+        "institution": "Chung Yuan Christian University",
+        "description": "",
+        "logoWebsite": "https://eng.cycu.edu.tw/",
+        "major": "Environmental Engineering",
+        "logo": "assets/icons/6c2017278165c799.png",
+        "gallery": [],
+        "year": "2019",
+        "majorEn": "Environmental Engineering"
       }
     },
     "en": {
@@ -718,11 +718,36 @@
   ],
   "courses": [
     {
+      "title": "Mekanika Fluida",
       "id": "course-mat1",
-      "title": "Matematika 1",
-      "period": "Gasal 2026/2027",
-      "description": "Materi, dokumen, dan informasi perkuliahan Matematika 1.",
-      "materials": []
+      "period": "",
+      "materials": [
+        {
+          "url": "https://drive.google.com/file/d/17M6p2gw4NTOr0luiU6iM3VtemwQfcpxU/view?usp=drivesdk",
+          "title": "Fluid Mechanics by Cengel & Cimbala"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "features": [],
+      "gallery": [],
+      "activities": [],
+      "title": "Proses Pengolahan Air Minum",
+      "materials": [
+        {
+          "url": "https://drive.google.com/file/d/1-qPzhNBSi95qK-nmTt-PPcmWwCoIg6Dm/view?usp=drivesdk",
+          "title": "Unit Operations and Process in Environmental Engineering by Reynolds & Richards"
+        },
+        {
+          "url": "https://drive.google.com/file/d/1zUUY3Jvrb6q-s2udoJ3pbQAkxaW4CsZx/view?usp=drivesdk",
+          "title": "Water and Wastewater Engineering by Davis"
+        }
+      ],
+      "period": "",
+      "contributions": [],
+      "description": "",
+      "id": "v3-1792947218238-pectsf"
     }
   ],
   "portalLinks": [
