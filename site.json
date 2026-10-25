@@ -161,39 +161,39 @@
   },
   "experiences": [
     {
-      "id": "exp-lab",
-      "contributions": [],
-      "endYear": "",
-      "period": "September 2020 – Now",
       "startYear": "2020",
-      "startMonth": "09",
-      "location": "Surabaya",
-      "currentlyActive": true,
-      "summary": "",
+      "companyIcon": "assets/icons/2c0cd0e3bec63ba0.png",
+      "activities": [],
+      "contributions": [],
       "companyWebsite": "https://teklingk.upnjatim.ac.id/",
+      "summary": "",
       "en": {
         "role": "Lecturer",
         "contributions": [],
         "activities": []
       },
-      "endMonth": "",
-      "organization": "Teknik Lingkungan, UPN 'Veteran' Jawa Timur",
+      "startMonth": "09",
+      "id": "exp-lab",
+      "location": "Surabaya",
       "gallery": [
         {
-          "url": "assets/images/1O14dwkoW3QvUnY7o6rwfV7iD7C9GqlB2.jpg",
           "featured": true,
-          "caption": ""
+          "caption": "IMG_4857",
+          "url": "assets/images/10JO-y872MXEIubNMzaed0S5Dz8DNeu2d.jpg",
+          "captionEn": "IMG_4857"
         },
         {
-          "url": "assets/images/10JO-y872MXEIubNMzaed0S5Dz8DNeu2d.jpg",
-          "caption": "IMG_4857",
-          "featured": true,
-          "captionEn": "IMG_4857"
+          "caption": "",
+          "url": "assets/images/1O14dwkoW3QvUnY7o6rwfV7iD7C9GqlB2.jpg",
+          "featured": true
         }
       ],
-      "activities": [],
-      "companyIcon": "assets/icons/2c0cd0e3bec63ba0.png",
-      "role": "Dosen"
+      "role": "Dosen",
+      "currentlyActive": true,
+      "endMonth": "",
+      "period": "September 2020 – Now",
+      "endYear": "",
+      "organization": "Teknik Lingkungan, UPN 'Veteran' Jawa Timur"
     },
     {
       "startYear": "2026",
@@ -339,46 +339,6 @@
       "currentlyActive": true
     },
     {
-      "id": "v3-1792858121909-kq17dg",
-      "gallery": [],
-      "materials": [],
-      "contributions": [],
-      "activities": [],
-      "features": [],
-      "role": "TEST V31",
-      "organization": "GitHub JSON Trial",
-      "location": "",
-      "startMonth": "10",
-      "startYear": "2026",
-      "endMonth": "",
-      "endYear": "",
-      "currentlyActive": true,
-      "period": "Oktober 2026 – Now",
-      "companyIcon": "assets/images/fe23772edaf33bad5441972d2914de6e.png",
-      "companyWebsite": "",
-      "en": {}
-    },
-    {
-      "id": "v3-1792809623610-cwmuag",
-      "gallery": [],
-      "materials": [],
-      "contributions": [],
-      "activities": [],
-      "features": [],
-      "role": "Asisten Riset",
-      "organization": "Circular Society Lab, CYCU",
-      "location": "Zhongli, Taiwan",
-      "startMonth": "09",
-      "startYear": "2017",
-      "endMonth": "08",
-      "endYear": "2019",
-      "currentlyActive": false,
-      "period": "September 2017 – Agustus 2019",
-      "companyIcon": "assets/images/cc7baf5d548d91d09391401256b02b1c.png",
-      "companyWebsite": "",
-      "en": {}
-    },
-    {
       "period": "Agustus 2016 – Februari 2017",
       "startMonth": "08",
       "startYear": "2016",
@@ -409,26 +369,6 @@
       "companyWebsite": "",
       "activities": [],
       "contributions": []
-    },
-    {
-      "id": "v3-1792809348855-oh91wh",
-      "gallery": [],
-      "materials": [],
-      "contributions": [],
-      "activities": [],
-      "features": [],
-      "role": "Tim Riset Limbah Padat",
-      "organization": "Universitas Airlangga",
-      "location": "Surabaya, Indonesia",
-      "startMonth": "01",
-      "startYear": "2014",
-      "endMonth": "07",
-      "endYear": "2016",
-      "currentlyActive": false,
-      "period": "Januari 2014 – Juli 2016",
-      "companyIcon": "https://www.google.com/s2/favicons?domain=unair.ac.id&sz=64",
-      "companyWebsite": "https://unair.ac.id/",
-      "en": {}
     }
   ],
   "projects": [
@@ -686,7 +626,27 @@
       "gallery": []
     }
   ],
-  "tools": [],
+  "tools": [
+    {
+      "icon": "file",
+      "description": "Desktop PDF utility: convert, combine, split, and manage PDF documents. 100% offline, no need to upload to web and risk your privacy.",
+      "version": "",
+      "en": {
+        "description": "Desktop PDF utility: convert, combine, split, and manage PDF documents. 100% offline, no need to upload to web and risk your privacy.",
+        "features": [
+          "Convert & Combine PDF",
+          "Split & Manage PDF"
+        ]
+      },
+      "name": "ASPDF",
+      "features": [
+        "Convert & Combine PDF",
+        "Split & Manage PDF"
+      ],
+      "id": "tool-aspdf",
+      "requestAvailable": true
+    }
+  ],
   "courses": [
     {
       "id": "course-mat1",
@@ -728,26 +688,21 @@
   ],
   "gradeBoards": [
     {
-      "id": "v3-1792810589689-qeoquk",
+      "id": "v3-1792599268608-6bj1r8",
       "course": "Matematika 1",
-      "className": "Kelas ABD",
+      "className": "Kelas A",
       "period": "Gasal 2026/2027",
       "columns": [
         "Assessment 1",
+        "Nilai UTS",
         "Kuis Pra-UTS",
         "Bonus Stars",
         "Keterangan"
       ],
-      "scoreHeader": "Nilai",
       "showGrade": false,
-      "hiddenCore": {
-        "npm": false,
-        "name": false,
-        "score": false
-      },
-      "publishedAt": "2026-10-24T02:56:46.384Z",
-      "expiresAt": "2026-10-31T02:56:46.384Z",
-      "rowsFile": "assets/grades/v3-1792810589689-qeoquk.json",
+      "publishedAt": "2026-10-21T16:15:07.194Z",
+      "expiresAt": "2026-10-28T16:15:07.194Z",
+      "rowsFile": "assets/grades/v3-1792599268608-6bj1r8.json",
       "rowCount": 125
     }
   ],
