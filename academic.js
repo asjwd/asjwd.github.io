@@ -4,8 +4,8 @@ let acData=null,acLanguage='id',acSelectedId='',acRows=null,acRequestSeq=0,acVis
 let acToolId='',acRequestBusy=false,acNonce='',acRequestTimer=null;
 const acSentTools=new Set();
 const TXT={
- id:{navGrades:'Pengumuman Nilai',navTools:'Tools',searchLabel:'AKSES MAHASISWA',searchHeading:'Cari akses mahasiswa',searchButton:'Cari',searchPlaceholder:'Masukkan nama atau NPM',searchResponse:'Anda tidak memiliki akses khusus.',gradesLabel:'NILAI',gradesHeading:'Pengumuman Nilai',selectBoard:'Pilih mata kuliah',selectPlaceholder:'Pilih mata kuliah',noBoards:'Tidak ada pengumuman nilai saat ini.',loading:'Memuat nilai...',pick:'Pilih mata kuliah untuk melihat pengumuman nilai.',error:'Nilai gagal dimuat. Silakan coba lagi.',rank:'No.',npm:'NPM',firstName:'Nama',score:'Nilai Akhir',grade:'Grade',showMore:'Lihat lebih banyak',showLess:'Tampilkan lebih sedikit',until:'Dapat dilihat hingga',students:'mahasiswa',request:'Minta Link',toolsLabel:'PERANGKAT DIGITAL',toolsHeading:'Tools',requestTitle:'Permintaan aplikasi',requestSuccess:'Permintaan berhasil dikirim. Link dapat diberikan setelah ditinjau.',requestError:'Permintaan belum terkirim.',requestAwait:'Menunggu konfirmasi...'},
- en:{navGrades:'Grade Announcements',navTools:'Tools',searchLabel:'STUDENT ACCESS',searchHeading:'Student access search',searchButton:'Search',searchPlaceholder:'Enter name or student ID (NPM)',searchResponse:'You do not have special access.',gradesLabel:'GRADES',gradesHeading:'Grade Announcements',selectBoard:'Select Course',selectPlaceholder:'Select Course',noBoards:'No grade announcements are currently available.',loading:'Loading grades...',pick:'Select a course to view its grades.',error:'Unable to load grades. Please try again.',rank:'No.',npm:'Student ID',firstName:'First name',score:'Final Score',grade:'Grade',showMore:'Show more',showLess:'Show less',until:'Available until',students:'students',request:'Request Download',toolsLabel:'DIGITAL TOOLS',toolsHeading:'Tools',requestTitle:'Application request',requestSuccess:'Your request was sent. A link may be provided after review.',requestError:'Your request was not sent.',requestAwait:'Waiting for confirmation...'}
+ id:{navGrades:'Pengumuman Nilai',navTools:'Tools',servicesLabel:'LAYANAN AKADEMIK',servicesHeading:'Academic Services',coursesLabel:'MATERI KULIAH',coursesHeading:'Courses & Materials',portalEmpty:'Belum ada pengumuman atau materi yang dibagikan. Silakan kembali lagi nanti.',openService:'Buka layanan',searchLabel:'AKSES MAHASISWA',searchHeading:'Cari akses mahasiswa',searchButton:'Cari',searchPlaceholder:'Masukkan nama atau NPM',searchResponse:'Anda tidak memiliki akses khusus.',gradesLabel:'NILAI',gradesHeading:'Pengumuman Nilai',selectBoard:'Pilih mata kuliah',selectPlaceholder:'Pilih mata kuliah',noBoards:'Tidak ada pengumuman nilai saat ini.',loading:'Memuat nilai...',pick:'Pilih mata kuliah untuk melihat pengumuman nilai.',error:'Nilai gagal dimuat. Silakan coba lagi.',rank:'No.',npm:'NPM',firstName:'Nama',score:'Nilai Akhir',grade:'Grade',showMore:'Lihat lebih banyak',showLess:'Tampilkan lebih sedikit',until:'Dapat dilihat hingga',students:'mahasiswa',request:'Minta Link',toolsLabel:'PERANGKAT DIGITAL',toolsHeading:'Tools',requestTitle:'Permintaan aplikasi',requestSuccess:'Permintaan berhasil dikirim. Link dapat diberikan setelah ditinjau.',requestError:'Permintaan belum terkirim.',requestAwait:'Menunggu konfirmasi...'},
+ en:{navGrades:'Grade Announcements',navTools:'Tools',servicesLabel:'ACADEMIC SERVICES',servicesHeading:'Academic Services',coursesLabel:'COURSES',coursesHeading:'Courses & Materials',portalEmpty:'There are no announcements or materials available at the moment. Please check back later.',openService:'Open service',searchLabel:'STUDENT ACCESS',searchHeading:'Student access search',searchButton:'Search',searchPlaceholder:'Enter name or student ID (NPM)',searchResponse:'You do not have special access.',gradesLabel:'GRADES',gradesHeading:'Grade Announcements',selectBoard:'Select Course',selectPlaceholder:'Select Course',noBoards:'No grade announcements are currently available.',loading:'Loading grades...',pick:'Select a course to view its grades.',error:'Unable to load grades. Please try again.',rank:'No.',npm:'Student ID',firstName:'First name',score:'Final Score',grade:'Grade',showMore:'Show more',showLess:'Show less',until:'Available until',students:'students',request:'Request Download',toolsLabel:'DIGITAL TOOLS',toolsHeading:'Tools',requestTitle:'Application request',requestSuccess:'Your request was sent. A link may be provided after review.',requestError:'Your request was not sent.',requestAwait:'Waiting for confirmation...'}
 };
 const T=k=>TXT[acLanguage][k]||k;
 const E=x=>SITE.escape(x);
@@ -24,7 +24,7 @@ function acTheme(){
  const sel=$('gradeBoardSelect'),value=sel.value;
  if(sel.options[0])sel.options[0].textContent=T('selectPlaceholder');
  sel.value=value;
- if(acData){acRenderGrade();acRenderTools();}
+ if(acData){acRenderGrade();acRenderTools();acRenderVisibility();}
  try{localStorage.setItem('portfolioLangV7',acLanguage);}catch(_){ }
 }
 function acApplyBrand(profile){
@@ -40,6 +40,7 @@ function acLoadSite(data){
  sel.disabled=!boards.length;
  if(!boards.length)acPreview('empty',T('noBoards'));else acPreview('empty',T('pick'));
  acRenderTools();
+ acRenderVisibility();
 }
 async function acSelectBoard(){
  const id=$('gradeBoardSelect').value;acSelectedId=id;acVisible=20;acRows=null;
@@ -77,9 +78,41 @@ function acRenderGrade(){
  $('grade-table').innerHTML=`<div class="grade-summary"><div><strong>${E(board.course||'')}</strong><span>${E(board.className||'')} · ${E(board.period||'')} · ${rows.length} ${T('students')}</span></div><span class="v23-expiry-note">${T('until')} ${E(acDate(acExpiry(board)))}</span></div><div class="table-scroll"><table class="grades-table"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
  if(rows.length>acVisible){const container=document.createElement('div');container.className='v10-ac-more';const btn=document.createElement('button');btn.type='button';btn.className='v10-ac-btn';btn.textContent=`${T('showMore')} (${rows.length-acVisible})`;btn.onclick=()=>{acVisible=Math.min(rows.length,acVisible+20);acRenderGrade()};container.append(btn);$('grade-table').append(container);}
 }
+
+// V34 visibility: toggles come from the Google Sheets profile and are published in site.json.
+// Empty/off sections are both hidden. The student search is bundled with Academic Services.
+function acSectionOn(key){const a=acData?.profile?.academicVisibility;return !a||a[key]!==false;}
+function acValidExternalURL(x){
+ try{const u=new URL(String(x||''));return ['https:','http:'].includes(u.protocol)&&Boolean(u.hostname)&&!u.username&&!u.password;}catch(_){return false;}
+}
+function acServicesAvailable(){return (acData?.portalLinks||[]).filter(s=>acValidExternalURL(s.url));}
+function acCourseMaterials(c){return (Array.isArray(c.materials)?c.materials:[]).filter(m=>acValidExternalURL(m?.url));}
+function acCoursesAvailable(){return (acData?.courses||[]).filter(c=>acCourseMaterials(c).length);}
+function acToolsAvailable(){return (acData?.tools||[]).filter(t=>t.requestAvailable===true);}
+function acVisibilitySet(el,show){if(!el)return;el.hidden=!show;el.style.display=show?'':'none';}
+function acRenderVisibility(){
+ if(!acData)return;
+ const services=acSectionOn('portalLinks')?acServicesAvailable():[];
+ const courses=acSectionOn('courses')?acCoursesAvailable():[];
+ const boards=acSectionOn('gradeBoards')?acBoards():[];
+ const tools=acSectionOn('tools')?acToolsAvailable():[];
+ acVisibilitySet($('academic-services'),services.length>0);
+ acVisibilitySet($('academic-courses'),courses.length>0);
+ acVisibilitySet($('grades'),boards.length>0);
+ acVisibilitySet($('academic-tools'),tools.length>0);
+ acVisibilitySet($('v34-ac-empty'),!(services.length||courses.length||boards.length||tools.length));
+ $('academic-services-list').innerHTML=services.map(s=>`<article class="v34-ac-card"><h3>${E(s.title||'Academic Service')}</h3>${s.description?`<p>${E(s.description)}</p>`:''}<a href="${E(s.url)}" target="_blank" rel="noopener noreferrer">${T('openService')} ↗</a></article>`).join('');
+ $('academic-courses-list').innerHTML=courses.map(c=>`<article class="v34-ac-card"><h3>${E(c.title||'Course')}</h3>${c.period?`<div class="v34-course-meta">${E(c.period)}</div>`:''}${c.description?`<p>${E(c.description)}</p>`:''}<ul class="v34-materials">${acCourseMaterials(c).map(m=>`<li><a href="${E(m.url)}" target="_blank" rel="noopener noreferrer">${E(m.title||m.url)}</a></li>`).join('')}</ul></article>`).join('');
+ // Hidden student search inherits hidden service parent; this is intentional.
+ const sel=$('gradeBoardSelect');const prior=sel.value;
+ sel.innerHTML=`<option value="">${E(T('selectPlaceholder'))}</option>`+boards.map(b=>`<option value="${E(b.id)}">${E(b.course||'')} · ${E(b.className||'')} · ${E(b.period||'')}</option>`).join('');
+ sel.value=boards.some(b=>String(b.id)===prior)?prior:'';
+ sel.disabled=!boards.length;
+ if(!boards.length){acSelectedId='';acRows=null;}
+}
 function acRenderTools(){
  if(!acData)return;
- const list=(acData.tools||[]).filter(x=>x.requestAvailable===true).slice(0,5);
+ const list=acSectionOn('tools')?acToolsAvailable().slice(0,5):[];
  const section=$('academic-tools');if(section){section.hidden=list.length===0;section.style.display=list.length?'':'none';}
  $('academic-tools-list').innerHTML=list.map(x=>`<div class="tool-card"><div class="tool-icon">${E((x.name||'A')[0])}</div><div class="tool-body"><div class="tool-header"><h3>${E(x.name||'')}</h3>${x.version?`<span>${E(x.version)}</span>`:''}</div><p>${E(acLanguage==='en'?(x.en?.description||x.description||''):(x.description||''))}</p><div class="tags">${(acLanguage==='en'?(x.en?.features||x.features||[]):x.features||[]).map(f=>`<span class="tag">${E(f)}</span>`).join('')}</div></div><button type="button" class="btn v17-request-button" data-tool="${E(x.id)}" ${x.requestAvailable===false?'disabled':''}>${T('request')}</button></div>`).join('');
  $('academic-tools-list').querySelectorAll('[data-tool]').forEach(b=>b.addEventListener('click',()=>acOpenRequest(b.dataset.tool)));
@@ -120,4 +153,4 @@ document.querySelectorAll('[data-tool-close]').forEach(n=>n.addEventListener('cl
 document.querySelectorAll('[data-ac-lang]').forEach(b=>b.addEventListener('click',()=>{acLanguage=b.dataset.acLang;acTheme();}));
 acTheme();
 SITE.load().then(acLoadSite).catch(()=>acPreview('empty',T('error')));
-setInterval(()=>{if(!acData)return;const ids=acBoards().map(b=>b.id),sel=$('gradeBoardSelect');if(acSelectedId&&!ids.includes(acSelectedId)){acData.gradeBoards=acBoards();acSelectedId='';acRows=null;sel.value='';acPreview('empty',T('pick'));} },60000);
+setInterval(()=>{if(!acData)return;const ids=acBoards().map(b=>b.id),sel=$('gradeBoardSelect');if(acSelectedId&&!ids.includes(acSelectedId)){acData.gradeBoards=acBoards();acSelectedId='';acRows=null;sel.value='';acPreview('empty',T('pick'));} acRenderVisibility(); },60000);
