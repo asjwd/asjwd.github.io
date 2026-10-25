@@ -339,6 +339,30 @@
       "currentlyActive": true
     },
     {
+      "companyWebsite": "",
+      "endYear": "2019",
+      "gallery": [],
+      "location": "Zhongli, Taiwan",
+      "role": "Asisten Riset",
+      "companyIcon": "assets/images/1nNWVA2-CPFcbtVVJ56BXQ62-3e3KmEjc.png",
+      "features": [],
+      "contributions": [],
+      "startYear": "2017",
+      "organization": "Circular Society Lab, CYCU",
+      "startMonth": "09",
+      "activities": [],
+      "en": {
+        "role": "Research Assistant",
+        "contributions": [],
+        "activities": []
+      },
+      "id": "v3-1792912578597-243scb",
+      "currentlyActive": false,
+      "materials": [],
+      "endMonth": "08",
+      "period": "September 2017 – Agustus 2019"
+    },
+    {
       "period": "Agustus 2016 – Februari 2017",
       "startMonth": "08",
       "startYear": "2016",
@@ -369,6 +393,30 @@
       "companyWebsite": "",
       "activities": [],
       "contributions": []
+    },
+    {
+      "features": [],
+      "companyIcon": "assets/icons/eb1eb8ed8f53f39a.png",
+      "startMonth": "01",
+      "currentlyActive": false,
+      "period": "Januari 2013 – Agustus 2016",
+      "contributions": [],
+      "companyWebsite": "https://unair.ac.id/",
+      "organization": "Universitas Airlangga",
+      "startYear": "2013",
+      "gallery": [],
+      "endYear": "2016",
+      "location": "Surabaya, Indonesia",
+      "activities": [],
+      "endMonth": "08",
+      "id": "v3-1792912476246-stptf0",
+      "role": "Tim Riset Limbah Padat",
+      "materials": [],
+      "en": {
+        "role": "Solid Waste Research Team",
+        "contributions": [],
+        "activities": []
+      }
     }
   ],
   "projects": [
@@ -626,27 +674,7 @@
       "gallery": []
     }
   ],
-  "tools": [
-    {
-      "icon": "file",
-      "description": "Desktop PDF utility: convert, combine, split, and manage PDF documents. 100% offline, no need to upload to web and risk your privacy.",
-      "version": "",
-      "en": {
-        "description": "Desktop PDF utility: convert, combine, split, and manage PDF documents. 100% offline, no need to upload to web and risk your privacy.",
-        "features": [
-          "Convert & Combine PDF",
-          "Split & Manage PDF"
-        ]
-      },
-      "name": "ASPDF",
-      "features": [
-        "Convert & Combine PDF",
-        "Split & Manage PDF"
-      ],
-      "id": "tool-aspdf",
-      "requestAvailable": true
-    }
-  ],
+  "tools": [],
   "courses": [
     {
       "id": "course-mat1",
