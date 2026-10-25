@@ -721,21 +721,26 @@
   ],
   "gradeBoards": [
     {
-      "id": "v3-1792599268608-6bj1r8",
+      "id": "v3-1792924999784-garf2b",
       "course": "Matematika 1",
-      "className": "Kelas A",
+      "className": "Kelas ABD",
       "period": "Gasal 2026/2027",
       "columns": [
         "Assessment 1",
-        "Nilai UTS",
         "Kuis Pra-UTS",
         "Bonus Stars",
         "Keterangan"
       ],
+      "scoreHeader": "Nilai",
+      "hiddenCore": {
+        "npm": false,
+        "name": false,
+        "score": false
+      },
       "showGrade": false,
-      "publishedAt": "2026-10-21T16:15:07.194Z",
-      "expiresAt": "2026-10-28T16:15:07.194Z",
-      "rowsFile": "assets/grades/v3-1792599268608-6bj1r8.json",
+      "publishedAt": "2026-10-25T10:43:40.487Z",
+      "expiresAt": "2026-11-01T10:43:40.487Z",
+      "rowsFile": "assets/grades/v3-1792924999784-garf2b.json",
       "rowCount": 125
     }
   ],
