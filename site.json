@@ -3,9 +3,10 @@
   "profile": {
     "about": "Saya adalah dosen dan peneliti di bidang Teknik Lingkungan dengan minat pada pemantauan kualitas udara, pemodelan pencemaran lingkungan, dan pengolahan air dengan metode adsorpsi dan fotokatalisis.\n\nFokus penelitian saya mencakup kualitas udara, pengolahan air, dan kajian dampak lingkungan, dengan penekanan pada penerapan metode komputasi dan pemodelan atmosfer menggunakan perangkat seperti WRF-Chem dan AERMOD.",
     "academicVisibility": {
-      "gradeBoards": true,
+      "tools": false,
       "portalLinks": false,
-      "courses": false
+      "courses": false,
+      "gradeBoards": true
     },
     "avatar": "assets/images/1HOHCiyAIauE2o1n3pTk6exFI6wGmrXLF.webp",
     "banner": "",
@@ -13,54 +14,54 @@
     "brandingSquare": "",
     "certifications": [
       {
-        "logoWebsite": "https://bnsp.go.id/",
-        "url": "",
-        "score": "",
-        "issuer": "BNSP",
         "year": "",
+        "url": "",
+        "expiry": "",
+        "issuer": "BNSP",
         "id": "v3-1792728711315-lhq45s",
         "logo": "assets/icons/69a8fae1abe6af4e.png",
+        "logoWebsite": "https://bnsp.go.id/",
         "name": "Auditor Lingkungan",
-        "expiry": "",
+        "score": "",
         "nameEn": "Environmental Auditor",
         "issuerEn": "BNSP"
       },
       {
-        "id": "v3-1792728460948-64ufzu",
-        "issuer": "國家華語測驗推動工作委員會",
-        "score": "A2",
         "logo": "assets/images/1gbraMbuMKpiiYs2rSlPq-w2d1_r4BYUP.png",
-        "name": "TOCFL",
+        "issuer": "國家華語測驗推動工作委員會",
         "logoWebsite": "",
-        "url": "",
-        "year": "",
+        "name": "TOCFL",
         "expiry": "",
+        "id": "v3-1792728460948-64ufzu",
+        "score": "A2",
+        "year": "",
+        "url": "",
         "nameEn": "TOCFL",
         "issuerEn": "國家華語測驗推動工作委員會"
       },
       {
-        "score": "6.5",
         "id": "v3-1792728490016-wd7u1u",
+        "score": "6.5",
+        "year": "",
         "logoWebsite": "",
+        "url": "",
+        "name": "IELTS",
+        "logo": "assets/images/14daS_t3kPN7v0DthXoKmzZW-Qn0N6Uke.png",
         "expiry": "",
         "issuer": "British Council",
-        "name": "IELTS",
-        "url": "",
-        "logo": "assets/images/14daS_t3kPN7v0DthXoKmzZW-Qn0N6Uke.png",
-        "year": "",
         "nameEn": "IELTS",
         "issuerEn": "British Council"
       },
       {
-        "id": "v3-1792728676091-nn45p4",
-        "issuer": "BNSP",
-        "logo": "assets/icons/69a8fae1abe6af4e.png",
-        "name": "Asesor Kompetensi",
-        "expiry": "",
-        "year": "",
-        "logoWebsite": "https://bnsp.go.id/",
         "url": "",
+        "logoWebsite": "https://bnsp.go.id/",
         "score": "",
+        "name": "Asesor Kompetensi",
+        "id": "v3-1792728676091-nn45p4",
+        "logo": "assets/icons/69a8fae1abe6af4e.png",
+        "year": "",
+        "issuer": "BNSP",
+        "expiry": "",
         "nameEn": "Competency Assessor",
         "issuerEn": "BNSP"
       }
@@ -68,78 +69,78 @@
     "contactFormUrl": "https://script.google.com/macros/s/AKfycbzsyunPGbY7EKWLzN4pnphb6q0UDn-0Ys-W_ZVcJI3vaQwSKmRPLWny2u5BPtKWI4_W/exec",
     "contacts": [
       {
-        "url": "",
-        "icon": "",
+        "name": "Mail Me",
         "type": "mail",
         "id": "legacy-mail",
-        "name": "Mail Me"
+        "url": "",
+        "icon": ""
       },
       {
         "url": "https://scholar.google.com/citations?user=8SKtiBMAAAAJ&hl=en",
-        "name": "Google Scholar",
-        "type": "link",
         "icon": "assets/icons/44450f1a0fbf1acb.png",
-        "id": "legacy-scholar"
+        "id": "legacy-scholar",
+        "type": "link",
+        "name": "Google Scholar"
       },
       {
-        "url": "https://orcid.org/0000-0001-6296-6140",
-        "icon": "assets/icons/9c9f0c131fa9009c.png",
+        "name": "ORCID",
         "type": "link",
         "id": "legacy-orcid",
-        "name": "ORCID"
+        "icon": "assets/icons/9c9f0c131fa9009c.png",
+        "url": "https://orcid.org/0000-0001-6296-6140"
       },
       {
-        "id": "legacy-linkedin",
-        "icon": "assets/icons/f54db463750940e0.png",
-        "type": "link",
+        "url": "https://www.linkedin.com/in/asjwd/",
         "name": "LinkedIn",
-        "url": "https://www.linkedin.com/in/asjwd/"
+        "type": "link",
+        "id": "legacy-linkedin",
+        "icon": "assets/icons/f54db463750940e0.png"
       },
       {
-        "name": "YouTube",
-        "type": "link",
         "icon": "assets/icons/14dd5266c70789bd.png",
         "url": "https://www.youtube.com/@muhammada.s.jawwad2208",
-        "id": "legacy-youtube"
+        "id": "legacy-youtube",
+        "name": "YouTube",
+        "type": "link"
       },
       {
-        "iconWebsite": "https://sinta.kemdiktisaintek.go.id/authors/profile/6762434",
-        "url": "https://sinta.kemdiktisaintek.go.id/authors/profile/6762434",
-        "type": "link",
-        "icon": "assets/images/1Gc_L-YO3YgTSmHOiydzGj0eyLl4uV3Ee.png",
         "id": "legacy-sinta",
-        "name": "SINTA"
+        "type": "link",
+        "name": "SINTA",
+        "iconWebsite": "https://sinta.kemdiktisaintek.go.id/authors/profile/6762434",
+        "icon": "assets/images/1Gc_L-YO3YgTSmHOiydzGj0eyLl4uV3Ee.png",
+        "url": "https://sinta.kemdiktisaintek.go.id/authors/profile/6762434"
       }
     ],
     "education": {
-      "bachelor": {
-        "logoWebsite": "https://unair.ac.id/",
-        "major": "Ilmu dan Teknologi Lingkungan",
-        "description": "",
-        "year": "2016",
-        "logo": "assets/icons/eb1eb8ed8f53f39a.png",
-        "gallery": [],
-        "institution": "Universitas Airlangga",
-        "majorEn": "Environmental Science and Technology"
-      },
       "master": {
         "logo": "assets/icons/6c2017278165c799.png",
-        "year": "2019",
-        "institution": "Chung Yuan Christian University",
-        "logoWebsite": "https://eng.cycu.edu.tw/",
-        "gallery": [],
-        "major": "Environmental Engineering",
         "description": "",
+        "logoWebsite": "https://eng.cycu.edu.tw/",
+        "institution": "Chung Yuan Christian University",
+        "gallery": [],
+        "year": "2019",
+        "major": "Environmental Engineering",
         "majorEn": "Environmental Engineering"
       },
       "doctorate": {
-        "institution": "",
         "year": "",
-        "gallery": [],
-        "description": "",
         "major": "",
+        "description": "",
+        "gallery": [],
         "logoWebsite": "",
-        "logo": ""
+        "logo": "",
+        "institution": ""
+      },
+      "bachelor": {
+        "description": "",
+        "logo": "assets/icons/eb1eb8ed8f53f39a.png",
+        "gallery": [],
+        "institution": "Universitas Airlangga",
+        "logoWebsite": "https://unair.ac.id/",
+        "major": "Ilmu dan Teknologi Lingkungan",
+        "year": "2016",
+        "majorEn": "Environmental Science and Technology"
       }
     },
     "en": {
