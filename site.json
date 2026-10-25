@@ -721,7 +721,7 @@
   ],
   "gradeBoards": [
     {
-      "id": "v3-1792924999784-garf2b",
+      "id": "v3-1792943710186-db8jxu",
       "course": "Matematika 1",
       "className": "Kelas ABD",
       "period": "Gasal 2026/2027",
@@ -738,9 +738,9 @@
         "score": false
       },
       "showGrade": false,
-      "publishedAt": "2026-10-25T10:43:40.487Z",
-      "expiresAt": "2026-11-01T10:43:40.487Z",
-      "rowsFile": "assets/grades/v3-1792924999784-garf2b.json",
+      "publishedAt": "2026-10-25T15:55:26.063Z",
+      "expiresAt": "2026-11-01T15:55:26.063Z",
+      "rowsFile": "assets/grades/v3-1792943710186-db8jxu.json",
       "rowCount": 125
     }
   ],
