@@ -718,22 +718,19 @@
   ],
   "courses": [
     {
-      "title": "Mekanika Fluida",
-      "id": "course-mat1",
       "period": "",
+      "description": "",
       "materials": [
         {
-          "url": "https://drive.google.com/file/d/17M6p2gw4NTOr0luiU6iM3VtemwQfcpxU/view?usp=drivesdk",
-          "title": "Fluid Mechanics by Cengel & Cimbala"
+          "title": "Fluid Mechanics by Cengel & Cimbala",
+          "url": "https://drive.google.com/file/d/17M6p2gw4NTOr0luiU6iM3VtemwQfcpxU/view?usp=drivesdk"
         }
       ],
-      "description": ""
+      "id": "course-mat1",
+      "title": "Fluid Mechanics"
     },
     {
-      "features": [],
-      "gallery": [],
-      "activities": [],
-      "title": "Proses Pengolahan Air Minum",
+      "description": "",
       "materials": [
         {
           "url": "https://drive.google.com/file/d/1-qPzhNBSi95qK-nmTt-PPcmWwCoIg6Dm/view?usp=drivesdk",
@@ -744,10 +741,13 @@
           "title": "Water and Wastewater Engineering by Davis"
         }
       ],
-      "period": "",
+      "activities": [],
+      "title": "Water Treatment Process",
       "contributions": [],
-      "description": "",
-      "id": "v3-1792947218238-pectsf"
+      "period": "",
+      "id": "v3-1792947218238-pectsf",
+      "features": [],
+      "gallery": []
     }
   ],
   "portalLinks": [
