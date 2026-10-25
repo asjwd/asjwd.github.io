@@ -7,6 +7,10 @@
 <link rel="icon" type="image/png" href="asj-square.png?v=13"><link rel="icon" href="favicon.ico?v=13">
 <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v7.css"><link rel="stylesheet" href="v9.css"><link rel="stylesheet" href="v10.css?v=13"><link rel="stylesheet" href="v12.css?v=13"><link rel="stylesheet" href="v13.css?v=13"><link rel="stylesheet" href="v14.css?v=14"><link rel="stylesheet" href="v15.css?v=15"><link rel="stylesheet" href="v16.css?v=16"><link rel="stylesheet" href="v17.css?v=17"><link rel="stylesheet" href="v18.css?v=18"><link rel="stylesheet" href="v19.css?v=27">
 <style>
+/* V35: hide every data-driven section from the first paint, before site.json is loaded. */
+[hidden]{display:none!important}
+.v35-ac-status{border:1px solid #dce7eb;border-radius:13px;padding:28px 18px;text-align:center;color:#627d8a;background:#fff;margin:25px 0}
+.v35-link-pending{font-size:12px;color:#82959f;font-style:italic}
 .v34-link-grid,.v34-course-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
 .v34-ac-card{border:1px solid #dce7eb;background:white;border-radius:13px;padding:19px;box-shadow:0 5px 17px #14394a0a}
 .v34-ac-card h3{font-size:16px;margin:0 0 9px;color:#183849}
@@ -23,6 +27,7 @@
 <div class="v21-ac-top-actions"><div class="lang-switch" role="group" aria-label="Language / Bahasa"><button type="button" data-ac-lang="id" aria-pressed="true">ID</button><button type="button" data-ac-lang="en" aria-pressed="false">EN</button></div></div>
 </div></header>
 <main class="shell academic-main v21-ac-main v24-ac-main">
+<div id="v35-ac-loading" class="v35-ac-status" role="status" aria-live="polite">Memuat Academic Portal...</div>
 <section id="academic-services" class="content-section academic-section" hidden>
 <div class="section-heading"><div><span class="section-label" data-ac-i18n="servicesLabel">LAYANAN AKADEMIK</span><h2 data-ac-i18n="servicesHeading">Academic Services</h2></div></div>
 <div id="academic-services-list" class="v34-link-grid"></div>
@@ -36,11 +41,11 @@
 </section>
 </section>
 <section id="academic-courses" class="content-section academic-section" hidden><div class="section-heading"><div><span class="section-label" data-ac-i18n="coursesLabel">MATERI KULIAH</span><h2 data-ac-i18n="coursesHeading">Courses & Materials</h2></div></div><div id="academic-courses-list" class="v34-course-list"></div></section>
-<section id="grades" class="content-section academic-section v21-ac-grades v24-ac-grade"><div class="section-heading"><div><span class="section-label" data-ac-i18n="gradesLabel">NILAI</span><h2 data-ac-i18n="gradesHeading">Pengumuman Nilai</h2></div></div>
+<section id="grades" class="content-section academic-section v21-ac-grades v24-ac-grade" hidden><div class="section-heading"><div><span class="section-label" data-ac-i18n="gradesLabel">NILAI</span><h2 data-ac-i18n="gradesHeading">Pengumuman Nilai</h2></div></div>
 <div class="grade-picker"><label for="gradeBoardSelect" data-ac-i18n="selectBoard">Pilih pengumuman nilai</label><select id="gradeBoardSelect" class="field"><option value="">Pilih mata kuliah</option></select></div>
 <div id="grade-table"></div>
 </section>
-<section id="academic-tools" class="content-section academic-section"><div class="section-heading"><div><span class="section-label" data-ac-i18n="toolsLabel">PERANGKAT DIGITAL</span><h2 data-ac-i18n="toolsHeading">Tools</h2></div></div><div id="academic-tools-list" class="v24-tool-list"></div></section>
+<section id="academic-tools" class="content-section academic-section" hidden><div class="section-heading"><div><span class="section-label" data-ac-i18n="toolsLabel">PERANGKAT DIGITAL</span><h2 data-ac-i18n="toolsHeading">Tools</h2></div></div><div id="academic-tools-list" class="v24-tool-list"></div></section>
 <section id="v34-ac-empty" class="content-section academic-section" hidden><div class="v34-ac-empty-card" data-ac-i18n="portalEmpty">Belum ada pengumuman atau materi yang dibagikan. Silakan kembali lagi nanti.</div></section>
 </main>
 <footer class="site-footer academic-footer v21-ac-footer"><div class="shell footer-inner"><span>© 2026 as.jawwad</span></div></footer>
@@ -48,4 +53,4 @@
 <div class="modal-backdrop" data-tool-close></div><div class="modal-card contact-modal-card"><button class="modal-close" type="button" data-tool-close aria-label="Close">×</button><h2 id="toolRequestTitle">Request Download</h2><p id="toolRequestDescription" class="contact-intro"></p><div id="toolRequestFeedback" class="contact-result" role="status" aria-live="polite" hidden></div>
 <form id="toolRequestForm" method="post" target="portfolioContactSubmit"><label for="toolRequesterName">Full Name</label><input id="toolRequesterName" name="fullName" required minlength="2" maxlength="100" autocomplete="name"><label for="toolRequesterRole">Position / Role</label><input id="toolRequesterRole" name="role" required maxlength="100"><label for="toolRequesterOrg">Institution / Organization</label><input id="toolRequesterOrg" name="institution" required maxlength="150"><label for="toolRequesterEmail">Email Address</label><input id="toolRequesterEmail" name="email" type="email" required maxlength="254" autocomplete="email"><input type="hidden" name="action" value="tool_request"><input type="hidden" name="toolId" id="toolRequestId"><input type="hidden" name="requestId" id="toolRequestNonce"><input type="hidden" name="startedAt" id="toolStartedAt"><div class="honeypot" aria-hidden="true"><label>Company<input name="company" autocomplete="off" tabindex="-1"></label></div><button id="toolRequestSubmit" class="btn btn-primary" type="submit">Submit Request</button></form></div></div>
 <iframe id="contactSubmissionFrame" name="portfolioContactSubmit" title="Delivery confirmation" tabindex="-1" class="contact-submit-frame" aria-hidden="true"></iframe>
-<script src="common.js?v=16"></script><script src="academic.js?v=34"></script></body></html>
+<script src="common.js?v=16"></script><script src="academic.js?v=35"></script></body></html>
