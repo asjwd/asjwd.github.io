@@ -679,7 +679,42 @@
       "gallery": []
     }
   ],
-  "tools": [],
+  "tools": [
+    {
+      "materials": [],
+      "description": "Tertarik membuat portofolio seperti ini? Saya share gratis. Panduan file txt tersedia.",
+      "features": [],
+      "id": "v3-1792944678925-s0m1ee",
+      "version": "",
+      "name": "Portfolio Maker",
+      "gallery": [],
+      "activities": [],
+      "contributions": [],
+      "releaseYear": "",
+      "en": {
+        "description": "Interested in creating a portfolio like this? I'm sharing it for free. A txt file guide is available.",
+        "features": []
+      },
+      "requestAvailable": true
+    },
+    {
+      "gallery": [],
+      "materials": [],
+      "activities": [],
+      "releaseYear": "",
+      "id": "v3-1792944770164-cxnew6",
+      "features": [],
+      "description": "Sering menggunakan ilovepdf dan semacamnya? Ganti dengan ini. 100% offline, tanpa upload dan tanpa resiko bocor data.",
+      "en": {
+        "description": "Frequently use ilovepdf and similar services? Replace them with this. 100% offline, no uploads, and no risk of data leaks.",
+        "features": []
+      },
+      "name": "as.pdf",
+      "version": "",
+      "contributions": [],
+      "requestAvailable": true
+    }
+  ],
   "courses": [
     {
       "id": "course-mat1",
