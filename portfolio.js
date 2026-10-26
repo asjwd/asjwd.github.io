@@ -352,13 +352,15 @@ function submitContactSamePage(event){
 }
 
 // V17 — Tool request via separate public Apps Script receiver; no download URL in page data.
-let toolRequestPending=false,toolRequestSent=new Set(),toolRequestNonce='',toolRequestTimer=null,toolCurrentId='';
+let toolRequestPending=false,toolRequestSent=new Map(),toolRequestNonce='',toolRequestTimer=null,toolCurrentId='';
 function toolMessage(text,ok){const n=document.getElementById('toolRequestFeedback');n.hidden=false;n.className='contact-result '+(ok?'success':'error');n.textContent=text;}
+
+function toolGuestbookLink(url){if(!/^https:\/\//i.test(String(url||'')))return;const n=document.getElementById('toolRequestFeedback'),a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.className='v36-download-link';a.textContent=currentLanguage==='id'?'↓ Download aplikasi':'↓ Download application';n.appendChild(a);}
 function openToolRequest(id){
  const tool=(portfolioData?.tools||[]).find(x=>x.id===id);if(!tool)return;
  toolCurrentId=id;
  const modal=document.getElementById('toolRequestModal'),form=document.getElementById('toolRequestForm');
- document.getElementById('toolRequestTitle').textContent=currentLanguage==='id'?'Permintaan Aplikasi: '+tool.name:'Request Access: '+tool.name;
+ document.getElementById('toolRequestTitle').textContent=(currentLanguage==='id'?'Buku Tamu: ':'Guestbook: ')+tool.name;
  document.getElementById('toolRequestDescription').textContent=tr(tool,'description');
  modal.classList.remove('hidden');document.body.style.overflow='hidden';
  document.getElementById('toolRequestId').value=id;
@@ -366,23 +368,23 @@ function openToolRequest(id){
  document.getElementById('toolRequestFeedback').hidden=true;
  const wasSent=toolRequestSent.has(id);
  form.hidden=wasSent;document.getElementById('toolRequestSubmit').disabled=wasSent||toolRequestPending;
- if(wasSent)toolMessage(currentLanguage==='id'?'Permintaan sudah dikirim. Silakan tunggu balasan melalui email.':'Request received. Please check your email for a response.',true);
+ if(wasSent){toolMessage(currentLanguage==='id'?'Buku tamu sudah dicatat.':'Your guestbook entry has been saved.',true);toolGuestbookLink(toolRequestSent.get(id));}
 }
 function submitToolRequest(event){
  const form=event.target;
  if(toolRequestPending||toolRequestSent.has(toolCurrentId)){event.preventDefault();return;}
- const url=SITE.linkURL(portfolioData?.profile?.contactFormUrl||'');
+ const url=SITE.linkURL(portfolioData?.profile?.toolGuestbookUrl||'');
  if(!url){event.preventDefault();toolMessage('Layanan permintaan belum tersedia. Silakan coba lagi nanti.',false);return;}
  form.action=url;toolRequestNonce=newContactRequestId();document.getElementById('toolRequestNonce').value=toolRequestNonce;
  toolRequestPending=true;document.getElementById('toolRequestSubmit').disabled=true;
- toolRequestTimer=setTimeout(()=>{if(!toolRequestPending)return;toolRequestPending=false;toolMessage('Konfirmasi server belum diterima. Jangan mengirim permintaan kedua sebelum memastikan email masuk.',false);},25000);
+ toolRequestTimer=setTimeout(()=>{if(!toolRequestPending)return;toolRequestPending=false;toolMessage('Konfirmasi buku tamu belum diterima. Silakan periksa koneksi.',false);},25000);
 }
 window.addEventListener('message',function(event){
- const d=event.data;if(!toolRequestPending||!d||d.type!=='ASJ_TOOL_RESULT_V17'||d.requestId!==toolRequestNonce)return;
+ const d=event.data;if(!toolRequestPending||!d||d.type!=='ASJ_GUESTBOOK_RESULT_V36'||d.requestId!==toolRequestNonce)return;
  const origin=String(event.origin||'');
  if(!(origin==='null'||/^https:\/\/(?:[a-z0-9-]+\.)*(?:googleusercontent\.com|google\.com)$/.test(origin)))return;
  clearTimeout(toolRequestTimer);toolRequestPending=false;
- if(d.ok){toolRequestSent.add(toolCurrentId);document.getElementById('toolRequestForm').hidden=true;toolMessage(currentLanguage==='id'?'Permintaan berhasil dikirim. Link akan dikirim setelah ditinjau.':'Request sent. A download link may be provided after review.',true);}
+ if(d.ok&&/^https:\/\//i.test(String(d.url||''))){toolRequestSent.set(toolCurrentId,d.url);document.getElementById('toolRequestForm').hidden=true;toolMessage(currentLanguage==='id'?'Buku tamu tercatat. Klik tombol download di bawah.':'Guestbook saved. Select download below.',true);toolGuestbookLink(d.url);}
  else {document.getElementById('toolRequestSubmit').disabled=false;toolMessage(d.message||'Permintaan belum terkirim.',false);}
 });
 document.querySelectorAll('[data-tool-close]').forEach(n=>n.addEventListener('click',()=>{document.getElementById('toolRequestModal').classList.add('hidden');document.body.style.overflow='';}));
