@@ -724,7 +724,8 @@
       "materials": [
         {
           "title": "Fluid Mechanics by Cengel & Cimbala",
-          "url": "https://drive.google.com/file/d/17M6p2gw4NTOr0luiU6iM3VtemwQfcpxU/view?usp=drivesdk"
+          "requestAvailable": true,
+          "materialRequestId": "mat:course-mat1:0"
         }
       ],
       "id": "course-mat1",
@@ -734,12 +735,14 @@
       "description": "",
       "materials": [
         {
-          "url": "https://drive.google.com/file/d/1-qPzhNBSi95qK-nmTt-PPcmWwCoIg6Dm/view?usp=drivesdk",
-          "title": "Unit Operations and Process in Environmental Engineering by Reynolds & Richards"
+          "title": "Unit Operations and Process in Environmental Engineering by Reynolds & Richards",
+          "requestAvailable": true,
+          "materialRequestId": "mat:v3-1792947218238-pectsf:0"
         },
         {
-          "url": "https://drive.google.com/file/d/1zUUY3Jvrb6q-s2udoJ3pbQAkxaW4CsZx/view?usp=drivesdk",
-          "title": "Water and Wastewater Engineering by Davis"
+          "title": "Water and Wastewater Engineering by Davis",
+          "requestAvailable": true,
+          "materialRequestId": "mat:v3-1792947218238-pectsf:1"
         }
       ],
       "activities": [],
