@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="id"><head>
-<meta charset="utf-8"><meta name="guestbook-layout" content="V41"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="guestbook-layout" content="V42"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
 <meta name="theme-color" content="#f7f9fa"><meta name="description" content="Portal akademik untuk pencarian akses mahasiswa dan pengumuman nilai.">
 <title>My Academic Portal</title>
@@ -115,6 +115,15 @@
   #toolRequestModal{padding:12px !important}
   #toolRequestModal .contact-modal-card{padding:24px 20px !important}
 }
+
+/* V42: course materials use the existing Guestbook modal, not direct links. */
+#academic-courses-list .v42-material-link {
+ display:inline;max-width:100%;border:0;background:transparent;padding:0;
+ color:#087c7c;font:inherit;font-weight:700;line-height:1.6;
+ text-align:left;cursor:pointer;overflow-wrap:anywhere;
+}
+#academic-courses-list .v42-material-link:hover,
+#academic-courses-list .v42-material-link:focus-visible {text-decoration:underline;outline-offset:3px;}
 </style></head><body data-page="academic" class="academic-body">
 <header class="academic-topbar v21-ac-topbar"><div class="shell academic-bar">
 <a href="/" class="brand brand-dark v12-academic-brand"><img src="asj-round.png?v=13" class="v12-round-logo" alt="ASJ"><span class="v12-brand-title">My Academic Portal</span></a>
@@ -148,4 +157,4 @@
 <form id="toolRequestForm" method="post" target="portfolioGuestbookSubmit"><label for="toolRequesterName">Full Name</label><input id="toolRequesterName" name="fullName" required minlength="2" maxlength="100" autocomplete="name"><label for="toolRequesterOrg">Institution / Organization</label><input id="toolRequesterOrg" name="institution" required maxlength="150"><label for="toolRequesterEmail">Email Address</label><input id="toolRequesterEmail" name="email" type="email" required maxlength="254" autocomplete="email"><input type="hidden" name="action" value="tool_guestbook"><input type="hidden" name="toolId" id="toolRequestId"><input type="hidden" name="requestId" id="toolRequestNonce"><input type="hidden" name="startedAt" id="toolStartedAt"><div id="v41ToolConsentRow"><input id="v41ToolConsent" type="checkbox" name="consent" value="yes" required><label for="v41ToolConsent">Saya setuju nama, institusi, dan email dicatat untuk akses unduhan. Data tidak ditampilkan kepada publik.</label></div> <div class="honeypot" aria-hidden="true"><label>Company<input name="company" autocomplete="off" tabindex="-1"></label></div><button id="toolRequestSubmit" class="btn btn-primary" type="submit">Submit & Get Download Link</button></form></div></div>
 <iframe name="portfolioGuestbookSubmit" class="contact-submit-frame" title="Tool Guestbook confirmation" tabindex="-1" aria-hidden="true"></iframe>
 <iframe id="contactSubmissionFrame" name="portfolioContactSubmit" title="Delivery confirmation" tabindex="-1" class="contact-submit-frame" aria-hidden="true"></iframe>
-<script src="common.js?v=16"></script><script src="academic.js?v=36"></script></body></html>
+<script src="common.js?v=16"></script><script src="academic.js?v=42"></script></body></html>

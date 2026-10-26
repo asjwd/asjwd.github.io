@@ -1,5 +1,5 @@
 "use strict";
-// V35: render nonempty Academic entries even when no link/material URL is available; avoid initial flashes.
+// V42: render nonempty Academic entries even when no link/material URL is available; avoid initial flashes.
 let acData=null,acLanguage='id',acSelectedId='',acRows=null,acRequestSeq=0,acVisible=20;
 let acToolId='',acRequestBusy=false,acNonce='',acRequestTimer=null;
 const acSentTools=new Map();
@@ -94,7 +94,11 @@ function acServicesAvailable(){
  return (Array.isArray(acData?.portalLinks)?acData.portalLinks:[])
   .filter(s=>s&&typeof s==='object'&&(acHasText(s.title)||acHasText(s.name)||acHasText(s.description)||acValidExternalURL(s.url)));
 }
-function acCourseMaterials(c){return (Array.isArray(c?.materials)?c.materials:[]).filter(m=>m&&acValidExternalURL(m.url));}
+function acCourseMaterials(c){
+ return (Array.isArray(c?.materials)?c.materials:[])
+  .map((m,i)=>({ ...m,materialRequestId:m?.materialRequestId||('mat:'+String(c.id||'')+':'+i) }))
+  .filter(m=>m&&(m.requestAvailable===true||acValidExternalURL(m.url)));
+}
 function acCoursesAvailable(){
  // The course card itself is content, even when the materials array is still empty.
  return (Array.isArray(acData?.courses)?acData.courses:[])
@@ -120,9 +124,10 @@ function acRenderVisibility(){
  }).join('');
  $('academic-courses-list').innerHTML=courses.map(c=>{
   const materials=acCourseMaterials(c);
-  const list=materials.length?`<ul class="v34-materials">${materials.map(m=>`<li><a href="${E(m.url)}" target="_blank" rel="noopener noreferrer">${E(m.title||m.url)}</a></li>`).join('')}</ul>`:`<p class="v35-link-pending">${T('noMaterials')}</p>`;
+  const list=materials.length?`<ul class="v34-materials">${materials.map(m=>`<li><button type="button" class="v42-material-link" data-material-request="${E(m.materialRequestId)}" aria-label="${E((acLanguage==='id'?'Unduh materi ':'Download material ')+(m.title||'Materi'))}">${E(m.title||'Materi')} <span aria-hidden="true">↗</span></button></li>`).join('')}</ul>`:`<p class="v35-link-pending">${T('noMaterials')}</p>`;
   return `<article class="v34-ac-card"><h3>${E(c.title||c.course||'Course')}</h3>${c.period?`<div class="v34-course-meta">${E(c.period)}</div>`:''}${c.description?`<p>${E(c.description)}</p>`:''}${list}</article>`;
  }).join('');
+ $('academic-courses-list').querySelectorAll('[data-material-request]').forEach(b=>b.addEventListener('click',()=>acOpenRequest(b.dataset.materialRequest)));
  // Student access lives within Academic Services and follows its visibility.
  const sel=$('gradeBoardSelect');const prior=sel.value;
  sel.innerHTML=`<option value="">${E(T('selectPlaceholder'))}</option>`+boards.map(b=>`<option value="${E(b.id)}">${E(b.course||'')} · ${E(b.className||'')} · ${E(b.period||'')}</option>`).join('');
@@ -138,7 +143,14 @@ function acRenderTools(){
  $('academic-tools-list').querySelectorAll('[data-tool]').forEach(b=>b.addEventListener('click',()=>acOpenRequest(b.dataset.tool)));
 }
 function acOpenRequest(id){
- const tool=(acData.tools||[]).find(t=>String(t.id)===String(id));if(!tool)return;
+ let tool=(acData.tools||[]).find(t=>String(t.id)===String(id));
+ if(!tool&&String(id).startsWith('mat:')){
+   for(const course of acData.courses||[]){
+     const material=acCourseMaterials(course).find(m=>String(m.materialRequestId)===String(id));
+     if(material){tool={name:material.title||'Materi',description:(acLanguage==='id'?'Materi kuliah: ':'Course material: ')+(course.title||course.course||''),en:{description:'Course material: '+(course.title||course.course||'')}};break;}
+   }
+ }
+ if(!tool)return;
  acToolId=id;
  $('toolRequestTitle').textContent=(acLanguage==='id'?'Buku Tamu — ':'Guestbook — ')+tool.name;
  $('toolRequestDescription').textContent=acLanguage==='en'?(tool.en?.description||tool.description||''):(tool.description||'');
@@ -146,10 +158,11 @@ function acOpenRequest(id){
  $('toolRequestId').value=id;$('toolStartedAt').value=Date.now();
  $('toolRequestFeedback').hidden=true;$('toolRequestForm').hidden=acSentTools.has(id);
  $('toolRequestSubmit').disabled=acSentTools.has(id)||acRequestBusy;
- if(acSentTools.has(id)){acToolMessage(T('requestSuccess'),true);acToolLink(acSentTools.get(id));}
+ if(acSentTools.has(id)){acToolMessage(acSuccessText(),true);acToolLink(acSentTools.get(id));}
 }
 function acToolMessage(msg,success){const el=$('toolRequestFeedback');el.hidden=false;el.className='contact-result '+(success?'success':'error');el.textContent=msg;}
-function acToolLink(url){if(!/^https:\/\//i.test(String(url||'')))return;const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.className='v36-download-link';a.textContent=acLanguage==='id'?'↓ Download aplikasi':'↓ Download application';$('toolRequestFeedback').appendChild(a);}
+function acSuccessText(){return String(acToolId).startsWith('mat:')?(acLanguage==='id'?'Buku tamu tercatat. Klik untuk mengunduh materi.':'Guestbook saved. Click to download the material.'):T('requestSuccess');}
+function acToolLink(url){if(!/^https:\/\//i.test(String(url||'')))return;const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.className='v36-download-link';a.textContent=String(acToolId).startsWith('mat:')?(acLanguage==='id'?'↓ Download materi':'↓ Download material'):(acLanguage==='id'?'↓ Download aplikasi':'↓ Download application');$('toolRequestFeedback').appendChild(a);}
 function acCloseRequest(){$('toolRequestModal').classList.add('hidden');document.body.style.overflow='';}
 function acNewNonce(){try{const x=new Uint32Array(4);crypto.getRandomValues(x);return [...x].map(n=>n.toString(16)).join('');}catch(_){return Date.now().toString(36)+Math.random().toString(36).slice(2);}}
 function acSubmitRequest(e){
@@ -164,7 +177,7 @@ window.addEventListener('message',e=>{
  const d=e.data;if(!acRequestBusy||!d||d.type!=='ASJ_GUESTBOOK_RESULT_V36'||d.requestId!==acNonce)return;
  const origin=String(e.origin||'');if(!(origin==='null'||/^https:\/\/(?:[a-z0-9-]+\.)*(?:googleusercontent\.com|google\.com)$/.test(origin)))return;
  clearTimeout(acRequestTimer);acRequestBusy=false;
- if(d.ok&&/^https:\/\//i.test(String(d.url||''))){acSentTools.set(acToolId,d.url);$('toolRequestForm').hidden=true;acToolMessage(T('requestSuccess'),true);acToolLink(d.url);}else{acToolMessage(d.message||T('requestError'),false);$('toolRequestSubmit').disabled=false;}
+ if(d.ok&&/^https:\/\//i.test(String(d.url||''))){acSentTools.set(acToolId,d.url);$('toolRequestForm').hidden=true;acToolMessage(acSuccessText(),true);acToolLink(d.url);}else{acToolMessage(d.message||T('requestError'),false);$('toolRequestSubmit').disabled=false;}
 });
 try{const saved=localStorage.getItem('portfolioLangV7');if(saved==='en')acLanguage='en';}catch(_){ }
 $('studentSearchForm').addEventListener('submit',e=>{e.preventDefault();if(!$('studentQuery').value.trim())return;$('studentSearchResponse').hidden=false;$('studentSearchResponse').textContent=T('searchResponse');});
