@@ -1,11 +1,38 @@
 'use strict';
 // V2 — public, read-only site data. Editing is deliberately not included in GitHub Pages.
-const SITE_FILE = new URL('site.json', document.currentScript?.src || location.href).href;
+const PM46_PUBLIC_API = 'https://script.google.com/macros/s/AKfycbzsyunPGbY7EKWLzN4pnphb6q0UDn-0Ys-W_ZVcJI3vaQwSKmRPLWny2u5BPtKWI4_W/exec';
 const SITE = {
-  async load() {
-    const response = await fetch(SITE_FILE, {cache: 'no-store'});
-    if (!response.ok) throw Error('Gagal membaca site.json');
-    return await response.json();
+  load(){return this.read('site');},
+  loadGrades(board){return this.read('grades',board);},
+  read(kind,board=''){
+    return new Promise((resolve,reject)=>{
+      if(!['site','grades'].includes(kind))return reject(Error('Rute tidak dikenal'));
+      const bytes=new Uint8Array(18);
+      if(window.crypto&&crypto.getRandomValues)crypto.getRandomValues(bytes);
+      else return reject(Error('Browser tidak mendukung pemanggilan aman'));
+      const nonce=Array.from(bytes,x=>x.toString(16).padStart(2,'0')).join('');
+      const iframe=document.createElement('iframe');iframe.hidden=true;
+      iframe.setAttribute('aria-hidden','true');iframe.tabIndex=-1;
+      const action=kind==='site'?'published_site':'published_grades';
+      const url=new URL(PM46_PUBLIC_API);
+      url.searchParams.set('action',action);url.searchParams.set('nonce',nonce);
+      if(kind==='grades')url.searchParams.set('board',String(board));
+      let done=false;
+      const cleanup=()=>{clearTimeout(timer);window.removeEventListener('message',onMessage);iframe.remove();};
+      const fail=msg=>{if(done)return;done=true;cleanup();reject(Error(msg));};
+      const onMessage=event=>{
+        const data=event.data||{};
+        if(data.type!=='ASJ_PUBLISHED_V46'||data.requestId!==nonce||data.kind!==kind)return;
+        const origin=String(event.origin||'');
+        if(!(origin==='null'||/^https:\/\/(?:[a-z0-9-]+\.)*(?:googleusercontent\.com|google\.com)$/.test(origin)))return;
+        if(done)return;done=true;cleanup();
+        data.ok?resolve(data.data):reject(Error(data.message||'Gagal memuat data'));
+      };
+      const timer=setTimeout(()=>fail('Server belum merespons. Coba muat ulang halaman.'),30000);
+      window.addEventListener('message',onMessage);
+      iframe.src=url.href;
+      document.body.appendChild(iframe);
+    });
   },
   escape(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));},
   safeURL(value){const v=String(value||'').trim();if(!v)return '';if(v.startsWith('data:image/jpeg;base64,')||v.startsWith('data:image/webp;base64,')||v.startsWith('data:image/png;base64,'))return v;try {const u=new URL(v,location.href);return ['https:','http:'].includes(u.protocol)?u.href:'';}catch(e){return '';}},

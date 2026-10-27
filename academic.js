@@ -52,16 +52,9 @@ async function acSelectBoard(){
  if(!board){acPreview('empty',T('noBoards'));return;}
  acPreview('loading',T('loading'));
  try{
-  let rows;
-  if(Array.isArray(board.rows)){rows=board.rows;} // legacy board created before V24
-  else if(board.rowsFile){
-   const path=String(board.rowsFile);
-   if(!/^assets\/grades\/[a-zA-Z0-9_.%~-]+\.json$/.test(path))throw Error('Invalid board path');
-   const response=await fetch('/'+path,{cache:'no-store'});
-   if(!response.ok)throw Error('HTTP '+response.status);
-   const obj=await response.json();if(String(obj.id)!==String(id)||!Array.isArray(obj.rows))throw Error('Board response invalid');
-   rows=obj.rows;
-  }else rows=[];
+  const result=await SITE.loadGrades(id);
+  if(String(result.id)!==id||!Array.isArray(result.rows))throw Error('Respons nilai tidak valid');
+  const rows=result.rows;
   if(seq!==acRequestSeq)return;
   acRows=rows;acRenderGrade();
  }catch(e){if(seq===acRequestSeq)acPreview('empty',T('error'));}
