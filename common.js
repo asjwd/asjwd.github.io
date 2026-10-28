@@ -74,5 +74,9 @@ const SITE = {
     }}catch(_e){}
     return safe;
   },
-  image(url,alt='',cls='',width=720,priority=false){const src=SITE.photoURL(url,width);return src?`<img class="${SITE.escape(cls)}" src="${SITE.escape(src)}" alt="${SITE.escape(alt)}" loading="${priority?'eager':'lazy'}" ${priority?'fetchpriority="high"':''} decoding="async">`:'';}
+  image(url,alt='',cls='',width=720,priority=false){const src=SITE.photoURL(url,width);return src?`<img draggable="false" class="${SITE.escape(cls)}" src="${SITE.escape(src)}" alt="${SITE.escape(alt)}" loading="${priority?'eager':'lazy'}" ${priority?'fetchpriority="high"':''} decoding="async">`:'';}
 };
+
+// V49: convenience-only picture protection. No claim to prevent screenshots or DevTools.
+document.addEventListener('contextmenu',e=>{if(e.target.closest('img, .gallery, .project-cover, .v13-slideshow, .hero-avatar'))e.preventDefault();});
+document.addEventListener('dragstart',e=>{if(e.target.closest('img'))e.preventDefault();});

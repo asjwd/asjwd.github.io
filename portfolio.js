@@ -55,7 +55,7 @@ function renderPortfolio(data){portfolioData=data;const p=data.profile||{};docum
     const link=SITE.linkURL(rawUrl);
     const directIcon=SITE.safeURL(p.institutionIcon||'');
     const iconHost=(()=>{try{const u=new URL(p.institutionIconWebsite||rawUrl);return u.protocol==='https:'||u.protocol==='http:'?u.hostname:'';}catch(_){return '';}})();
-    // V24: use only the cached GitHub icon. No external favicon request by visitors.
+    // V49: public snapshot contains Drive logo URLs, not repository image assets.
     const icon=directIcon;
     const text=esc(String(p.institution||'—').replace(/\s*[↗↗]\s*$/g,''));
     inst.href=link||defaultInstitutionUrl;
@@ -339,9 +339,49 @@ function newContactRequestId(){
  }
  return String(Date.now())+Math.random().toString(36).slice(2);
 }
+let pm49GISLoading=null;
+function pm49LoadGIS(){
+ if(window.google?.accounts?.id)return Promise.resolve();
+ if(pm49GISLoading)return pm49GISLoading;
+ pm49GISLoading=new Promise((resolve,reject)=>{
+  const tag=document.createElement('script');tag.src='https://accounts.google.com/gsi/client';tag.async=true;tag.defer=true;
+  tag.onload=()=>window.google?.accounts?.id?resolve():reject(Error('Google Sign-in unavailable'));
+  tag.onerror=()=>reject(Error('Could not load Google Sign-in'));
+  document.head.appendChild(tag);
+ });return pm49GISLoading;
+}
+function pm49SetupGoogleMail(p){
+ const form=document.getElementById('contactForm');if(!form)return;
+ let area=document.getElementById('pm49GoogleArea');
+ if(!area){area=document.createElement('div');area.id='pm49GoogleArea';area.className='pm49-google';form.prepend(area);}
+ let hidden=document.getElementById('pm49GoogleCredential');
+ if(!hidden){hidden=document.createElement('input');hidden.type='hidden';hidden.name='googleCredential';hidden.id='pm49GoogleCredential';form.append(hidden);}
+ if(p.mailGoogleRequired!==true){area.hidden=true;area.innerHTML='';hidden.value='';const email=form.querySelector('[name="sender"]');if(email){email.readOnly=false;email.value='';}return;}
+ area.hidden=false;
+ const clientId=String(p.mailGoogleClientId||'');
+ area.innerHTML='<p>Sign in with Google is required before sending this message.</p><div id="pm49GoogleButton"></div><small id="pm49GoogleStatus">Your email will be verified by Google. No verification email is sent.</small>';
+ if(!/^[0-9]+-[a-z0-9_-]+\.apps\.googleusercontent\.com$/.test(clientId)){
+  area.querySelector('#pm49GoogleStatus').textContent='Sign-in is not yet configured by the website owner.';return;
+ }
+ pm49LoadGIS().then(()=>{
+  if(!document.getElementById('pm49GoogleButton'))return;
+  window.google.accounts.id.initialize({client_id:clientId,callback:response=>{
+   const credential=String(response?.credential||'');if(!credential)return;
+   hidden.value=credential;
+   // Display convenience only; the Mailer will validate the signed ID token.
+   try{const part=credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');const data=JSON.parse(atob(part));
+    const email=form.querySelector('[name="sender"]');if(email){email.value=String(data.email||'');email.readOnly=true;}
+    const name=form.querySelector('[name="fullName"]');if(name&&data.name)name.value=String(data.name).slice(0,100);
+    area.querySelector('#pm49GoogleStatus').textContent='Signed in: '+String(data.email||'')+'. Verified again by the server on submit.';
+   }catch(_){area.querySelector('#pm49GoogleStatus').textContent='Google account selected.';}
+  }});
+  window.google.accounts.id.renderButton(document.getElementById('pm49GoogleButton'),{theme:'outline',size:'large',text:'signin_with',shape:'rectangular'});
+ }).catch(err=>{const stat=document.getElementById('pm49GoogleStatus');if(stat)stat.textContent=err.message;});
+}
 function openContact(){
  const p=portfolioData.profile||{},modal=document.getElementById('contactModal'),form=document.getElementById('contactForm'),url=SITE.linkURL(p.contactFormUrl||'');
  modal.classList.remove('hidden');document.body.style.overflow='hidden';
+ pm49SetupGoogleMail(p);
  document.getElementById('contactNotReady').hidden=!!url;
  if(!url)document.getElementById('contactNotReady').textContent=t('contactNotReady');
  if(contactSentInSession){form.hidden=true;contactFeedback(t('contactSessionLocked'),'success');return;}
@@ -377,6 +417,9 @@ function submitContactSamePage(event){
  // HTML5 form validation happens before the submit event.
  const p=portfolioData?.profile||{},url=SITE.linkURL(p.contactFormUrl||'');
  if(!url){event.preventDefault();contactFeedback(t('contactNotReady'),'error');return;}
+ if(p.mailGoogleRequired===true && !document.getElementById('pm49GoogleCredential')?.value){
+  event.preventDefault();contactFeedback('Please sign in with Google before sending.','error');return;
+ }
  contactRequestId=newContactRequestId();
  document.getElementById('contactRequestId').value=contactRequestId;
  contactPending=true;contactResetFeedback();contactSetSubmitting(true);
