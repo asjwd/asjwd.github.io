@@ -25,8 +25,8 @@ function renderPortfolio(data){portfolioData=data;const p=data.profile||{};docum
     inst.innerHTML='<span class="institution-title">'+text+'</span>'+(icon?'<img class="v22-institution-logo" src="'+esc(icon)+'" alt="Logo institusi" width="24" height="24" loading="lazy" decoding="async" onerror="this.hidden=true">':'');
   }
   document.querySelector('#profile-location').textContent=p.location||'—';
- const ava=document.getElementById('profile-avatar');ava.innerHTML=SITE.safeURL(p.avatar)?SITE.image(p.avatar,p.name):`<span>${esc(SITE.avatarInitials(p.name))}</span>`;
- const hero=document.querySelector('.hero');if(SITE.safeURL(p.banner))hero.style.backgroundImage=`linear-gradient(100deg,rgba(13,40,55,.94),rgba(14,51,63,.83)),url("${SITE.safeURL(p.banner).replaceAll('"','%22')}")`;
+ const ava=document.getElementById('profile-avatar');ava.innerHTML=SITE.safeURL(p.avatar)?SITE.image(p.avatar,p.name,'',320,true):`<span>${esc(SITE.avatarInitials(p.name))}</span>`;
+ const hero=document.querySelector('.hero');if(SITE.safeURL(p.banner))hero.style.backgroundImage=`linear-gradient(100deg,rgba(13,40,55,.94),rgba(14,51,63,.83)),url("${SITE.photoURL(p.banner,1200).replaceAll('"','%22')}")`;
  document.getElementById('specialty-tags')?.remove();
  renderEducation(p);renderCertifications(p);
  document.getElementById('year').textContent=new Date().getFullYear();
@@ -123,7 +123,7 @@ function v19SmallLogo(ref,cls='v19-small-logo'){
 }
 
 function renderExperience(){const el=document.getElementById('experience-list');const all=portfolioData.experiences||[],a=all.slice(0,v10Visible.experiences);el.innerHTML=all.length?a.map(x=>`<button class="experience-item" data-experience="${esc(x.id)}"><div class="experience-icon v15-company-icon">${experienceLogo(x)}</div><div class="experience-main"><div class="experience-top"><h3>${esc(tr(x,'role'))}</h3><span>${esc(v19Period(x))}</span></div><p>${esc(x.organization||'')}${x.location?' · '+esc(x.location):''}</p></div></button>`).join(''):`<div class="empty-card">${t('emptyExperience')}</div>`;el.querySelectorAll('[data-experience]').forEach(b=>b.addEventListener('click',()=>openExperience(b.dataset.experience)));v10ShowMore('experiences',all.length);}
-function renderProjects(){const all=portfolioData.projects||[],list=all.slice(0,v10Visible.projects);const el=document.getElementById('project-list');el.innerHTML=all.length?list.map(x=>`<button class="project-card" data-project="${esc(x.id)}"><div class="project-cover">${SITE.safeURL(x.cover)?SITE.image(x.cover,tr(x,'title')):`<span class="project-symbol">${isModel(x)?'◎':'▧'}</span>`}${x.partnerName?`<span class="v21-partner-badge">${v19SmallLogo(x.partnerLogo,'v21-partner-logo')}<span class="v21-partner-name">${esc(x.partnerName)}</span></span>`:''}</div><div class="project-meta">${esc(v19Period(x))} ${x.model?' · '+esc(x.model):''}</div><h3>${esc(tr(x,'title'))}</h3><p>${esc(tr(x,'description'))}</p></button>`).join(''):`<div class="empty-card wide">${t('emptyProject')}</div>`;el.querySelectorAll('[data-project]').forEach(b=>b.addEventListener('click',()=>openProject(b.dataset.project)));v10ShowMore('projects',all.length);}
+function renderProjects(){const all=portfolioData.projects||[],list=all.slice(0,v10Visible.projects);const el=document.getElementById('project-list');el.innerHTML=all.length?list.map(x=>`<button class="project-card" data-project="${esc(x.id)}"><div class="project-cover">${SITE.safeURL(x.cover)?SITE.image(x.cover,tr(x,'title'),'',720):`<span class="project-symbol">${isModel(x)?'◎':'▧'}</span>`}${x.partnerName?`<span class="v21-partner-badge">${v19SmallLogo(x.partnerLogo,'v21-partner-logo')}<span class="v21-partner-name">${esc(x.partnerName)}</span></span>`:''}</div><div class="project-meta">${esc(v19Period(x))} ${x.model?' · '+esc(x.model):''}</div><h3>${esc(tr(x,'title'))}</h3><p>${esc(tr(x,'description'))}</p></button>`).join(''):`<div class="empty-card wide">${t('emptyProject')}</div>`;el.querySelectorAll('[data-project]').forEach(b=>b.addEventListener('click',()=>openProject(b.dataset.project)));v10ShowMore('projects',all.length);}
 // Prefer the actual publisher hostname. If a DOI resolves to doi.org, try a known
 // publisher inferred from journal/publisher metadata; an optional journalWebsite
 // in the Admin overrides inference. Never render an executable protocol.
@@ -202,7 +202,7 @@ function renderContacts(){
 }
 
 function openModal(html){document.getElementById('modalContent').innerHTML=html;document.getElementById('detailModal').classList.remove('hidden');document.body.style.overflow='hidden';}
-function galleryHTML(g){return Array.isArray(g)&&g.length?`<h3 class="modal-subheading">${t('documentation')}</h3><div class="gallery">${g.filter(x=>SITE.safeURL(x.url)).map(x=>`<figure>${SITE.image(x.url,'Foto dokumentasi kegiatan')}</figure>`).join('')}</div>`:'';}
+function galleryHTML(g){return Array.isArray(g)&&g.length?`<h3 class="modal-subheading">${t('documentation')}</h3><div class="gallery">${g.filter(x=>SITE.safeURL(x.url)).map(x=>`<figure>${SITE.image(x.url,'Foto dokumentasi kegiatan','',1200)}</figure>`).join('')}</div>`:'';}
 function openExperience(id){const x=(portfolioData.experiences||[]).find(x=>x.id===id);if(!x)return;const activities=(trArray(x,'activities')||[]).map(a=>`<li><strong>${esc(a.title)}</strong>${a.date?` <span>${esc(a.date)}</span>`:''}${a.description?`<p>${esc(a.description)}</p>`:''}</li>`).join('');openModal(`<div class="modal-eyebrow">${t('career')}</div><h2 id="modalTitle">${esc(tr(x,'role'))}</h2><p class="modal-org">${esc(x.organization||'')} ${x.period?' · '+esc(x.period):''}</p>${trArray(x,'contributions').length?`<h3 class="modal-subheading">${t('contribution')}</h3><ul class="modal-list">${trArray(x,'contributions').map(v=>`<li>${esc(v)}</li>`).join('')}</ul>`:''}${activities?`<h3 class="modal-subheading">${t('activities')}</h3><ul class="activity-list">${activities}</ul>`:''}${galleryHTML(x.gallery)}`);}
 function openProject(id){
  const x=(portfolioData.projects||[]).find(x=>x.id===id);if(!x)return;
@@ -269,10 +269,10 @@ function renderSlides(){
  const empty=el.querySelector('.slide-empty');empty.hidden=activeSlides.length>0;
  // Only the first image receives a src. Other images are not fetched until displayed.
  activeSlides.forEach((s,i)=>{
-  const im=document.createElement('img');im.dataset.src=SITE.safeURL(s.url);
+  const im=document.createElement('img');im.dataset.src=SITE.photoURL(s.url,1200);
   im.alt='Foto dokumentasi kegiatan';im.decoding='async';
   im.loading=i===0?'eager':'lazy';
-  if(i===0){im.src=im.dataset.src;im.classList.add('active');}
+  if(i===0){im.fetchPriority='high';im.src=im.dataset.src;im.classList.add('active');}
   el.appendChild(im);
  });
  dot.innerHTML=activeSlides.map((_,i)=>`<button aria-label="Foto ${i+1}" data-slide="${i}" type="button"></button>`).join('');
@@ -395,4 +395,4 @@ try{if(localStorage.getItem('portfolioLangV7')==='en')currentLanguage='en';}catc
 document.getElementById('navToggle').addEventListener('click',()=>document.querySelector('.topnav').classList.toggle('open'));
 document.getElementById('slidePrev').addEventListener('click',()=>{changeSlide(slideAt-1);resetSlideTimer()});document.getElementById('slideNext').addEventListener('click',()=>{changeSlide(slideAt+1);resetSlideTimer()});
 document.getElementById('contactForm').addEventListener('submit',submitContactSamePage);
-SITE.load().then(renderPortfolio).catch(e=>{document.querySelector('.page-content').innerHTML=`<div class="empty-card">Gagal memuat data website: ${SITE.escape(e.message)}</div>`});
+SITE.loadPortfolio().then(renderPortfolio).catch(e=>{document.querySelector('.page-content').innerHTML=`<div class="empty-card">Gagal memuat data website: ${SITE.escape(e.message)}</div>`});

@@ -179,5 +179,5 @@ $('toolRequestForm').addEventListener('submit',acSubmitRequest);
 document.querySelectorAll('[data-tool-close]').forEach(n=>n.addEventListener('click',acCloseRequest));
 document.querySelectorAll('[data-ac-lang]').forEach(b=>b.addEventListener('click',()=>{acLanguage=b.dataset.acLang;acTheme();}));
 acTheme();
-SITE.load().then(acLoadSite).catch(err=>{console.error('Academic Portal V35:',err);const state=$('v35-ac-loading');state.textContent=T('portalLoadError');acVisibilitySet(state,true);});
+SITE.loadAcademic().then(acLoadSite).catch(err=>{console.error('Academic Portal V35:',err);const state=$('v35-ac-loading');state.textContent=T('portalLoadError');acVisibilitySet(state,true);});
 setInterval(()=>{if(!acData)return;const ids=acBoards().map(b=>b.id),sel=$('gradeBoardSelect');if(acSelectedId&&!ids.includes(acSelectedId)){acData.gradeBoards=acBoards();acSelectedId='';acRows=null;sel.value='';acPreview('empty',T('pick'));} acRenderVisibility(); },60000);
