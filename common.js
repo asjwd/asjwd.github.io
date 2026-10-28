@@ -1,5 +1,5 @@
 'use strict';
-// V2 — public, read-only site data. Editing is deliberately not included in GitHub Pages.
+// V48 — early prefetch, safe 30-second session cache of PUBLIC content only. Read-only website.
 const PM46_PUBLIC_API = 'https://script.google.com/macros/s/AKfycbzsyunPGbY7EKWLzN4pnphb6q0UDn-0Ys-W_ZVcJI3vaQwSKmRPLWny2u5BPtKWI4_W/exec';
 const SITE = {
   // One in-flight request per page; recent public content is cached in sessionStorage only.

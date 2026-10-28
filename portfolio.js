@@ -2,14 +2,51 @@
 let portfolioData=null, currentLanguage='id', activeSlides=[],slideAt=0,slideTimer=null;
 const V10_VISIBLE_STEP=5, v10Visible={experiences:5,projects:6,publications:5,otherActivities:5,tools:5};
 const TEXT={
- id:{navExperience:'Pengalaman',navProjects:'Proyek',navPubs:'Publikasi',navOtherActivities:'Other Activities',otherActivitiesLabel:'KEGIATAN LAIN',otherActivitiesTitle:'Other Activities',emptyOtherActivities:'Belum ada kegiatan lain.',otherRole:'Peran',otherOrganizer:'Penyelenggara',otherCertificate:'Lihat sertifikat',navTools:'Tools',navContact:'Kontak',heroLabel:'PROFIL',explore:'Lihat Pengalaman',slideEmpty:'Dokumentasi kegiatan akan ditampilkan di sini.',metricRoles:'Jabatan',metricProjects:'Proyek',metricModels:'Pemodelan',metricPubs:'Publikasi',aboutLabel:'TENTANG SAYA',aboutTitle:'Tentang saya',degreeBachelor:'Sarjana',degreeMaster:'Magister',degreeDoctorate:'Doktor',graduationYear:'Lulus',affiliation:'Institusi',basedIn:'Lokasi',careerLabel:'PENGALAMAN',career:'Pengalaman Profesional',workLabel:'PROYEK & KAJIAN',work:'Proyek & Kajian',filterAll:'Semua proyek',filterModels:'Pemodelan',filterConsult:'Konsultansi / Kajian',researchLabel:'RISET',research:'Publikasi',softwareLabel:'PERANGKAT DIGITAL',software:'Tools',contactLabel:'KONTAK',messageTitle:'Kirim Pesan',messageIntro:'Silakan kirim pesan Anda. Saya akan merespons sesegera mungkin.',yourEmail:'Email Anda',yourName:'Nama Anda',subject:'Subjek',message:'Pesan',contactHint:'Pengiriman diproses langsung di halaman ini.', sending:'Mengirim pesan...', contactSuccess:'Pesan berhasil terkirim. Terima kasih, saya akan merespons sesegera mungkin.', contactError:'Pesan belum berhasil dikirim. Silakan coba lagi.', contactUncertain:'Konfirmasi pengiriman belum diterima. Pesan mungkin sudah terkirim; periksa kembali sebelum mengirim ulang.', contactSessionLocked:'Pesan Anda sudah terkirim. Untuk mengirim pesan baru, refresh halaman.',sendMessage:'Kirim Pesan',details:'Lihat detail',projectDetails:'Detail proyek',readPaper:'Baca artikel',download:'Unduh aplikasi',emptyExperience:'Belum ada pengalaman profesional.',emptyProject:'Belum ada proyek pada kategori ini.',emptyPublication:'Belum ada publikasi.',emptyTools:'Belum ada aplikasi.',contactNotReady:'Form Mail Me belum diaktifkan. Tambahkan URL Apps Script Contact melalui Portfolio Manager.',contribution:'Kontribusi',activities:'Kegiatan',documentation:'Dokumentasi',outputs:'Hasil dan kontribusi'},
- en:{navExperience:'Experience',navProjects:'Projects',navPubs:'Publications',navOtherActivities:'Other Activities',otherActivitiesLabel:'OTHER ACTIVITIES',otherActivitiesTitle:'Other Activities',emptyOtherActivities:'No activities yet.',otherRole:'Role',otherOrganizer:'Organizer',otherCertificate:'View certificate',navTools:'Tools',navContact:'Contact',heroLabel:'PROFILE',explore:'Explore Experience',slideEmpty:'Project and activity documentation will appear here.',metricRoles:'Roles',metricProjects:'Projects',metricModels:'Models',metricPubs:'Publications',aboutLabel:'ABOUT',aboutTitle:'About Me',degreeBachelor:'Bachelor',degreeMaster:'Master',degreeDoctorate:'Doctorate',graduationYear:'Graduated',affiliation:'Affiliation',basedIn:'Location',careerLabel:'CAREER',career:'Professional Experience',workLabel:'PROJECTS & STUDIES',work:'Projects & Studies',filterAll:'All Projects',filterModels:'Modeling',filterConsult:'Consulting / Studies',researchLabel:'RESEARCH',research:'Publications',softwareLabel:'DIGITAL TOOLS',software:'Tools',contactLabel:'CONTACT',messageTitle:'Send a Message',messageIntro:'Please leave your message, and I will respond as soon as possible.',yourEmail:'Your Email',yourName:'Your Name',subject:'Subject',message:'Message',contactHint:'Your message will be sent without opening a new tab.', sending:'Sending message...', contactSuccess:'Your message has been sent successfully. Thank you, I will respond as soon as possible.', contactError:'Your message could not be sent. Please try again.', contactUncertain:'Confirmation was not received. Your message may have been sent; please check before trying again.', contactSessionLocked:'Your message has already been sent. Refresh this page to send another message.',sendMessage:'Send Message',details:'View Details',projectDetails:'View Project',readPaper:'Read Paper',download:'Download Application',emptyExperience:'No professional experience yet.',emptyProject:'No projects in this category.',emptyPublication:'No publications yet.',emptyTools:'No tools yet.',contactNotReady:'Mail Me is not configured yet. Add the Contact App Script URL in Portfolio Manager.',contribution:'Key Contributions',activities:'Activities & Assignments',documentation:'Documentation',outputs:'Outputs & Contributions'}
+ id:{navExperience:'Pengalaman',navProjects:'Proyek',navPubs:'Publikasi',navOtherActivities:'Other Activities',otherActivitiesLabel:'KEGIATAN LAIN',otherActivitiesTitle:'Other Activities',emptyOtherActivities:'Belum ada kegiatan lain.',otherRole:'Peran',otherOrganizer:'Penyelenggara',otherCertificate:'Lihat sertifikat',navTools:'Tools',navContact:'Kontak',heroLabel:'PROFIL',explore:'Lihat Pengalaman',slideEmpty:'Loading media...',metricRoles:'Jabatan',metricProjects:'Proyek',metricModels:'Pemodelan',metricPubs:'Publikasi',aboutLabel:'TENTANG SAYA',aboutTitle:'Tentang saya',degreeBachelor:'Sarjana',degreeMaster:'Magister',degreeDoctorate:'Doktor',graduationYear:'Lulus',affiliation:'Institusi',basedIn:'Lokasi',careerLabel:'PENGALAMAN',career:'Pengalaman Profesional',workLabel:'PROYEK & KAJIAN',work:'Proyek & Kajian',filterAll:'Semua proyek',filterModels:'Pemodelan',filterConsult:'Konsultansi / Kajian',researchLabel:'RISET',research:'Publikasi',softwareLabel:'PERANGKAT DIGITAL',software:'Tools',contactLabel:'KONTAK',messageTitle:'Kirim Pesan',messageIntro:'Silakan kirim pesan Anda. Saya akan merespons sesegera mungkin.',yourEmail:'Email Anda',yourName:'Nama Anda',subject:'Subjek',message:'Pesan',contactHint:'Pengiriman diproses langsung di halaman ini.', sending:'Mengirim pesan...', contactSuccess:'Pesan berhasil terkirim. Terima kasih, saya akan merespons sesegera mungkin.', contactError:'Pesan belum berhasil dikirim. Silakan coba lagi.', contactUncertain:'Konfirmasi pengiriman belum diterima. Pesan mungkin sudah terkirim; periksa kembali sebelum mengirim ulang.', contactSessionLocked:'Pesan Anda sudah terkirim. Untuk mengirim pesan baru, refresh halaman.',sendMessage:'Kirim Pesan',details:'Lihat detail',projectDetails:'Detail proyek',readPaper:'Baca artikel',download:'Unduh aplikasi',emptyExperience:'Belum ada pengalaman profesional.',emptyProject:'Belum ada proyek pada kategori ini.',emptyPublication:'Belum ada publikasi.',emptyTools:'Belum ada aplikasi.',contactNotReady:'Form Mail Me belum diaktifkan. Tambahkan URL Apps Script Contact melalui Portfolio Manager.',contribution:'Kontribusi',activities:'Kegiatan',documentation:'Dokumentasi',outputs:'Hasil dan kontribusi'},
+ en:{navExperience:'Experience',navProjects:'Projects',navPubs:'Publications',navOtherActivities:'Other Activities',otherActivitiesLabel:'OTHER ACTIVITIES',otherActivitiesTitle:'Other Activities',emptyOtherActivities:'No activities yet.',otherRole:'Role',otherOrganizer:'Organizer',otherCertificate:'View certificate',navTools:'Tools',navContact:'Contact',heroLabel:'PROFILE',explore:'Explore Experience',slideEmpty:'Loading media...',metricRoles:'Roles',metricProjects:'Projects',metricModels:'Models',metricPubs:'Publications',aboutLabel:'ABOUT',aboutTitle:'About Me',degreeBachelor:'Bachelor',degreeMaster:'Master',degreeDoctorate:'Doctorate',graduationYear:'Graduated',affiliation:'Affiliation',basedIn:'Location',careerLabel:'CAREER',career:'Professional Experience',workLabel:'PROJECTS & STUDIES',work:'Projects & Studies',filterAll:'All Projects',filterModels:'Modeling',filterConsult:'Consulting / Studies',researchLabel:'RESEARCH',research:'Publications',softwareLabel:'DIGITAL TOOLS',software:'Tools',contactLabel:'CONTACT',messageTitle:'Send a Message',messageIntro:'Please leave your message, and I will respond as soon as possible.',yourEmail:'Your Email',yourName:'Your Name',subject:'Subject',message:'Message',contactHint:'Your message will be sent without opening a new tab.', sending:'Sending message...', contactSuccess:'Your message has been sent successfully. Thank you, I will respond as soon as possible.', contactError:'Your message could not be sent. Please try again.', contactUncertain:'Confirmation was not received. Your message may have been sent; please check before trying again.', contactSessionLocked:'Your message has already been sent. Refresh this page to send another message.',sendMessage:'Send Message',details:'View Details',projectDetails:'View Project',readPaper:'Read Paper',download:'Download Application',emptyExperience:'No professional experience yet.',emptyProject:'No projects in this category.',emptyPublication:'No publications yet.',emptyTools:'No tools yet.',contactNotReady:'Mail Me is not configured yet. Add the Contact App Script URL in Portfolio Manager.',contribution:'Key Contributions',activities:'Activities & Assignments',documentation:'Documentation',outputs:'Outputs & Contributions'}
 };
 function t(k){return TEXT[currentLanguage][k]||k;}
 function tr(x,key){if(!x)return '';const en=x.en||{};return (currentLanguage==='en' && typeof en[key]==='string' && en[key].trim())?en[key]:x[key]||'';}
 function trArray(x,key){if(!x)return [];const en=x.en||{};return currentLanguage==='en' && Array.isArray(en[key]) && en[key].length ? en[key] : (x[key]||[]);}
 function esc(x){return SITE.escape(x);}
 function fillLangText(){document.documentElement.lang=currentLanguage;document.querySelectorAll('[data-i18n]').forEach(n=>n.textContent=t(n.dataset.i18n));document.querySelectorAll('[data-lang]').forEach(n=>{n.classList.toggle('active',n.dataset.lang===currentLanguage);n.setAttribute('aria-pressed',String(n.dataset.lang===currentLanguage));});}
+
+// V48 — Layout settings from the published profile; no HTML injection.
+const PM48_LAYOUT=[
+ ['experience','#experience','navExperience'],['projects','#projects','navProjects'],
+ ['publications','#publications','navPubs'],['otherActivities','#other-activities','navOtherActivities'],
+ ['contact','#contact','navContact'],['academic','academic','']
+];
+function pm48ApplyPublicLayout(){
+ const profile=portfolioData?.profile||{},raw=profile.webLayout;
+ const ids=PM48_LAYOUT.map(x=>x[0]);
+ const order=raw&&Array.isArray(raw.order)?raw.order.filter(id=>ids.includes(id)):[];
+ const keys=[...new Set(order),...ids.filter(id=>!order.includes(id))];
+ const nav=document.getElementById('topNav');
+ if(!nav)return;
+ const page=document.querySelector('.page-content');
+ const refs={};
+ PM48_LAYOUT.forEach(([key,selector])=>{
+  refs[key]={anchor: key==='academic'?nav.querySelector('a.nav-portal'):nav.querySelector('a[href="'+selector+'"]'),
+             section:key==='academic'?null:document.querySelector(selector)};
+ });
+ // Apply the same ordering to nav AND main sections, keeping hero/about unchanged.
+ keys.forEach(key=>{const entry=refs[key];if(entry?.anchor)nav.appendChild(entry.anchor);if(entry?.section&&page)page.appendChild(entry.section);});
+ PM48_LAYOUT.forEach(([key,,navKey])=>{
+  const entry=refs[key],names=raw?.labels?.[key];
+  const custom=typeof names?.[currentLanguage]==='string'&&names[currentLanguage].trim()?names[currentLanguage].trim().slice(0,42):'';
+  if(custom&&entry?.anchor)entry.anchor.textContent=custom;
+  else if(entry?.anchor)entry.anchor.textContent=key==='academic'?'Academic Portal':t(navKey);
+  if(entry?.section){
+   const heading=entry.section.querySelector('h2');
+   // Use custom section titles only when actually changed from the standard nav label.
+   const base=key==='academic'?'Academic Portal':t(navKey);
+   if(heading&&custom&&custom!==base)heading.textContent=custom;
+   else if(heading){const defaults={experience:t('career'),projects:t('work'),publications:t('researchLabel')==='RISET'?t('research'):t('research'),otherActivities:t('otherActivitiesTitle'),contact:"Let's Connect"};heading.textContent=defaults[key]||base;}
+  }
+ });
+}
+
 function renderPortfolio(data){portfolioData=data;const p=data.profile||{};document.title=(p.name||'Portfolio')+' — '+(currentLanguage==='id'?'Portofolio':'Professional Portfolio');fillLangText();
  document.querySelector('#profile-name').textContent=p.name||'Academic Portfolio';document.querySelector('#profile-title').textContent=tr(p,'title');document.querySelector('#profile-tagline').textContent=tr(p,'tagline');document.querySelector('#about-text').textContent=tr(p,'about')||'—';const inst=document.querySelector('#profile-institution');
   if(inst){
@@ -30,7 +67,7 @@ function renderPortfolio(data){portfolioData=data;const p=data.profile||{};docum
  document.getElementById('specialty-tags')?.remove();
  renderEducation(p);renderCertifications(p);
  document.getElementById('year').textContent=new Date().getFullYear();
- renderExperience();renderProjects();renderPublications();renderOtherActivities();renderContacts();renderSlides();pm24ApplyBranding(p);}
+ renderExperience();renderProjects();renderPublications();renderOtherActivities();renderContacts();renderSlides();pm24ApplyBranding(p);pm48ApplyPublicLayout();}
 // V16: Education is an optional object in Profile; existing Profiles continue to work.
 function pm24ApplyBranding(profile){
  const round=SITE.safeURL(profile.brandingRound||'');
@@ -266,13 +303,13 @@ function renderSlides(){
  activeSlides=sessionSlideSelection;slideAt=0;slideRequest++;
  const el=document.getElementById('heroSlideshow'),dot=document.getElementById('slideDots');
  el.querySelectorAll('img').forEach(n=>n.remove());
- const empty=el.querySelector('.slide-empty');empty.hidden=activeSlides.length>0;
+ const empty=el.querySelector('.slide-empty');if(empty)empty.hidden=!activeSlides.length;
  // Only the first image receives a src. Other images are not fetched until displayed.
  activeSlides.forEach((s,i)=>{
   const im=document.createElement('img');im.dataset.src=SITE.photoURL(s.url,1200);
   im.alt='Foto dokumentasi kegiatan';im.decoding='async';
   im.loading=i===0?'eager':'lazy';
-  if(i===0){im.fetchPriority='high';im.src=im.dataset.src;im.classList.add('active');}
+  if(i===0){im.fetchPriority='high';im.addEventListener('load',()=>{if(empty)empty.hidden=true;},{once:true});im.addEventListener('error',()=>{if(empty)empty.hidden=true;},{once:true});im.src=im.dataset.src;im.classList.add('active');if(im.complete&&empty)empty.hidden=true;}
   el.appendChild(im);
  });
  dot.innerHTML=activeSlides.map((_,i)=>`<button aria-label="Foto ${i+1}" data-slide="${i}" type="button"></button>`).join('');

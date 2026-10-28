@@ -5,7 +5,7 @@
 <meta name="theme-color" content="#f7f9fa"><meta name="description" content="Portal akademik untuk pencarian akses mahasiswa dan pengumuman nilai.">
 <title>My Academic Portal</title>
 <link rel="icon" type="image/png" href="asj-square.png?v=13"><link rel="icon" href="favicon.ico?v=13">
-<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v7.css"><link rel="stylesheet" href="v9.css"><link rel="stylesheet" href="v10.css?v=13"><link rel="stylesheet" href="v12.css?v=13"><link rel="stylesheet" href="v13.css?v=13"><link rel="stylesheet" href="v14.css?v=14"><link rel="stylesheet" href="v15.css?v=15"><link rel="stylesheet" href="v16.css?v=16"><link rel="stylesheet" href="v17.css?v=17"><link rel="stylesheet" href="v18.css?v=18"><link rel="stylesheet" href="v19.css?v=27">
+<link rel="preconnect" href="https://script.google.com" crossorigin><link rel="dns-prefetch" href="//script.google.com"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v7.css"><link rel="stylesheet" href="v9.css"><link rel="stylesheet" href="v10.css?v=13"><link rel="stylesheet" href="v12.css?v=13"><link rel="stylesheet" href="v13.css?v=13"><link rel="stylesheet" href="v14.css?v=14"><link rel="stylesheet" href="v15.css?v=15"><link rel="stylesheet" href="v16.css?v=16"><link rel="stylesheet" href="v17.css?v=17"><link rel="stylesheet" href="v18.css?v=18"><link rel="stylesheet" href="v19.css?v=27">
 <style>
 /* V35: hide every data-driven section from the first paint, before site.json is loaded. */
 [hidden]{display:none!important}
@@ -125,6 +125,7 @@
 #academic-courses-list .v42-material-link:hover,
 #academic-courses-list .v42-material-link:focus-visible {text-decoration:underline;outline-offset:3px;}
 </style></head><body data-page="academic" class="academic-body">
+<script src="common.js?v=48"></script><script>SITE.loadAcademic();</script>
 <header class="academic-topbar v21-ac-topbar"><div class="shell academic-bar">
 <a href="/" class="brand brand-dark v12-academic-brand"><img src="asj-round.png?v=13" class="v12-round-logo" alt="ASJ"><span class="v12-brand-title">My Academic Portal</span></a>
 <div class="v21-ac-top-actions"><div class="lang-switch" role="group" aria-label="Language / Bahasa"><button type="button" data-ac-lang="id" aria-pressed="true">ID</button><button type="button" data-ac-lang="en" aria-pressed="false">EN</button></div></div>
@@ -157,4 +158,4 @@
 <form id="toolRequestForm" method="post" target="portfolioGuestbookSubmit"><label for="toolRequesterName">Full Name</label><input id="toolRequesterName" name="fullName" required minlength="2" maxlength="100" autocomplete="name"><label for="toolRequesterOrg">Institution / Organization</label><input id="toolRequesterOrg" name="institution" required maxlength="150"><label for="toolRequesterEmail">Email Address</label><input id="toolRequesterEmail" name="email" type="email" required maxlength="254" autocomplete="email"><input type="hidden" name="action" value="tool_guestbook"><input type="hidden" name="toolId" id="toolRequestId"><input type="hidden" name="requestId" id="toolRequestNonce"><input type="hidden" name="startedAt" id="toolStartedAt"><div id="v41ToolConsentRow"><input id="v41ToolConsent" type="checkbox" name="consent" value="yes" required><label for="v41ToolConsent">Saya setuju nama, institusi, dan email dicatat untuk akses unduhan. Data tidak ditampilkan kepada publik.</label></div> <div class="honeypot" aria-hidden="true"><label>Company<input name="company" autocomplete="off" tabindex="-1"></label></div><button id="toolRequestSubmit" class="btn btn-primary" type="submit">Submit & Get Download Link</button></form></div></div>
 <iframe name="portfolioGuestbookSubmit" class="contact-submit-frame" title="Tool Guestbook confirmation" tabindex="-1" aria-hidden="true"></iframe>
 <iframe id="contactSubmissionFrame" name="portfolioContactSubmit" title="Delivery confirmation" tabindex="-1" class="contact-submit-frame" aria-hidden="true"></iframe>
-<script src="common.js?v=47"></script><script src="academic.js?v=47"></script><script src="/v46-download.js?v=48" defer></script></body></html>
+<script src="academic.js?v=48"></script><script src="/v46-download.js?v=48" defer></script></body></html>
