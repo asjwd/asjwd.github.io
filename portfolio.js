@@ -359,7 +359,7 @@ function pm49SetupGoogleMail(p){
  if(p.mailGoogleRequired!==true){area.hidden=true;area.innerHTML='';hidden.value='';const email=form.querySelector('[name="sender"]');if(email){email.readOnly=false;email.value='';}return;}
  area.hidden=false;
  const clientId=String(p.mailGoogleClientId||'');
- area.innerHTML='<p>Sign in with Google is required before sending this message.</p><div id="pm49GoogleButton"></div><small id="pm49GoogleStatus">Your email will be verified by Google. No verification email is sent.</small>';
+ area.innerHTML='<p>Sign in with Google is required before sending this message.</p><div id="pm49GoogleButton"></div><small id="pm49GoogleStatus">Your Google account will be verified before sending.</small>';
  if(!/^[0-9]+-[a-z0-9_-]+\.apps\.googleusercontent\.com$/.test(clientId)){
   area.querySelector('#pm49GoogleStatus').textContent='Sign-in is not yet configured by the website owner.';return;
  }
