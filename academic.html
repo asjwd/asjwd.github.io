@@ -145,8 +145,12 @@
 }
 #academic-courses-list .v42-material-link:hover,
 #academic-courses-list .v42-material-link:focus-visible {text-decoration:underline;outline-offset:3px;}
+</style><style id="v54-bilingual-form-style">
+#toolRequestModal .pm53-privacy-note{background:transparent!important;border:0!important;border-radius:0!important;padding:0!important;margin:10px 0 8px!important;color:#73838d!important;font-size:11px!important;font-weight:400!important;line-height:1.55!important}
+#toolRequestModal #toolRequestFeedback.v54-download-ready{background:transparent!important;border:0!important;padding:0!important;margin:10px 0 14px!important;color:inherit!important}
+#toolRequestModal #toolRequestFeedback.v54-download-pending{background:transparent!important;border:0!important;padding:0!important;color:#526d79!important;font-size:13px!important}
 </style></head><body data-page="academic" class="academic-body">
-<script src="common.js?v=53"></script><script>SITE.loadAcademic();</script>
+<script src="common.js?v=54"></script><script>SITE.loadAcademic();</script>
 <header class="academic-topbar v21-ac-topbar"><div class="shell academic-bar">
 <a href="/" class="brand brand-dark v12-academic-brand"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2212%22 fill=%22%23102b3c%22/%3E%3Ctext x=%2232%22 y=%2241%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Arial%22 font-size=%2225%22 font-weight=%22bold%22%3Easj%3C/text%3E%3C/svg%3E" class="v12-round-logo" alt="ASJ"><span class="v12-brand-title">My Academic Portal</span></a>
 <div class="v21-ac-top-actions"><div class="lang-switch" role="group" aria-label="Language / Bahasa"><button type="button" data-ac-lang="id" aria-pressed="true">ID</button><button type="button" data-ac-lang="en" aria-pressed="false">EN</button></div></div>
@@ -176,16 +180,16 @@
 <footer class="site-footer academic-footer v21-ac-footer"><div class="shell footer-inner"><span>© 2026 as.jawwad</span></div></footer>
 <div id="toolRequestModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="toolRequestTitle">
 <div class="modal-backdrop" data-tool-close></div><div class="modal-card contact-modal-card"><button class="modal-close" type="button" data-tool-close aria-label="Close">×</button><h2 id="toolRequestTitle">Request Download</h2><p id="toolRequestDescription" class="contact-intro"></p><div id="toolRequestFeedback" class="contact-result" role="status" aria-live="polite" hidden></div>
-<div id="pm51GuestbookLogin" class="pm51-google" style="border:1px solid #d3e8e8;background:#f4faf9;border-radius:10px;padding:12px;margin:12px 0"></div><form id="toolRequestForm" method="post" target="portfolioGuestbookSubmit"><label for="toolRequesterEmail">Email Address</label>
+<div id="pm51GuestbookLogin" class="pm51-google" style="border:1px solid #d3e8e8;background:#f4faf9;border-radius:10px;padding:12px;margin:12px 0"></div><form id="toolRequestForm" method="post" target="portfolioGuestbookSubmit"><label for="toolRequesterEmail" data-v54-gb="emailLabel">Email Address</label>
       <input id="toolRequesterEmail" name="email" type="email" readonly aria-readonly="true" required maxlength="254" autocomplete="off" placeholder="Sign in with Google to fill your email">
-      <small class="pm53-identity-hint">Email otomatis terisi dari akun Google dan tidak bisa diedit. Jika masih kosong, klik Sign in with Google lagi.</small>
-      <label for="toolRequesterName">Full Name</label>
+      <small class="pm53-identity-hint" data-v54-gb="emailHint">Email otomatis terisi dari Google dan tidak dapat diedit.</small>
+      <label for="toolRequesterName" data-v54-gb="nameLabel">Full Name</label>
       <input id="toolRequesterName" name="fullName" readonly required minlength="2" maxlength="100" autocomplete="off">
-      <label for="toolRequesterOrg">Institution / Organization</label>
+      <label for="toolRequesterOrg" data-v54-gb="orgLabel">Institution / Organization</label>
       <input id="toolRequesterOrg" name="institution" required maxlength="150">
       <input type="hidden" name="action" value="tool_guestbook"><input type="hidden" name="toolId" id="toolRequestId">
       <input type="hidden" name="requestId" id="toolRequestNonce"><input type="hidden" name="startedAt" id="toolStartedAt">
-      <div class="pm53-privacy-note">Data tidak ditampilkan kepada publik.</div> <div class="honeypot" aria-hidden="true"><label>Company<input name="company" autocomplete="off" tabindex="-1"></label></div><button id="toolRequestSubmit" class="btn btn-primary" type="submit">Submit & Get Download Link</button></form></div></div>
+      <div class="pm53-privacy-note" data-v54-gb="privacy">Data tidak ditampilkan kepada publik.</div> <div class="honeypot" aria-hidden="true"><label>Company<input name="company" autocomplete="off" tabindex="-1"></label></div><button id="toolRequestSubmit" class="btn btn-primary" type="submit" data-v54-gb="submit">Submit & Get Download Link</button></form></div></div>
 <iframe name="portfolioGuestbookSubmit" class="contact-submit-frame" title="Tool Guestbook confirmation" tabindex="-1" aria-hidden="true"></iframe>
 <iframe id="contactSubmissionFrame" name="portfolioContactSubmit" title="Delivery confirmation" tabindex="-1" class="contact-submit-frame" aria-hidden="true"></iframe>
-<script src="academic.js?v=53"></script><script src="/v46-download.js?v=49" defer></script></body></html>
+<script src="academic.js?v=54"></script><script src="/v46-download.js?v=54" defer></script></body></html>

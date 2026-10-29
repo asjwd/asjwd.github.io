@@ -77,21 +77,65 @@ const SITE = {
   image(url,alt='',cls='',width=720,priority=false){const src=SITE.photoURL(url,width);return src?`<img draggable="false" class="${SITE.escape(cls)}" src="${SITE.escape(src)}" alt="${SITE.escape(alt)}" loading="${priority?'eager':'lazy'}" ${priority?'fetchpriority="high"':''} decoding="async">`:'';}
 };
 
+// V54: Guestbook interface translations are shared by the homepage and Academic Portal.
+// Names of tools, course materials and identity tokens are never translated.
+SITE.gbText = {
+ id: {
+  signInTitle:'Masuk dengan Google untuk mengakses unduhan',
+  signInHelp:'Akun Google Anda digunakan sebagai identitas buku tamu.',
+  emailLabel:'Email',nameLabel:'Nama Lengkap',orgLabel:'Institusi / Organisasi',
+  emailPlaceholder:'Masuk dengan Google untuk mengisi email',
+  emailHint:'Email terisi otomatis dari Google dan tidak dapat diedit. Jika masih kosong, klik Masuk dengan Google lagi.',
+  privacy:'Data tidak ditampilkan kepada publik.',submit:'Kirim dan Dapatkan Link Unduhan',
+  signInConfigured:'Google Sign-in belum dikonfigurasi oleh pemilik website.',
+  signInFail:'Google Sign-in belum tersedia. Silakan coba lagi.',
+  signInMissing:'Email belum diterima dari Google. Klik Masuk dengan Google lagi.',
+  signInBad:'Data akun Google belum terbaca. Klik Masuk dengan Google lagi.',
+  signed:'Email berhasil diisi otomatis dari akun Google. Identitas diverifikasi lagi saat pengiriman.'
+ },
+ en: {
+  signInTitle:'Sign in with Google to access the download',
+  signInHelp:'Your Google account identifies your guestbook entry.',
+  emailLabel:'Email Address',nameLabel:'Full Name',orgLabel:'Institution / Organization',
+  emailPlaceholder:'Sign in with Google to fill your email',
+  emailHint:'Email is filled automatically from Google and cannot be edited. If empty, sign in with Google again.',
+  privacy:'Your data is not displayed publicly.',submit:'Submit & Get Download Link',
+  signInConfigured:'Google Sign-in has not been configured by the website owner.',
+  signInFail:'Google Sign-in is unavailable. Please try again.',
+  signInMissing:'Google did not return an email. Please sign in with Google again.',
+  signInBad:'Unable to read your Google account. Please sign in again.',
+  signed:'Email filled automatically from your Google account. Your identity is verified again upon submission.'
+ }
+};
+SITE.gbLanguage=()=>document.documentElement.lang==='en'?'en':'id';
+SITE.applyGuestbookLanguage=function(lang){
+ const words=SITE.gbText[lang==='en'?'en':'id'];
+ document.querySelectorAll('[data-v54-gb]').forEach(el=>{const key=el.dataset.v54Gb;if(words[key])el.textContent=words[key];});
+ const em=document.getElementById('toolRequesterEmail');if(em)em.placeholder=words.emailPlaceholder;
+ const host=document.getElementById('pm51GuestbookLogin');
+ const status=host?.querySelector('.pm51-google-message');
+ if(status){const state=status.dataset.v54State||'signInHelp';status.textContent=words[state]||words.signInHelp;}
+};
+
 // V51: Guestbook always requires Google Sign-in (regardless of Mail Me toggle).
 // Email/name shown in the form are display-only: the Mailer verifies the Google
 // ID token and derives identity from the signed token on the server.
 SITE.guestbookLogin = function(profile){
  const form=document.getElementById('toolRequestForm'),host=document.getElementById('pm51GuestbookLogin');
  if(!form||!host)return;
+ host.hidden=false;
  const email=form.querySelector('[name="email"]'),name=form.querySelector('[name="fullName"]');
  for(const input of [email,name]){if(input){input.readOnly=true;input.value='';input.setAttribute('autocomplete','off');}}
  let token=form.querySelector('[name="googleCredential"]');
  if(!token){token=document.createElement('input');token.type='hidden';token.name='googleCredential';form.appendChild(token);}token.value='';
  const clientId=String(profile?.mailGoogleClientId||'').trim();
- host.innerHTML='<p style="margin:0 0 8px;font-weight:650">Sign in with Google to access the download</p><div class="pm51-google-button"></div><small class="pm51-google-message" style="display:block;margin-top:6px;color:#53727c">Your Google account will identify your guestbook entry.</small>';
+ host.innerHTML='<p data-v54-gb="signInTitle" style="margin:0 0 8px;font-weight:650"></p><div class="pm51-google-button"></div><small class="pm51-google-message" style="display:block;margin-top:6px;color:#53727c"></small>';
+ SITE.applyGuestbookLanguage(SITE.gbLanguage());
  const status=host.querySelector('.pm51-google-message');
+ const setStatus=(state)=>{status.dataset.v54State=state;SITE.applyGuestbookLanguage(SITE.gbLanguage());};
+ setStatus('signInHelp');
  if(!/^[0-9]+-[a-z0-9_-]+\.apps\.googleusercontent\.com$/.test(clientId)){
-  status.textContent='Google Sign-in has not been configured. Please contact the website owner.';return;
+  setStatus('signInConfigured');return;
  }
  const load=window.google?.accounts?.id?Promise.resolve():new Promise((resolve,reject)=>{
   const existing=document.querySelector('script[data-asj-gis]');
@@ -108,12 +152,12 @@ SITE.guestbookLogin = function(profile){
    try{const part=credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');const parsed=JSON.parse(atob(part));
     if(email)email.value=String(parsed.email||'').slice(0,254);
     if(name)name.value=String(parsed.name||'').slice(0,100);
-    if(!email?.value){token.value='';status.textContent='Email belum diterima dari Google. Klik Sign in with Google lagi.';return;}
-    status.textContent='Email berhasil diisi otomatis dari akun Google. Data diverifikasi kembali saat Submit.';
-   }catch(_){token.value='';status.textContent='Data akun Google belum terbaca. Klik Sign in with Google lagi.';}
+    if(!email?.value){token.value='';setStatus('signInMissing');return;}
+    setStatus('signed');
+   }catch(_){token.value='';setStatus('signInBad');}
   }});
   google.accounts.id.renderButton(host.querySelector('.pm51-google-button'),{theme:'outline',size:'large',text:'signin_with',shape:'rectangular'});
- }).catch(err=>{status.textContent=err.message;});
+ }).catch(err=>{setStatus('signInFail');});
 };
 SITE.guestbookReady=function(form){
  const credential=String(form?.querySelector('[name="googleCredential"]')?.value||'');

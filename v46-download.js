@@ -8,6 +8,8 @@
   const selector = '#toolRequestFeedback a.v36-download-link, #toolRequestFeedback a[href][class*="download-link"]';
   const seen = new WeakSet();
   const FEEDBACK_MS = 4500;
+  const lang = () => document.documentElement.lang === 'en' ? 'en' : 'id';
+  const word = (id, en) => lang() === 'en' ? en : id;
   let scanning = false;
 
   function installStyles() {
@@ -90,7 +92,7 @@
         spinner.className = 'v47-download-spinner';
         spinner.setAttribute('aria-hidden', 'true');
         const statusText = document.createElement('span');
-        statusText.textContent = 'Your download is starting, please wait...';
+        statusText.textContent = word('Unduhan sedang disiapkan, mohon tunggu...', 'Your download is starting, please wait...');
         status.append(spinner, statusText);
 
         const controls = document.createElement('div');
@@ -104,21 +106,25 @@
           button.textContent = originalText;
           button.setAttribute('aria-label', originalText);
           button.removeAttribute('aria-busy');
-          status.hidden = true;
+          spinner.hidden=true;
+          spinner.style.display='none';
+          statusText.textContent=word('Unduhan Anda akan segera dimulai. Terima kasih sudah mengunduh.', 'Your download should start shortly. Thank you for downloading.');
+          status.hidden=false;
         }
         button.addEventListener('click', function () {
           if (button.disabled) return;
-          statusText.textContent = 'Your download is starting, please wait...';
+          statusText.textContent = word('Unduhan sedang disiapkan, mohon tunggu...', 'Your download is starting, please wait...');
+          spinner.hidden=false;spinner.style.display='inline-block';
           status.hidden = false;
           button.disabled = true;
-          button.textContent = 'Preparing download...';
+          button.textContent = word('Menyiapkan unduhan...', 'Preparing download...');
           button.setAttribute('aria-busy', 'true');
           let requested = false;
           try { requested = triggerDownload(url); } catch (_) { requested = false; }
           if (!requested) {
             reset();
             status.hidden = false;
-            statusText.textContent = 'Unable to start download. Please try again.';
+            statusText.textContent = word('Tidak dapat memulai unduhan. Silakan coba lagi.', 'Unable to start the download. Please try again.');
             spinner.style.display = 'none';
             return;
           }

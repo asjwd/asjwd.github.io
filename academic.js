@@ -4,8 +4,8 @@ let acData=null,acLanguage='id',acSelectedId='',acRows=null,acRequestSeq=0,acVis
 let acToolId='',acRequestBusy=false,acNonce='',acRequestTimer=null;
 const acSentTools=new Map();
 const TXT={
- id:{navGrades:'Pengumuman Nilai',navTools:'Tools',servicesLabel:'LAYANAN AKADEMIK',servicesHeading:'Academic Services',coursesLabel:'MATERI KULIAH',coursesHeading:'Courses & Materials',portalEmpty:'Belum ada pengumuman atau materi yang dibagikan. Silakan kembali lagi nanti.',openService:'Buka layanan',noServiceLink:'Tautan layanan belum dibagikan.',noMaterials:'Belum ada materi yang dibagikan untuk mata kuliah ini.',portalLoadError:'Gagal memuat data Academic Portal. Silakan muat ulang halaman.',portalLoading:'Memuat Academic Portal...',searchLabel:'AKSES MAHASISWA',searchHeading:'Cari akses mahasiswa',searchButton:'Cari',searchPlaceholder:'Masukkan nama atau NPM',searchResponse:'Anda tidak memiliki akses khusus.',gradesLabel:'NILAI',gradesHeading:'Pengumuman Nilai',selectBoard:'Pilih mata kuliah',selectPlaceholder:'Pilih mata kuliah',noBoards:'Tidak ada pengumuman nilai saat ini.',loading:'Memuat nilai...',pick:'Pilih mata kuliah untuk melihat pengumuman nilai.',error:'Nilai gagal dimuat. Silakan coba lagi.',rank:'No.',npm:'NPM',firstName:'Nama',score:'Nilai Akhir',grade:'Grade',showMore:'Lihat lebih banyak',showLess:'Tampilkan lebih sedikit',until:'Dapat dilihat hingga',students:'mahasiswa',request:'Minta Link',toolsLabel:'PERANGKAT DIGITAL',toolsHeading:'Tools',requestTitle:'Permintaan aplikasi',requestSuccess:'Buku tamu tercatat. Klik tombol berikut untuk mengunduh aplikasi.',requestError:'Permintaan belum terkirim.',requestAwait:'Mencatat ke buku tamu...'},
- en:{navGrades:'Grade Announcements',navTools:'Tools',servicesLabel:'ACADEMIC SERVICES',servicesHeading:'Academic Services',coursesLabel:'COURSES',coursesHeading:'Courses & Materials',portalEmpty:'There are no announcements or materials available at the moment. Please check back later.',openService:'Open service',noServiceLink:'A service link has not been shared yet.',noMaterials:'No materials have been shared for this course yet.',portalLoadError:'Unable to load Academic Portal data. Please reload the page.',portalLoading:'Loading Academic Portal...',searchLabel:'STUDENT ACCESS',searchHeading:'Student access search',searchButton:'Search',searchPlaceholder:'Enter name or student ID (NPM)',searchResponse:'You do not have special access.',gradesLabel:'GRADES',gradesHeading:'Grade Announcements',selectBoard:'Select Course',selectPlaceholder:'Select Course',noBoards:'No grade announcements are currently available.',loading:'Loading grades...',pick:'Select a course to view its grades.',error:'Unable to load grades. Please try again.',rank:'No.',npm:'Student ID',firstName:'First name',score:'Final Score',grade:'Grade',showMore:'Show more',showLess:'Show less',until:'Available until',students:'students',request:'Request Download',toolsLabel:'DIGITAL TOOLS',toolsHeading:'Tools',requestTitle:'Application request',requestSuccess:'Guestbook saved. Select the button below to download the application.',requestError:'Your request was not sent.',requestAwait:'Saving your guestbook entry...'}
+ id:{navGrades:'Pengumuman Nilai',navTools:'Tools',servicesLabel:'LAYANAN AKADEMIK',servicesHeading:'Layanan Akademik',coursesLabel:'MATERI KULIAH',coursesHeading:'Mata Kuliah & Materi',portalEmpty:'Belum ada pengumuman atau materi yang dibagikan. Silakan kembali lagi nanti.',openService:'Buka layanan',noServiceLink:'Tautan layanan belum dibagikan.',noMaterials:'Belum ada materi yang dibagikan untuk mata kuliah ini.',portalLoadError:'Gagal memuat data Academic Portal. Silakan muat ulang halaman.',portalLoading:'Memuat Academic Portal...',searchLabel:'AKSES MAHASISWA',searchHeading:'Cari akses mahasiswa',searchButton:'Cari',searchPlaceholder:'Masukkan nama atau NPM',searchResponse:'Anda tidak memiliki akses khusus.',gradesLabel:'NILAI',gradesHeading:'Pengumuman Nilai',selectBoard:'Pilih mata kuliah',selectPlaceholder:'Pilih mata kuliah',noBoards:'Tidak ada pengumuman nilai saat ini.',loading:'Memuat nilai...',pick:'Pilih mata kuliah untuk melihat pengumuman nilai.',error:'Nilai gagal dimuat. Silakan coba lagi.',rank:'No.',npm:'NPM',firstName:'Nama',score:'Nilai Akhir',grade:'Grade',showMore:'Lihat lebih banyak',showLess:'Tampilkan lebih sedikit',until:'Dapat dilihat hingga',students:'mahasiswa',request:'Minta Link',toolsLabel:'PERANGKAT DIGITAL',toolsHeading:'Tools',requestTitle:'Permintaan aplikasi',requestSuccess:'',requestError:'Permintaan belum terkirim.',requestAwait:'Mohon tunggu...', signInNeeded:'Silakan masuk dengan Google untuk mengakses unduhan.',serviceUnavailable:'Layanan belum tersedia.',requestUncertain:'Belum ada konfirmasi. Periksa koneksi sebelum mencoba kembali.',toolGuestTitle:'Buku Tamu — ',courseInfo:'Materi kuliah: '},
+ en:{navGrades:'Grade Announcements',navTools:'Tools',servicesLabel:'ACADEMIC SERVICES',servicesHeading:'Academic Services',coursesLabel:'COURSES',coursesHeading:'Courses & Materials',portalEmpty:'There are no announcements or materials available at the moment. Please check back later.',openService:'Open service',noServiceLink:'A service link has not been shared yet.',noMaterials:'No materials have been shared for this course yet.',portalLoadError:'Unable to load Academic Portal data. Please reload the page.',portalLoading:'Loading Academic Portal...',searchLabel:'STUDENT ACCESS',searchHeading:'Student access search',searchButton:'Search',searchPlaceholder:'Enter name or student ID (NPM)',searchResponse:'You do not have special access.',gradesLabel:'GRADES',gradesHeading:'Grade Announcements',selectBoard:'Select Course',selectPlaceholder:'Select Course',noBoards:'No grade announcements are currently available.',loading:'Loading grades...',pick:'Select a course to view its grades.',error:'Unable to load grades. Please try again.',rank:'No.',npm:'Student ID',firstName:'First name',score:'Final Score',grade:'Grade',showMore:'Show more',showLess:'Show less',until:'Available until',students:'students',request:'Request Download',toolsLabel:'DIGITAL TOOLS',toolsHeading:'Tools',requestTitle:'Application request',requestSuccess:'',requestError:'Your request was not sent.',requestAwait:'Please wait...', signInNeeded:'Please sign in with Google to access the download.',serviceUnavailable:'Download service is unavailable.',requestUncertain:'No confirmation received. Please check your connection before trying again.',toolGuestTitle:'Guestbook — ',courseInfo:'Course material: '}
 };
 const T=k=>TXT[acLanguage][k]||k;
 const E=x=>SITE.escape(x);
@@ -25,8 +25,38 @@ function acTheme(){
  const sel=$('gradeBoardSelect'),value=sel.value;
  if(sel.options[0])sel.options[0].textContent=T('selectPlaceholder');
  sel.value=value;
- if(acData){acRenderGrade();acRenderTools();acRenderVisibility();}
+ if(acData){acRenderGrade();acRenderTools();acRenderVisibility();acUpdateRequestLanguage();}
+ SITE.applyGuestbookLanguage(acLanguage);
  try{localStorage.setItem('portfolioLangV7',acLanguage);}catch(_){ }
+}
+// V54: translated descriptions are prepared at Publish in private Apps Script.
+// Content names (books, courses, applications) always remain in their original language.
+function acDescription(item){
+ if(!item)return '';
+ if(acLanguage==='id')return String(item.descriptionId||item.description||'');
+ return String(item.en?.description||item.description||'');
+}
+function acFeatures(item){
+ if(acLanguage==='id')return item.featuresId||item.features||[];
+ return item.en?.features||item.features||[];
+}
+function acRequestItem(id){
+ const tool=(acData?.tools||[]).find(t=>String(t.id)===String(id));
+ if(tool)return {name:tool.name||'',description:acDescription(tool)};
+ if(String(id).startsWith('mat:')){
+  for(const course of acData?.courses||[]){
+   const material=acCourseMaterials(course).find(m=>String(m.materialRequestId)===String(id));
+   if(material)return {name:material.title||'Material',description:T('courseInfo')+(course.title||course.course||'')};
+  }
+ }
+ return null;
+}
+function acUpdateRequestLanguage(){
+ if($('toolRequestModal')?.classList.contains('hidden')||!acToolId)return;
+ const item=acRequestItem(acToolId);if(!item)return;
+ $('toolRequestTitle').textContent=T('toolGuestTitle')+item.name;
+ $('toolRequestDescription').textContent=item.description;
+ // Only the label is retranslated; an active signed-in form remains intact.
 }
 function acApplyBrand(profile){
  const round=SITE.safeURL(profile?.brandingRound||'');
@@ -113,12 +143,12 @@ function acRenderVisibility(){
  $('academic-services-list').innerHTML=services.map(s=>{
   const url=acValidExternalURL(s.url)?String(s.url):'';
   const link=url?`<a href="${E(url)}" target="_blank" rel="noopener noreferrer">${T('openService')} ↗</a>`:`<span class="v35-link-pending">${T('noServiceLink')}</span>`;
-  return `<article class="v34-ac-card"><h3>${E(s.title||s.name||'Academic Service')}</h3>${s.description?`<p>${E(s.description)}</p>`:''}${link}</article>`;
+  return `<article class="v34-ac-card"><h3>${E(s.title||s.name||'Academic Service')}</h3>${acDescription(s)?`<p>${E(acDescription(s))}</p>`:''}${link}</article>`;
  }).join('');
  $('academic-courses-list').innerHTML=courses.map(c=>{
   const materials=acCourseMaterials(c);
-  const list=materials.length?`<ul class="v34-materials">${materials.map(m=>`<li><button type="button" class="v42-material-link" data-material-request="${E(m.materialRequestId)}" aria-label="${E((acLanguage==='id'?'Unduh materi ':'Download material ')+(m.title||'Materi'))}">${E(m.title||'Materi')} <span aria-hidden="true">↗</span></button></li>`).join('')}</ul>`:`<p class="v35-link-pending">${T('noMaterials')}</p>`;
-  return `<article class="v34-ac-card"><h3>${E(c.title||c.course||'Course')}</h3>${c.period?`<div class="v34-course-meta">${E(c.period)}</div>`:''}${c.description?`<p>${E(c.description)}</p>`:''}${list}</article>`;
+  const list=materials.length?`<ul class="v34-materials">${materials.map(m=>`<li><button type="button" class="v42-material-link" data-material-request="${E(m.materialRequestId)}" aria-label="${E((acLanguage==='id'?'Unduh materi ':'Download material ')+(m.title||(acLanguage==='id'?'Materi':'Material')))}">${E(m.title||(acLanguage==='id'?'Materi':'Material'))} <span aria-hidden="true">↗</span></button></li>`).join('')}</ul>`:`<p class="v35-link-pending">${T('noMaterials')}</p>`;
+  return `<article class="v34-ac-card"><h3>${E(c.title||c.course||'Course')}</h3>${c.period?`<div class="v34-course-meta">${E(c.period)}</div>`:''}${acDescription(c)?`<p>${E(acDescription(c))}</p>`:''}${list}</article>`;
  }).join('');
  $('academic-courses-list').querySelectorAll('[data-material-request]').forEach(b=>b.addEventListener('click',()=>acOpenRequest(b.dataset.materialRequest)));
  // Student access lives within Academic Services and follows its visibility.
@@ -132,47 +162,41 @@ function acRenderTools(){
  if(!acData)return;
  const list=acSectionOn('tools')?acToolsAvailable().slice(0,5):[];
  acVisibilitySet($('academic-tools'),list.length>0);
- $('academic-tools-list').innerHTML=list.map(x=>`<div class="tool-card"><div class="tool-icon">${E((x.name||'A')[0])}</div><div class="tool-body"><div class="tool-header"><h3>${E(x.name||'')}</h3>${x.version?`<span>${E(x.version)}</span>`:''}</div><p>${E(acLanguage==='en'?(x.en?.description||x.description||''):(x.description||''))}</p><div class="tags">${(acLanguage==='en'?(x.en?.features||x.features||[]):x.features||[]).map(f=>`<span class="tag">${E(f)}</span>`).join('')}</div></div><button type="button" class="btn v17-request-button" data-tool="${E(x.id)}" ${x.requestAvailable===false?'disabled':''}>${T('request')}</button></div>`).join('');
+ $('academic-tools-list').innerHTML=list.map(x=>`<div class="tool-card"><div class="tool-icon">${E((x.name||'A')[0])}</div><div class="tool-body"><div class="tool-header"><h3>${E(x.name||'')}</h3>${x.version?`<span>${E(x.version)}</span>`:''}</div><p>${E(acDescription(x))}</p><div class="tags">${acFeatures(x).map(f=>`<span class="tag">${E(f)}</span>`).join('')}</div></div><button type="button" class="btn v17-request-button" data-tool="${E(x.id)}" ${x.requestAvailable===false?'disabled':''}>${T('request')}</button></div>`).join('');
  $('academic-tools-list').querySelectorAll('[data-tool]').forEach(b=>b.addEventListener('click',()=>acOpenRequest(b.dataset.tool)));
 }
 function acOpenRequest(id){
- let tool=(acData.tools||[]).find(t=>String(t.id)===String(id));
- if(!tool&&String(id).startsWith('mat:')){
-   for(const course of acData.courses||[]){
-     const material=acCourseMaterials(course).find(m=>String(m.materialRequestId)===String(id));
-     if(material){tool={name:material.title||'Materi',description:(acLanguage==='id'?'Materi kuliah: ':'Course material: ')+(course.title||course.course||''),en:{description:'Course material: '+(course.title||course.course||'')}};break;}
-   }
- }
- if(!tool)return;
+ const item=acRequestItem(id);if(!item)return;
  acToolId=id;
- $('toolRequestTitle').textContent=(acLanguage==='id'?'Buku Tamu — ':'Guestbook — ')+tool.name;
- $('toolRequestDescription').textContent=acLanguage==='en'?(tool.en?.description||tool.description||''):(tool.description||'');
+ $('toolRequestTitle').textContent=T('toolGuestTitle')+item.name;
+ $('toolRequestDescription').textContent=item.description;
  $('toolRequestModal').classList.remove('hidden');document.body.style.overflow='hidden';
  SITE.guestbookLogin(acData?.profile||{});
+ SITE.applyGuestbookLanguage(acLanguage);
  $('toolRequestId').value=id;$('toolStartedAt').value=Date.now();
- $('toolRequestFeedback').hidden=true;$('toolRequestForm').hidden=acSentTools.has(id);
+ $('toolRequestFeedback').hidden=true;$('toolRequestForm').hidden=acSentTools.has(id);$('pm51GuestbookLogin').hidden=acSentTools.has(id);
  $('toolRequestSubmit').disabled=acSentTools.has(id)||acRequestBusy;
- if(acSentTools.has(id)){acToolMessage(acSuccessText(),true);acToolLink(acSentTools.get(id));}
+ if(acSentTools.has(id)){acToolMessage('',true);acToolLink(acSentTools.get(id));}
 }
-function acToolMessage(msg,success){const el=$('toolRequestFeedback');el.hidden=false;el.className='contact-result '+(success?'success':'error');el.textContent=msg;}
-function acSuccessText(){return String(acToolId).startsWith('mat:')?(acLanguage==='id'?'Buku tamu tercatat. Klik untuk mengunduh materi.':'Guestbook saved. Click to download the material.'):T('requestSuccess');}
+function acToolMessage(msg,success){const el=$('toolRequestFeedback');el.hidden=false;el.className=success?(msg?'v54-download-pending':'v54-download-ready'):'contact-result error';el.textContent=msg;}
+function acSuccessText(){return '';}
 function acToolLink(url){if(!/^https:\/\//i.test(String(url||'')))return;const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.className='v36-download-link';a.textContent=String(acToolId).startsWith('mat:')?(acLanguage==='id'?'↓ Download materi':'↓ Download material'):(acLanguage==='id'?'↓ Download aplikasi':'↓ Download application');$('toolRequestFeedback').appendChild(a);}
 function acCloseRequest(){$('toolRequestModal').classList.add('hidden');document.body.style.overflow='';}
 function acNewNonce(){try{const x=new Uint32Array(4);crypto.getRandomValues(x);return [...x].map(n=>n.toString(16)).join('');}catch(_){return Date.now().toString(36)+Math.random().toString(36).slice(2);}}
 function acSubmitRequest(e){
  if(acRequestBusy||acSentTools.has(acToolId)){e.preventDefault();return;}
- if(!SITE.guestbookReady(e.target)){e.preventDefault();acToolMessage('Sign in with Google dahulu untuk mengakses unduhan.',false);return;}
- const endpoint=SITE.linkURL(acData?.profile?.toolGuestbookUrl||'');if(!endpoint){e.preventDefault();acToolMessage(acLanguage==='id'?'Layanan belum tersedia.':'Request service is unavailable.',false);return;}
+ if(!SITE.guestbookReady(e.target)){e.preventDefault();acToolMessage(T('signInNeeded'),false);return;}
+ const endpoint=SITE.linkURL(acData?.profile?.toolGuestbookUrl||'');if(!endpoint){e.preventDefault();acToolMessage(T('serviceUnavailable'),false);return;}
  const form=e.target;form.action=endpoint;acNonce=acNewNonce();$('toolRequestNonce').value=acNonce;
  acRequestBusy=true;$('toolRequestSubmit').disabled=true;acToolMessage(T('requestAwait'),true);
- acRequestTimer=setTimeout(()=>{if(acRequestBusy){acRequestBusy=false;acToolMessage(acLanguage==='id'?'Belum ada konfirmasi pencatatan. Silakan periksa koneksi dan coba lagi.':'No confirmation received. Please check before resubmitting.',false);$('toolRequestSubmit').disabled=false;}},45000);
+ acRequestTimer=setTimeout(()=>{if(acRequestBusy){acRequestBusy=false;acToolMessage(T('requestUncertain'),false);$('toolRequestSubmit').disabled=false;}},45000);
  // Do not preventDefault: POST is directed to the hidden iframe.
 }
 window.addEventListener('message',e=>{
  const d=e.data;if(!acRequestBusy||!d||d.type!=='ASJ_GUESTBOOK_RESULT_V36'||d.requestId!==acNonce)return;
  const origin=String(e.origin||'');if(!(origin==='null'||/^https:\/\/(?:[a-z0-9-]+\.)*(?:googleusercontent\.com|google\.com)$/.test(origin)))return;
  clearTimeout(acRequestTimer);acRequestBusy=false;
- if(d.ok&&/^https:\/\//i.test(String(d.url||''))){acSentTools.set(acToolId,d.url);$('toolRequestForm').hidden=true;acToolMessage(acSuccessText(),true);acToolLink(d.url);}else{acToolMessage(d.message||T('requestError'),false);$('toolRequestSubmit').disabled=false;}
+ if(d.ok&&/^https:\/\//i.test(String(d.url||''))){acSentTools.set(acToolId,d.url);$('toolRequestForm').hidden=true;$('pm51GuestbookLogin').hidden=true;acToolMessage('',true);acToolLink(d.url);}else{acToolMessage(d.message||T('requestError'),false);$('toolRequestSubmit').disabled=false;}
 });
 try{const saved=localStorage.getItem('portfolioLangV7');if(saved==='en')acLanguage='en';}catch(_){ }
 $('studentSearchForm').addEventListener('submit',e=>{e.preventDefault();if(!$('studentQuery').value.trim())return;$('studentSearchResponse').hidden=false;$('studentSearchResponse').textContent=T('searchResponse');});

@@ -2,14 +2,14 @@
 let portfolioData=null, currentLanguage='id', activeSlides=[],slideAt=0,slideTimer=null;
 const V10_VISIBLE_STEP=5, v10Visible={experiences:5,projects:6,publications:5,otherActivities:5,tools:5};
 const TEXT={
- id:{navExperience:'Pengalaman',navProjects:'Proyek',navPubs:'Publikasi',navOtherActivities:'Other Activities',otherActivitiesLabel:'KEGIATAN LAIN',otherActivitiesTitle:'Other Activities',emptyOtherActivities:'Belum ada kegiatan lain.',otherRole:'Peran',otherOrganizer:'Penyelenggara',otherCertificate:'Lihat sertifikat',navTools:'Tools',navContact:'Kontak',heroLabel:'PROFIL',explore:'Lihat Pengalaman',slideEmpty:'Loading media...',metricRoles:'Jabatan',metricProjects:'Proyek',metricModels:'Pemodelan',metricPubs:'Publikasi',aboutLabel:'TENTANG SAYA',aboutTitle:'Tentang saya',degreeBachelor:'Sarjana',degreeMaster:'Magister',degreeDoctorate:'Doktor',graduationYear:'Lulus',affiliation:'Institusi',basedIn:'Lokasi',careerLabel:'PENGALAMAN',career:'Pengalaman Profesional',workLabel:'PROYEK & KAJIAN',work:'Proyek & Kajian',filterAll:'Semua proyek',filterModels:'Pemodelan',filterConsult:'Konsultansi / Kajian',researchLabel:'RISET',research:'Publikasi',softwareLabel:'PERANGKAT DIGITAL',software:'Tools',contactLabel:'KONTAK',messageTitle:'Kirim Pesan',messageIntro:'Silakan kirim pesan Anda. Saya akan merespons sesegera mungkin.',yourEmail:'Email Anda',yourName:'Nama Anda',institution:'Institusi / Organisasi',subject:'Subjek',message:'Pesan',contactHint:'Pengiriman diproses langsung di halaman ini.', sending:'Mengirim pesan...', contactSuccess:'Pesan berhasil terkirim. Terima kasih, saya akan merespons sesegera mungkin.', contactError:'Pesan belum berhasil dikirim. Silakan coba lagi.', contactUncertain:'Konfirmasi pengiriman belum diterima. Pesan mungkin sudah terkirim; periksa kembali sebelum mengirim ulang.', contactSessionLocked:'Pesan Anda sudah terkirim. Untuk mengirim pesan baru, refresh halaman.',sendMessage:'Kirim Pesan',details:'Lihat detail',projectDetails:'Detail proyek',readPaper:'Baca artikel',download:'Unduh aplikasi',emptyExperience:'Belum ada pengalaman profesional.',emptyProject:'Belum ada proyek pada kategori ini.',emptyPublication:'Belum ada publikasi.',emptyTools:'Belum ada aplikasi.',contactNotReady:'Form Mail Me belum diaktifkan. Tambahkan URL Apps Script Contact melalui Portfolio Manager.',contribution:'Kontribusi',activities:'Kegiatan',documentation:'Dokumentasi',outputs:'Hasil dan kontribusi'},
- en:{navExperience:'Experience',navProjects:'Projects',navPubs:'Publications',navOtherActivities:'Other Activities',otherActivitiesLabel:'OTHER ACTIVITIES',otherActivitiesTitle:'Other Activities',emptyOtherActivities:'No activities yet.',otherRole:'Role',otherOrganizer:'Organizer',otherCertificate:'View certificate',navTools:'Tools',navContact:'Contact',heroLabel:'PROFILE',explore:'Explore Experience',slideEmpty:'Loading media...',metricRoles:'Roles',metricProjects:'Projects',metricModels:'Models',metricPubs:'Publications',aboutLabel:'ABOUT',aboutTitle:'About Me',degreeBachelor:'Bachelor',degreeMaster:'Master',degreeDoctorate:'Doctorate',graduationYear:'Graduated',affiliation:'Affiliation',basedIn:'Location',careerLabel:'CAREER',career:'Professional Experience',workLabel:'PROJECTS & STUDIES',work:'Projects & Studies',filterAll:'All Projects',filterModels:'Modeling',filterConsult:'Consulting / Studies',researchLabel:'RESEARCH',research:'Publications',softwareLabel:'DIGITAL TOOLS',software:'Tools',contactLabel:'CONTACT',messageTitle:'Send a Message',messageIntro:'Please leave your message, and I will respond as soon as possible.',yourEmail:'Your Email',yourName:'Your Name',institution:'Institution / Organization',subject:'Subject',message:'Message',contactHint:'Your message will be sent without opening a new tab.', sending:'Sending message...', contactSuccess:'Your message has been sent successfully. Thank you, I will respond as soon as possible.', contactError:'Your message could not be sent. Please try again.', contactUncertain:'Confirmation was not received. Your message may have been sent; please check before trying again.', contactSessionLocked:'Your message has already been sent. Refresh this page to send another message.',sendMessage:'Send Message',details:'View Details',projectDetails:'View Project',readPaper:'Read Paper',download:'Download Application',emptyExperience:'No professional experience yet.',emptyProject:'No projects in this category.',emptyPublication:'No publications yet.',emptyTools:'No tools yet.',contactNotReady:'Mail Me is not configured yet. Add the Contact App Script URL in Portfolio Manager.',contribution:'Key Contributions',activities:'Activities & Assignments',documentation:'Documentation',outputs:'Outputs & Contributions'}
+ id:{navExperience:'Pengalaman',navProjects:'Proyek',navPubs:'Publikasi',navOtherActivities:'Other Activities',otherActivitiesLabel:'KEGIATAN LAIN',otherActivitiesTitle:'Other Activities',emptyOtherActivities:'Belum ada kegiatan lain.',otherRole:'Peran',otherOrganizer:'Penyelenggara',otherCertificate:'Lihat sertifikat',navTools:'Tools',navContact:'Kontak',heroLabel:'PROFIL',explore:'Lihat Pengalaman',slideEmpty:'Loading media...',metricRoles:'Jabatan',metricProjects:'Proyek',metricModels:'Pemodelan',metricPubs:'Publikasi',aboutLabel:'TENTANG SAYA',aboutTitle:'Tentang saya',degreeBachelor:'Sarjana',degreeMaster:'Magister',degreeDoctorate:'Doktor',graduationYear:'Lulus',affiliation:'Institusi',basedIn:'Lokasi',careerLabel:'PENGALAMAN',career:'Pengalaman Profesional',workLabel:'PROYEK & KAJIAN',work:'Proyek & Kajian',filterAll:'Semua proyek',filterModels:'Pemodelan',filterConsult:'Konsultansi / Kajian',researchLabel:'RISET',research:'Publikasi',softwareLabel:'PERANGKAT DIGITAL',software:'Tools',contactLabel:'KONTAK',messageTitle:'Kirim Pesan',messageIntro:'Silakan kirim pesan Anda. Saya akan merespons sesegera mungkin.',yourEmail:'Email Anda',yourName:'Nama Anda',institution:'Institusi / Organisasi',subject:'Subjek',message:'Pesan',contactHint:'Pengiriman diproses langsung di halaman ini.', sending:'Mengirim pesan...', contactSuccess:'Pesan berhasil terkirim. Terima kasih, saya akan merespons sesegera mungkin.', contactError:'Pesan belum berhasil dikirim. Silakan coba lagi.', contactUncertain:'Konfirmasi pengiriman belum diterima. Pesan mungkin sudah terkirim; periksa kembali sebelum mengirim ulang.', contactSessionLocked:'Pesan Anda sudah terkirim. Untuk mengirim pesan baru, refresh halaman.',sendMessage:'Kirim Pesan',details:'Lihat detail',projectDetails:'Detail proyek',readPaper:'Baca artikel',download:'Unduh aplikasi',emptyExperience:'Belum ada pengalaman profesional.',emptyProject:'Belum ada proyek pada kategori ini.',emptyPublication:'Belum ada publikasi.',emptyTools:'Belum ada aplikasi.',googleMailTitle:'Masuk dengan Google diperlukan untuk mengirim pesan.',googleMailHint:'Akun Google Anda akan diverifikasi sebelum pesan dikirim.',googleMailSigned:'Masuk sebagai: ',googleMailMissing:'Email belum diterima. Klik Masuk dengan Google lagi.',googleMailBad:'Data akun Google belum terbaca. Klik Masuk dengan Google lagi.',googleMailNotReady:'Google Sign-in belum dikonfigurasi oleh pemilik website.',googleMailFailed:'Google Sign-in belum tersedia. Silakan coba lagi.',googleMailRequired:'Silakan masuk dengan Google sebelum mengirim.',guestbookUnavailable:'Layanan unduhan belum tersedia.',guestbookUncertain:'Belum ada konfirmasi. Periksa koneksi sebelum mengirim ulang.',guestbookSignIn:'Silakan masuk dengan Google untuk mengakses unduhan.',contactNamePlaceholder:'Nama lengkap',contactOrgPlaceholder:'Nama institusi / organisasi',contactEmailPlaceholder:'nama@example.com',contactEmailHint:'Email terisi otomatis dari Google dan tidak dapat diedit. Jika masih kosong, klik Masuk dengan Google lagi.',contactNotReady:'Form Mail Me belum diaktifkan. Tambahkan URL Apps Script Contact melalui Portfolio Manager.',contribution:'Kontribusi',activities:'Kegiatan',documentation:'Dokumentasi',outputs:'Hasil dan kontribusi'},
+ en:{navExperience:'Experience',navProjects:'Projects',navPubs:'Publications',navOtherActivities:'Other Activities',otherActivitiesLabel:'OTHER ACTIVITIES',otherActivitiesTitle:'Other Activities',emptyOtherActivities:'No activities yet.',otherRole:'Role',otherOrganizer:'Organizer',otherCertificate:'View certificate',navTools:'Tools',navContact:'Contact',heroLabel:'PROFILE',explore:'Explore Experience',slideEmpty:'Loading media...',metricRoles:'Roles',metricProjects:'Projects',metricModels:'Models',metricPubs:'Publications',aboutLabel:'ABOUT',aboutTitle:'About Me',degreeBachelor:'Bachelor',degreeMaster:'Master',degreeDoctorate:'Doctorate',graduationYear:'Graduated',affiliation:'Affiliation',basedIn:'Location',careerLabel:'CAREER',career:'Professional Experience',workLabel:'PROJECTS & STUDIES',work:'Projects & Studies',filterAll:'All Projects',filterModels:'Modeling',filterConsult:'Consulting / Studies',researchLabel:'RESEARCH',research:'Publications',softwareLabel:'DIGITAL TOOLS',software:'Tools',contactLabel:'CONTACT',messageTitle:'Send a Message',messageIntro:'Please leave your message, and I will respond as soon as possible.',yourEmail:'Your Email',yourName:'Your Name',institution:'Institution / Organization',subject:'Subject',message:'Message',contactHint:'Your message will be sent without opening a new tab.', sending:'Sending message...', contactSuccess:'Your message has been sent successfully. Thank you, I will respond as soon as possible.', contactError:'Your message could not be sent. Please try again.', contactUncertain:'Confirmation was not received. Your message may have been sent; please check before trying again.', contactSessionLocked:'Your message has already been sent. Refresh this page to send another message.',sendMessage:'Send Message',details:'View Details',projectDetails:'View Project',readPaper:'Read Paper',download:'Download Application',emptyExperience:'No professional experience yet.',emptyProject:'No projects in this category.',emptyPublication:'No publications yet.',emptyTools:'No tools yet.',googleMailTitle:'Sign in with Google is required before sending this message.',googleMailHint:'Your Google account is verified before sending.',googleMailSigned:'Signed in as: ',googleMailMissing:'Email was not provided. Please sign in with Google again.',googleMailBad:'Unable to read your Google account. Please sign in again.',googleMailNotReady:'Google Sign-in has not been configured by the website owner.',googleMailFailed:'Google Sign-in is unavailable. Please try again.',googleMailRequired:'Please sign in with Google before sending.',guestbookUnavailable:'Download service is unavailable.',guestbookUncertain:'No confirmation was received. Please check your connection before resubmitting.',guestbookSignIn:'Please sign in with Google to access the download.',contactNamePlaceholder:'Full name',contactOrgPlaceholder:'Institution / Organization',contactEmailPlaceholder:'name@example.com',contactEmailHint:'Email is filled automatically from Google and cannot be edited. If empty, sign in with Google again.',contactNotReady:'Mail Me is not configured yet. Add the Contact App Script URL in Portfolio Manager.',contribution:'Key Contributions',activities:'Activities & Assignments',documentation:'Documentation',outputs:'Outputs & Contributions'}
 };
 function t(k){return TEXT[currentLanguage][k]||k;}
 function tr(x,key){if(!x)return '';const en=x.en||{};return (currentLanguage==='en' && typeof en[key]==='string' && en[key].trim())?en[key]:x[key]||'';}
 function trArray(x,key){if(!x)return [];const en=x.en||{};return currentLanguage==='en' && Array.isArray(en[key]) && en[key].length ? en[key] : (x[key]||[]);}
 function esc(x){return SITE.escape(x);}
-function fillLangText(){document.documentElement.lang=currentLanguage;document.querySelectorAll('[data-i18n]').forEach(n=>n.textContent=t(n.dataset.i18n));document.querySelectorAll('[data-lang]').forEach(n=>{n.classList.toggle('active',n.dataset.lang===currentLanguage);n.setAttribute('aria-pressed',String(n.dataset.lang===currentLanguage));});}
+function fillLangText(){document.documentElement.lang=currentLanguage;document.querySelectorAll('[data-i18n]').forEach(n=>n.textContent=t(n.dataset.i18n));document.querySelectorAll('[data-lang]').forEach(n=>{n.classList.toggle('active',n.dataset.lang===currentLanguage);n.setAttribute('aria-pressed',String(n.dataset.lang===currentLanguage));});document.querySelectorAll('[data-i18n-placeholder]').forEach(n=>{const k=n.dataset.i18nPlaceholder;n.placeholder=t(k);});SITE.applyGuestbookLanguage(currentLanguage);pm54TranslateGoogleMail();}
 
 // V48 — Layout settings from the published profile; no HTML injection.
 const PM48_LAYOUT=[
@@ -350,6 +350,17 @@ function pm49LoadGIS(){
   document.head.appendChild(tag);
  });return pm49GISLoading;
 }
+// V54: Repaint Sign-in messages without invalidating an existing Google credential.
+function pm54TranslateGoogleMail(){
+ const title=document.getElementById('pm49GoogleTitle');if(title)title.textContent=t('googleMailTitle');
+ const status=document.getElementById('pm49GoogleStatus');
+ if(status){const state=status.dataset.pm54State||'googleMailHint';status.textContent=t(state)+(state==='googleMailSigned'?(status.dataset.pm54Email||''):'');}
+}
+function pm54GoogleState(state,email=''){
+ const status=document.getElementById('pm49GoogleStatus');if(!status)return;
+ status.dataset.pm54State=state;status.dataset.pm54Email=email;
+ pm54TranslateGoogleMail();
+}
 function pm49SetupGoogleMail(p){
  const form=document.getElementById('contactForm');if(!form)return;
  let area=document.getElementById('pm49GoogleArea');
@@ -359,14 +370,15 @@ function pm49SetupGoogleMail(p){
  const emailHint=document.getElementById('pm53ContactEmailHint');
  form.dataset.googleRequired=p.mailGoogleRequired===true?'true':'false';
  if(emailHint)emailHint.hidden=p.mailGoogleRequired!==true;
- if(p.mailGoogleRequired!==true){area.hidden=true;area.innerHTML='';hidden.value='';const email=form.querySelector('[name="sender"]');if(email){email.readOnly=false;email.removeAttribute('aria-readonly');email.value='';email.placeholder='nama@example.com';}return;}
+ if(p.mailGoogleRequired!==true){area.hidden=true;area.innerHTML='';hidden.value='';const email=form.querySelector('[name="sender"]');if(email){email.readOnly=false;email.removeAttribute('aria-readonly');email.value='';email.placeholder=t('contactEmailPlaceholder');}return;}
  area.hidden=false;
  const email=form.querySelector('[name="sender"]');
  if(email){email.readOnly=true;email.setAttribute('aria-readonly','true');email.value='';email.placeholder='Sign in with Google to fill your email';}
  const clientId=String(p.mailGoogleClientId||'');
- area.innerHTML='<p>Sign in with Google is required before sending this message.</p><div id="pm49GoogleButton"></div><small id="pm49GoogleStatus">Your Google account will be verified before sending.</small>';
+ area.innerHTML='<p id="pm49GoogleTitle"></p><div id="pm49GoogleButton"></div><small id="pm49GoogleStatus"></small>';
+ pm54GoogleState('googleMailHint');
  if(!/^[0-9]+-[a-z0-9_-]+\.apps\.googleusercontent\.com$/.test(clientId)){
-  area.querySelector('#pm49GoogleStatus').textContent='Sign-in is not yet configured by the website owner.';return;
+  pm54GoogleState('googleMailNotReady');return;
  }
  pm49LoadGIS().then(()=>{
   if(!document.getElementById('pm49GoogleButton'))return;
@@ -376,13 +388,13 @@ function pm49SetupGoogleMail(p){
    // Display convenience only; the Mailer will validate the signed ID token.
    try{const part=credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');const data=JSON.parse(atob(part));
     const email=form.querySelector('[name="sender"]');if(email){email.value=String(data.email||'').slice(0,254);email.readOnly=true;}
-    if(!email?.value){hidden.value='';area.querySelector('#pm49GoogleStatus').textContent='Email belum diterima. Klik Sign in with Google lagi.';return;}
+    if(!email?.value){hidden.value='';pm54GoogleState('googleMailMissing');return;}
     const name=form.querySelector('[name="fullName"]');if(name&&data.name)name.value=String(data.name).slice(0,100);
-    area.querySelector('#pm49GoogleStatus').textContent='Signed in: '+String(data.email||'')+'. Verified again by the server on submit.';
-   }catch(_){hidden.value='';area.querySelector('#pm49GoogleStatus').textContent='Akun Google belum terbaca. Klik Sign in with Google lagi.';}
+    pm54GoogleState('googleMailSigned',String(data.email||''));
+   }catch(_){hidden.value='';pm54GoogleState('googleMailBad');}
   }});
   window.google.accounts.id.renderButton(document.getElementById('pm49GoogleButton'),{theme:'outline',size:'large',text:'signin_with',shape:'rectangular'});
- }).catch(err=>{const stat=document.getElementById('pm49GoogleStatus');if(stat)stat.textContent=err.message;});
+ }).catch(err=>{const stat=document.getElementById('pm49GoogleStatus');if(stat)pm54GoogleState('googleMailFailed');});
 }
 function openContact(){
  const p=portfolioData.profile||{},modal=document.getElementById('contactModal'),form=document.getElementById('contactForm'),url=SITE.linkURL(p.contactFormUrl||'');
@@ -424,7 +436,7 @@ function submitContactSamePage(event){
  const p=portfolioData?.profile||{},url=SITE.linkURL(p.contactFormUrl||'');
  if(!url){event.preventDefault();contactFeedback(t('contactNotReady'),'error');return;}
  if(p.mailGoogleRequired===true && (!document.getElementById('pm49GoogleCredential')?.value || !document.getElementById('senderMail')?.value)){
-  event.preventDefault();contactFeedback('Please sign in with Google before sending.','error');return;
+  event.preventDefault();contactFeedback(t('googleMailRequired'),'error');return;
  }
  contactRequestId=newContactRequestId();
  document.getElementById('contactRequestId').value=contactRequestId;
@@ -439,7 +451,7 @@ function submitContactSamePage(event){
 
 // V17 — Tool request via separate public Apps Script receiver; no download URL in page data.
 let toolRequestPending=false,toolRequestSent=new Map(),toolRequestNonce='',toolRequestTimer=null,toolCurrentId='';
-function toolMessage(text,ok){const n=document.getElementById('toolRequestFeedback');n.hidden=false;n.className='contact-result '+(ok?'success':'error');n.textContent=text;}
+function toolMessage(text,ok){const n=document.getElementById('toolRequestFeedback');n.hidden=false;n.className=ok?(text?'v54-download-pending':'v54-download-ready'):'contact-result error';n.textContent=text;}
 
 function toolGuestbookLink(url){if(!/^https:\/\//i.test(String(url||'')))return;const n=document.getElementById('toolRequestFeedback'),a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.className='v36-download-link';a.textContent=currentLanguage==='id'?'↓ Download aplikasi':'↓ Download application';n.appendChild(a);}
 function openToolRequest(id){
@@ -454,25 +466,25 @@ function openToolRequest(id){
  document.getElementById('toolStartedAt').value=String(Date.now());
  document.getElementById('toolRequestFeedback').hidden=true;
  const wasSent=toolRequestSent.has(id);
- form.hidden=wasSent;document.getElementById('toolRequestSubmit').disabled=wasSent||toolRequestPending;
- if(wasSent){toolMessage(currentLanguage==='id'?'Buku tamu sudah dicatat.':'Your guestbook entry has been saved.',true);toolGuestbookLink(toolRequestSent.get(id));}
+ form.hidden=wasSent;document.getElementById('pm51GuestbookLogin').hidden=wasSent;document.getElementById('toolRequestSubmit').disabled=wasSent||toolRequestPending;
+ if(wasSent){toolMessage('',true);toolGuestbookLink(toolRequestSent.get(id));}
 }
 function submitToolRequest(event){
  const form=event.target;
  if(toolRequestPending||toolRequestSent.has(toolCurrentId)){event.preventDefault();return;}
- if(!SITE.guestbookReady(form)){event.preventDefault();toolMessage('Sign in with Google dahulu untuk mengakses unduhan.',false);return;}
+ if(!SITE.guestbookReady(form)){event.preventDefault();toolMessage(t('guestbookSignIn'),false);return;}
  const url=SITE.linkURL(portfolioData?.profile?.toolGuestbookUrl||'');
- if(!url){event.preventDefault();toolMessage('Layanan permintaan belum tersedia. Silakan coba lagi nanti.',false);return;}
+ if(!url){event.preventDefault();toolMessage(t('guestbookUnavailable'),false);return;}
  form.action=url;toolRequestNonce=newContactRequestId();document.getElementById('toolRequestNonce').value=toolRequestNonce;
- toolRequestPending=true;document.getElementById('toolRequestSubmit').disabled=true;
- toolRequestTimer=setTimeout(()=>{if(!toolRequestPending)return;toolRequestPending=false;toolMessage('Konfirmasi buku tamu belum diterima. Silakan periksa koneksi.',false);},25000);
+ toolRequestPending=true;document.getElementById('toolRequestSubmit').disabled=true;toolMessage(currentLanguage==='id'?'Mohon tunggu...':'Please wait...',true);
+ toolRequestTimer=setTimeout(()=>{if(!toolRequestPending)return;toolRequestPending=false;toolMessage(t('guestbookUncertain'),false);},25000);
 }
 window.addEventListener('message',function(event){
  const d=event.data;if(!toolRequestPending||!d||d.type!=='ASJ_GUESTBOOK_RESULT_V36'||d.requestId!==toolRequestNonce)return;
  const origin=String(event.origin||'');
  if(!(origin==='null'||/^https:\/\/(?:[a-z0-9-]+\.)*(?:googleusercontent\.com|google\.com)$/.test(origin)))return;
  clearTimeout(toolRequestTimer);toolRequestPending=false;
- if(d.ok&&/^https:\/\//i.test(String(d.url||''))){toolRequestSent.set(toolCurrentId,d.url);document.getElementById('toolRequestForm').hidden=true;toolMessage(currentLanguage==='id'?'Buku tamu tercatat. Klik tombol download di bawah.':'Guestbook saved. Select download below.',true);toolGuestbookLink(d.url);}
+ if(d.ok&&/^https:\/\//i.test(String(d.url||''))){toolRequestSent.set(toolCurrentId,d.url);document.getElementById('toolRequestForm').hidden=true;document.getElementById('pm51GuestbookLogin').hidden=true;toolMessage('',true);toolGuestbookLink(d.url);}
  else {document.getElementById('toolRequestSubmit').disabled=false;toolMessage(d.message||'Permintaan belum terkirim.',false);}
 });
 document.querySelectorAll('[data-tool-close]').forEach(n=>n.addEventListener('click',()=>{document.getElementById('toolRequestModal').classList.add('hidden');document.body.style.overflow='';}));
