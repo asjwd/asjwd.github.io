@@ -108,15 +108,17 @@ SITE.guestbookLogin = function(profile){
    try{const part=credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');const parsed=JSON.parse(atob(part));
     if(email)email.value=String(parsed.email||'').slice(0,254);
     if(name)name.value=String(parsed.name||'').slice(0,100);
-    status.textContent='Signed in with Google. Your account will be verified again when submitting.';
-   }catch(_){status.textContent='Google account selected. Identity will be verified upon submitting.';}
+    if(!email?.value){token.value='';status.textContent='Email belum diterima dari Google. Klik Sign in with Google lagi.';return;}
+    status.textContent='Email berhasil diisi otomatis dari akun Google. Data diverifikasi kembali saat Submit.';
+   }catch(_){token.value='';status.textContent='Data akun Google belum terbaca. Klik Sign in with Google lagi.';}
   }});
   google.accounts.id.renderButton(host.querySelector('.pm51-google-button'),{theme:'outline',size:'large',text:'signin_with',shape:'rectangular'});
  }).catch(err=>{status.textContent=err.message;});
 };
 SITE.guestbookReady=function(form){
  const credential=String(form?.querySelector('[name="googleCredential"]')?.value||'');
- return credential.split('.').length===3&&credential.length>50;
+ const email=String(form?.querySelector('[name="email"]')?.value||'').trim();
+ return credential.split('.').length===3&&credential.length>50&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 };
 
 // V49: convenience-only picture protection. No claim to prevent screenshots or DevTools.

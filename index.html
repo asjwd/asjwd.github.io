@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="id"><head>
-<meta charset="utf-8"><meta name="guestbook-layout" content="V41"><meta name="mailme-reply" content="V43"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="guestbook-layout" content="V53"><meta name="mailme-reply" content="V43"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
 <meta name="theme-color" content="#112b3b"><meta name="description" content="Portofolio profesional dosen, peneliti, dan konsultan lingkungan.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2212%22 fill=%22%23102b3c%22/%3E%3Ctext x=%2232%22 y=%2241%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Arial%22 font-size=%2225%22 font-weight=%22bold%22%3Easj%3C/text%3E%3C/svg%3E"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2212%22 fill=%22%23102b3c%22/%3E%3Ctext x=%2232%22 y=%2241%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Arial%22 font-size=%2225%22 font-weight=%22bold%22%3Easj%3C/text%3E%3C/svg%3E" sizes="any">
 <title>Professional Portfolio</title><link rel="preconnect" href="https://script.google.com" crossorigin><link rel="dns-prefetch" href="//script.google.com"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v7.css"><link rel="stylesheet" href="v9.css"><link rel="stylesheet" href="v10.css?v=13"><link rel="stylesheet" href="v12.css?v=13"><link rel="stylesheet" href="v13.css?v=13"><link rel="stylesheet" href="v14.css?v=14"><link rel="stylesheet" href="v15.css?v=15"><link rel="stylesheet" href="v16.css?v=16"><link rel="stylesheet" href="v17.css?v=17"><link rel="stylesheet" href="v18.css?v=18"><link rel="stylesheet" href="v19.css?v=29"><style>
 .v36-consent{display:flex;align-items:flex-start;gap:8px;margin:12px 0;font-size:12px;line-height:1.45;color:#536c78}.v36-consent input{width:auto;flex:0 0 auto;margin-top:3px}.v36-download-link{display:inline-flex;align-items:center;gap:8px;margin-top:11px;padding:11px 15px;border-radius:9px;background:#177c77;color:#fff!important;font-weight:750;text-decoration:none}.v36-download-link:hover{background:#0d615e}
 
-/* V41 — one independent consent block. Never use the legacy form grid for consent. */
+/* Guestbook modal layout, including V53 privacy note. */
 #toolRequestModal .contact-modal-card {
   width:min(520px,calc(100vw - 24px)) !important;
   max-width:100% !important;
@@ -103,9 +103,30 @@
 img{-webkit-user-drag:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 .pm49-google{background:#f2f8f8;padding:14px;border:1px solid #d5e6e6;border-radius:10px;margin:10px 0 16px}
 .pm49-google[hidden]{display:none!important}.pm49-google p{margin:0 0 10px}.pm49-google small{display:block;margin-top:9px;color:#4f6a76}
+
+/* V53 — verified email field with a clear read-only affordance. */
+#toolRequestModal #toolRequesterEmail,
+#contactModal #contactForm[data-google-required="true"] #senderMail {
+  background:#eef3f5 !important;
+  border-color:#cfdae0 !important;
+  color:#405b68 !important;
+  cursor:not-allowed !important;
+  opacity:1 !important;
+  -webkit-text-fill-color:#405b68;
+}
+#toolRequestModal .pm53-identity-hint,
+#contactModal .pm53-identity-hint {
+  display:block;line-height:1.5;font-size:12px;color:#587782;margin:5px 0 10px;
+}
+#toolRequestModal .pm53-privacy-note {
+  background:#f3f8f8;border:1px solid #d5e6e6;border-radius:9px;
+  padding:12px 13px;color:#426876;font-weight:650;margin-top:14px;
+}
+#contactModal .pm53-identity-hint[hidden] {display:none!important;}
+#contactModal #contactForm[data-google-required="false"] .pm53-identity-hint {display:none;}
 </style></head>
 <body data-page="portfolio">
-<script src="common.js?v=51"></script><script>SITE.loadPortfolio();</script>
+<script src="common.js?v=53"></script><script>SITE.loadPortfolio();</script>
 <header class="topbar"><div class="shell topbar-inner">
 <a class="brand" href="index.html"><img class="nav-favicon v12-round-logo" src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2212%22 fill=%22%23102b3c%22/%3E%3Ctext x=%2232%22 y=%2241%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Arial%22 font-size=%2225%22 font-weight=%22bold%22%3Easj%3C/text%3E%3C/svg%3E" alt="asj"><span class="v12-brand-title">My Portfolio</span></a>
 <nav class="topnav" id="topNav"><a data-i18n="navExperience" href="#experience">Pengalaman</a><a data-i18n="navProjects" href="#projects">Proyek</a><a data-i18n="navPubs" href="#publications">Publikasi</a><a data-i18n="navOtherActivities" href="#other-activities">Other Activities</a><a data-i18n="navContact" href="#contact">Kontak</a><a class="nav-portal" href="academic">Academic Portal</a></nav>
@@ -126,7 +147,7 @@ img{-webkit-user-drag:none;user-select:none;-webkit-user-select:none;-webkit-tou
 <div id="detailModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-backdrop" data-close></div><div class="modal-card"><button type="button" class="modal-close" data-close aria-label="Tutup">×</button><div id="modalContent"></div></div></div>
 <div id="contactModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle"><div class="modal-backdrop" data-contact-close></div><div class="modal-card contact-modal-card"><button class="modal-close" data-contact-close type="button" aria-label="Tutup">×</button><h2 id="contactModalTitle" data-i18n="messageTitle">Kirim Pesan</h2><p class="contact-intro" data-i18n="messageIntro">Silakan kirim pesan Anda. Saya akan merespons sesegera mungkin.</p><div id="contactNotReady" class="contact-not-ready" hidden>Form belum terhubung. Tambahkan URL Apps Script Contact pada Portfolio Manager.</div>
 <div id="contactResult" class="contact-result" role="status" aria-live="polite" hidden></div>
-<form id="contactForm" target="portfolioContactSubmit" method="post" accept-charset="UTF-8"><label for="senderMail" data-i18n="yourEmail">Email Anda</label><input id="senderMail" name="sender" type="email" autocomplete="email" required maxlength="254" placeholder="nama@example.com"><label for="senderName" data-i18n="yourName">Nama Anda</label><input id="senderName" name="fullName" type="text" autocomplete="name" required minlength="2" maxlength="100" placeholder="Nama lengkap"><label for="subjectMail" data-i18n="subject">Subjek</label><input id="subjectMail" name="subject" required minlength="4" maxlength="160"><label for="bodyMail" data-i18n="message">Pesan</label><textarea id="bodyMail" name="message" required minlength="15" maxlength="5000" rows="6"></textarea><div class="honeypot" aria-hidden="true"><label>Company<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div><input name="startedAt" id="contactStartedAt" type="hidden"><input name="requestId" id="contactRequestId" type="hidden"><div class="contact-info" id="contactHint" data-i18n="contactHint">Pengiriman diproses langsung di halaman ini.</div><button id="submitContact" class="btn btn-primary" type="submit" data-i18n="sendMessage">Kirim Pesan</button></form>
+<form id="contactForm" target="portfolioContactSubmit" method="post" accept-charset="UTF-8"><label for="senderMail" data-i18n="yourEmail">Email Anda</label><input id="senderMail" name="sender" type="email" autocomplete="email" required maxlength="254" placeholder="nama@example.com"><small class="pm53-identity-hint" id="pm53ContactEmailHint" hidden>Email otomatis terisi dari akun Google dan tidak bisa diedit. Jika masih kosong, klik Sign in with Google lagi.</small><label for="senderName" data-i18n="yourName">Nama Anda</label><input id="senderName" name="fullName" type="text" autocomplete="name" required minlength="2" maxlength="100" placeholder="Nama lengkap"><label for="institutionMail" data-i18n="institution">Institusi / Organisasi</label><input id="institutionMail" name="institution" type="text" autocomplete="organization" required minlength="2" maxlength="150" placeholder="Nama institusi / organisasi"><label for="subjectMail" data-i18n="subject">Subjek</label><input id="subjectMail" name="subject" required minlength="4" maxlength="160"><label for="bodyMail" data-i18n="message">Pesan</label><textarea id="bodyMail" name="message" required minlength="15" maxlength="5000" rows="6"></textarea><div class="honeypot" aria-hidden="true"><label>Company<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div><input name="startedAt" id="contactStartedAt" type="hidden"><input name="requestId" id="contactRequestId" type="hidden"><div class="contact-info" id="contactHint" data-i18n="contactHint">Pengiriman diproses langsung di halaman ini.</div><button id="submitContact" class="btn btn-primary" type="submit" data-i18n="sendMessage">Kirim Pesan</button></form>
 </div></div>
 <div id="toolRequestModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="toolRequestTitle">
   <div class="modal-backdrop" data-tool-close></div>
@@ -136,17 +157,20 @@ img{-webkit-user-drag:none;user-select:none;-webkit-user-select:none;-webkit-tou
     <p id="toolRequestDescription" class="contact-intro"></p>
     <div id="toolRequestFeedback" class="contact-result" role="status" aria-live="polite" hidden></div>
     <div id="pm51GuestbookLogin" class="pm51-google" style="border:1px solid #d3e8e8;background:#f4faf9;border-radius:10px;padding:12px;margin:12px 0"></div><form id="toolRequestForm" method="post" target="portfolioGuestbookSubmit">
-      <label for="toolRequesterName">Full Name</label><input id="toolRequesterName" name="fullName" readonly required minlength="2" maxlength="100" autocomplete="name">
-      
-      <label for="toolRequesterOrg">Institution / Organization</label><input id="toolRequesterOrg" name="institution" required maxlength="150">
-      <label for="toolRequesterEmail">Email Address</label><input id="toolRequesterEmail" name="email" type="email" readonly required maxlength="254" autocomplete="email">
+      <label for="toolRequesterEmail">Email Address</label>
+      <input id="toolRequesterEmail" name="email" type="email" readonly aria-readonly="true" required maxlength="254" autocomplete="off" placeholder="Sign in with Google to fill your email">
+      <small class="pm53-identity-hint">Email otomatis terisi dari akun Google dan tidak bisa diedit. Jika masih kosong, klik Sign in with Google lagi.</small>
+      <label for="toolRequesterName">Full Name</label>
+      <input id="toolRequesterName" name="fullName" readonly required minlength="2" maxlength="100" autocomplete="off">
+      <label for="toolRequesterOrg">Institution / Organization</label>
+      <input id="toolRequesterOrg" name="institution" required maxlength="150">
       <input type="hidden" name="action" value="tool_guestbook"><input type="hidden" name="toolId" id="toolRequestId">
       <input type="hidden" name="requestId" id="toolRequestNonce"><input type="hidden" name="startedAt" id="toolStartedAt">
-      <div id="v41ToolConsentRow"><input id="v41ToolConsent" type="checkbox" name="consent" value="yes" required><label for="v41ToolConsent">Saya setuju nama, institusi, dan email dicatat untuk akses unduhan. Data tidak ditampilkan kepada publik.</label></div> <div class="honeypot" aria-hidden="true"><label>Company<input name="company" autocomplete="off" tabindex="-1"></label></div>
+      <div class="pm53-privacy-note">Data tidak ditampilkan kepada publik.</div> <div class="honeypot" aria-hidden="true"><label>Company<input name="company" autocomplete="off" tabindex="-1"></label></div>
       <button id="toolRequestSubmit" class="btn btn-primary" type="submit">Submit & Get Download Link</button>
     </form>
   </div>
 </div>
 <iframe name="portfolioGuestbookSubmit" class="contact-submit-frame" title="Tool Guestbook confirmation" tabindex="-1" aria-hidden="true"></iframe>
 <iframe id="contactSubmissionFrame" name="portfolioContactSubmit" title="Konfirmasi pengiriman pesan" tabindex="-1" class="contact-submit-frame" aria-hidden="true"></iframe>
-<script src="portfolio.js?v=51"></script><script src="/v46-download.js?v=49" defer></script></body></html>
+<script src="portfolio.js?v=53"></script><script src="/v46-download.js?v=49" defer></script></body></html>
