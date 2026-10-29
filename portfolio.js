@@ -443,6 +443,7 @@ function openToolRequest(id){
  document.getElementById('toolRequestTitle').textContent=(currentLanguage==='id'?'Buku Tamu: ':'Guestbook: ')+tool.name;
  document.getElementById('toolRequestDescription').textContent=tr(tool,'description');
  modal.classList.remove('hidden');document.body.style.overflow='hidden';
+ SITE.guestbookLogin(portfolioData?.profile||{});
  document.getElementById('toolRequestId').value=id;
  document.getElementById('toolStartedAt').value=String(Date.now());
  document.getElementById('toolRequestFeedback').hidden=true;
@@ -453,6 +454,7 @@ function openToolRequest(id){
 function submitToolRequest(event){
  const form=event.target;
  if(toolRequestPending||toolRequestSent.has(toolCurrentId)){event.preventDefault();return;}
+ if(!SITE.guestbookReady(form)){event.preventDefault();toolMessage('Sign in with Google dahulu untuk mengakses unduhan.',false);return;}
  const url=SITE.linkURL(portfolioData?.profile?.toolGuestbookUrl||'');
  if(!url){event.preventDefault();toolMessage('Layanan permintaan belum tersedia. Silakan coba lagi nanti.',false);return;}
  form.action=url;toolRequestNonce=newContactRequestId();document.getElementById('toolRequestNonce').value=toolRequestNonce;

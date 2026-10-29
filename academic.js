@@ -148,6 +148,7 @@ function acOpenRequest(id){
  $('toolRequestTitle').textContent=(acLanguage==='id'?'Buku Tamu — ':'Guestbook — ')+tool.name;
  $('toolRequestDescription').textContent=acLanguage==='en'?(tool.en?.description||tool.description||''):(tool.description||'');
  $('toolRequestModal').classList.remove('hidden');document.body.style.overflow='hidden';
+ SITE.guestbookLogin(acData?.profile||{});
  $('toolRequestId').value=id;$('toolStartedAt').value=Date.now();
  $('toolRequestFeedback').hidden=true;$('toolRequestForm').hidden=acSentTools.has(id);
  $('toolRequestSubmit').disabled=acSentTools.has(id)||acRequestBusy;
@@ -160,6 +161,7 @@ function acCloseRequest(){$('toolRequestModal').classList.add('hidden');document
 function acNewNonce(){try{const x=new Uint32Array(4);crypto.getRandomValues(x);return [...x].map(n=>n.toString(16)).join('');}catch(_){return Date.now().toString(36)+Math.random().toString(36).slice(2);}}
 function acSubmitRequest(e){
  if(acRequestBusy||acSentTools.has(acToolId)){e.preventDefault();return;}
+ if(!SITE.guestbookReady(e.target)){e.preventDefault();acToolMessage('Sign in with Google dahulu untuk mengakses unduhan.',false);return;}
  const endpoint=SITE.linkURL(acData?.profile?.toolGuestbookUrl||'');if(!endpoint){e.preventDefault();acToolMessage(acLanguage==='id'?'Layanan belum tersedia.':'Request service is unavailable.',false);return;}
  const form=e.target;form.action=endpoint;acNonce=acNewNonce();$('toolRequestNonce').value=acNonce;
  acRequestBusy=true;$('toolRequestSubmit').disabled=true;acToolMessage(T('requestAwait'),true);

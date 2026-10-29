@@ -77,6 +77,48 @@ const SITE = {
   image(url,alt='',cls='',width=720,priority=false){const src=SITE.photoURL(url,width);return src?`<img draggable="false" class="${SITE.escape(cls)}" src="${SITE.escape(src)}" alt="${SITE.escape(alt)}" loading="${priority?'eager':'lazy'}" ${priority?'fetchpriority="high"':''} decoding="async">`:'';}
 };
 
+// V51: Guestbook always requires Google Sign-in (regardless of Mail Me toggle).
+// Email/name shown in the form are display-only: the Mailer verifies the Google
+// ID token and derives identity from the signed token on the server.
+SITE.guestbookLogin = function(profile){
+ const form=document.getElementById('toolRequestForm'),host=document.getElementById('pm51GuestbookLogin');
+ if(!form||!host)return;
+ const email=form.querySelector('[name="email"]'),name=form.querySelector('[name="fullName"]');
+ for(const input of [email,name]){if(input){input.readOnly=true;input.value='';input.setAttribute('autocomplete','off');}}
+ let token=form.querySelector('[name="googleCredential"]');
+ if(!token){token=document.createElement('input');token.type='hidden';token.name='googleCredential';form.appendChild(token);}token.value='';
+ const clientId=String(profile?.mailGoogleClientId||'').trim();
+ host.innerHTML='<p style="margin:0 0 8px;font-weight:650">Sign in with Google to access the download</p><div class="pm51-google-button"></div><small class="pm51-google-message" style="display:block;margin-top:6px;color:#53727c">Your Google account will identify your guestbook entry.</small>';
+ const status=host.querySelector('.pm51-google-message');
+ if(!/^[0-9]+-[a-z0-9_-]+\.apps\.googleusercontent\.com$/.test(clientId)){
+  status.textContent='Google Sign-in has not been configured. Please contact the website owner.';return;
+ }
+ const load=window.google?.accounts?.id?Promise.resolve():new Promise((resolve,reject)=>{
+  const existing=document.querySelector('script[data-asj-gis]');
+  if(existing){let checks=0;const timer=setInterval(()=>{if(window.google?.accounts?.id){clearInterval(timer);resolve();}else if(++checks>100){clearInterval(timer);reject(Error('Google Sign-in unavailable'));}},80);return;}
+  const script=document.createElement('script');script.dataset.asjGis='1';script.src='https://accounts.google.com/gsi/client';script.async=true;
+  script.onload=()=>window.google?.accounts?.id?resolve():reject(Error('Google Sign-in unavailable'));
+  script.onerror=()=>reject(Error('Unable to load Google Sign-in'));document.head.appendChild(script);
+ });
+ load.then(()=>{
+  if(!host.isConnected)return;
+  google.accounts.id.initialize({client_id:clientId,callback:response=>{
+   const credential=String(response?.credential||'');if(!credential)return;
+   token.value=credential;
+   try{const part=credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');const parsed=JSON.parse(atob(part));
+    if(email)email.value=String(parsed.email||'').slice(0,254);
+    if(name)name.value=String(parsed.name||'').slice(0,100);
+    status.textContent='Signed in with Google. Your account will be verified again when submitting.';
+   }catch(_){status.textContent='Google account selected. Identity will be verified upon submitting.';}
+  }});
+  google.accounts.id.renderButton(host.querySelector('.pm51-google-button'),{theme:'outline',size:'large',text:'signin_with',shape:'rectangular'});
+ }).catch(err=>{status.textContent=err.message;});
+};
+SITE.guestbookReady=function(form){
+ const credential=String(form?.querySelector('[name="googleCredential"]')?.value||'');
+ return credential.split('.').length===3&&credential.length>50;
+};
+
 // V49: convenience-only picture protection. No claim to prevent screenshots or DevTools.
 document.addEventListener('contextmenu',e=>{if(e.target.closest('img, .gallery, .project-cover, .v13-slideshow, .hero-avatar'))e.preventDefault();});
 document.addEventListener('dragstart',e=>{if(e.target.closest('img'))e.preventDefault();});
