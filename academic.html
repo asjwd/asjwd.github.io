@@ -185,7 +185,25 @@
  border-radius:9px;margin:11px 0 9px;padding:9px 11px;font-size:12px;line-height:1.6;overflow-wrap:anywhere}
 #toolRequestModal #toolRequestSubmit:disabled{opacity:.55!important;cursor:not-allowed!important;
  background:#94a4aa!important;color:#fff!important}
-</style></head><body data-page="academic" class="academic-body">
+</style>
+<style id="v64-course-columns">
+/* V64 — roomier Academic Portal course cards on standard laptops.
+   This targets Courses & Materials only; other service grids are unchanged. */
+#academic-courses-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@media (max-width: 999px) {
+  #academic-courses-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  #academic-courses-list { grid-template-columns: minmax(0, 1fr); }
+}
+@media (min-width: 1600px) {
+  .academic-body .shell { width: min(1440px, calc(100% - 100px)); }
+  #academic-courses-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+</style>
+</head><body data-page="academic" class="academic-body">
 <script src="common.js?v=61"></script><script>SITE.loadAcademic();</script>
 <header class="academic-topbar v21-ac-topbar"><div class="shell academic-bar">
 <a href="/" class="brand brand-dark v12-academic-brand"><img src="/asj-round.png?v=63" class="v12-round-logo" alt="ASJ"><span class="v12-brand-title">My Academic Portal</span></a>
