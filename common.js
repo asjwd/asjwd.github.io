@@ -171,7 +171,9 @@ SITE.guestbookLogin = function(profile){
     SITE._v60GuestSession=s;showSigned(s);
    }catch(_){token.value='';setStatus('signInBad');notify('');}
   }});
-  google.accounts.id.renderButton(host.querySelector('.pm51-google-button'),{theme:'outline',size:'large',text:'signin_with',shape:'rectangular'});
+  // V61: Google GIS renders a generic (non-personalized) button at medium size / width <200px.
+  // The Google session in browser may persist after refresh, but this page accepts identity ONLY after credential callback.
+  google.accounts.id.renderButton(host.querySelector('.pm51-google-button'),{theme:'outline',size:'medium',width:190,text:'signin_with',shape:'rectangular',locale:SITE.gbLanguage()});
  }).catch(()=>setStatus('signInFail'));
 };
 SITE.guestbookReady=function(form){

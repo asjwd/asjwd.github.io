@@ -392,7 +392,8 @@ function pm49SetupGoogleMail(p){
     pm54GoogleState('googleMailSigned',String(data.email||''));
    }catch(_){hidden.value='';pm54GoogleState('googleMailBad');}
   }});
-  window.google.accounts.id.renderButton(document.getElementById('pm49GoogleButton'),{theme:'outline',size:'large',text:'signin_with',shape:'rectangular'});
+  // V61: official GIS medium button is not personalized; do not show remembered account until token callback.
+  window.google.accounts.id.renderButton(document.getElementById('pm49GoogleButton'),{theme:'outline',size:'medium',width:190,text:'signin_with',shape:'rectangular',locale:document.documentElement.lang==='en'?'en':'id'});
  }).catch(err=>{const stat=document.getElementById('pm49GoogleStatus');if(stat)pm54GoogleState('googleMailFailed');});
 }
 function openContact(){
