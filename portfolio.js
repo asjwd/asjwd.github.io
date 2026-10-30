@@ -50,15 +50,14 @@ function pm48ApplyPublicLayout(){
 function renderPortfolio(data){portfolioData=data;const p=data.profile||{};document.title=(p.name||'Portfolio')+' — '+(currentLanguage==='id'?'Portofolio':'Professional Portfolio');fillLangText();
  document.querySelector('#profile-name').textContent=p.name||'Academic Portfolio';document.querySelector('#profile-title').textContent=tr(p,'title');document.querySelector('#profile-tagline').textContent=tr(p,'tagline');document.querySelector('#about-text').textContent=tr(p,'about')||'—';const inst=document.querySelector('#profile-institution');
   if(inst){
-    const defaultInstitutionUrl='https://teklingk.upnjatim.ac.id/jawwad/';
-    const rawUrl=p.institutionUrl||defaultInstitutionUrl;
+    const rawUrl=p.institutionUrl||'';
     const link=SITE.linkURL(rawUrl);
     const directIcon=SITE.safeURL(p.institutionIcon||'');
     const iconHost=(()=>{try{const u=new URL(p.institutionIconWebsite||rawUrl);return u.protocol==='https:'||u.protocol==='http:'?u.hostname:'';}catch(_){return '';}})();
     // V49: public snapshot contains Drive logo URLs, not repository image assets.
     const icon=directIcon;
     const text=esc(String(p.institution||'—').replace(/\s*[↗↗]\s*$/g,''));
-    inst.href=link||defaultInstitutionUrl;
+    if(link)inst.href=link;else inst.removeAttribute('href');
     inst.innerHTML='<span class="institution-title">'+text+'</span>'+(icon?'<img class="v22-institution-logo" src="'+esc(icon)+'" alt="Logo institusi" width="24" height="24" loading="lazy" decoding="async" onerror="this.hidden=true">':'');
   }
   document.querySelector('#profile-location').textContent=p.location||'—';
@@ -66,7 +65,7 @@ function renderPortfolio(data){portfolioData=data;const p=data.profile||{};docum
  const hero=document.querySelector('.hero');if(SITE.safeURL(p.banner))hero.style.backgroundImage=`linear-gradient(100deg,rgba(13,40,55,.94),rgba(14,51,63,.83)),url("${SITE.photoURL(p.banner,1200).replaceAll('"','%22')}")`;
  document.getElementById('specialty-tags')?.remove();
  renderEducation(p);renderCertifications(p);
- document.getElementById('year').textContent=new Date().getFullYear();
+ document.getElementById('year').textContent=new Date().getFullYear();document.getElementById('site-owner').textContent=p.name||'';
  renderExperience();renderProjects();renderPublications();renderOtherActivities();renderContacts();renderSlides();pm24ApplyBranding(p);pm48ApplyPublicLayout();}
 // V16: Education is an optional object in Profile; existing Profiles continue to work.
 function pm24ApplyBranding(profile){
