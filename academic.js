@@ -2,6 +2,7 @@
 // V42: render nonempty Academic entries even when no link/material URL is available; avoid initial flashes.
 let acData=null,acLanguage='id',acSelectedId='',acRows=null,acRequestSeq=0,acVisible=20;
 let acToolId='',acRequestBusy=false,acNonce='',acRequestTimer=null;
+let ac58ServerUpnDenied=false;
 let ac55OpenCourseId='';
 const acSentTools=new Map();
 const TXT={
@@ -62,7 +63,7 @@ function acUpdateRequestLanguage(){
  const item=acRequestItem(acToolId);if(!item)return;
  $('toolRequestTitle').textContent=item.name;
  $('toolRequestDescription').textContent=item.description;
- ac55UpdateNotices(item);
+ ac55UpdateNotices(item);ac58SyncUPN();
  // Only the label is retranslated; an active signed-in form remains intact.
 }
 function acApplyBrand(profile){
@@ -205,9 +206,34 @@ function acRenderTools(){
  $('academic-tools-list').innerHTML=list.map(x=>`<div class="tool-card"><div class="tool-icon">${E((x.name||'A')[0])}</div><div class="tool-body"><div class="tool-header"><h3>${E(x.name||'')}</h3>${x.version?`<span>${E(x.version)}</span>`:''}</div><p>${E(acDescription(x))}</p><div class="tags">${acFeatures(x).map(f=>`<span class="tag">${E(f)}</span>`).join('')}</div></div><button type="button" class="btn v17-request-button" data-tool="${E(x.id)}" ${x.requestAvailable===false?'disabled':''}>${T('request')}</button></div>`).join('');
  $('academic-tools-list').querySelectorAll('[data-tool]').forEach(b=>b.addEventListener('click',()=>acOpenRequest(b.dataset.tool)));
 }
+// V58: domain mismatch is signaled near Submit, but Mailer makes final access decision.
+function ac58AllowedUPN(email){return /^[^\s@]+@(?:upnjatim\.ac\.id|student\.upnjatim\.ac\.id)$/i.test(String(email||'').trim());}
+function ac58NearForm(message,problem){
+ const node=$('pm58FormFeedback');if(!node)return;
+ node.hidden=!message;node.textContent=message||'';
+ node.className='pm58-form-feedback'+(problem?' pm58-form-error':' pm58-form-progress');
+}
+function ac58SyncUPN(){
+ const item=acRequestItem(acToolId),email=String($('toolRequesterEmail')?.value||'').trim();
+ const limited=item?.upnOnly===true;
+ const invalid=limited&&!!email&&!ac58AllowedUPN(email);
+ const denied=invalid||ac58ServerUpnDenied;
+ const warning=$('pm58UpnDenied');
+ if(warning){warning.hidden=!denied;warning.textContent=acLanguage==='en'
+  ?'UPN Account Required — This material is available only to @upnjatim.ac.id or @student.upnjatim.ac.id Google accounts. Please sign in with your institutional account.'
+  :'UPN Account Required — Materi ini hanya tersedia untuk akun @upnjatim.ac.id atau @student.upnjatim.ac.id. Silakan masuk menggunakan akun Google institusi.';}
+ const button=$('toolRequestSubmit');
+ if(button)button.disabled=denied||acRequestBusy||acSentTools.has(acToolId);
+ if(denied)ac58NearForm('',false);
+ return !denied;
+}
+document.addEventListener('pm58-guestbook-identity',()=>{
+ ac58ServerUpnDenied=false;
+ if(acToolId&& !$('toolRequestModal')?.classList.contains('hidden'))ac58SyncUPN();
+});
 function acOpenRequest(id){
  const item=acRequestItem(id);if(!item)return;
- acToolId=id;
+ acToolId=id;ac58ServerUpnDenied=false;ac58NearForm('',false);
  $('toolRequestTitle').textContent=item.name;
  $('toolRequestDescription').textContent=item.description;
  ac55UpdateNotices(item);
@@ -216,28 +242,29 @@ function acOpenRequest(id){
  SITE.applyGuestbookLanguage(acLanguage);
  $('toolRequestId').value=id;$('toolStartedAt').value=Date.now();
  $('toolRequestFeedback').hidden=true;$('toolRequestForm').hidden=acSentTools.has(id);$('pm51GuestbookLogin').hidden=acSentTools.has(id);
- $('toolRequestSubmit').disabled=acSentTools.has(id)||acRequestBusy;
+ $('toolRequestSubmit').disabled=acSentTools.has(id)||acRequestBusy;ac58SyncUPN();
  if(acSentTools.has(id)){acToolMessage('',true);acToolLink(acSentTools.get(id));}
 }
-function acToolMessage(msg,success){const el=$('toolRequestFeedback');el.hidden=false;el.className=success?(msg?'v54-download-pending':'v54-download-ready'):'contact-result error';el.textContent=msg;}
+function acToolMessage(msg,success){const el=$('toolRequestFeedback');if(!$('toolRequestForm').hidden){el.hidden=true;el.textContent='';ac58NearForm(msg,!success);return;}ac58NearForm('',false);el.hidden=false;el.className=success?(msg?'v54-download-pending':'v54-download-ready'):'contact-result error';el.textContent=msg;}
 function acSuccessText(){return '';}
 function acToolLink(url){if(!/^https:\/\//i.test(String(url||'')))return;const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.dataset.downloadResource=acToolId;a.className='v36-download-link';a.textContent=String(acToolId).startsWith('mat:')?(acLanguage==='id'?'↓ Download materi':'↓ Download material'):(acLanguage==='id'?'↓ Download aplikasi':'↓ Download application');$('toolRequestFeedback').appendChild(a);}
 function acCloseRequest(){$('toolRequestModal').classList.add('hidden');document.body.style.overflow='';}
 function acNewNonce(){try{const x=new Uint32Array(4);crypto.getRandomValues(x);return [...x].map(n=>n.toString(16)).join('');}catch(_){return Date.now().toString(36)+Math.random().toString(36).slice(2);}}
 function acSubmitRequest(e){
  if(acRequestBusy||acSentTools.has(acToolId)){e.preventDefault();return;}
+ if(!ac58SyncUPN()){e.preventDefault();return;}
  if(!SITE.guestbookReady(e.target)){e.preventDefault();acToolMessage(T('signInNeeded'),false);return;}
  const endpoint=SITE.linkURL(acData?.profile?.toolGuestbookUrl||'');if(!endpoint){e.preventDefault();acToolMessage(T('serviceUnavailable'),false);return;}
  const form=e.target;form.action=endpoint;acNonce=acNewNonce();$('toolRequestNonce').value=acNonce;
  acRequestBusy=true;$('toolRequestSubmit').disabled=true;acToolMessage(T('requestAwait'),true);
- acRequestTimer=setTimeout(()=>{if(acRequestBusy){acRequestBusy=false;acToolMessage(T('requestUncertain'),false);$('toolRequestSubmit').disabled=false;}},45000);
+ acRequestTimer=setTimeout(()=>{if(acRequestBusy){acRequestBusy=false;acToolMessage(T('requestUncertain'),false);ac58SyncUPN();}},45000);
  // Do not preventDefault: POST is directed to the hidden iframe.
 }
 window.addEventListener('message',e=>{
  const d=e.data;if(!acRequestBusy||!d||d.type!=='ASJ_GUESTBOOK_RESULT_V36'||d.requestId!==acNonce)return;
  const origin=String(e.origin||'');if(!(origin==='null'||/^https:\/\/(?:[a-z0-9-]+\.)*(?:googleusercontent\.com|google\.com)$/.test(origin)))return;
  clearTimeout(acRequestTimer);acRequestBusy=false;
- if(d.ok&&/^https:\/\//i.test(String(d.url||''))){acSentTools.set(acToolId,d.url);$('toolRequestForm').hidden=true;$('pm51GuestbookLogin').hidden=true;acToolMessage('',true);acToolLink(d.url);}else{acToolMessage(d.message||T('requestError'),false);$('toolRequestSubmit').disabled=false;}
+ if(d.ok&&/^https:\/\//i.test(String(d.url||''))){acSentTools.set(acToolId,d.url);$('toolRequestForm').hidden=true;$('pm51GuestbookLogin').hidden=true;acToolMessage('',true);acToolLink(d.url);}else{ac58ServerUpnDenied=/UPN Account Required/i.test(String(d.message||''));if(!ac58ServerUpnDenied)acToolMessage(d.message||T('requestError'),false);ac58SyncUPN();}
 });
 try{const saved=localStorage.getItem('portfolioLangV7');if(saved==='en')acLanguage='en';}catch(_){ }
 $('studentSearchForm').addEventListener('submit',e=>{e.preventDefault();if(!$('studentQuery').value.trim())return;$('studentSearchResponse').hidden=false;$('studentSearchResponse').textContent=T('searchResponse');});

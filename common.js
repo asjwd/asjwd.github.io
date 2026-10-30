@@ -126,6 +126,7 @@ SITE.guestbookLogin = function(profile){
  host.hidden=false;
  const email=form.querySelector('[name="email"]'),name=form.querySelector('[name="fullName"]');
  for(const input of [email,name]){if(input){input.readOnly=true;input.value='';input.setAttribute('autocomplete','off');}}
+ document.dispatchEvent(new CustomEvent('pm58-guestbook-identity',{detail:{email:''}}));
  let token=form.querySelector('[name="googleCredential"]');
  if(!token){token=document.createElement('input');token.type='hidden';token.name='googleCredential';form.appendChild(token);}token.value='';
  const clientId=String(profile?.mailGoogleClientId||'').trim();
@@ -152,9 +153,10 @@ SITE.guestbookLogin = function(profile){
    try{const part=credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');const parsed=JSON.parse(atob(part));
     if(email)email.value=String(parsed.email||'').slice(0,254);
     if(name)name.value=String(parsed.name||'').slice(0,100);
-    if(!email?.value){token.value='';setStatus('signInMissing');return;}
+    if(!email?.value){token.value='';setStatus('signInMissing');document.dispatchEvent(new CustomEvent('pm58-guestbook-identity',{detail:{email:''}}));return;}
     setStatus('signed');
-   }catch(_){token.value='';setStatus('signInBad');}
+    document.dispatchEvent(new CustomEvent('pm58-guestbook-identity',{detail:{email:email.value}}));
+   }catch(_){token.value='';setStatus('signInBad');document.dispatchEvent(new CustomEvent('pm58-guestbook-identity',{detail:{email:''}}));}
   }});
   google.accounts.id.renderButton(host.querySelector('.pm51-google-button'),{theme:'outline',size:'large',text:'signin_with',shape:'rectangular'});
  }).catch(err=>{setStatus('signInFail');});

@@ -167,8 +167,19 @@
 .pm55-course-close-btn{padding:10px 16px;border:1px solid #cbdfe1;background:#f4f9f9;border-radius:9px;color:#176e70;cursor:pointer;font-weight:700}
 .pm55-download-notice{margin:10px 0;padding:9px 10px;border:1px solid #d8e7e8;border-radius:9px;background:#f7fbfb;color:#5e7380;font-size:12px;line-height:1.5}
 #pm55UpnNotice{font-weight:700;color:#355e61}
+<style id="pm58-guestbook-form-style">
+/* Inline notifications next to Submit rather than at the top of the modal. */
+#toolRequestModal .pm58-form-feedback{box-sizing:border-box;margin:10px 0 10px;
+ padding:9px 11px;border-radius:9px;font-size:12px;line-height:1.55;overflow-wrap:anywhere}
+#toolRequestModal .pm58-form-feedback[hidden],#toolRequestModal #pm58UpnDenied[hidden]{display:none!important}
+#toolRequestModal .pm58-form-error{background:#fff8ee;border:1px solid #efcfad;color:#91521c}
+#toolRequestModal .pm58-form-progress{background:#f1f8f8;border:1px solid #d2e7e7;color:#476d72}
+#toolRequestModal #pm58UpnDenied{background:#fff8ef;border:1px solid #efcda9;color:#96551b;
+ border-radius:9px;margin:11px 0 9px;padding:9px 11px;font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+#toolRequestModal #toolRequestSubmit:disabled{opacity:.55!important;cursor:not-allowed!important;
+ background:#94a4aa!important;color:#fff!important}
 </style></head><body data-page="academic" class="academic-body">
-<script src="common.js?v=55"></script><script>SITE.loadAcademic();</script>
+<script src="common.js?v=58"></script><script>SITE.loadAcademic();</script>
 <header class="academic-topbar v21-ac-topbar"><div class="shell academic-bar">
 <a href="/" class="brand brand-dark v12-academic-brand"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2212%22 fill=%22%23102b3c%22/%3E%3Ctext x=%2232%22 y=%2241%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Arial%22 font-size=%2225%22 font-weight=%22bold%22%3Easj%3C/text%3E%3C/svg%3E" class="v12-round-logo" alt="ASJ"><span class="v12-brand-title">My Academic Portal</span></a>
 <div class="v21-ac-top-actions"><div class="lang-switch" role="group" aria-label="Language / Bahasa"><button type="button" data-ac-lang="id" aria-pressed="true">ID</button><button type="button" data-ac-lang="en" aria-pressed="false">EN</button></div></div>
@@ -213,7 +224,7 @@
       <input id="toolRequesterOrg" name="institution" required maxlength="150">
       <input type="hidden" name="action" value="tool_guestbook"><input type="hidden" name="toolId" id="toolRequestId">
       <input type="hidden" name="requestId" id="toolRequestNonce"><input type="hidden" name="startedAt" id="toolStartedAt">
-      <div class="pm53-privacy-note" data-v54-gb="privacy">Data tidak ditampilkan kepada publik.</div> <div class="honeypot" aria-hidden="true"><label>Company<input name="company" autocomplete="off" tabindex="-1"></label></div><button id="toolRequestSubmit" class="btn btn-primary" type="submit" data-v54-gb="submit">Submit & Get Download Link</button></form></div></div>
+      <div class="pm53-privacy-note" data-v54-gb="privacy">Data tidak ditampilkan kepada publik.</div><div id="pm58UpnDenied" role="alert" hidden></div><div id="pm58FormFeedback" class="pm58-form-feedback" role="status" aria-live="polite" hidden></div> <div class="honeypot" aria-hidden="true"><label>Company<input name="company" autocomplete="off" tabindex="-1"></label></div><button id="toolRequestSubmit" class="btn btn-primary" type="submit" data-v54-gb="submit">Submit & Get Download Link</button></form></div></div>
 <iframe name="portfolioGuestbookSubmit" class="contact-submit-frame" title="Tool Guestbook confirmation" tabindex="-1" aria-hidden="true"></iframe>
 <iframe id="contactSubmissionFrame" name="portfolioContactSubmit" title="Delivery confirmation" tabindex="-1" class="contact-submit-frame" aria-hidden="true"></iframe>
-<script src="academic.js?v=56"></script><script src="/v55-download.js?v=55" defer></script></body></html>
+<script src="academic.js?v=58"></script><script src="/v58-download.js?v=58" defer></script></body></html>

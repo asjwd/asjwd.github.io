@@ -451,7 +451,7 @@ function submitContactSamePage(event){
 
 // V17 — Tool request via separate public Apps Script receiver; no download URL in page data.
 let toolRequestPending=false,toolRequestSent=new Map(),toolRequestNonce='',toolRequestTimer=null,toolCurrentId='';
-function toolMessage(text,ok){const n=document.getElementById('toolRequestFeedback');n.hidden=false;n.className=ok?(text?'v54-download-pending':'v54-download-ready'):'contact-result error';n.textContent=text;}
+function toolMessage(text,ok){const n=document.getElementById('toolRequestFeedback'),near=document.getElementById('pm58FormFeedback'),form=document.getElementById('toolRequestForm');if(form&&!form.hidden){n.hidden=true;n.textContent='';if(near){near.hidden=!text;near.textContent=text||'';near.className='pm58-form-feedback '+(ok?'pm58-form-progress':'pm58-form-error');}return;}if(near){near.hidden=true;near.textContent='';}n.hidden=false;n.className=ok?(text?'v54-download-pending':'v54-download-ready'):'contact-result error';n.textContent=text;}
 
 function toolGuestbookLink(url){if(!/^https:\/\//i.test(String(url||'')))return;const n=document.getElementById('toolRequestFeedback'),a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.dataset.downloadResource=toolCurrentId;a.className='v36-download-link';a.textContent=currentLanguage==='id'?'↓ Download aplikasi':'↓ Download application';n.appendChild(a);}
 function openToolRequest(id){
@@ -467,6 +467,7 @@ function openToolRequest(id){
  document.getElementById('toolRequestId').value=id;
  document.getElementById('toolStartedAt').value=String(Date.now());
  document.getElementById('toolRequestFeedback').hidden=true;
+ const near=document.getElementById('pm58FormFeedback');if(near){near.hidden=true;near.textContent='';}
  const wasSent=toolRequestSent.has(id);
  form.hidden=wasSent;document.getElementById('pm51GuestbookLogin').hidden=wasSent;document.getElementById('toolRequestSubmit').disabled=wasSent||toolRequestPending;
  if(wasSent){toolMessage('',true);toolGuestbookLink(toolRequestSent.get(id));}
