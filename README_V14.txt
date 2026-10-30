@@ -1,1 +1,0 @@
-V14 GitHub Pages — Perbaikan mobile dan foto tanpa nama file. Upload SELURUH file/folder ini ke root repository (tidak termasuk site.json). Jangan hapus site.json, assets/images, atau konfigurasi Contact Form.
