@@ -120,24 +120,37 @@ SITE.applyGuestbookLanguage=function(lang){
 // V51: Guestbook always requires Google Sign-in (regardless of Mail Me toggle).
 // Email/name shown in the form are display-only: the Mailer verifies the Google
 // ID token and derives identity from the signed token on the server.
+// V60: ephemeral Google ID session for repeated downloads in this page only.
+// Not persisted to localStorage/cookies; the Mailer STILL verifies every token server-side.
+SITE._v60GuestSession=null;
 SITE.guestbookLogin = function(profile){
  const form=document.getElementById('toolRequestForm'),host=document.getElementById('pm51GuestbookLogin');
  if(!form||!host)return;
  host.hidden=false;
  const email=form.querySelector('[name="email"]'),name=form.querySelector('[name="fullName"]');
  for(const input of [email,name]){if(input){input.readOnly=true;input.value='';input.setAttribute('autocomplete','off');}}
- document.dispatchEvent(new CustomEvent('pm58-guestbook-identity',{detail:{email:''}}));
  let token=form.querySelector('[name="googleCredential"]');
  if(!token){token=document.createElement('input');token.type='hidden';token.name='googleCredential';form.appendChild(token);}token.value='';
  const clientId=String(profile?.mailGoogleClientId||'').trim();
  host.innerHTML='<p data-v54-gb="signInTitle" style="margin:0 0 8px;font-weight:650"></p><div class="pm51-google-button"></div><small class="pm51-google-message" style="display:block;margin-top:6px;color:#53727c"></small>';
- SITE.applyGuestbookLanguage(SITE.gbLanguage());
  const status=host.querySelector('.pm51-google-message');
+ const notify=(mail)=>document.dispatchEvent(new CustomEvent('pm58-guestbook-identity',{detail:{email:mail||''}}));
  const setStatus=(state)=>{status.dataset.v54State=state;SITE.applyGuestbookLanguage(SITE.gbLanguage());};
- setStatus('signInHelp');
- if(!/^[0-9]+-[a-z0-9_-]+\.apps\.googleusercontent\.com$/.test(clientId)){
-  setStatus('signInConfigured');return;
+ const current=()=>{const s=SITE._v60GuestSession;return s&&s.clientId===clientId&&s.credential&&s.expiresAt>Date.now()+30000?s:null;};
+ function showSigned(s){
+  token.value=s.credential;if(email)email.value=s.email;if(name)name.value=s.name;
+  const panel=host.querySelector('.pm51-google-button');
+  panel.innerHTML='';
+  const card=document.createElement('div');card.className='pm60-google-signed';card.style.cssText='display:flex;align-items:center;flex-wrap:wrap;gap:10px;justify-content:space-between;padding:8px 10px;border:1px solid #c5dfd7;background:#fff;border-radius:7px';
+  const info=document.createElement('span');info.style.cssText='font-size:12px;color:#265d51;overflow-wrap:anywhere';info.textContent='✓ '+s.email;
+  const change=document.createElement('button');change.type='button';change.textContent=SITE.gbLanguage()==='en'?'Switch account':'Ganti akun';change.style.cssText='font-size:11px;padding:6px 9px;border:1px solid #d3e1e3;background:#f7fbfb;border-radius:6px;color:#1d6964;cursor:pointer';
+  change.addEventListener('click',()=>{SITE._v60GuestSession=null;token.value='';if(email)email.value='';if(name)name.value='';notify('');try{window.google?.accounts?.id?.disableAutoSelect();}catch(_){}SITE.guestbookLogin(profile);});
+  card.append(info,change);panel.appendChild(card);setStatus('signed');notify(s.email);
  }
+ SITE.applyGuestbookLanguage(SITE.gbLanguage());
+ const saved=current();if(saved){showSigned(saved);return;}
+ SITE._v60GuestSession=null;notify('');setStatus('signInHelp');
+ if(!/^[0-9]+-[a-z0-9_-]+\.apps\.googleusercontent\.com$/.test(clientId)){setStatus('signInConfigured');return;}
  const load=window.google?.accounts?.id?Promise.resolve():new Promise((resolve,reject)=>{
   const existing=document.querySelector('script[data-asj-gis]');
   if(existing){let checks=0;const timer=setInterval(()=>{if(window.google?.accounts?.id){clearInterval(timer);resolve();}else if(++checks>100){clearInterval(timer);reject(Error('Google Sign-in unavailable'));}},80);return;}
@@ -146,20 +159,20 @@ SITE.guestbookLogin = function(profile){
   script.onerror=()=>reject(Error('Unable to load Google Sign-in'));document.head.appendChild(script);
  });
  load.then(()=>{
-  if(!host.isConnected)return;
+  if(!host.isConnected||current())return;
   google.accounts.id.initialize({client_id:clientId,callback:response=>{
-   const credential=String(response?.credential||'');if(!credential)return;
-   token.value=credential;
-   try{const part=credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');const parsed=JSON.parse(atob(part));
-    if(email)email.value=String(parsed.email||'').slice(0,254);
-    if(name)name.value=String(parsed.name||'').slice(0,100);
-    if(!email?.value){token.value='';setStatus('signInMissing');document.dispatchEvent(new CustomEvent('pm58-guestbook-identity',{detail:{email:''}}));return;}
-    setStatus('signed');
-    document.dispatchEvent(new CustomEvent('pm58-guestbook-identity',{detail:{email:email.value}}));
-   }catch(_){token.value='';setStatus('signInBad');document.dispatchEvent(new CustomEvent('pm58-guestbook-identity',{detail:{email:''}}));}
+   const credential=String(response?.credential||'');if(!credential||!form.isConnected)return;
+   try{
+    const part=credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
+    const parsed=JSON.parse(atob(part));
+    const account=String(parsed.email||'').slice(0,254),fullName=String(parsed.name||'').slice(0,100);
+    if(!account||!parsed.exp||Number(parsed.exp)*1000<Date.now()+30000){setStatus('signInMissing');notify('');return;}
+    const s={credential,clientId,email:account,name:fullName,expiresAt:Number(parsed.exp)*1000};
+    SITE._v60GuestSession=s;showSigned(s);
+   }catch(_){token.value='';setStatus('signInBad');notify('');}
   }});
   google.accounts.id.renderButton(host.querySelector('.pm51-google-button'),{theme:'outline',size:'large',text:'signin_with',shape:'rectangular'});
- }).catch(err=>{setStatus('signInFail');});
+ }).catch(()=>setStatus('signInFail'));
 };
 SITE.guestbookReady=function(form){
  const credential=String(form?.querySelector('[name="googleCredential"]')?.value||'');

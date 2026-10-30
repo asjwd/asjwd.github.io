@@ -11,3 +11,7 @@
 .tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.tool-card{display:flex;gap:17px;align-items:flex-start;border:1px solid #e3ebeb;padding:22px;border-radius:12px;background:#fdfefe}.tool-icon{height:47px;width:47px;flex:0 0 47px;border-radius:11px;background:#e5f1ee;color:#347c73;display:grid;place-items:center;font:800 22px 'Plus Jakarta Sans'}.tool-body{flex:1}.tool-header{display:flex;justify-content:space-between;align-items:center;gap:10px}.tool-header h3{font-size:16px}.tool-header span{color:#8b9fa1;font-size:10px}.tool-body p{font-size:12px;color:#829599;line-height:1.7;margin:9px 0}.tool-body .tags{margin:10px 0 13px}.tool-download,.tool-unavailable{font-size:11px;font-weight:800;color:#2d877f}.tool-unavailable{color:#a1b1b5;font-weight:500}@media(max-width:620px){.tool-grid{grid-template-columns:1fr}}
 /* Layout refinement: full-width software descriptions on narrow screens */
 .tool-card{display:grid;grid-template-columns:47px minmax(0,1fr);align-content:start}.tool-download,.tool-unavailable{grid-column:2}.tool-body{min-width:0}
+
+/* V60: Mail Me envelope matches the other 24px contact logos. */
+#contact-links [data-v28-mail] .v28-contact-icon{display:inline-flex;align-items:center;justify-content:center;min-width:24px;min-height:24px;font-size:24px;line-height:1}
+#contact-links [data-v28-mail] .v28-contact-icon svg,#contact-links [data-v28-mail] .v28-contact-icon img{display:block;width:24px;height:24px;object-fit:contain}

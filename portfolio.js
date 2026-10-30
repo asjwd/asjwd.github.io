@@ -229,7 +229,7 @@ function renderContacts(){
  const mail={id:'built-in-mail',type:'mail',name:currentLanguage==='id'?'Mail Me':'Mail Me',icon:p.mailContactIcon||oldMail?.icon||''};
  const items=[mail,...links];
  el.innerHTML=items.map(c=>{
-   const name=esc(c.name||'Contact');const img=SITE.safeURL(c.icon||'')?`<img src="${esc(c.icon)}" alt="" loading="lazy">`:c.type==='mail'?'✉':(c.platform&&ICONS[c.platform]?ICONS[c.platform]:'↗');
+   const name=esc(c.name||'Contact');const img=SITE.safeURL(c.icon||'')?`<img src="${esc(c.icon)}" alt="" loading="lazy">`:c.type==='mail'?'<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3" fill="#173e52"/><path d="M4 7l8 6 8-6" fill="none" stroke="white" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>':(c.platform&&ICONS[c.platform]?ICONS[c.platform]:'↗');
    const body=`<span class="brand-icon v28-contact-icon">${img}</span><span>${name}</span>`;
    if(c.type==='mail')return `<button type="button" data-v28-mail>${body}</button>`;
    const u=SITE.linkURL(c.url||'');return u?`<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${body}</a>`:'';
