@@ -149,8 +149,26 @@
 #toolRequestModal .pm53-privacy-note{background:transparent!important;border:0!important;border-radius:0!important;padding:0!important;margin:10px 0 8px!important;color:#73838d!important;font-size:11px!important;font-weight:400!important;line-height:1.55!important}
 #toolRequestModal #toolRequestFeedback.v54-download-ready{background:transparent!important;border:0!important;padding:0!important;margin:10px 0 14px!important;color:inherit!important}
 #toolRequestModal #toolRequestFeedback.v54-download-pending{background:transparent!important;border:0!important;padding:0!important;color:#526d79!important;font-size:13px!important}
+</style><style id="pm55-style">
+/* Align bullet with FIRST line of wrapped material title, never its final line. */
+.v34-materials.pm55-materials{list-style:none;padding:0;margin:10px 0 0}
+.pm55-materials li{display:flex;align-items:flex-start;gap:10px;margin:6px 0;min-width:0}
+.pm55-materials li::before{content:"•";flex:0 0 7px;line-height:1.55;color:#203d4a;font-size:15px}
+#academic-courses-list .pm55-material-button,#pm55CourseModal .pm55-material-button{display:inline;min-width:0;line-height:1.55;overflow-wrap:anywhere;white-space:normal;border:0;padding:0;background:transparent;text-align:left;color:#087c7c;font-weight:700;font-size:inherit;cursor:pointer}
+.pm55-material-button span:first-child{overflow-wrap:anywhere}
+.pm55-material-button:hover span:first-child{text-decoration:underline}
+.pm55-material-button .pm55-upn-icon{width:18px;height:18px;object-fit:contain;display:inline-block;vertical-align:middle;margin-left:5px}
+.pm55-external{white-space:nowrap;margin-left:4px;display:inline}
+.pm55-show-more{margin:10px 0 0;border:0;background:transparent;color:#087c7c;font:inherit;font-size:12px;font-weight:750;text-decoration:underline;cursor:pointer;padding:5px 0}
+#pm55CourseModal{z-index:1600}
+#pm55CourseModal .modal-card{max-width:600px;width:calc(100vw - 28px);max-height:85vh;overflow-y:auto;box-sizing:border-box}
+#pm55CourseModal .pm55-materials{margin:17px 0}
+#pm55CoursePeriod{font-size:12px;color:#708a96}
+.pm55-course-close-btn{padding:10px 16px;border:1px solid #cbdfe1;background:#f4f9f9;border-radius:9px;color:#176e70;cursor:pointer;font-weight:700}
+.pm55-download-notice{margin:10px 0;padding:9px 10px;border:1px solid #d8e7e8;border-radius:9px;background:#f7fbfb;color:#5e7380;font-size:12px;line-height:1.5}
+#pm55UpnNotice{font-weight:700;color:#355e61}
 </style></head><body data-page="academic" class="academic-body">
-<script src="common.js?v=54"></script><script>SITE.loadAcademic();</script>
+<script src="common.js?v=55"></script><script>SITE.loadAcademic();</script>
 <header class="academic-topbar v21-ac-topbar"><div class="shell academic-bar">
 <a href="/" class="brand brand-dark v12-academic-brand"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2212%22 fill=%22%23102b3c%22/%3E%3Ctext x=%2232%22 y=%2241%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Arial%22 font-size=%2225%22 font-weight=%22bold%22%3Easj%3C/text%3E%3C/svg%3E" class="v12-round-logo" alt="ASJ"><span class="v12-brand-title">My Academic Portal</span></a>
 <div class="v21-ac-top-actions"><div class="lang-switch" role="group" aria-label="Language / Bahasa"><button type="button" data-ac-lang="id" aria-pressed="true">ID</button><button type="button" data-ac-lang="en" aria-pressed="false">EN</button></div></div>
@@ -178,8 +196,14 @@
 <section id="v34-ac-empty" class="content-section academic-section" hidden><div class="v34-ac-empty-card" data-ac-i18n="portalEmpty">Belum ada pengumuman atau materi yang dibagikan. Silakan kembali lagi nanti.</div></section>
 </main>
 <footer class="site-footer academic-footer v21-ac-footer"><div class="shell footer-inner"><span>© 2026 as.jawwad</span></div></footer>
+<div id="pm55CourseModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="pm55CourseTitle">
+<div class="modal-backdrop" data-pm55-course-close></div><div class="modal-card contact-modal-card">
+<button class="modal-close" type="button" data-pm55-course-close aria-label="Close">×</button>
+<h2 id="pm55CourseTitle"></h2><p id="pm55CoursePeriod"></p>
+<ul id="pm55CourseMaterials" class="v34-materials pm55-materials"></ul>
+<button id="pm55CloseCourse" class="pm55-course-close-btn" type="button" data-pm55-course-close>Close</button></div></div>
 <div id="toolRequestModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="toolRequestTitle">
-<div class="modal-backdrop" data-tool-close></div><div class="modal-card contact-modal-card"><button class="modal-close" type="button" data-tool-close aria-label="Close">×</button><h2 id="toolRequestTitle">Request Download</h2><p id="toolRequestDescription" class="contact-intro"></p><div id="toolRequestFeedback" class="contact-result" role="status" aria-live="polite" hidden></div>
+<div class="modal-backdrop" data-tool-close></div><div class="modal-card contact-modal-card"><button class="modal-close" type="button" data-tool-close aria-label="Close">×</button><h2 id="toolRequestTitle">Request Download</h2><p id="toolRequestDescription" class="contact-intro"></p><p id="pm55UpnNotice" class="pm55-download-notice" hidden></p><p id="pm55MobileNotice" class="pm55-download-notice" hidden></p><div id="toolRequestFeedback" class="contact-result" role="status" aria-live="polite" hidden></div>
 <div id="pm51GuestbookLogin" class="pm51-google" style="border:1px solid #d3e8e8;background:#f4faf9;border-radius:10px;padding:12px;margin:12px 0"></div><form id="toolRequestForm" method="post" target="portfolioGuestbookSubmit"><label for="toolRequesterEmail" data-v54-gb="emailLabel">Email Address</label>
       <input id="toolRequesterEmail" name="email" type="email" readonly aria-readonly="true" required maxlength="254" autocomplete="off" placeholder="Sign in with Google to fill your email">
       <small class="pm53-identity-hint" data-v54-gb="emailHint">Email otomatis terisi dari Google dan tidak dapat diedit.</small>
@@ -192,4 +216,4 @@
       <div class="pm53-privacy-note" data-v54-gb="privacy">Data tidak ditampilkan kepada publik.</div> <div class="honeypot" aria-hidden="true"><label>Company<input name="company" autocomplete="off" tabindex="-1"></label></div><button id="toolRequestSubmit" class="btn btn-primary" type="submit" data-v54-gb="submit">Submit & Get Download Link</button></form></div></div>
 <iframe name="portfolioGuestbookSubmit" class="contact-submit-frame" title="Tool Guestbook confirmation" tabindex="-1" aria-hidden="true"></iframe>
 <iframe id="contactSubmissionFrame" name="portfolioContactSubmit" title="Delivery confirmation" tabindex="-1" class="contact-submit-frame" aria-hidden="true"></iframe>
-<script src="academic.js?v=54"></script><script src="/v46-download.js?v=54" defer></script></body></html>
+<script src="academic.js?v=55"></script><script src="/v55-download.js?v=55" defer></script></body></html>

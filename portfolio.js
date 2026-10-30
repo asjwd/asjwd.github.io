@@ -453,13 +453,15 @@ function submitContactSamePage(event){
 let toolRequestPending=false,toolRequestSent=new Map(),toolRequestNonce='',toolRequestTimer=null,toolCurrentId='';
 function toolMessage(text,ok){const n=document.getElementById('toolRequestFeedback');n.hidden=false;n.className=ok?(text?'v54-download-pending':'v54-download-ready'):'contact-result error';n.textContent=text;}
 
-function toolGuestbookLink(url){if(!/^https:\/\//i.test(String(url||'')))return;const n=document.getElementById('toolRequestFeedback'),a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.className='v36-download-link';a.textContent=currentLanguage==='id'?'↓ Download aplikasi':'↓ Download application';n.appendChild(a);}
+function toolGuestbookLink(url){if(!/^https:\/\//i.test(String(url||'')))return;const n=document.getElementById('toolRequestFeedback'),a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.dataset.downloadResource=toolCurrentId;a.className='v36-download-link';a.textContent=currentLanguage==='id'?'↓ Download aplikasi':'↓ Download application';n.appendChild(a);}
 function openToolRequest(id){
  const tool=(portfolioData?.tools||[]).find(x=>x.id===id);if(!tool)return;
  toolCurrentId=id;
  const modal=document.getElementById('toolRequestModal'),form=document.getElementById('toolRequestForm');
  document.getElementById('toolRequestTitle').textContent=(currentLanguage==='id'?'Buku Tamu: ':'Guestbook: ')+tool.name;
  document.getElementById('toolRequestDescription').textContent=tr(tool,'description');
+ const mobileNotice=document.getElementById('pm55MobileNotice');
+ if(mobileNotice){mobileNotice.hidden=!/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent||'');mobileNotice.textContent=currentLanguage==='id'?'Informasi unduhan: Pengunduhan mungkin tidak berjalan otomatis di HP. Jika mengalami kendala, silakan gunakan komputer atau laptop.':'Download information: Downloads may not start automatically on mobile devices. If you experience issues, please use a desktop or laptop computer.';}
  modal.classList.remove('hidden');document.body.style.overflow='hidden';
  SITE.guestbookLogin(portfolioData?.profile||{});
  document.getElementById('toolRequestId').value=id;
