@@ -71,8 +71,8 @@ function renderPortfolio(data){portfolioData=data;const p=data.profile||{};docum
 function pm24ApplyBranding(profile){
  const round=SITE.safeURL(profile.brandingRound||'');
  const square=SITE.safeURL(profile.brandingSquare||'');
- if(round)document.querySelectorAll('.v12-round-logo,.v12-academic-brand img,.nav-favicon').forEach(i=>{i.src=round;});
- if(square)document.querySelectorAll('link[rel="icon"]').forEach(l=>{l.href=square;});
+ if(round)document.querySelectorAll('.v12-round-logo,.v12-academic-brand img,.nav-favicon').forEach(i=>{if(i.src!==round)i.src=round;});
+ if(square)document.querySelectorAll('link[rel="icon"]').forEach(l=>{if(l.href!==square)l.href=square;});
  const link=document.getElementById('profile-institution');
  if(link){const text=link.textContent.replace(/\s*↗\s*$/,'');const logo=SITE.safeURL(profile.institutionIcon||'');link.innerHTML=(logo?`<img src="${esc(logo)}" class="v24-affiliation-logo" alt="" loading="lazy">`:'')+`<span>${esc(text)}</span><span class="v24-affiliation-arrow" aria-hidden="true">↗</span>`;if(profile.institutionUrl&&SITE.linkURL(profile.institutionUrl))link.href=SITE.linkURL(profile.institutionUrl);}
 }
@@ -131,6 +131,34 @@ function v10ShowMore(kind,length){
  btn.addEventListener('click',()=>{v10Visible[kind]=expanded?step:Math.min(length,n+step);({experiences:renderExperience,projects:renderProjects,publications:renderPublications,otherActivities:renderOtherActivities,tools:renderTools})[kind]();});
  more.appendChild(btn);holder.after(more);
 }
+// V63: incremental rendering preserves image elements and decoded bitmaps when
+// Show more/less is clicked. Only append/remove the changed entries; refresh on
+// language switch or when the underlying ordered item IDs have changed.
+function v63KeepCards(el,items,toHTML,emptyHTML){
+ const keys=items.map((x,i)=>String(x.id??('row-'+i)));
+ const prior=el._v63Keys;
+ const stable=Array.isArray(prior)&&el._v63Language===currentLanguage&&
+  el.children.length===prior.length&&
+  prior.slice(0,Math.min(prior.length,keys.length)).every((k,i)=>k===keys[i]);
+ if(!items.length){
+  if(el.innerHTML!==emptyHTML)el.innerHTML=emptyHTML;
+  el._v63Keys=[];el._v63Language=currentLanguage;return;
+ }
+ if(!stable || el.querySelector('.empty-card')){
+  el.innerHTML=items.map(toHTML).join('');
+ }else if(keys.length>prior.length){
+  el.insertAdjacentHTML('beforeend',items.slice(prior.length).map(toHTML).join(''));
+ }else if(keys.length<prior.length){
+  for(let i=prior.length;i>keys.length;i--)el.lastElementChild?.remove();
+ }
+ el._v63Keys=keys;el._v63Language=currentLanguage;
+}
+function v63BindClickOnce(el,selector,handler){
+ if(!el._v63Clicks)el._v63Clicks=new Set();
+ if(el._v63Clicks.has(selector))return;
+ el._v63Clicks.add(selector);
+ el.addEventListener('click',e=>{const target=e.target.closest(selector);if(target&&el.contains(target))handler(target);});
+}
 // V15: optional institution/company logos replace numbered badges.
 function experienceLogo(x){
  const src=SITE.safeURL(x.companyIcon||x.organizationIcon||'');
@@ -158,8 +186,16 @@ function v19SmallLogo(ref,cls='v19-small-logo'){
  const url=SITE.safeURL(ref||'');return url?`<img class="${cls}" src="${esc(url)}" alt="" width="30" height="30" loading="lazy" decoding="async">`:'';
 }
 
-function renderExperience(){const el=document.getElementById('experience-list');const all=portfolioData.experiences||[],a=all.slice(0,v10Visible.experiences);el.innerHTML=all.length?a.map(x=>`<button class="experience-item" data-experience="${esc(x.id)}"><div class="experience-icon v15-company-icon">${experienceLogo(x)}</div><div class="experience-main"><div class="experience-top"><h3>${esc(tr(x,'role'))}</h3><span>${esc(v19Period(x))}</span></div><p>${esc(x.organization||'')}${x.location?' · '+esc(x.location):''}</p></div></button>`).join(''):`<div class="empty-card">${t('emptyExperience')}</div>`;el.querySelectorAll('[data-experience]').forEach(b=>b.addEventListener('click',()=>openExperience(b.dataset.experience)));v10ShowMore('experiences',all.length);}
-function renderProjects(){const all=portfolioData.projects||[],list=all.slice(0,v10Visible.projects);const el=document.getElementById('project-list');el.innerHTML=all.length?list.map(x=>`<button class="project-card" data-project="${esc(x.id)}"><div class="project-cover">${SITE.safeURL(x.cover)?SITE.image(x.cover,tr(x,'title'),'',720):`<span class="project-symbol">${isModel(x)?'◎':'▧'}</span>`}${x.partnerName?`<span class="v21-partner-badge">${v19SmallLogo(x.partnerLogo,'v21-partner-logo')}<span class="v21-partner-name">${esc(x.partnerName)}</span></span>`:''}</div><div class="project-meta">${esc(v19Period(x))} ${x.model?' · '+esc(x.model):''}</div><h3>${esc(tr(x,'title'))}</h3><p>${esc(tr(x,'description'))}</p></button>`).join(''):`<div class="empty-card wide">${t('emptyProject')}</div>`;el.querySelectorAll('[data-project]').forEach(b=>b.addEventListener('click',()=>openProject(b.dataset.project)));v10ShowMore('projects',all.length);}
+function renderExperience(){
+ const el=document.getElementById('experience-list'),all=portfolioData.experiences||[],a=all.slice(0,v10Visible.experiences);
+ v63KeepCards(el,a,x=>`<button class="experience-item" data-experience="${esc(x.id)}"><div class="experience-icon v15-company-icon">${experienceLogo(x)}</div><div class="experience-main"><div class="experience-top"><h3>${esc(tr(x,'role'))}</h3><span>${esc(v19Period(x))}</span></div><p>${esc(x.organization||'')}${x.location?' · '+esc(x.location):''}</p></div></button>`,`<div class="empty-card">${t('emptyExperience')}</div>`);
+ v63BindClickOnce(el,'[data-experience]',b=>openExperience(b.dataset.experience));v10ShowMore('experiences',all.length);
+}
+function renderProjects(){
+ const all=portfolioData.projects||[],list=all.slice(0,v10Visible.projects),el=document.getElementById('project-list');
+ v63KeepCards(el,list,x=>`<button class="project-card" data-project="${esc(x.id)}"><div class="project-cover">${SITE.safeURL(x.cover)?SITE.image(x.cover,tr(x,'title'),'',720):`<span class="project-symbol">${isModel(x)?'◎':'▧'}</span>`}${x.partnerName?`<span class="v21-partner-badge">${v19SmallLogo(x.partnerLogo,'v21-partner-logo')}<span class="v21-partner-name">${esc(x.partnerName)}</span></span>`:''}</div><div class="project-meta">${esc(v19Period(x))} ${x.model?' · '+esc(x.model):''}</div><h3>${esc(tr(x,'title'))}</h3><p>${esc(tr(x,'description'))}</p></button>`,`<div class="empty-card wide">${t('emptyProject')}</div>`);
+ v63BindClickOnce(el,'[data-project]',b=>openProject(b.dataset.project));v10ShowMore('projects',all.length);
+}
 // Prefer the actual publisher hostname. If a DOI resolves to doi.org, try a known
 // publisher inferred from journal/publisher metadata; an optional journalWebsite
 // in the Admin overrides inference. Never render an executable protocol.
@@ -184,17 +220,21 @@ function v10PublicationIcon(x){
  // V24: published journal icons are local GitHub assets; unavailable icons show fallback.
  return '<span class="v10-pub-fallback" aria-hidden="true">▤</span>';
 }
-function renderPublications(){const all=portfolioData.publications||[],list=all.slice(0,v10Visible.publications),el=document.getElementById('publication-list');el.innerHTML=all.length?list.map(x=>`<article class="publication-item v10-publication"><span class="publication-index v10-journal-icon" title="${esc(v10JournalHost(x)||'Jurnal')}">${v10PublicationIcon(x)}</span><div><span class="pub-year">${esc(v19PubDate(x))}</span><h3>${esc(tr(x,'title'))}</h3><p>${esc(x.authors||'')}</p><small>${esc(x.journal||'')}</small></div>${SITE.linkURL(x.url||x.doi)?SITE.external(x.url||x.doi,t('readPaper'),'pub-link'):''}</article>`).join(''):`<div class="empty-card">${t('emptyPublication')}</div>`;v10ShowMore('publications',all.length);}
+function renderPublications(){
+ const all=portfolioData.publications||[],list=all.slice(0,v10Visible.publications),el=document.getElementById('publication-list');
+ v63KeepCards(el,list,x=>`<article class="publication-item v10-publication"><span class="publication-index v10-journal-icon" title="${esc(v10JournalHost(x)||'Jurnal')}">${v10PublicationIcon(x)}</span><div><span class="pub-year">${esc(v19PubDate(x))}</span><h3>${esc(tr(x,'title'))}</h3><p>${esc(x.authors||'')}</p><small>${esc(x.journal||'')}</small></div>${SITE.linkURL(x.url||x.doi)?SITE.external(x.url||x.doi,t('readPaper'),'pub-link'):''}</article>`,`<div class="empty-card">${t('emptyPublication')}</div>`);
+ v10ShowMore('publications',all.length);
+}
 /** V18 — Activities share the existing detail modal but not the Experience list. */
 function renderOtherActivities(){
  const root=document.getElementById('other-activities-list');if(!root)return;
  const all=portfolioData.otherActivities||[],n=v10Visible.otherActivities||5;
- root.innerHTML=all.length?all.slice(0,n).map(x=>`<button type="button" class="v18-activity" data-other-activity="${esc(x.id)}">
+ v63KeepCards(root,all.slice(0,n),x=>`<button type="button" class="v18-activity" data-other-activity="${esc(x.id)}">
  <span class="v18-activity-mark" aria-hidden="true">${v19SmallLogo(x.organizerIcon)||activityIcon(x.type)}</span>
  <span class="v18-activity-info"><span class="v18-activity-meta">${esc(v19Period(x))}${x.type?` · ${esc(tr(x,'type'))}`:''}${x.role?` · ${esc(tr(x,'role'))}`:''}</span>
  <strong>${esc(tr(x,'title'))}</strong><small>${esc(tr(x,'organizer'))}${x.location?' · '+esc(tr(x,'location')):''}</small></span>
- </button>`).join(''):`<div class="empty-card">${t('emptyOtherActivities')}</div>`;
- root.querySelectorAll('[data-other-activity]').forEach(b=>b.addEventListener('click',()=>openOtherActivity(b.dataset.otherActivity)));
+ </button>`,`<div class="empty-card">${t('emptyOtherActivities')}</div>`);
+ v63BindClickOnce(root,'[data-other-activity]',b=>openOtherActivity(b.dataset.otherActivity));
  v10ShowMore('otherActivities',all.length);
 }
 function activityIcon(type){
@@ -214,9 +254,8 @@ function openOtherActivity(id){
 }
 function renderTools(){
  const all=portfolioData.tools||[],list=all.slice(0,v10Visible.tools),el=document.getElementById('tools-list');
- el.innerHTML=all.length?list.map(x=>`<div class="tool-card"><div class="tool-icon">${esc((x.name||'A')[0])}</div><div class="tool-body"><div class="tool-header"><h3>${esc(x.name)}</h3>${x.version?`<span>Version ${esc(x.version)}</span>`:''}</div><p>${esc(tr(x,'description'))}</p><div class="tags">${trArray(x,'features').map(f=>`<span class="tag">${esc(f)}</span>`).join('')}</div></div><button type="button" class="btn v17-request-button" data-request-tool="${esc(x.id)}" ${x.requestAvailable===false?'disabled title="Not yet available"':''}>${currentLanguage==='id'?'Minta Link':'Request Download'}</button></div>`).join(''):`<div class="empty-card">${t('emptyTools')}</div>`;
- el.querySelectorAll('[data-request-tool]').forEach(btn=>btn.addEventListener('click',()=>openToolRequest(btn.dataset.requestTool)));
- v10ShowMore('tools',all.length);
+ v63KeepCards(el,list,x=>`<div class="tool-card"><div class="tool-icon">${esc((x.name||'A')[0])}</div><div class="tool-body"><div class="tool-header"><h3>${esc(x.name)}</h3>${x.version?`<span>Version ${esc(x.version)}</span>`:''}</div><p>${esc(tr(x,'description'))}</p><div class="tags">${trArray(x,'features').map(f=>`<span class="tag">${esc(f)}</span>`).join('')}</div></div><button type="button" class="btn v17-request-button" data-request-tool="${esc(x.id)}" ${x.requestAvailable===false?'disabled title="Not yet available"':''}>${currentLanguage==='id'?'Minta Link':'Request Download'}</button></div>`,`<div class="empty-card">${t('emptyTools')}</div>`);
+ v63BindClickOnce(el,'[data-request-tool]',b=>openToolRequest(b.dataset.requestTool));v10ShowMore('tools',all.length);
 }
 const ICONS={linkedin:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0a66c2"/><path d="M5 10h3v9H5zm1.5-5a1.7 1.7 0 110 3.4 1.7 1.7 0 010-3.4zM10 10h2.8v1.3c.5-.9 1.5-1.5 2.9-1.5 3 0 3.3 2 3.3 4.5V19h-3v-4.3c0-1.1 0-2.4-1.6-2.4-1.6 0-1.8 1.2-1.8 2.4V19H10z" fill="white"/></svg>',instagram:'<svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="ig"><stop stop-color="#feda75"/><stop offset=".45" stop-color="#d62976"/><stop offset="1" stop-color="#4f5bd5"/></linearGradient></defs><rect x="0" y="0" width="24" height="24" rx="6" fill="url(#ig)"/><rect x="5" y="5" width="14" height="14" rx="4" stroke="white" stroke-width="2" fill="none"/><circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" fill="none"/><circle cx="17" cy="7" r="1.2" fill="white"/></svg>',youtube:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="m10 8 7 4-7 4z" fill="#fff"/></svg>',orcid:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#a6ce39"/><circle cx="6.8" cy="7.5" r="1.2" fill="#fff"/><path fill="#fff" d="M6 10h1.7v8H6zm4.1-4h4.2c4.2 0 6.7 2.3 6.7 6s-2.5 6-6.7 6h-4.2zm3 2.2v7.6h1.2c2.7 0 4.3-1.3 4.3-3.8s-1.6-3.8-4.3-3.8z"/></svg>'};
 function linkMarkup(label,url,icon){const safe=SITE.linkURL(url);if(!safe)return '';return `<a href="${esc(safe)}" target="_blank" rel="noopener noreferrer"><span class="brand-icon">${icon}</span><span>${esc(label)}</span></a>`;}

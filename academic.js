@@ -73,7 +73,7 @@ function acApplyBrand(profile){
  if(square)document.querySelectorAll('link[rel="icon"]').forEach(link=>link.href=square);
 }
 function acLoadSite(data){
- acData=data;acApplyBrand(data.profile||{});
+ acData=data;acApplyBrand(data.profile||{});ac63LoadInstitutionLogo(data.profile||{});
  const boards=acBoards(),sel=$('gradeBoardSelect');
  sel.innerHTML=`<option value="">${E(T('selectPlaceholder'))}</option>`+boards.map(b=>`<option value="${E(b.id)}">${E(b.course||'')} · ${E(b.className||'')} · ${E(b.period||'')}</option>`).join('');
  sel.disabled=!boards.length;
@@ -137,11 +137,38 @@ function acCoursesAvailable(){
 }
 function acToolsAvailable(){return (Array.isArray(acData?.tools)?acData.tools:[]).filter(t=>t?.requestAvailable===true);}
 function acVisibilitySet(el,show){if(!el)return;el.hidden=!show;if(show)el.style.removeProperty('display');else el.style.display='none';}
-// V55: separate list bullet ensures first-line placement for multiline book names.
-const PM55_UPN_ICON='/assets/icons/2c0cd0e3bec63ba0.png'; // Same cached UPN logo as About Me.
+// V63: the restricted-material marker uses exactly the logo shown in About Me.
+// The public academic subset intentionally does not include institutionIcon; read it
+// from the already-published public Portfolio profile (no private Drive ID or URL here).
+let ac63InstitutionLogo='',ac63LogoRequest=null;
+function ac63LogoBadge(){
+ return `<span class="pm63-upn-slot" title="${E(T('upnOnly'))}"><span class="pm63-upn-fallback">UPN</span></span>`;
+}
+function ac63ApplyInstitutionLogo(){
+ if(!ac63InstitutionLogo)return;
+ document.querySelectorAll('.pm63-upn-slot').forEach(slot=>{
+  if(slot.dataset.logoSrc===ac63InstitutionLogo)return;
+  slot.dataset.logoSrc=ac63InstitutionLogo;
+  const img=document.createElement('img');
+  img.className='pm55-upn-icon';img.alt='';img.loading='lazy';img.decoding='async';
+  img.addEventListener('load',()=>{if(img.isConnected)slot.classList.add('pm63-upn-ready');},{once:true});
+  img.addEventListener('error',()=>{slot.classList.remove('pm63-upn-ready');slot.dataset.logoSrc='';img.remove();},{once:true});
+  img.src=ac63InstitutionLogo;slot.prepend(img);
+ });
+}
+function ac63LoadInstitutionLogo(profile){
+ const direct=SITE.safeURL(profile?.institutionIcon||'');
+ if(direct){ac63InstitutionLogo=direct;ac63ApplyInstitutionLogo();return;}
+ if(ac63LogoRequest)return;
+ ac63LogoRequest=SITE.loadPortfolio().then(data=>{
+  const logo=SITE.safeURL(data?.profile?.institutionIcon||'');
+  if(logo){ac63InstitutionLogo=logo;ac63ApplyInstitutionLogo();}
+ }).catch(()=>{ /* Keep readable UPN fallback when the public profile is unavailable. */ });
+}
+// A separate list bullet keeps the bullet on the first line for long titles.
 function ac55MaterialHTML(m){
  const name=String(m.title||(acLanguage==='id'?'Materi':'Material'));
- const badge=m.upnOnly===true?` <img class="pm55-upn-icon" src="${PM55_UPN_ICON}" alt="${E(T('upnOnly'))}" title="${E(T('upnOnly'))}" loading="lazy">`:'';
+ const badge=m.upnOnly===true?ac63LogoBadge():'';
  return `<li><button type="button" class="v42-material-link pm55-material-button" data-material-request="${E(m.materialRequestId)}" aria-label="${E(name)}${m.upnOnly===true?' — '+E(T('upnOnly')):''}"><span>${E(name)}</span>${badge}<span class="pm55-external" aria-hidden="true">↗</span></button></li>`;
 }
 function ac55PopulateCourseMore(id){
@@ -150,7 +177,7 @@ function ac55PopulateCourseMore(id){
  const modal=$('pm55CourseModal'),list=$('pm55CourseMaterials');if(!modal||!list)return;
  $('pm55CourseTitle').textContent=ac55CourseTitle(course);
  $('pm55CoursePeriod').textContent=course.period||'';
- list.innerHTML=acCourseMaterials(course).map(ac55MaterialHTML).join('');
+ list.innerHTML=acCourseMaterials(course).map(ac55MaterialHTML).join('');ac63ApplyInstitutionLogo();
  list.querySelectorAll('[data-material-request]').forEach(b=>b.addEventListener('click',()=>{ac55CloseCourseMore();acOpenRequest(b.dataset.materialRequest);}));
  $('pm55CloseCourse').textContent=T('close');
 }
@@ -189,6 +216,7 @@ function acRenderVisibility(){
   const list=materials.length?`<ul class="v34-materials pm55-materials">${materials.slice(0,4).map(ac55MaterialHTML).join('')}</ul>${materials.length>4?`<button type="button" class="pm55-show-more" data-course-more="${E(c.id)}">${T('moreMaterials')}</button>`:''}`:`<p class="v35-link-pending">${T('noMaterials')}</p>`;
   return `<article class="v34-ac-card"><h3>${E(ac55CourseTitle(c))}</h3>${c.period?`<div class="v34-course-meta">${E(c.period)}</div>`:''}${acDescription(c)?`<p>${E(acDescription(c))}</p>`:''}${list}</article>`;
  }).join('');
+ ac63ApplyInstitutionLogo();
  $('academic-courses-list').querySelectorAll('[data-material-request]').forEach(b=>b.addEventListener('click',()=>acOpenRequest(b.dataset.materialRequest)));
  $('academic-courses-list').querySelectorAll('[data-course-more]').forEach(b=>b.addEventListener('click',()=>ac55OpenCourseMore(b.dataset.courseMore)));
  if(ac55OpenCourseId)ac55PopulateCourseMore(ac55OpenCourseId);
