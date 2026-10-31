@@ -43,7 +43,7 @@ const CT66={data:null,items:[],owner:false,student:false,serverOffset:0,rows:3,s
  },
  courseList(){return (this.data?.courses||[]).map(c=>String(c.titleId||c.title||c.course||'')).filter(Boolean);},
  renderLogin(){const el=document.getElementById('ct66Login');if(!el)return;
-  const s=this.session();if(s){el.innerHTML='<span class="ct66-signed">✓ '+this.esc(s.email)+'</span><button type="button" class="ct66-small" id="ct66Switch">'+this.msg('Ganti akun','Switch account')+'</button>';
+  const s=this.session();if(s){el.innerHTML='<span class="ct66-signed">✓ '+this.esc(this.owner?'Lecturer':this.student?s.email:this.msg('Akun Google terhubung','Google account connected'))+'</span><button type="button" class="ct66-small" id="ct66Switch">'+this.msg('Ganti akun','Switch account')+'</button>';
    el.querySelector('#ct66Switch').onclick=()=>{SITE._v60GuestSession=null;try{google.accounts.id.disableAutoSelect();}catch(e){}document.dispatchEvent(new CustomEvent('pm58-guestbook-identity',{detail:{email:''}}));this.renderLogin();};return;}
   el.innerHTML='<span class="ct66-login-caption">'+this.msg('Masuk dengan Google','Sign in with Google')+'</span><span id="ct66GoogleBtn"></span>';
   this.googleButton();
@@ -72,7 +72,7 @@ const CT66={data:null,items:[],owner:false,student:false,serverOffset:0,rows:3,s
  tickDeletes(){if(this.owner)return;const box=document.getElementById('ct66ModalBody');if(!box)return;box.querySelectorAll('[data-ct66-delete]').forEach(b=>{const until=Number(b.dataset.until||0),left=Math.max(0,Math.ceil((until-Date.now()-this.serverOffset)/1000));if(!left)b.remove();else b.textContent='Delete '+left+'s';});},
  async refresh(){if(!this.data)return;
   try{const res=await this.api({operation:'list'});this.items=res.items||[];this.owner=!!res.owner;this.student=!!res.student;
-   this.serverOffset=(res.serverNow||Date.now())-Date.now();this.feedback(this.session()&&!this.owner&&!this.student?this.msg('Class Talk hanya menerima akun mahasiswa 11 digit NPM@student.upnjatim.ac.id.','Class Talk requires a verified 11-digit student NPM@student.upnjatim.ac.id account.'):'' );this.render();if(this.opened)this.openDiscussion(this.opened,true);
+   this.serverOffset=(res.serverNow||Date.now())-Date.now();if(this.session())this.renderLogin();this.feedback(this.session()&&!this.owner&&!this.student?this.msg('Class Talk hanya menerima akun mahasiswa 11 digit NPM@student.upnjatim.ac.id.','Class Talk requires a verified 11-digit student NPM@student.upnjatim.ac.id account.'):'' );this.render();if(this.opened)this.openDiscussion(this.opened,true);
   }catch(err){this.feedback(err.message||String(err));}
  },
  roots(){const replies=this.items.filter(x=>x.parentId),byRoot={};replies.forEach(r=>{(byRoot[r.parentId]||=[]).push(r);});
@@ -94,7 +94,7 @@ const CT66={data:null,items:[],owner:false,student:false,serverOffset:0,rows:3,s
  controls(item){const signed=this.session(),timeLeft=item.canDeleteUntil-Date.now()-this.serverOffset;
   return `${signed&&(this.owner||(item.mine&&timeLeft>0))&&!item.deleted?`<button class="ct66-small ct66-danger" data-ct66-delete="${this.esc(item.id)}" data-until="${item.canDeleteUntil}">Delete ${this.owner?'':Math.max(0,Math.ceil(timeLeft/1000))+'s'}</button>`:''}${this.owner?`<button class="ct66-small" data-ct66-hide="${this.esc(item.id)}" data-value="${item.hidden?'false':'true'}">${item.hidden?'Unhide':'Hide'}</button>`:''}`;
  },
- privateLine(item){return this.owner&&item.privateEmail?`<small class="ct66-private">${this.esc(item.privateName)} · ${this.esc(item.privateEmail)}</small>`:'';},
+ privateLine(item){return this.owner&&!item.isLecturer&&item.display!=='Lecturer'&&item.privateEmail?`<small class="ct66-private">${this.esc(item.privateName)} · ${this.esc(item.privateEmail)}</small>`:'';},
  openDiscussion(id,keep=false){const item=this.items.find(x=>x.id===id&&!x.parentId);if(!item){this.close();return;}
   this.opened=id;this.open();const replies=this.items.filter(x=>x.parentId===id).sort((a,b)=>Date.parse(a.createdAt)-Date.parse(b.createdAt));
   document.getElementById('ct66ModalTitle').textContent=item.display;

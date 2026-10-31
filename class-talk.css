@@ -46,7 +46,11 @@
 @media(max-width:1199px){.ct66-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:850px){.ct66-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.ct66-grid{grid-template-columns:minmax(0,1fr)}.ct66-card{min-height:155px}.ct66-modal{padding:17px}.ct66-heading{align-items:flex-start}.ct66-login{justify-content:flex-start}.ct66-controls{align-items:stretch}}
-/* Academic-only appointment button */
-.v66-appointment{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:9px;border:1px solid #bbd4d5;padding:10px 13px;background:#f2f8f8;color:#15565b;font-size:12px;font-weight:750;text-decoration:none;white-space:nowrap}
-.v66-appointment:hover{background:#e6f3f2}
-@media(max-width:600px){.v66-appointment{font-size:10px;padding:8px 9px}.v21-ac-top-actions{gap:7px}.v12-brand-title{font-size:12px}}
+/* V67 Academic-only appointment button, visually aligned with the main site's Academic Portal nav button. */
+.v66-appointment{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 17px;min-height:40px;border:1px solid #1b4953;border-radius:8px;background:#1b4953;color:#fff;font-size:12px;font-weight:750;text-decoration:none;white-space:nowrap;line-height:1.2}
+.v66-appointment:visited{color:#fff}
+.v66-appointment:hover{background:#143b44;border-color:#143b44;color:#fff}
+.v66-appointment:focus-visible{outline:2px solid #35a9a0;outline-offset:3px}
+.v66-appointment[hidden]{display:none!important}
+.v67-appt-icon{font-size:16px;line-height:1}
+@media(max-width:620px){.v66-appointment{width:39px;height:39px;min-height:39px;padding:0;flex:none}.v67-appt-icon{font-size:19px}.v67-appt-label{display:none}.v21-ac-top-actions{gap:8px}.v12-brand-title{font-size:12px}}
