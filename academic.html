@@ -186,9 +186,9 @@
 #toolRequestModal #toolRequestSubmit:disabled{opacity:.55!important;cursor:not-allowed!important;
  background:#94a4aa!important;color:#fff!important}
 </style>
-<style id="v64-course-columns">
-/* V64 — roomier Academic Portal course cards on standard laptops.
-   This targets Courses & Materials only; other service grids are unchanged. */
+<style id="v65-course-columns">
+/* V65: Maksimal tiga kolom Courses & Materials pada desktop, termasuk
+   monitor lebar. Susunan tablet/HP dipertahankan dari V64. */
 #academic-courses-list {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -197,10 +197,6 @@
 }
 @media (max-width: 620px) {
   #academic-courses-list { grid-template-columns: minmax(0, 1fr); }
-}
-@media (min-width: 1600px) {
-  .academic-body .shell { width: min(1440px, calc(100% - 100px)); }
-  #academic-courses-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 </style>
 </head><body data-page="academic" class="academic-body">
