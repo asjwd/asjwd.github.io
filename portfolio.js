@@ -297,6 +297,13 @@ function collectSlides(){
   const key=x.sourceId||x.activityId||x.projectId?String(x.sourceId||x.activityId||x.projectId):String(x.title||'').trim().toLowerCase()?('activity:'+String(x.title).trim().toLowerCase()):('manual:'+String(x.id||i));
   add(key,x.url,true);for(const ph of x.gallery||[])add(key,ph.url,true);
  }
+ // V71: degree-gallery pictures participate only when explicitly marked Featured on Home.
+ // Use one selection group per degree, like the existing one-group-per-activity behavior.
+ const degrees=d.profile?.education||{};
+ for(const level of ['bachelor','master','doctorate']){
+  const degree=degrees[level];if(!degree||!Array.isArray(degree.gallery))continue;
+  for(const ph of degree.gallery){if(ph&&ph.featured===true)add('education:'+level,ph.url,true);}
+ }
  const sources=[['projects',d.projects||[]],['experiences',d.experiences||[]],['otherActivities',d.otherActivities||[]]];
  let anyFeatured=false;
  for(const [type,items] of sources)for(const [i,x] of items.entries())for(const ph of x.gallery||[]){if(ph.featured)anyFeatured=true;const name=String(x.title||x.role||'').trim().toLowerCase();const source=name?'activity:'+name:type+':'+String(x.id||i);add(source,ph.url,!!ph.featured);}
