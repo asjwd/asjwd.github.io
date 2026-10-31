@@ -29,6 +29,7 @@ function acTheme(){
  sel.value=value;
  if(acData){acRenderGrade();acRenderTools();acRenderVisibility();acUpdateRequestLanguage();}
  SITE.applyGuestbookLanguage(acLanguage);
+ if(window.CT66)CT66.applyLanguage();
  try{localStorage.setItem('portfolioLangV7',acLanguage);}catch(_){ }
 }
 // V54: translated descriptions are prepared at Publish in private Apps Script.
@@ -74,6 +75,9 @@ function acApplyBrand(profile){
 }
 function acLoadSite(data){
  acData=data;acApplyBrand(data.profile||{});ac63LoadInstitutionLogo(data.profile||{});
+ const appt=$('v66Appointment'),link=String(data.profile?.appointmentLink||'').trim();
+ if(appt&&/^https:\/\/(?:calendar\.google\.com|calendar\.app\.google)\//i.test(link)){appt.href=link;appt.hidden=false;}else if(appt)appt.hidden=true;
+ if(window.CT66)CT66.init(data);
  const boards=acBoards(),sel=$('gradeBoardSelect');
  sel.innerHTML=`<option value="">${E(T('selectPlaceholder'))}</option>`+boards.map(b=>`<option value="${E(b.id)}">${E(b.course||'')} · ${E(b.className||'')} · ${E(b.period||'')}</option>`).join('');
  sel.disabled=!boards.length;

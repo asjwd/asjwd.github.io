@@ -1,0 +1,52 @@
+/* V66 Class Talk — independent from Courses layout (max 3 columns). */
+.ct66-section{padding-bottom:60px}
+.ct66-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.ct66-heading h2{font-size:clamp(24px,2.4vw,32px);margin:6px 0}
+.ct66-heading p{font-size:13px;color:#6d8690;margin:0}
+.ct66-login{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;min-width:180px}
+.ct66-login-caption{font-size:12px;color:#506f78;font-weight:700}
+.ct66-signed{font-size:12px;color:#1d6b65;overflow-wrap:anywhere}
+.ct66-controls{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:22px 0 17px;flex-wrap:wrap}
+.ct66-controls select,.ct66-composer select{padding:10px 12px;border:1px solid #d0e1e5;border-radius:9px;background:#fff;color:#224454;font-size:13px}
+.ct66-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.ct66-card{min-width:0;min-height:190px;text-align:left;background:#fff;border:1px solid #d8e5e8;border-radius:14px;padding:18px;box-shadow:0 5px 16px #17364809;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:8px;color:#1b3a48;font:inherit;transition:border-color .15s,box-shadow .15s}
+.ct66-card:hover{border-color:#8cb9bc;box-shadow:0 8px 24px #17364814}
+.ct66-card:focus-visible{outline:2px solid #158d88;outline-offset:3px}
+.ct66-kind{font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#15817e}
+.ct66-author{font-size:15px;line-height:1.4;overflow-wrap:anywhere}
+.ct66-card small{font-size:11px;color:#708a95}
+.ct66-preview{font-size:12px;line-height:1.65;color:#435f6d;overflow-wrap:anywhere;white-space:pre-wrap;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden}
+.ct66-meta{font-size:10px;color:#82979e;margin-top:auto;padding-top:8px}
+.ct66-lecturer{text-decoration:underline;text-underline-offset:2px}
+.ct66-more-wrap{text-align:center;margin-top:23px}
+.ct66-primary,.ct66-small{font:inherit;border-radius:8px;cursor:pointer}
+.ct66-primary{background:#197f7c;border:1px solid #197f7c;color:#fff;padding:10px 16px;font-size:12px;font-weight:700}
+.ct66-small{background:#f2f8f8;border:1px solid #c9dcdd;color:#246b70;padding:7px 11px;font-size:12px}
+.ct66-danger{color:#a03c33;border-color:#efcdc8;background:#fff8f6}
+.ct66-modal-open{overflow:hidden}
+.ct66-backdrop{position:fixed;inset:0;z-index:2400;background:#122e3bb0;display:flex;align-items:center;justify-content:center;padding:15px;box-sizing:border-box}
+.ct66-modal{width:min(670px,100%);max-height:min(88vh,860px);overflow:auto;background:#fff;border-radius:17px;padding:24px;box-sizing:border-box;box-shadow:0 20px 60px #09232c50}
+.ct66-modal-bar{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid #e4ebec;padding-bottom:14px}
+.ct66-modal-bar h3{margin:0;font-size:21px;overflow-wrap:anywhere}
+.ct66-modal-close{border:0;background:#edf3f3;border-radius:8px;font-size:23px;color:#4d7479;width:36px;height:36px;cursor:pointer;flex:none}
+.ct66-thread-root,.ct66-reply{padding:17px 0;border-bottom:1px solid #e6eeef;overflow-wrap:anywhere}
+.ct66-thread-root p,.ct66-reply p{font-size:13px;line-height:1.7;white-space:pre-wrap;margin:10px 0}
+.ct66-thread-meta,.ct66-reply small{font-size:11px;color:#7a8e95}
+.ct66-reply{padding-left:20px;border-left:2px solid #e4eff0;margin-left:10px}
+.ct66-actions{display:flex;gap:8px;margin-top:9px}
+.ct66-private{display:block;color:#9b5434!important;font-size:11px!important;margin-top:5px;overflow-wrap:anywhere}
+.ct66-composer{display:grid;gap:11px;padding-top:15px}
+.ct66-composer h4{margin:0}
+.ct66-composer label{font-size:12px;font-weight:700;display:grid;gap:7px}
+.ct66-composer textarea{width:100%;min-height:95px;resize:vertical;border:1px solid #d1e0e2;border-radius:9px;padding:12px;box-sizing:border-box;font:13px/1.6 inherit;color:#1e3d4b}
+.ct66-composer .ct66-checkbox{display:flex;align-items:center;gap:7px;font-weight:500}
+.ct66-composer button{justify-self:start}
+.ct66-empty,.ct66-nologin{font-size:13px;color:#708790}
+#ct66Status{color:#96602e;font-size:12px;min-height:1px}
+@media(max-width:1199px){.ct66-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:850px){.ct66-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.ct66-grid{grid-template-columns:minmax(0,1fr)}.ct66-card{min-height:155px}.ct66-modal{padding:17px}.ct66-heading{align-items:flex-start}.ct66-login{justify-content:flex-start}.ct66-controls{align-items:stretch}}
+/* Academic-only appointment button */
+.v66-appointment{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:9px;border:1px solid #bbd4d5;padding:10px 13px;background:#f2f8f8;color:#15565b;font-size:12px;font-weight:750;text-decoration:none;white-space:nowrap}
+.v66-appointment:hover{background:#e6f3f2}
+@media(max-width:600px){.v66-appointment{font-size:10px;padding:8px 9px}.v21-ac-top-actions{gap:7px}.v12-brand-title{font-size:12px}}
