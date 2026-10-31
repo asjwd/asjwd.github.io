@@ -54,3 +54,25 @@
 .v66-appointment[hidden]{display:none!important}
 .v67-appt-icon{font-size:16px;line-height:1}
 @media(max-width:620px){.v66-appointment{width:39px;height:39px;min-height:39px;padding:0;flex:none}.v67-appt-icon{font-size:19px}.v67-appt-label{display:none}.v21-ac-top-actions{gap:8px}.v12-brand-title{font-size:12px}}
+
+/* V70: Lecturer-only deleted archive, muted threads, post composer and emoji picker. */
+.ct70-deleted-posts{margin:38px 0 0;padding-top:20px;border-top:1px solid #dbe6e9}
+.ct70-deleted-posts[hidden],.ct70-emoji-picker[hidden],.ct70-success[hidden]{display:none!important}
+.ct70-deleted-posts summary{cursor:pointer;color:#647982;font-size:13px;font-weight:700;padding:9px 0}
+.ct70-deleted-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding-top:10px}
+.ct70-deleted-card{display:flex;flex-direction:column;gap:7px;text-align:left;border:1px solid #e0e4e6;background:#f3f5f6;border-radius:10px;padding:12px;color:#89949a;cursor:pointer;min-width:0;font-style:italic}
+.ct70-deleted-card span{overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow-wrap:anywhere}
+.ct70-deleted-card small{font-size:11px}
+.ct70-deleted{color:#8d989d!important;background:#f4f6f7!important;font-style:italic;padding-left:18px!important;margin-left:12px!important;opacity:.86}
+.ct70-deleted *{color:#89969a!important;font-style:italic}
+.ct70-form-footer{display:flex;align-items:center;gap:10px;justify-content:flex-start}
+.ct70-emoji-wrap{position:relative}
+.ct70-emoji-button{font-size:17px;line-height:1.2;min-height:34px}
+.ct70-emoji-picker{position:absolute;bottom:calc(100% + 7px);left:0;z-index:3;background:#fff;border:1px solid #d5e4e6;border-radius:12px;box-shadow:0 8px 28px #18394225;padding:9px;display:grid;grid-template-columns:repeat(6,31px);gap:2px}
+.ct70-emoji-picker button{border:0;background:transparent;cursor:pointer;font-size:19px;width:31px;height:31px;border-radius:6px}
+.ct70-emoji-picker button:hover{background:#ecf6f6}
+.ct70-success{background:#eaf7f2;border:1px solid #b7e0d0;color:#176751;font-size:12px;border-radius:8px;padding:9px 12px}
+.ct66-composer .ct70-display-name input{width:100%;box-sizing:border-box;border:1px solid #d1e0e2;border-radius:8px;padding:10px 12px;color:#1e3d4b}
+.ct66-composer .ct70-display-name input:disabled{background:#f4f7f8;color:#96a8af}
+@media(max-width:850px){.ct70-deleted-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.ct70-deleted-grid{grid-template-columns:1fr}}

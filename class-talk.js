@@ -89,7 +89,7 @@ const CT66={data:null,items:[],owner:false,student:false,serverOffset:0,rows:3,s
   return String(item.body||'');
  },
  render(){const root=document.getElementById('ct66Grid');if(!root)return;
-  const data=this.roots(),width=window.innerWidth,cols=width<=620?1:width<=850?2:width<=1199?3:4,visible=this.rows*cols;root.innerHTML=data.slice(0,visible).map(x=>{
+  const data=this.roots().filter(x=>!x.deleted),width=window.innerWidth,cols=width<=620?1:width<=850?2:width<=1199?3:4,visible=this.rows*cols;root.innerHTML=data.slice(0,visible).map(x=>{
    const body=this.autoBody(x),preview=body.length>170?body.slice(0,170)+'…':body,title=this.autoTitle(x),meta=(x.kind==='material'||x.kind==='grade')?this.esc(x.course):this.esc(x.course)+(x.className?' · '+this.esc(x.className):'');
    return `<button type="button" class="ct66-card" data-ct66-open="${this.esc(x.id)}"><span class="ct66-kind">${this.esc(x.kind==='material'?'New Material':x.kind==='grade'?'Grade Announcement':'Discussion')}</span>
     <strong class="ct66-author${x.display==='Lecturer'?' ct66-lecturer':''}">${this.esc(title||'Discussion')}</strong>${meta?`<small>${meta}</small>`:''}
@@ -98,6 +98,33 @@ const CT66={data:null,items:[],owner:false,student:false,serverOffset:0,rows:3,s
   root.querySelectorAll('[data-ct66-open]').forEach(el=>el.onclick=()=>this.openDiscussion(el.dataset.ct66Open));
   document.getElementById('ct66More').hidden=data.length<=visible;
   document.getElementById('ct66Start').hidden=!(this.student||this.owner);
+  this.renderDeleted();
+ },
+ renderDeleted(){
+  const container=document.getElementById('ct70Deleted');if(!container)return;
+  const roots=this.owner?this.roots().filter(x=>x.deleted):[];
+  if(!roots.length){container.hidden=true;container.innerHTML='';return;}
+  container.hidden=false;
+  const open=container.querySelector('details')?.open===true;
+  container.innerHTML=`<details ${open?'open':''}><summary>${this.msg('Deleted Posts','Deleted Posts')} (${roots.length})</summary><div class="ct70-deleted-grid">${roots.map(x=>`<button type="button" class="ct70-deleted-card" data-ct70-deleted="${this.esc(x.id)}"><strong>${this.esc(this.autoTitle(x))}</strong><small>${this.esc(x.course)} · ${this.esc(this.time(x.createdAt))}</small><span>${this.esc(x.body||'')}</span></button>`).join('')}</div></details>`;
+  container.querySelectorAll('[data-ct70-deleted]').forEach(b=>b.onclick=()=>this.openDiscussion(b.dataset.ct70Deleted));
+ },
+ success(text){const el=document.getElementById('ct70Success');if(!el)return;el.textContent=text;el.hidden=false;},
+ displayNameForm(){const user=this.session();const label=String(user?.name||'Student').trim().split(/\s+/)[0];return `<label class="ct70-display-name">${this.msg('Nama tampilan','Display Name')}<input type="text" name="displayName" maxlength="50" value="${this.esc(label)}" placeholder="${this.msg('Nama tampilan','Display name')}" autocomplete="nickname"></label>`;},
+ emojiToolbar(buttonText){return `<div class="ct70-form-footer"><button type="submit" class="ct66-primary">${buttonText}</button><div class="ct70-emoji-wrap"><button class="ct66-small ct70-emoji-button" type="button" aria-label="Emoji" aria-expanded="false" data-ct70-emoji-toggle>😊</button><div class="ct70-emoji-picker" hidden>${['😀','😊','😂','👍','👏','🙏','❤️','✅','🔥','🎉','🤔','💡','📚','✍️','🙌','👌','😅','😭'].map(e=>`<button type="button" data-ct70-emoji="${e}" aria-label="${e}">${e}</button>`).join('')}</div></div></div>`;},
+ bindComposer(form){
+  if(!form)return;
+  const anonymous=form.elements.anonymous,display=form.elements.displayName;
+  if(anonymous&&display){const update=()=>{display.disabled=anonymous.checked;};anonymous.addEventListener('change',update);update();}
+  const toggle=form.querySelector('[data-ct70-emoji-toggle]'),picker=form.querySelector('.ct70-emoji-picker'),textarea=form.querySelector('textarea');
+  if(toggle&&picker&&textarea){
+   toggle.onclick=()=>{picker.hidden=!picker.hidden;toggle.setAttribute('aria-expanded',String(!picker.hidden));};
+   picker.querySelectorAll('[data-ct70-emoji]').forEach(btn=>btn.onclick=()=>{
+    const emoji=btn.dataset.ct70Emoji||'',start=textarea.selectionStart??textarea.value.length,end=textarea.selectionEnd??start;
+    if(textarea.maxLength>=0&&textarea.value.length+emoji.length-(end-start)>textarea.maxLength)return;
+    textarea.setRangeText(emoji,start,end,'end');textarea.dispatchEvent(new Event('input',{bubbles:true}));textarea.focus();picker.hidden=true;toggle.setAttribute('aria-expanded','false');
+   });
+  }
  },
  open(){document.getElementById('ct66Backdrop').hidden=false;document.body.classList.add('ct66-modal-open');},
  close(){document.getElementById('ct66Backdrop').hidden=true;document.body.classList.remove('ct66-modal-open');this.opened=null;},
@@ -109,29 +136,34 @@ const CT66={data:null,items:[],owner:false,student:false,serverOffset:0,rows:3,s
   this.opened=id;this.open();const replies=this.items.filter(x=>x.parentId===id).sort((a,b)=>Date.parse(a.createdAt)-Date.parse(b.createdAt));
   document.getElementById('ct66ModalTitle').textContent=this.autoTitle(item);
   const rootMeta=((item.kind==='material'||item.kind==='grade')?this.esc(item.course):this.esc(item.course)+(item.className?' · '+this.esc(item.className):''))+' · '+this.esc(this.time(item.createdAt));
-  const out=document.getElementById('ct66ModalBody');out.innerHTML=`<div class="ct66-thread-root"><div class="ct66-thread-meta">${rootMeta}</div>${this.privateLine(item)}<p>${this.esc(this.autoBody(item))}</p><div class="ct66-actions">${this.controls(item)}</div></div>`+
-   replies.map(r=>`<article class="ct66-reply"><strong class="${r.display==='Lecturer'?'ct66-lecturer':''}">${this.esc(r.display)}</strong> <small>${this.esc(this.time(r.createdAt))}</small>${this.privateLine(r)}<p>${this.esc(r.body)}</p><div class="ct66-actions">${this.controls(r)}</div></article>`).join('')+
-   ((this.student||this.owner)?this.replyForm(item):'<p class="ct66-nologin">'+this.msg('Masuk dengan akun mahasiswa UPN untuk membalas.','Sign in with a UPN student account to reply.')+'</p>');
+  const out=document.getElementById('ct66ModalBody');out.innerHTML=`<div class="ct66-thread-root${item.deleted?' ct70-deleted':''}"><div class="ct66-thread-meta">${rootMeta}</div>${this.privateLine(item)}<p>${this.esc(this.autoBody(item))}</p><div class="ct66-actions">${this.controls(item)}</div></div>`+
+   replies.map(r=>`<article class="ct66-reply${r.deleted?' ct70-deleted':''}"><strong class="${r.display==='Lecturer'?'ct66-lecturer':''}">${this.esc(r.display)}</strong> <small>${this.esc(this.time(r.createdAt))}</small>${this.privateLine(r)}<p>${this.esc(r.body)}</p><div class="ct66-actions">${this.controls(r)}</div></article>`).join('')+
+   ((this.student||this.owner)&&!item.deleted?this.replyForm(item):item.deleted?'':'<p class="ct66-nologin">'+this.msg('Masuk dengan akun mahasiswa UPN untuk membalas.','Sign in with a UPN student account to reply.')+'</p>');
   out.querySelectorAll('[data-ct66-delete]').forEach(b=>b.onclick=()=>this.action('delete',b.dataset.ct66Delete));
   out.querySelectorAll('[data-ct66-hide]').forEach(b=>b.onclick=()=>this.action('hide',b.dataset.ct66Hide,{hidden:b.dataset.value}));
-  out.querySelector('#ct66ReplyForm')?.addEventListener('submit',e=>this.submit(e,'reply',id));
+  const form=out.querySelector('#ct66ReplyForm');if(form){form.addEventListener('submit',e=>this.submit(e,'reply',id));this.bindComposer(form);}
  },
  selectClass(){return '<label>Class<select name="className" required><option value="">Class</option>'+['A','B','C','D','E'].map(c=>`<option value="${c}">${c}</option>`).join('')+'</select></label>';},
- anonym(){return '<label class="ct66-checkbox"><input type="checkbox" name="anonymous" checked> '+this.msg('Tampilkan sebagai anonim','Post anonymously')+'</label>';},
- replyForm(item){return `<form id="ct66ReplyForm" class="ct66-composer"><h4>Reply</h4>${this.owner?'':this.selectClass()+this.anonym()}<textarea name="body" required ${this.owner?'':'maxlength="1000"'} rows="3" placeholder="${this.msg('Tulis balasan...','Write your reply...')}"></textarea><button type="submit" class="ct66-primary">${this.msg('Kirim Balasan','Post Reply')}</button></form>`;},
+ anonym(){return '<label class="ct66-checkbox"><input type="checkbox" name="anonymous"> '+this.msg('Tampilkan sebagai anonim','Post anonymously')+'</label>';},
+ replyForm(item){return `<form id="ct66ReplyForm" class="ct66-composer"><h4>Reply</h4>${this.owner?'':this.selectClass()+this.displayNameForm()+this.anonym()}<textarea name="body" required ${this.owner?'':'maxlength="1000"'} rows="3" placeholder="${this.msg('Tulis balasan...','Write your reply...')}"></textarea>${this.emojiToolbar(this.msg('Kirim Balasan','Post Reply'))}<div class="ct70-success" id="ct70Success" role="status" aria-live="polite" hidden></div></form>`;},
  openComposer(){if(!this.student&&!this.owner){this.feedback('Sign in with an eligible UPN student account first.');return;}
   this.opened=null;this.open();document.getElementById('ct66ModalTitle').textContent=this.msg('Tulis Post Baru','New Discussion');
-  const courses=this.courseList();document.getElementById('ct66ModalBody').innerHTML=`<form id="ct66PostForm" class="ct66-composer"><label>Course<select name="course" required><option value="">Choose course</option>${courses.map(c=>`<option value="${this.esc(c)}">${this.esc(c)}</option>`).join('')}</select></label>${this.owner?'':this.selectClass()+this.anonym()}<textarea name="body" required ${this.owner?'':'maxlength="1000"'} rows="5" placeholder="${this.msg('Tulis pertanyaan atau komentar...','Write your question or comment...')}"></textarea><button type="submit" class="ct66-primary">${this.msg('Kirim Post','Post Discussion')}</button></form>`;
-  document.getElementById('ct66PostForm').addEventListener('submit',e=>this.submit(e,'post',''));
+  const courses=this.courseList();document.getElementById('ct66ModalBody').innerHTML=`<form id="ct66PostForm" class="ct66-composer"><label>Course<select name="course" required><option value="">Choose course</option>${courses.map(c=>`<option value="${this.esc(c)}">${this.esc(c)}</option>`).join('')}</select></label>${this.owner?'':this.selectClass()+this.displayNameForm()+this.anonym()}<textarea name="body" required ${this.owner?'':'maxlength="1000"'} rows="5" placeholder="${this.msg('Tulis pertanyaan atau komentar...','Write your question or comment...')}"></textarea>${this.emojiToolbar(this.msg('Kirim Post','Post Discussion'))}</form>`;
+  const form=document.getElementById('ct66PostForm');form.addEventListener('submit',e=>this.submit(e,'post',''));this.bindComposer(form);
  },
  async submit(event,operation,parentId){event.preventDefault();if(this.busy)return;const form=event.target,body=form.querySelector('textarea')?.value||'';
   this.busy=true;const button=form.querySelector('button[type="submit"]');button.disabled=true;
-  try{await this.api({operation,parentId,body,course:form.elements.course?.value||'',className:form.elements.className?.value||'',anonymous:form.elements.anonymous?.checked===true});this.close();await this.refresh();}
-  catch(err){this.feedback(err.message||String(err));alert(err.message||String(err));}
+  try{
+   const result=await this.api({operation,parentId,body,course:form.elements.course?.value||'',className:form.elements.className?.value||'',anonymous:form.elements.anonymous?.checked===true,displayName:form.elements.displayName?.value||''});
+   await this.refresh();
+   const id=operation==='reply'?parentId:String(result.id||'');
+   if(id){this.openDiscussion(id,true);this.success(this.msg(operation==='reply'?'Balasan berhasil dipublikasikan.':'Post berhasil dipublikasikan.','Your '+(operation==='reply'?'reply':'post')+' has been published.'));}
+   const modal=document.querySelector('#ct66Backdrop .ct66-modal');if(modal)modal.scrollTop=modal.scrollHeight;
+  }catch(err){this.feedback(err.message||String(err));alert(err.message||String(err));}
   finally{this.busy=false;if(button.isConnected)button.disabled=false;}
  },
  async action(operation,id,extra={}){if(!confirm(operation==='delete'?'Delete this message?':'Change visibility of this message?'))return;
-  try{await this.api(Object.assign({operation,itemId:id},extra));await this.refresh();}catch(err){alert(err.message||String(err));}
+  try{await this.api(Object.assign({operation,itemId:id},extra));if(operation==='delete'&&id===this.opened)this.close();await this.refresh();}catch(err){alert(err.message||String(err));}
  }
 };
 window.CT66=CT66;
