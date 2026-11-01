@@ -48,7 +48,7 @@ function pm48ApplyPublicLayout(){
 }
 
 function renderPortfolio(data){portfolioData=data;const p=data.profile||{};document.title=(p.name||'Portfolio')+' — '+(currentLanguage==='id'?'Portofolio':'Professional Portfolio');fillLangText();
- document.querySelector('#profile-name').textContent=p.name||'Academic Portfolio';document.querySelector('#profile-title').textContent=tr(p,'title');document.querySelector('#profile-tagline').textContent=tr(p,'tagline');document.querySelector('#about-text').textContent=tr(p,'about')||'—';const inst=document.querySelector('#profile-institution');
+ document.querySelector('#profile-name').textContent=p.name||'Academic Portfolio';const otherNameEl=document.getElementById('profile-other-name');if(otherNameEl){const other=String(p.otherName||'').trim();otherNameEl.textContent=other;otherNameEl.hidden=!other;document.querySelector('.hero')?.classList.toggle('has-other-name',!!other);}document.querySelector('#profile-title').textContent=tr(p,'title');document.querySelector('#profile-tagline').textContent=tr(p,'tagline');document.querySelector('#about-text').textContent=tr(p,'about')||'—';const inst=document.querySelector('#profile-institution');
   if(inst){
     const rawUrl=p.institutionUrl||'';
     const link=SITE.linkURL(rawUrl);
