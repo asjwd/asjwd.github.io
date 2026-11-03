@@ -79,11 +79,13 @@ const CT66={data:null,items:[],owner:false,student:false,serverOffset:0,rows:3,s
   return this.items.filter(x=>!x.parentId).map(x=>Object.assign({},x,{replies:byRoot[x.id]||[],latest:Math.max(Date.parse(x.createdAt)||0,...(byRoot[x.id]||[]).map(r=>Date.parse(r.createdAt)||0))})).sort((a,b)=>this.sort==='reply'?b.latest-a.latest:Date.parse(b.createdAt)-Date.parse(a.createdAt));
  },
  autoTitle(item){
+  if(item.kind==='announcement')return item.announcementTitle||item.course||this.msg('Pengumuman','Announcement');
   if(item.kind==='grade')return String(item.body||'').replace(/^New grade announcement:\s*/i,'').trim()||item.course||'Grade Announcement';
   if(item.kind==='material')return String(item.body||'').replace(/^New material:\s*/i,'').trim()||item.course||'New Material';
   return String(item.display||'Discussion');
  },
  autoBody(item){
+  if(item.kind==='announcement')return String(item.body||'')||this.msg('Pengumuman baru telah dipublikasikan.','A new announcement has been published.');
   if(item.kind==='grade')return this.msg('Pengumuman nilai baru telah dipublikasikan. Silakan buka bagian nilai untuk detailnya.','A new grade announcement is now available. Please open the grade section for details.');
   if(item.kind==='material')return this.msg('Materi kuliah baru telah dipublikasikan. Silakan buka daftar materi untuk detailnya.','A new course material has been published. Please open the materials list for details.');
   return String(item.body||'');
@@ -91,7 +93,7 @@ const CT66={data:null,items:[],owner:false,student:false,serverOffset:0,rows:3,s
  render(){const root=document.getElementById('ct66Grid');if(!root)return;
   const data=this.roots().filter(x=>!x.deleted),width=window.innerWidth,cols=width<=620?1:width<=850?2:width<=1199?3:4,visible=this.rows*cols;root.innerHTML=data.slice(0,visible).map(x=>{
    const body=this.autoBody(x),preview=body.length>170?body.slice(0,170)+'…':body,title=this.autoTitle(x),meta=(x.kind==='material'||x.kind==='grade')?this.esc(x.course):this.esc(x.course)+(x.className?' · '+this.esc(x.className):'');
-   return `<button type="button" class="ct66-card" data-ct66-open="${this.esc(x.id)}"><span class="ct66-kind">${this.esc(x.kind==='material'?'New Material':x.kind==='grade'?'Grade Announcement':'Discussion')}</span>
+   return `<button type="button" class="ct66-card" data-ct66-open="${this.esc(x.id)}"><span class="ct66-kind">${this.esc(x.kind==='material'?'New Material':x.kind==='grade'?'Grade Announcement':x.kind==='announcement'?'Announcement':'Discussion')}</span>
     <strong class="ct66-author${x.display==='Lecturer'?' ct66-lecturer':''}">${this.esc(title||'Discussion')}</strong>${meta?`<small>${meta}</small>`:''}
     <span class="ct66-preview">${this.esc(preview)}</span><span class="ct66-meta">${this.esc(this.time(x.createdAt))} · ${x.replies.length} replies</span></button>`;
   }).join('')||'<div class="ct66-empty">'+this.msg('Belum ada diskusi.','No discussions yet.')+'</div>';
@@ -132,14 +134,20 @@ const CT66={data:null,items:[],owner:false,student:false,serverOffset:0,rows:3,s
   return `${signed&&(this.owner||(item.mine&&timeLeft>0))&&!item.deleted?`<button class="ct66-small ct66-danger" data-ct66-delete="${this.esc(item.id)}" data-until="${item.canDeleteUntil}">Delete ${this.owner?'':Math.max(0,Math.ceil(timeLeft/1000))+'s'}</button>`:''}${this.owner?`<button class="ct66-small" data-ct66-hide="${this.esc(item.id)}" data-value="${item.hidden?'false':'true'}">${item.hidden?'Unhide':'Hide'}</button>`:''}`;
  },
  privateLine(item){return this.owner&&!item.isLecturer&&item.display!=='Lecturer'&&item.privateEmail?`<small class="ct66-private">${this.esc(item.privateName)} · ${this.esc(item.privateEmail)}</small>`:'';},
+ announcementLink(item){
+  const id=String(item.announcementId||'');
+  if(!/^[a-zA-Z0-9_.:-]{1,120}$/.test(id))return '';
+  return `<p><a class="ct66-announcement-link" href="academic.html#announcement=${encodeURIComponent(id)}">${this.msg('Buka pengumuman','Open announcement')} ↗</a></p>`;
+ },
  openDiscussion(id,keep=false){const item=this.items.find(x=>x.id===id&&!x.parentId);if(!item){this.close();return;}
   this.opened=id;this.open();const replies=this.items.filter(x=>x.parentId===id).sort((a,b)=>Date.parse(a.createdAt)-Date.parse(b.createdAt));
   document.getElementById('ct66ModalTitle').textContent=this.autoTitle(item);
   const rootMeta=((item.kind==='material'||item.kind==='grade')?this.esc(item.course):this.esc(item.course)+(item.className?' · '+this.esc(item.className):''))+' · '+this.esc(this.time(item.createdAt));
-  const out=document.getElementById('ct66ModalBody');out.innerHTML=`<div class="ct66-thread-root${item.deleted?' ct70-deleted':''}"><div class="ct66-thread-meta">${rootMeta}</div>${this.privateLine(item)}<p>${this.esc(this.autoBody(item))}</p><div class="ct66-actions">${this.controls(item)}</div></div>`+
+  const out=document.getElementById('ct66ModalBody');out.innerHTML=`<div class="ct66-thread-root${item.deleted?' ct70-deleted':''}"><div class="ct66-thread-meta">${rootMeta}</div>${this.privateLine(item)}<p>${this.esc(this.autoBody(item))}</p>${this.announcementLink(item)}<div class="ct66-actions">${this.controls(item)}</div></div>`+
    replies.map(r=>`<article class="ct66-reply${r.deleted?' ct70-deleted':''}"><strong class="${r.display==='Lecturer'?'ct66-lecturer':''}">${this.esc(r.display)}</strong> <small>${this.esc(this.time(r.createdAt))}</small>${this.privateLine(r)}<p>${this.esc(r.body)}</p><div class="ct66-actions">${this.controls(r)}</div></article>`).join('')+
    ((this.student||this.owner)&&!item.deleted?this.replyForm(item):item.deleted?'':'<p class="ct66-nologin">'+this.msg('Masuk dengan akun mahasiswa UPN untuk membalas.','Sign in with a UPN student account to reply.')+'</p>');
   out.querySelectorAll('[data-ct66-delete]').forEach(b=>b.onclick=()=>this.action('delete',b.dataset.ct66Delete));
+  out.querySelector('.ct66-announcement-link')?.addEventListener('click',()=>this.close());
   out.querySelectorAll('[data-ct66-hide]').forEach(b=>b.onclick=()=>this.action('hide',b.dataset.ct66Hide,{hidden:b.dataset.value}));
   const form=out.querySelector('#ct66ReplyForm');if(form){form.addEventListener('submit',e=>this.submit(e,'reply',id));this.bindComposer(form);}
  },
