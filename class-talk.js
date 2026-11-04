@@ -1,177 +1,257 @@
 'use strict';
-/* V66 Class Talk. All authorization and private-identity filtering are enforced by Mailer.
-   The public browser sees only display aliases for anonymous students. */
-const CT66={data:null,items:[],owner:false,student:false,serverOffset:0,rows:3,sort:'post',opened:null,busy:false,loginBusy:false,
- esc:v=>SITE.escape(v),
- session(){const s=SITE._v60GuestSession;return s&&s.credential&&s.expiresAt>Date.now()+30000?s:null;},
- locale(){return document.documentElement.lang==='en'?'en':'id';},
- msg(id,en){return this.locale()==='en'?en:id;},
- time(iso){try{return new Intl.DateTimeFormat(this.locale()==='en'?'en-GB':'id-ID',{dateStyle:'medium',timeStyle:'short',timeZone:'Asia/Jakarta'}).format(new Date(iso))+' WIB';}catch(e){return '';}},
- nonce(){const a=new Uint8Array(16);crypto.getRandomValues(a);return [...a].map(v=>v.toString(16).padStart(2,'0')).join('');},
- api(payload){return new Promise((resolve,reject)=>{
-  const endpoint=SITE.linkURL(this.data?.profile?.toolGuestbookUrl||'');if(!endpoint)return reject(Error('Class Talk Mailer endpoint not configured.'));
-  const requestId=payload.requestId||this.nonce(),frame=document.createElement('iframe'),form=document.createElement('form');
-  frame.name='ct66frame-'+requestId;frame.hidden=true;frame.setAttribute('aria-hidden','true');frame.tabIndex=-1;
-  form.action=endpoint;form.method='POST';form.target=frame.name;form.hidden=true;
-  const args=Object.assign({action:'class_talk',requestId,googleCredential:this.session()?.credential||''},payload);
-  Object.entries(args).forEach(([key,val])=>{const input=document.createElement('input');input.type='hidden';input.name=key;input.value=String(val??'');form.append(input);});
-  let settled=false;const cleanup=()=>{clearTimeout(timer);window.removeEventListener('message',onMessage);form.remove();setTimeout(()=>frame.remove(),800);};
-  const onMessage=e=>{const d=e.data;if(!d||d.type!=='ASJ_CLASS_TALK_V66'||d.requestId!==requestId)return;
-   if(!(e.origin==='null'||/^https:\/\/(?:[a-z0-9-]+\.)*(?:googleusercontent\.com|google\.com)$/.test(e.origin)))return;
-   if(settled)return;settled=true;cleanup();d.ok?resolve(d):reject(Error(d.message||'Class Talk request failed.'));
-  };
-  const timer=setTimeout(()=>{if(!settled){settled=true;cleanup();reject(Error('Class Talk response timed out.'));}},45000);
-  window.addEventListener('message',onMessage);document.body.append(frame,form);form.submit();
- });},
- applyLanguage(){
-  const subtitle=document.getElementById('ct66Subtitle'),sort=document.getElementById('ct66Sort'),start=document.getElementById('ct66Start'),more=document.getElementById('ct66More');
-  if(subtitle)subtitle.textContent=this.msg('Tanyakan materi, sampaikan pendapat, dan diskusikan perkuliahan.','Ask questions, share thoughts, and discuss your courses.');
-  if(sort){sort.options[0].text=this.msg('Post Terbaru','Newest Post');sort.options[1].text=this.msg('Balasan Terbaru','Newest Reply');}
-  if(start)start.textContent=this.msg('+ Post Baru','+ New Post');
-  if(more)more.textContent=this.msg('Tampilkan 2 baris lagi','Show 2 more rows');
- },
- init(data){this.data=data;const root=document.getElementById('ct66Section');if(!root)return;root.hidden=false;
-  document.getElementById('ct66Sort').onchange=e=>{this.sort=e.target.value;this.rows=3;this.render();};
-  document.getElementById('ct66More').onclick=()=>{this.rows+=2;this.render();};
-  document.getElementById('ct66Start').onclick=()=>this.openComposer();
-  document.getElementById('ct66DialogClose').onclick=()=>this.close();
-  document.getElementById('ct66Backdrop').addEventListener('click',e=>{if(e.target.id==='ct66Backdrop')this.close();});
-  document.addEventListener('pm58-guestbook-identity',()=>{this.renderLogin();this.refresh();});
-  this.applyLanguage();this.renderLogin();this.refresh();
-  window.addEventListener('resize',()=>this.render());
-  setInterval(()=>this.tickDeletes(),1000);
- },
- courseList(){return (this.data?.courses||[]).map(c=>String(c.titleId||c.title||c.course||'')).filter(Boolean);},
- renderLogin(){const el=document.getElementById('ct66Login');if(!el)return;
-  const s=this.session();if(s){el.innerHTML='<span class="ct66-signed">✓ '+this.esc(this.owner?'Lecturer':this.student?s.email:this.msg('Akun Google terhubung','Google account connected'))+'</span><button type="button" class="ct66-small" id="ct66Switch">'+this.msg('Ganti akun','Switch account')+'</button>';
-   el.querySelector('#ct66Switch').onclick=()=>{SITE._v60GuestSession=null;try{google.accounts.id.disableAutoSelect();}catch(e){}document.dispatchEvent(new CustomEvent('pm58-guestbook-identity',{detail:{email:''}}));this.renderLogin();};return;}
-  el.innerHTML='<span class="ct66-login-caption">'+this.msg('Masuk dengan Google','Sign in with Google')+'</span><span id="ct66GoogleBtn"></span>';
-  this.googleButton();
- },
- googleButton(){if(this.loginBusy)return;this.loginBusy=true;
-  const clientId=String(this.data?.profile?.mailGoogleClientId||'');
-  if(!/^[0-9]+-[a-z0-9_-]+\.apps\.googleusercontent\.com$/.test(clientId)){this.loginBusy=false;return;}
-  const start=()=>{
-   const target=document.getElementById('ct66GoogleBtn');if(!target){this.loginBusy=false;return;}
-   google.accounts.id.initialize({client_id:clientId,callback:response=>{
-    try{const credential=String(response.credential||''),parts=credential.split('.');if(parts.length!==3)return;
-      const payload=JSON.parse(atob(parts[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if(String(payload.aud)!==clientId||Number(payload.exp)*1000<=Date.now()+30000)return;
-      SITE._v60GuestSession={credential,clientId,email:String(payload.email||''),name:String(payload.name||''),expiresAt:Number(payload.exp)*1000};
-      document.dispatchEvent(new CustomEvent('pm58-guestbook-identity',{detail:{email:String(payload.email||'')}}));
-    }catch(err){this.feedback(err.message||'Google Sign-in failed.');}
-   }});
-   google.accounts.id.renderButton(target,{theme:'outline',size:'medium',width:178,text:'signin_with',shape:'rectangular'});
-   this.loginBusy=false;
-  };
-  if(window.google?.accounts?.id){start();return;}
-  const old=document.querySelector('script[data-asj-gis]');if(!old){const js=document.createElement('script');js.dataset.asjGis='1';js.src='https://accounts.google.com/gsi/client';js.async=true;document.head.append(js);}
-  let attempts=0;const check=setInterval(()=>{if(window.google?.accounts?.id){clearInterval(check);start();}else if(++attempts>=60){clearInterval(check);this.loginBusy=false;this.feedback('Google Sign-in unavailable.');}},100);
- },
- feedback(message){const e=document.getElementById('ct66Status');if(e)e.textContent=message;},
- tickDeletes(){if(this.owner)return;const box=document.getElementById('ct66ModalBody');if(!box)return;box.querySelectorAll('[data-ct66-delete]').forEach(b=>{const until=Number(b.dataset.until||0),left=Math.max(0,Math.ceil((until-Date.now()-this.serverOffset)/1000));if(!left)b.remove();else b.textContent='Delete '+left+'s';});},
- async refresh(){if(!this.data)return;
-  try{const res=await this.api({operation:'list'});this.items=res.items||[];this.owner=!!res.owner;this.student=!!res.student;
-   this.serverOffset=(res.serverNow||Date.now())-Date.now();if(this.session())this.renderLogin();this.feedback(this.session()&&!this.owner&&!this.student?this.msg('Class Talk hanya menerima akun mahasiswa 11 digit NPM@student.upnjatim.ac.id.','Class Talk requires a verified 11-digit student NPM@student.upnjatim.ac.id account.'):'' );this.render();if(this.opened)this.openDiscussion(this.opened,true);
-  }catch(err){this.feedback(err.message||String(err));}
- },
- roots(){const replies=this.items.filter(x=>x.parentId),byRoot={};replies.forEach(r=>{(byRoot[r.parentId]||=[]).push(r);});
-  return this.items.filter(x=>!x.parentId).map(x=>Object.assign({},x,{replies:byRoot[x.id]||[],latest:Math.max(Date.parse(x.createdAt)||0,...(byRoot[x.id]||[]).map(r=>Date.parse(r.createdAt)||0))})).sort((a,b)=>this.sort==='reply'?b.latest-a.latest:Date.parse(b.createdAt)-Date.parse(a.createdAt));
- },
- autoTitle(item){
-  if(item.kind==='announcement')return item.announcementTitle||item.course||this.msg('Pengumuman','Announcement');
-  if(item.kind==='grade')return String(item.body||'').replace(/^New grade announcement:\s*/i,'').trim()||item.course||'Grade Announcement';
-  if(item.kind==='material')return String(item.body||'').replace(/^New material:\s*/i,'').trim()||item.course||'New Material';
-  return String(item.display||'Discussion');
- },
- autoBody(item){
-  if(item.kind==='announcement')return String(item.body||'')||this.msg('Pengumuman baru telah dipublikasikan.','A new announcement has been published.');
-  if(item.kind==='grade')return this.msg('Pengumuman nilai baru telah dipublikasikan. Silakan buka bagian nilai untuk detailnya.','A new grade announcement is now available. Please open the grade section for details.');
-  if(item.kind==='material')return this.msg('Materi kuliah baru telah dipublikasikan. Silakan buka daftar materi untuk detailnya.','A new course material has been published. Please open the materials list for details.');
-  return String(item.body||'');
- },
- render(){const root=document.getElementById('ct66Grid');if(!root)return;
-  const data=this.roots().filter(x=>!x.deleted),width=window.innerWidth,cols=width<=620?1:width<=850?2:width<=1199?3:4,visible=this.rows*cols;root.innerHTML=data.slice(0,visible).map(x=>{
-   const body=this.autoBody(x),preview=body.length>170?body.slice(0,170)+'…':body,title=this.autoTitle(x),meta=(x.kind==='material'||x.kind==='grade')?this.esc(x.course):this.esc(x.course)+(x.className?' · '+this.esc(x.className):'');
-   return `<button type="button" class="ct66-card" data-ct66-open="${this.esc(x.id)}"><span class="ct66-kind">${this.esc(x.kind==='material'?'New Material':x.kind==='grade'?'Grade Announcement':x.kind==='announcement'?'Announcement':'Discussion')}</span>
-    <strong class="ct66-author${x.display==='Lecturer'?' ct66-lecturer':''}">${this.esc(title||'Discussion')}</strong>${meta?`<small>${meta}</small>`:''}
-    <span class="ct66-preview">${this.esc(preview)}</span><span class="ct66-meta">${this.esc(this.time(x.createdAt))} · ${x.replies.length} replies</span></button>`;
-  }).join('')||'<div class="ct66-empty">'+this.msg('Belum ada diskusi.','No discussions yet.')+'</div>';
-  root.querySelectorAll('[data-ct66-open]').forEach(el=>el.onclick=()=>this.openDiscussion(el.dataset.ct66Open));
-  document.getElementById('ct66More').hidden=data.length<=visible;
-  document.getElementById('ct66Start').hidden=!(this.student||this.owner);
-  this.renderDeleted();
- },
- renderDeleted(){
-  const container=document.getElementById('ct70Deleted');if(!container)return;
-  const roots=this.owner?this.roots().filter(x=>x.deleted):[];
-  if(!roots.length){container.hidden=true;container.innerHTML='';return;}
-  container.hidden=false;
-  const open=container.querySelector('details')?.open===true;
-  container.innerHTML=`<details ${open?'open':''}><summary>${this.msg('Deleted Posts','Deleted Posts')} (${roots.length})</summary><div class="ct70-deleted-grid">${roots.map(x=>`<button type="button" class="ct70-deleted-card" data-ct70-deleted="${this.esc(x.id)}"><strong>${this.esc(this.autoTitle(x))}</strong><small>${this.esc(x.course)} · ${this.esc(this.time(x.createdAt))}</small><span>${this.esc(x.body||'')}</span></button>`).join('')}</div></details>`;
-  container.querySelectorAll('[data-ct70-deleted]').forEach(b=>b.onclick=()=>this.openDiscussion(b.dataset.ct70Deleted));
- },
- success(text){const el=document.getElementById('ct70Success');if(!el)return;el.textContent=text;el.hidden=false;},
- displayNameForm(){const user=this.session();const label=String(user?.name||'Student').trim().split(/\s+/)[0];return `<label class="ct70-display-name">${this.msg('Nama tampilan','Display Name')}<input type="text" name="displayName" maxlength="50" value="${this.esc(label)}" placeholder="${this.msg('Nama tampilan','Display name')}" autocomplete="nickname"></label>`;},
- emojiToolbar(buttonText){return `<div class="ct70-form-footer"><button type="submit" class="ct66-primary">${buttonText}</button><div class="ct70-emoji-wrap"><button class="ct66-small ct70-emoji-button" type="button" aria-label="Emoji" aria-expanded="false" data-ct70-emoji-toggle>😊</button><div class="ct70-emoji-picker" hidden>${['😀','😊','😂','👍','👏','🙏','❤️','✅','🔥','🎉','🤔','💡','📚','✍️','🙌','👌','😅','😭'].map(e=>`<button type="button" data-ct70-emoji="${e}" aria-label="${e}">${e}</button>`).join('')}</div></div></div>`;},
- bindComposer(form){
-  if(!form)return;
-  const anonymous=form.elements.anonymous,display=form.elements.displayName;
-  if(anonymous&&display){const update=()=>{display.disabled=anonymous.checked;};anonymous.addEventListener('change',update);update();}
-  const toggle=form.querySelector('[data-ct70-emoji-toggle]'),picker=form.querySelector('.ct70-emoji-picker'),textarea=form.querySelector('textarea');
-  if(toggle&&picker&&textarea){
-   toggle.onclick=()=>{picker.hidden=!picker.hidden;toggle.setAttribute('aria-expanded',String(!picker.hidden));};
-   picker.querySelectorAll('[data-ct70-emoji]').forEach(btn=>btn.onclick=()=>{
-    const emoji=btn.dataset.ct70Emoji||'',start=textarea.selectionStart??textarea.value.length,end=textarea.selectionEnd??start;
-    if(textarea.maxLength>=0&&textarea.value.length+emoji.length-(end-start)>textarea.maxLength)return;
-    textarea.setRangeText(emoji,start,end,'end');textarea.dispatchEvent(new Event('input',{bubbles:true}));textarea.focus();picker.hidden=true;toggle.setAttribute('aria-expanded','false');
-   });
+/* Reactions and comments belong to the expanded announcement. No standalone forum or forced scrolling. */
+const AnnouncementTalk = {
+  emoji: ['👍🏻', '👏🏻', '😁', '😂', '😭', '😱', '🔥'],
+  data: null, current: null, epoch: 0, summaries: new Map(), initialized: false,
+  esc: value => SITE.escape(value),
+  msg(id, en) { return document.documentElement.lang === 'en' ? en : id; },
+  session() {
+    const session = SITE._v60GuestSession;
+    return session?.credential && session.expiresAt > Date.now() + 30000 ? session : null;
+  },
+  nonce() { return [...crypto.getRandomValues(new Uint8Array(16))].map(x => x.toString(16).padStart(2, '0')).join(''); },
+  api(payload) {
+    return new Promise((resolve, reject) => {
+      const endpoint = SITE.linkURL(this.data?.profile?.toolGuestbookUrl || '');
+      if (!endpoint) return reject(Error(this.msg('Layanan komentar belum tersedia.', 'Comments are not available yet.')));
+      const requestId = payload.requestId || this.nonce();
+      const frame = document.createElement('iframe'), form = document.createElement('form');
+      frame.name = 'announcement-' + requestId; frame.hidden = true; frame.tabIndex = -1; frame.setAttribute('aria-hidden', 'true');
+      form.action = endpoint; form.method = 'POST'; form.target = frame.name; form.hidden = true;
+      // Counts and the public name list need no token verification; signed thread reads and writes do.
+      const publicRead = ['announcement_summary', 'announcement_reactors'].includes(payload.operation);
+      const args = {action: 'class_talk', requestId, googleCredential: publicRead ? '' : this.session()?.credential || '', ...payload};
+      for (const [key, value] of Object.entries(args)) {
+        const input = document.createElement('input'); input.type = 'hidden'; input.name = key; input.value = String(value ?? ''); form.append(input);
+      }
+      let settled = false;
+      const cleanup = () => { clearTimeout(timer); window.removeEventListener('message', receive); form.remove(); setTimeout(() => frame.remove(), 800); };
+      const receive = event => {
+        const message = event.data;
+        // HTMLService may send from a nested googleusercontent frame; validate its origin and nonce.
+        if (message?.type !== 'ASJ_CLASS_TALK_V66' || message.requestId !== requestId) return;
+        if (!(event.origin === 'null' || /^https:\/\/(?:[a-z0-9-]+\.)*(?:googleusercontent\.com|google\.com)$/.test(event.origin))) return;
+        if (settled) return;
+        settled = true; cleanup(); message.ok ? resolve(message) : reject(Error(message.message || 'Request failed.'));
+      };
+      const timer = setTimeout(() => {
+        if (settled) return;
+        settled = true; cleanup(); reject(Error(this.msg('Respons belum diterima. Periksa koneksi sebelum mencoba lagi.', 'No response yet. Check your connection before trying again.')));
+      }, 45000);
+      window.addEventListener('message', receive); document.body.append(frame, form); form.submit();
+    });
+  },
+  init(data) {
+    this.data = data;
+    if (this.initialized) return;
+    this.initialized = true;
+    document.addEventListener('pm58-guestbook-identity', () => {
+      ++this.epoch; this.summaries.clear();
+      const state = this.current;
+      if (state) {
+        state.owner = false; state.student = false; state.replyTo = null; state.comments = [];
+        state.reactions = state.reactions ? {...state.reactions, mine: ''} : null;
+        state.epoch = this.epoch; state.loaded = false; state.draft = {};
+        state.element.querySelector('.an72-comments').replaceChildren();
+        this.renderLogin(state); this.renderReactions(state); this.renderComments(state); this.loadThread(state);
+      }
+      this.refreshSummaries();
+    });
+  },
+  applyLanguage() {
+    this.paintSummaries();
+    const state = this.current;
+    if (state) { this.renderLogin(state); this.renderReactions(state); this.renderComments(state); }
+  },
+  async refreshSummaries() {
+    const ids = [...document.querySelectorAll('[data-ac71-id]')].map(el => el.dataset.ac71Id);
+    if (!ids.length || !this.data?.profile?.toolGuestbookUrl) return;
+    const epoch = this.epoch;
+    try {
+      const result = await this.api({operation: 'announcement_summary', ids: JSON.stringify(ids)});
+      if (epoch !== this.epoch) return;
+      for (const summary of result.summaries || []) this.summaries.set(summary.id, summary);
+      this.paintSummaries();
+    } catch (_) { /* Unavailable counts must not prevent opening an announcement. */ }
+  },
+  paintSummaries() {
+    document.querySelectorAll('[data-an72-summary]').forEach(host => {
+      const summary = this.summaries.get(host.dataset.an72Summary);
+      if (!summary) { host.hidden = true; return; }
+      const count = summary.counts.reduce((sum, item) => sum + item.count, 0);
+      host.hidden = false; host.textContent = `${count} ${this.msg('reaksi', 'reactions')} · ${summary.comments} ${this.msg('komentar', 'comments')}`;
+    });
+  },
+  unmount() { if (this.current?.timer) clearInterval(this.current.timer); this.current = null; },
+  mount(panel, announcement) {
+    this.unmount();
+    const element = document.createElement('section'); element.className = 'an72-talk';
+    element.setAttribute('aria-label', this.msg('Reaksi dan komentar', 'Reactions and comments'));
+    element.innerHTML = '<div class="an72-reactions"></div><div class="an72-people" hidden></div><div class="an72-login"></div><div class="an72-comments"></div><div class="an72-status" role="status" aria-live="polite"></div>';
+    panel.append(element);
+    const state = this.current = {element, announcement, epoch: this.epoch, owner: false, student: false, comments: [], total: 0, nextOffset: 0,
+      replyTo: null, reactions: null, busy: false, loaded: false, peopleToken: 0};
+    this.renderLogin(state); this.status(state, this.msg('Memuat interaksi…', 'Loading interactions…'));
+    state.timer = setInterval(() => this.tickDeletes(state), 1000); this.loadThread(state);
+  },
+  active(state) { return this.current === state && state.element.isConnected && state.epoch === this.epoch; },
+  status(state, text) { if (this.active(state)) state.element.querySelector('.an72-status').textContent = text; },
+  async loadThread(state, more = false) {
+    const epoch = state.epoch, offset = more ? state.nextOffset : 0, sequence = state.threadSequence = (state.threadSequence || 0) + 1;
+    try {
+      const result = await this.api({operation: 'announcement_thread', announcementId: state.announcement.id, offset});
+      if (!this.active(state) || epoch !== this.epoch || sequence !== state.threadSequence) return;
+      state.owner = !!result.owner; state.student = !!result.student; state.loaded = true;
+      state.serverOffset = (result.serverNow || Date.now()) - Date.now();
+      state.comments = more ? [...state.comments, ...result.comments] : result.comments;
+      state.total = result.total; state.nextOffset = result.nextOffset; state.commentsEnabled = result.commentsEnabled; state.reactions = result.reactions;
+      this.summaries.set(state.announcement.id, {id: state.announcement.id, comments: result.publicCount ?? result.total, ...result.reactions});
+      this.paintSummaries(); this.renderLogin(state); this.renderReactions(state); this.renderComments(state); this.status(state, '');
+    } catch (error) {
+      if (!this.active(state) || epoch !== this.epoch || sequence !== state.threadSequence) return;
+      this.status(state, error.message);
+      if (!state.loaded) {
+        const host = state.element.querySelector('.an72-comments'), retry = document.createElement('button');
+        host.replaceChildren(); retry.type = 'button'; retry.className = 'an72-small'; retry.textContent = this.msg('Coba muat lagi', 'Try loading again');
+        retry.onclick = () => this.loadThread(state); host.append(retry);
+      }
+    }
+  },
+  renderLogin(state) {
+    const host = state.element.querySelector('.an72-login'), session = this.session();
+    if (session) {
+      host.innerHTML = `<div class="an72-signed"><span>${this.esc(session.name || this.msg('Akun Google terhubung', 'Google account connected'))}</span><button type="button" class="an72-small" data-switch>${this.msg('Ganti akun', 'Switch account')}</button></div><small>${state.loaded && !state.owner && !state.student ? this.msg('Gunakan akun mahasiswa UPN untuk bereaksi dan berkomentar.', 'Use a verified UPN student account to react and comment.') : this.msg('Nama Google terlihat pada reaksi. Komentar boleh anonim.', 'Reactions show your Google name. Comments can be anonymous.')}</small>`;
+      host.querySelector('[data-switch]').onclick = () => {
+        SITE._v60GuestSession = null; try { google.accounts.id.disableAutoSelect(); } catch (_) {}
+        document.dispatchEvent(new CustomEvent('pm58-guestbook-identity', {detail: {email: ''}}));
+      };
+    } else {
+      host.innerHTML = `<p>${this.msg('Masuk dengan akun mahasiswa untuk bereaksi atau berkomentar.', 'Sign in with your student account to react or comment.')}</p><div data-an72-google></div>`;
+      this.googleButton(state);
+    }
+  },
+  async googleButton(state) {
+    const clientId = String(this.data?.profile?.mailGoogleClientId || '');
+    if (!/^[0-9]+-[a-z0-9_-]+\.apps\.googleusercontent\.com$/.test(clientId)) return;
+    if (!window.google?.accounts?.id) {
+      let script = document.querySelector('script[data-asj-gis]');
+      if (!script) { script = document.createElement('script'); script.dataset.asjGis = '1'; script.src = 'https://accounts.google.com/gsi/client'; script.async = true; document.head.append(script); }
+      let tries = 0;
+      while (!window.google?.accounts?.id && tries++ < 60) await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    if (!this.active(state)) return;
+    const target = state.element.querySelector('[data-an72-google]');
+    if (!target || !window.google?.accounts?.id) return;
+    google.accounts.id.initialize({client_id: clientId, callback: response => {
+      try {
+        const credential = String(response.credential || ''), parts = credential.split('.'); if (parts.length !== 3) return;
+        const payload = JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')), ch => ch.charCodeAt(0))));
+        if (payload.aud !== clientId || payload.exp * 1000 <= Date.now() + 30000) return;
+        // This token decode controls UI only. The server independently verifies every write.
+        SITE._v60GuestSession = {credential, clientId, email: String(payload.email || ''), name: String(payload.name || ''), expiresAt: payload.exp * 1000};
+        document.dispatchEvent(new CustomEvent('pm58-guestbook-identity', {detail: {email: payload.email || ''}}));
+      } catch (error) { this.status(state, error.message); }
+    }});
+    google.accounts.id.renderButton(target, {theme: 'outline', size: 'medium', text: 'signin_with', shape: 'rectangular'});
+  },
+  renderReactions(state) {
+    const host = state.element.querySelector('.an72-reactions');
+    const counts = state.reactions?.counts || this.emoji.map(emoji => ({emoji, count: 0}));
+    host.innerHTML = `<div class="an72-reaction-title">${this.msg('Reaksi', 'Reactions')}</div><div class="an72-reaction-bar">${counts.map(item => `<div class="an72-reaction ${state.reactions?.mine === item.emoji ? 'is-mine' : ''}"><button type="button" data-react="${item.emoji}" aria-pressed="${state.reactions?.mine === item.emoji}" aria-label="${this.msg('Beri reaksi', 'React')} ${item.emoji}" ${state.busy ? 'disabled' : ''}>${item.emoji}</button><button type="button" class="an72-reaction-count" data-people="${item.emoji}" aria-label="${this.msg('Lihat pemberi reaksi', 'See who reacted')} ${item.emoji}: ${item.count}">${item.count}</button></div>`).join('')}</div>`;
+    host.querySelectorAll('[data-react]').forEach(button => button.onclick = () => this.react(state, button.dataset.react));
+    host.querySelectorAll('[data-people]').forEach(button => button.onclick = () => this.people(state, button.dataset.people));
+    const hint = document.createElement('p'); hint.className = 'an72-reaction-hint';
+    hint.textContent = this.msg('Klik emoji untuk bereaksi, angka untuk melihat nama.', 'Click an emoji to react, or its count to see names.'); host.append(hint);
+  },
+  async react(state, emoji) {
+    if (!this.session() || (!state.owner && !state.student)) return this.status(state, this.msg('Masuk dengan akun mahasiswa UPN terlebih dahulu.', 'Sign in with a verified UPN student account first.'));
+    if (state.busy) return;
+    state.busy = true; this.renderReactions(state); const epoch = state.epoch;
+    try {
+      await this.api({operation: 'announcement_react', announcementId: state.announcement.id, emoji: state.reactions?.mine === emoji ? '' : emoji});
+      if (!this.active(state) || epoch !== this.epoch) return;
+      state.element.querySelector('.an72-people').hidden = true; ++state.peopleToken; await this.loadThread(state);
+    } catch (error) { if (epoch === this.epoch) this.status(state, error.message); }
+    finally {
+      state.busy = false;
+      if (this.active(state)) { this.renderReactions(state); state.draft = this.draft(state); this.renderComposer(state); }
+    }
+  },
+  async people(state, emoji, offset = 0) {
+    const host = state.element.querySelector('.an72-people'), token = ++state.peopleToken;
+    if (!offset) { state.people = []; host.hidden = false; host.textContent = this.msg('Memuat pemberi reaksi…', 'Loading people…'); }
+    try {
+      const result = await this.api({operation: 'announcement_reactors', announcementId: state.announcement.id, emoji, offset});
+      if (!this.active(state) || token !== state.peopleToken) return;
+      state.people.push(...result.people);
+      host.innerHTML = `<div class="an72-people-heading"><strong>${emoji} · ${result.total}</strong><button type="button" class="an72-small" data-close-people>${this.msg('Tutup', 'Close')}</button></div>${state.people.length ? `<ul>${state.people.map(person => `<li>${this.esc(person.name)}</li>`).join('')}</ul>` : `<p>${this.msg('Belum ada reaksi ini.', 'No one has used this reaction yet.')}</p>`}${result.nextOffset < result.total ? `<button type="button" class="an72-small" data-more-people>${this.msg('Lihat lagi', 'Show more')}</button>` : ''}`;
+      host.querySelector('[data-close-people]').onclick = () => { ++state.peopleToken; host.hidden = true; };
+      const more = host.querySelector('[data-more-people]'); if (more) more.onclick = () => this.people(state, emoji, result.nextOffset);
+    } catch (error) { if (this.active(state) && token === state.peopleToken) host.textContent = error.message; }
+  },
+  draft(state) {
+    const form = state.element.querySelector('.an72-composer');
+    return form ? {body: form.elements.body.value, anonymous: form.elements.anonymous?.checked || false, displayName: form.elements.displayName?.value || ''} : state.draft || {};
+  },
+  time(iso) { return new Intl.DateTimeFormat(document.documentElement.lang === 'en' ? 'en-GB' : 'id-ID', {timeZone: 'Asia/Jakarta', dateStyle: 'medium', timeStyle: 'short'}).format(new Date(iso)) + ' WIB'; },
+  commentHTML(state, item, reply = false) {
+    const deleted = !!item.deletedAt, hidden = item.hidden;
+    return `<article class="an72-comment ${reply ? 'an72-reply' : ''} ${deleted || hidden ? 'an72-archived' : ''}"><div class="an72-comment-head"><strong>${item.isLecturer ? this.msg('Dosen', 'Lecturer') : this.esc(item.display)}</strong><time datetime="${this.esc(item.createdAt)}">${this.esc(this.time(item.createdAt))}</time></div>${state.owner && item.privateEmail ? `<small class="an72-private">${this.esc(item.privateName)} · ${this.esc(item.privateEmail)}</small>` : ''}<p>${this.esc(item.body)}</p><div class="an72-comment-actions">${!deleted && !hidden && state.commentsEnabled && (state.owner || state.student) ? `<button type="button" class="an72-small" data-reply="${this.esc(item.id)}">${this.msg('Balas', 'Reply')}</button>` : ''}${!deleted && (state.owner || item.mine && item.canDeleteUntil > Date.now() + (state.serverOffset || 0)) ? `<button type="button" class="an72-small" data-delete="${this.esc(item.id)}" data-until="${item.canDeleteUntil}">${this.msg('Hapus', 'Delete')}</button>` : ''}${state.owner && !deleted ? `<button type="button" class="an72-small" data-hide="${this.esc(item.id)}" data-hidden="${!hidden}">${this.msg(hidden ? 'Tampilkan' : 'Sembunyikan', hidden ? 'Show' : 'Hide')}</button>` : ''}${deleted || hidden ? `<span>${this.msg(deleted ? 'Dihapus' : 'Disembunyikan', deleted ? 'Deleted' : 'Hidden')}</span>` : ''}</div></article>`;
+  },
+  renderComments(state) {
+    state.draft = this.draft(state);
+    const host = state.element.querySelector('.an72-comments'), roots = state.comments.filter(item => !item.parentId);
+    host.innerHTML = `<div class="an72-comments-heading"><h3>${this.msg('Komentar', 'Comments')} <span>${state.total}</span></h3><button type="button" class="an72-small" data-refresh>${this.msg('Muat ulang', 'Refresh')}</button></div><div class="an72-comment-list">${roots.map(root => this.commentHTML(state, root) + state.comments.filter(reply => reply.parentId === root.id).map(reply => this.commentHTML(state, reply, true)).join('')).join('') || `<p class="an72-empty">${this.msg('Belum ada komentar.', 'No comments yet.')}</p>`}</div>${state.nextOffset < state.total ? `<button type="button" class="an72-small" data-more-comments>${this.msg('Lihat komentar lainnya', 'More comments')} (${state.total - state.nextOffset})</button>` : ''}<div class="an72-composer-host"></div>`;
+    host.querySelector('[data-refresh]').onclick = () => this.loadThread(state);
+    host.querySelectorAll('[data-reply]').forEach(button => button.onclick = () => { state.draft = this.draft(state); state.replyTo = state.comments.find(item => item.id === button.dataset.reply); this.renderComposer(state); });
+    host.querySelectorAll('[data-delete]').forEach(button => button.onclick = () => this.moderate(state, button.dataset.delete, 'delete'));
+    host.querySelectorAll('[data-hide]').forEach(button => button.onclick = () => this.moderate(state, button.dataset.hide, 'hide', button.dataset.hidden === 'true'));
+    const more = host.querySelector('[data-more-comments]'); if (more) more.onclick = () => this.loadThread(state, true);
+    this.renderComposer(state);
+  },
+  renderComposer(state) {
+    const host = state.element.querySelector('.an72-composer-host'); if (!host) return;
+    if (!state.loaded || !state.commentsEnabled || (!state.owner && !state.student) || !this.session()) {
+      host.innerHTML = state.loaded && !state.commentsEnabled ? `<p class="an72-empty">${this.msg('Komentar pada pengumuman ini ditutup.', 'Comments are closed for this announcement.')}</p>` : ''; return;
+    }
+    const draft = state.draft || {};
+    host.innerHTML = `<form class="an72-composer">${state.replyTo ? `<div class="an72-replying">${this.msg('Membalas', 'Replying to')} ${this.esc(state.replyTo.display)} <button type="button" class="an72-small" data-cancel-reply>${this.msg('Batal', 'Cancel')}</button></div>` : ''}${state.owner ? '' : `<div class="an72-composer-options"><label>${this.msg('Nama tampilan', 'Display name')}<input name="displayName" maxlength="50" value="${this.esc(draft.displayName || String(this.session()?.name || '').split(/\s+/)[0])}"></label><label class="an72-anonymous"><input name="anonymous" type="checkbox" ${draft.anonymous ? 'checked' : ''}>${this.msg('Komentar anonim', 'Anonymous comment')}</label></div>`}<label class="an72-comment-label">${this.msg('Tulis komentar', 'Write a comment')}<textarea name="body" rows="3" required maxlength="${state.owner ? 45000 : 1000}" placeholder="${this.msg('Tulis pertanyaan atau komentar…', 'Write a question or comment…')}">${this.esc(draft.body || '')}</textarea></label><button class="an72-primary" type="submit" ${state.busy ? 'disabled' : ''}>${this.msg('Kirim komentar', 'Post comment')}</button></form>`;
+    const form = host.querySelector('form'), anonymous = form.elements.anonymous, display = form.elements.displayName;
+    if (anonymous && display) { const sync = () => { display.disabled = anonymous.checked; }; anonymous.onchange = sync; sync(); }
+    const cancel = host.querySelector('[data-cancel-reply]');
+    if (cancel) cancel.onclick = () => { state.draft = this.draft(state); state.replyTo = null; this.renderComposer(state); };
+    form.onsubmit = event => this.comment(event, state);
+  },
+  async comment(event, state) {
+    event.preventDefault(); if (state.busy) return;
+    const draft = state.draft = this.draft(state), parentId = state.replyTo?.id || '', epoch = state.epoch;
+    state.busy = true; this.renderComposer(state);
+    try {
+      await this.api({operation: 'announcement_comment', announcementId: state.announcement.id, body: draft.body, parentId, anonymous: draft.anonymous === true, displayName: draft.displayName || ''});
+      if (!this.active(state) || epoch !== this.epoch) return;
+      state.draft = {anonymous: draft.anonymous, displayName: draft.displayName}; state.replyTo = null;
+      const form = state.element.querySelector('.an72-composer'); if (form) form.elements.body.value = '';
+      await this.loadThread(state); this.status(state, this.msg('Komentar terkirim.', 'Comment posted.'));
+    } catch (error) { if (epoch === this.epoch) this.status(state, error.message); }
+    finally { state.busy = false; if (this.active(state)) { state.draft = this.draft(state); this.renderComposer(state); } }
+  },
+  async moderate(state, id, mode, hidden = false) {
+    if (state.busy) return;
+    if (mode === 'delete' && !confirm(this.msg('Hapus komentar ini?', 'Delete this comment?'))) return;
+    state.busy = true;
+    try { await this.api({operation: 'announcement_moderate', announcementId: state.announcement.id, itemId: id, mode, hidden}); await this.loadThread(state); }
+    catch (error) { this.status(state, error.message); }
+    finally {
+      state.busy = false;
+      if (this.active(state)) { state.draft = this.draft(state); this.renderComposer(state); }
+    }
+  },
+  tickDeletes(state) {
+    if (!this.active(state) || state.owner) return;
+    state.element.querySelectorAll('[data-delete]').forEach(button => {
+      const remaining = Math.max(0, Math.ceil((Number(button.dataset.until) - Date.now() - (state.serverOffset || 0)) / 1000));
+      if (!remaining) button.remove(); else button.textContent = this.msg('Hapus ', 'Delete ') + remaining + 's';
+    });
   }
- },
- open(){document.getElementById('ct66Backdrop').hidden=false;document.body.classList.add('ct66-modal-open');},
- close(){document.getElementById('ct66Backdrop').hidden=true;document.body.classList.remove('ct66-modal-open');this.opened=null;},
- controls(item){const signed=this.session(),timeLeft=item.canDeleteUntil-Date.now()-this.serverOffset;
-  return `${signed&&(this.owner||(item.mine&&timeLeft>0))&&!item.deleted?`<button class="ct66-small ct66-danger" data-ct66-delete="${this.esc(item.id)}" data-until="${item.canDeleteUntil}">Delete ${this.owner?'':Math.max(0,Math.ceil(timeLeft/1000))+'s'}</button>`:''}${this.owner?`<button class="ct66-small" data-ct66-hide="${this.esc(item.id)}" data-value="${item.hidden?'false':'true'}">${item.hidden?'Unhide':'Hide'}</button>`:''}`;
- },
- privateLine(item){return this.owner&&!item.isLecturer&&item.display!=='Lecturer'&&item.privateEmail?`<small class="ct66-private">${this.esc(item.privateName)} · ${this.esc(item.privateEmail)}</small>`:'';},
- announcementLink(item){
-  const id=String(item.announcementId||'');
-  if(!/^[a-zA-Z0-9_.:-]{1,120}$/.test(id))return '';
-  return `<p><a class="ct66-announcement-link" href="academic.html#announcement=${encodeURIComponent(id)}">${this.msg('Buka pengumuman','Open announcement')} ↗</a></p>`;
- },
- openDiscussion(id,keep=false){const item=this.items.find(x=>x.id===id&&!x.parentId);if(!item){this.close();return;}
-  this.opened=id;this.open();const replies=this.items.filter(x=>x.parentId===id).sort((a,b)=>Date.parse(a.createdAt)-Date.parse(b.createdAt));
-  document.getElementById('ct66ModalTitle').textContent=this.autoTitle(item);
-  const rootMeta=((item.kind==='material'||item.kind==='grade')?this.esc(item.course):this.esc(item.course)+(item.className?' · '+this.esc(item.className):''))+' · '+this.esc(this.time(item.createdAt));
-  const out=document.getElementById('ct66ModalBody');out.innerHTML=`<div class="ct66-thread-root${item.deleted?' ct70-deleted':''}"><div class="ct66-thread-meta">${rootMeta}</div>${this.privateLine(item)}<p>${this.esc(this.autoBody(item))}</p>${this.announcementLink(item)}<div class="ct66-actions">${this.controls(item)}</div></div>`+
-   replies.map(r=>`<article class="ct66-reply${r.deleted?' ct70-deleted':''}"><strong class="${r.display==='Lecturer'?'ct66-lecturer':''}">${this.esc(r.display)}</strong> <small>${this.esc(this.time(r.createdAt))}</small>${this.privateLine(r)}<p>${this.esc(r.body)}</p><div class="ct66-actions">${this.controls(r)}</div></article>`).join('')+
-   ((this.student||this.owner)&&!item.deleted?this.replyForm(item):item.deleted?'':'<p class="ct66-nologin">'+this.msg('Masuk dengan akun mahasiswa UPN untuk membalas.','Sign in with a UPN student account to reply.')+'</p>');
-  out.querySelectorAll('[data-ct66-delete]').forEach(b=>b.onclick=()=>this.action('delete',b.dataset.ct66Delete));
-  out.querySelector('.ct66-announcement-link')?.addEventListener('click',()=>this.close());
-  out.querySelectorAll('[data-ct66-hide]').forEach(b=>b.onclick=()=>this.action('hide',b.dataset.ct66Hide,{hidden:b.dataset.value}));
-  const form=out.querySelector('#ct66ReplyForm');if(form){form.addEventListener('submit',e=>this.submit(e,'reply',id));this.bindComposer(form);}
- },
- selectClass(){return '<label>Class<select name="className" required><option value="">Class</option>'+['A','B','C','D','E'].map(c=>`<option value="${c}">${c}</option>`).join('')+'</select></label>';},
- anonym(){return '<label class="ct66-checkbox"><input type="checkbox" name="anonymous"> '+this.msg('Tampilkan sebagai anonim','Post anonymously')+'</label>';},
- replyForm(item){return `<form id="ct66ReplyForm" class="ct66-composer"><h4>Reply</h4>${this.owner?'':this.selectClass()+this.displayNameForm()+this.anonym()}<textarea name="body" required ${this.owner?'':'maxlength="1000"'} rows="3" placeholder="${this.msg('Tulis balasan...','Write your reply...')}"></textarea>${this.emojiToolbar(this.msg('Kirim Balasan','Post Reply'))}<div class="ct70-success" id="ct70Success" role="status" aria-live="polite" hidden></div></form>`;},
- openComposer(){if(!this.student&&!this.owner){this.feedback('Sign in with an eligible UPN student account first.');return;}
-  this.opened=null;this.open();document.getElementById('ct66ModalTitle').textContent=this.msg('Tulis Post Baru','New Discussion');
-  const courses=this.courseList();document.getElementById('ct66ModalBody').innerHTML=`<form id="ct66PostForm" class="ct66-composer"><label>Course<select name="course" required><option value="">Choose course</option>${courses.map(c=>`<option value="${this.esc(c)}">${this.esc(c)}</option>`).join('')}</select></label>${this.owner?'':this.selectClass()+this.displayNameForm()+this.anonym()}<textarea name="body" required ${this.owner?'':'maxlength="1000"'} rows="5" placeholder="${this.msg('Tulis pertanyaan atau komentar...','Write your question or comment...')}"></textarea>${this.emojiToolbar(this.msg('Kirim Post','Post Discussion'))}</form>`;
-  const form=document.getElementById('ct66PostForm');form.addEventListener('submit',e=>this.submit(e,'post',''));this.bindComposer(form);
- },
- async submit(event,operation,parentId){event.preventDefault();if(this.busy)return;const form=event.target,body=form.querySelector('textarea')?.value||'';
-  this.busy=true;const button=form.querySelector('button[type="submit"]');button.disabled=true;
-  try{
-   const result=await this.api({operation,parentId,body,course:form.elements.course?.value||'',className:form.elements.className?.value||'',anonymous:form.elements.anonymous?.checked===true,displayName:form.elements.displayName?.value||''});
-   await this.refresh();
-   const id=operation==='reply'?parentId:String(result.id||'');
-   if(id){this.openDiscussion(id,true);this.success(this.msg(operation==='reply'?'Balasan berhasil dipublikasikan.':'Post berhasil dipublikasikan.','Your '+(operation==='reply'?'reply':'post')+' has been published.'));}
-   const modal=document.querySelector('#ct66Backdrop .ct66-modal');if(modal)modal.scrollTop=modal.scrollHeight;
-  }catch(err){this.feedback(err.message||String(err));alert(err.message||String(err));}
-  finally{this.busy=false;if(button.isConnected)button.disabled=false;}
- },
- async action(operation,id,extra={}){if(!confirm(operation==='delete'?'Delete this message?':'Change visibility of this message?'))return;
-  try{await this.api(Object.assign({operation,itemId:id},extra));if(operation==='delete'&&id===this.opened)this.close();await this.refresh();}catch(err){alert(err.message||String(err));}
- }
 };
-window.CT66=CT66;
+window.CT66 = AnnouncementTalk;

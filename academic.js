@@ -316,14 +316,16 @@ function ac71Render(){
  const all=ac71Announcements(),limit=Math.max(1,Math.min(500,Number(acData?.profile?.announcementLimit)||10));
  const list=all.slice(0,limit),linked=all.find(a=>String(a.id)===ac71OpenId);
  if(linked&&!list.some(a=>a.id===linked.id)){if(list.length>=limit)list.pop();list.push(linked);}
- host.innerHTML=list.map((a,i)=>`<article class="ac71-item" data-ac71-id="${E(a.id)}"><button type="button" class="ac71-toggle" aria-expanded="false" aria-controls="ac71-panel-${i}"><span class="ac71-line"><span class="ac71-new" data-ac71-new="${E(a.publishedAt||'')}" aria-label="${acLanguage==='id'?'Baru':'New'}" ${ac71IsNew(a.publishedAt)?'':'hidden'}>🆕</span><time datetime="${E(a.publishedAt||'')}">(${E(ac71Date(a.publishedAt))})</time> <strong>${E(a.title)}</strong></span><span class="ac71-chevron" aria-hidden="true">⌄</span></button><div id="ac71-panel-${i}" class="ac71-panel" hidden></div></article>`).join('');
+ host.innerHTML=list.map((a,i)=>`<article class="ac71-item" data-ac71-id="${E(a.id)}"><button type="button" class="ac71-toggle" aria-expanded="false" aria-controls="ac71-panel-${i}"><span class="ac71-line"><span class="ac71-new" data-ac71-new="${E(a.publishedAt||'')}" aria-label="${acLanguage==='id'?'Baru':'New'}" ${ac71IsNew(a.publishedAt)?'':'hidden'}>🆕</span><time datetime="${E(a.publishedAt||'')}">(${E(ac71Date(a.publishedAt))})</time> <strong>${E(a.title)}</strong></span><span class="ac71-chevron" aria-hidden="true">⌄</span></button><div class="an72-summary" data-an72-summary="${E(a.id)}" hidden></div><div id="ac71-panel-${i}" class="ac71-panel" hidden></div></article>`).join('');
  host.querySelectorAll('.ac71-toggle').forEach(button=>button.addEventListener('click',()=>ac71Toggle(button.closest('[data-ac71-id]').dataset.ac71Id)));
  if(ac71OpenId){const id=ac71OpenId;ac71OpenId='';ac71Toggle(id);}
+ if(window.CT66)CT66.refreshSummaries();
 }
 async function ac71Toggle(id){
  const host=$('announcement-list'),item=Array.from(host.querySelectorAll('[data-ac71-id]')).find(el=>el.dataset.ac71Id===id);
  if(!item)return;
  const close=ac71OpenId===id;
+ if(window.CT66)CT66.unmount();
  ++acRequestSeq;acSelectedId='';acRows=null;
  host.querySelectorAll('.ac71-panel').forEach(panel=>{panel.hidden=true;panel.replaceChildren();});
  host.querySelectorAll('.ac71-toggle').forEach(btn=>btn.setAttribute('aria-expanded','false'));
@@ -340,6 +342,7 @@ async function ac71Toggle(id){
  }else if(a.type==='grade'){
   const target=document.createElement('div');target.id='grade-table';panel.append(target);
   acSelectedId=String(a.boardId);acVisible=20;const seq=acRequestSeq;
+  if(window.CT66)CT66.mount(panel,a);
   acRows=ac71GradeCache.get(acSelectedId)||null;
   if(acRows){acRenderGrade();return;}
   acPreview('loading',T('loading'));
@@ -349,6 +352,7 @@ async function ac71Toggle(id){
    acRows=result.rows;ac71GradeCache.set(acSelectedId,acRows);acRenderGrade();
   }catch(_){if(seq===acRequestSeq)acPreview('empty',T('error'));}
  }
+ if(a.type!=='grade'&&window.CT66)CT66.mount(panel,a);
 }
 function ac71OpenLinked(){
  if(!acData)return;
