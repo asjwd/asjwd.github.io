@@ -43,10 +43,12 @@ const AnnouncementTalk = {
   },
   init(data) {
     this.data = data;
+    this.renderHeaderLogin();
     if (this.initialized) return;
     this.initialized = true;
     document.addEventListener('pm58-guestbook-identity', () => {
       ++this.epoch; this.summaries.clear();
+      this.renderHeaderLogin();
       const state = this.current;
       if (state) {
         state.owner = false; state.student = false; state.replyTo = null; state.comments = [];
@@ -60,6 +62,7 @@ const AnnouncementTalk = {
   },
   applyLanguage() {
     this.paintSummaries();
+    this.renderHeaderLogin();
     const state = this.current;
     if (state) { this.renderLogin(state); this.renderReactions(state); this.renderComments(state); }
   },
@@ -79,7 +82,8 @@ const AnnouncementTalk = {
       const summary = this.summaries.get(host.dataset.an72Summary);
       if (!summary) { host.hidden = true; return; }
       const count = summary.counts.reduce((sum, item) => sum + item.count, 0);
-      host.hidden = false; host.textContent = `${count} ${this.msg('reaksi', 'reactions')} · ${summary.comments} ${this.msg('komentar', 'comments')}`;
+      host.hidden = false; host.textContent = `${count} ☻ · ${summary.comments} 💬`;
+      host.setAttribute('aria-label', `${count} ${this.msg('reaksi', 'reactions')}, ${summary.comments} ${this.msg('komentar', 'comments')}`);
     });
   },
   unmount() { if (this.current?.timer) clearInterval(this.current.timer); this.current = null; },
@@ -120,17 +124,28 @@ const AnnouncementTalk = {
   renderLogin(state) {
     const host = state.element.querySelector('.an72-login'), session = this.session();
     if (session) {
-      host.innerHTML = `<div class="an72-signed"><span>${this.esc(session.name || this.msg('Akun Google terhubung', 'Google account connected'))}</span><button type="button" class="an72-small" data-switch>${this.msg('Ganti akun', 'Switch account')}</button></div><small>${state.loaded && !state.owner && !state.student ? this.msg('Gunakan akun mahasiswa UPN untuk bereaksi dan berkomentar.', 'Use a verified UPN student account to react and comment.') : this.msg('Nama Google terlihat pada reaksi. Komentar boleh anonim.', 'Reactions show your Google name. Comments can be anonymous.')}</small>`;
-      host.querySelector('[data-switch]').onclick = () => {
+      host.innerHTML = `<small>${state.loaded && !state.owner && !state.student ? this.msg('Gunakan akun mahasiswa UPN untuk berdiskusi.', 'Use a verified UPN student account to discuss.') : this.msg('Nama Google terlihat pada reaksi. Komentar boleh anonim.', 'Reactions show your Google name. Comments can be anonymous.')}</small>`;
+    } else {
+      host.innerHTML = `<p>${this.msg('Masuk dengan akun mahasiswa untuk berdiskusi.', 'Sign in with your student account to discuss.')}</p>`;
+    }
+  },
+  renderHeaderLogin() {
+    const host = document.getElementById('announcement-login');
+    if (!host || !this.data) return;
+    const session = this.session();
+    if (session) {
+      host.innerHTML = `<span class="an73-account">${this.esc(session.name || this.msg('Akun Google terhubung', 'Google account connected'))}</span><button type="button" class="an72-small" data-header-switch>${this.msg('Ganti akun', 'Switch account')}</button>`;
+      host.querySelector('[data-header-switch]').onclick = () => {
         SITE._v60GuestSession = null; try { google.accounts.id.disableAutoSelect(); } catch (_) {}
         document.dispatchEvent(new CustomEvent('pm58-guestbook-identity', {detail: {email: ''}}));
       };
     } else {
-      host.innerHTML = `<p>${this.msg('Masuk dengan akun mahasiswa untuk bereaksi atau berkomentar.', 'Sign in with your student account to react or comment.')}</p><div data-an72-google></div>`;
-      this.googleButton(state);
+      host.innerHTML = '<div id="an73Google"></div>';
+      this.googleButton();
     }
   },
   async googleButton(state) {
+    const sequence = this.googleSequence = (this.googleSequence || 0) + 1;
     const clientId = String(this.data?.profile?.mailGoogleClientId || '');
     if (!/^[0-9]+-[a-z0-9_-]+\.apps\.googleusercontent\.com$/.test(clientId)) return;
     if (!window.google?.accounts?.id) {
@@ -139,8 +154,8 @@ const AnnouncementTalk = {
       let tries = 0;
       while (!window.google?.accounts?.id && tries++ < 60) await new Promise(resolve => setTimeout(resolve, 100));
     }
-    if (!this.active(state)) return;
-    const target = state.element.querySelector('[data-an72-google]');
+    if (sequence !== this.googleSequence || this.session()) return;
+    const target = document.getElementById('an73Google');
     if (!target || !window.google?.accounts?.id) return;
     google.accounts.id.initialize({client_id: clientId, callback: response => {
       try {
@@ -160,8 +175,6 @@ const AnnouncementTalk = {
     host.innerHTML = `<div class="an72-reaction-title">${this.msg('Reaksi', 'Reactions')}</div><div class="an72-reaction-bar">${counts.map(item => `<div class="an72-reaction ${state.reactions?.mine === item.emoji ? 'is-mine' : ''}"><button type="button" data-react="${item.emoji}" aria-pressed="${state.reactions?.mine === item.emoji}" aria-label="${this.msg('Beri reaksi', 'React')} ${item.emoji}" ${state.busy ? 'disabled' : ''}>${item.emoji}</button><button type="button" class="an72-reaction-count" data-people="${item.emoji}" aria-label="${this.msg('Lihat pemberi reaksi', 'See who reacted')} ${item.emoji}: ${item.count}">${item.count}</button></div>`).join('')}</div>`;
     host.querySelectorAll('[data-react]').forEach(button => button.onclick = () => this.react(state, button.dataset.react));
     host.querySelectorAll('[data-people]').forEach(button => button.onclick = () => this.people(state, button.dataset.people));
-    const hint = document.createElement('p'); hint.className = 'an72-reaction-hint';
-    hint.textContent = this.msg('Klik emoji untuk bereaksi, angka untuk melihat nama.', 'Click an emoji to react, or its count to see names.'); host.append(hint);
   },
   async react(state, emoji) {
     if (!this.session() || (!state.owner && !state.student)) return this.status(state, this.msg('Masuk dengan akun mahasiswa UPN terlebih dahulu.', 'Sign in with a verified UPN student account first.'));

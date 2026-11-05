@@ -12,7 +12,11 @@
 .an72-reaction.is-mine { border-color:#4a9486; background:#edf7f3; box-shadow:0 0 0 1px #4a948620; }
 .an72-reaction button:disabled { opacity:.5; cursor:wait; }
 .an72-talk button:focus-visible, .an72-talk input:focus-visible, .an72-talk textarea:focus-visible { outline:2px solid #458c87; outline-offset:3px; }
-.an72-reaction-hint { color:#839398; font-size:11px; margin:9px 0 0; }
+.v21-ac-grades .section-heading.an73-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; }
+.v21-ac-grades .section-heading.an73-heading>div:first-child { width:auto; flex:1; min-width:0; }
+.v21-ac-grades .section-heading.an73-heading>.an73-header-login { width:auto; flex:none; display:flex; align-items:center; justify-content:flex-end; gap:10px; min-height:40px; }
+.an73-account { font-size:12px; color:#617a80; max-width:200px; overflow-wrap:anywhere; }
+.an73-header-login #an73Google { min-height:40px; }
 .an72-people { background:#f5f9f8; border:1px solid #e1eae7; border-radius:9px; padding:14px; margin:15px 0; font-size:12px; }
 .an72-people-heading, .an72-comments-heading, .an72-signed { display:flex; align-items:center; justify-content:space-between; gap:12px; }
 .an72-people ul { padding-left:18px; columns:2; margin:10px 0 0; }
@@ -50,6 +54,8 @@
 .an72-replying { display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:11px; color:#6e8888; background:#edf5f1; padding:8px 10px; border-radius:5px; margin-bottom:12px; }
 .an72-status { color:#738b8d; font-size:12px; line-height:1.7; margin-top:12px; }
 @media(max-width:620px) {
+  .v21-ac-grades .section-heading.an73-heading { flex-wrap:wrap; gap:12px; }
+  .v21-ac-grades .section-heading.an73-heading>.an73-header-login { margin-left:auto; }
   .an72-summary { padding:0 12px 11px; font-size:10px; }
   .an72-talk { margin-top:18px; padding-top:17px; }
   .an72-reaction-bar { gap:7px; }
