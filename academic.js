@@ -91,6 +91,13 @@ function acRenderGrade(){
  const columns=shownIndices.map(i=>originalColumns[i]),withGrade=board.showGrade!==false;
  const rows=acRows.map((r,i)=>({...r,__i:i})).sort((a,b)=>Number(a.rank??a.__i+1)-Number(b.rank??b.__i+1));
  const hidden=board.hiddenCore||{};
+ if(board.kind==='namelist'){
+  const head='<th>No.</th><th>'+T('npm')+'</th><th>'+T('firstName')+'</th>'+columns.map(c=>'<th>'+E(c)+'</th>').join('');
+  const body=rows.slice(0,acVisible).map((r,i)=>'<tr><td>'+(i+1)+'</td><td class="mono">'+E(r.npm)+'</td><td>'+E(r.name)+'</td>'+shownIndices.map(k=>'<td>'+E((r.extras||[])[k]||'')+'</td>').join('')+'</tr>').join('');
+  $('grade-table').innerHTML='<div class="table-scroll"><table class="grades-table"><thead><tr>'+head+'</tr></thead><tbody>'+body+'</tbody></table></div>';
+  if(rows.length>acVisible){const b=document.createElement('button');b.type='button';b.className='v10-ac-btn';b.textContent=T('showMore')+' ('+(rows.length-acVisible)+')';b.onclick=()=>{acVisible+=20;acRenderGrade();};$('grade-table').append(b);}
+  return;
+ }
  const head=`<th>${T('rank')}</th>${hidden.npm?'':`<th>${T('npm')}</th>`}${hidden.name?'':`<th>${T('firstName')}</th>`}${hidden.score?'':`<th>${E(board.scoreHeader||T('score'))}</th>`}${withGrade?`<th>${T('grade')}</th>`:''}${columns.map(c=>`<th>${E(c)}</th>`).join('')}`;
  const body=rows.slice(0,acVisible).map((r,i)=>`<tr><td>${i+1}</td>${hidden.npm?'':`<td class="mono">${E(r.npm||'')}</td>`}${hidden.name?'':`<td>${E(r.name||'')}</td>`}${hidden.score?'':`<td><strong>${E(r.score??'')}</strong></td>`}${withGrade?`<td>${acLetter(r.score)?`<span class="grade-pill">${E(acLetter(r.score))}</span>`:''}</td>`:''}${shownIndices.map(j=>`<td>${E((r.extras||[])[j]??'')}</td>`).join('')}</tr>`).join('');
  $('grade-table').innerHTML=`<div class="grade-summary"><div><strong>${E(board.course||'')}</strong><span>${E(board.className||'')} · ${E(board.period||'')} · ${rows.length} ${T('students')}</span></div></div><div class="table-scroll"><table class="grades-table"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
@@ -339,7 +346,7 @@ async function ac71Toggle(id){
   if(src){const link=document.createElement('a');link.href=a.pdfUrl;link.target='_blank';link.rel='noopener noreferrer';link.className='ac71-pdf-link';link.textContent=acLanguage==='id'?'Buka PDF ↗':'Open PDF ↗';panel.append(link);
    const frame=document.createElement('iframe');frame.className='ac71-pdf';frame.title=a.title;frame.src=src;frame.setAttribute('loading','lazy');frame.setAttribute('allow','fullscreen');panel.append(frame);
   }
- }else if(a.type==='grade'){
+ }else if(['grade','namelist'].includes(a.type)){
   const target=document.createElement('div');target.id='grade-table';panel.append(target);
   acSelectedId=String(a.boardId);acVisible=20;const seq=acRequestSeq;
   if(window.CT66)CT66.mount(panel,a);
@@ -352,7 +359,7 @@ async function ac71Toggle(id){
    acRows=result.rows;ac71GradeCache.set(acSelectedId,acRows);acRenderGrade();
   }catch(_){if(seq===acRequestSeq)acPreview('empty',T('error'));}
  }
- if(a.type!=='grade'&&window.CT66)CT66.mount(panel,a);
+ if(!['grade','namelist'].includes(a.type)&&window.CT66)CT66.mount(panel,a);
 }
 function ac71OpenLinked(){
  if(!acData)return;
